@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "A template with prefigured Webpack setup",
   "main": "index.js",
-  "type": "module",
   "private": "true",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -17,8 +16,7 @@
   "author": "",
   "license": "ISC",
   "browserslist": [
-    "defaults and fully supports es6-module",
-    "maintained node versions"
+    "defaults and fully supports es6-module"
   ],
   "devDependencies": {
     "@babel/cli": "^7.24.7",
