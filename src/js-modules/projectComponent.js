@@ -9,7 +9,7 @@ export default class projectComponent {
     description: "",
     dateOfCreation: null,
     dateOfEdit: null,
-    tags: [],
+    tags: new Set() /* to avoid duplicated tags*/,
     todosArray: [] /* array of todos */,
   };
   static nextId = 0;
@@ -35,7 +35,7 @@ export default class projectComponent {
   print(dateFormat = projectComponent.dateFormat) {
     let str = `P${this.#data.id}) '${this.#data.title}' [created: ${format(this.#data.dateOfCreation, dateFormat)}, last edited: ${format(this.#data.dateOfEdit, dateFormat)}]`;
     str += `\n\t${this.#data.description}`;
-    str += `\n\ttags: ${this.#data.tags}`;
+    str += `\n\ttags: ${this.tags}`;
     str += `\n\tprojects: TODO`;
     return str;
   }
@@ -67,7 +67,7 @@ export default class projectComponent {
   }
 
   get tags() {
-    return this.#data.tags;
+    return [...this.#data.tags.keys()];
   }
 
   dateOfCreationFormatted(dateFormat = projectComponent.dateFormat) {
@@ -96,6 +96,30 @@ export default class projectComponent {
     this.#updateDateOfEdit();
   }
 
+  // Methods related to #data.tags property
+  // addTag and removeTag return true if the object is modified, false otherwise
+  hasTag(tag) {
+    return this.#data.tags.has(tag);
+  }
+
+  addTag(tag) {
+    if (!this.hasTag(tag)) {
+      this.#data.tags.add(tag);
+      this.#updateDateOfEdit();
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  removeTag(tag) {
+    if (this.#data.tags.delete(tag)) {
+      this.#updateDateOfEdit();
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   // TODO: edit todosArray (add new / delete / modify?)
-  // TODO: edit tags (add new / delete / modify?)
 }
