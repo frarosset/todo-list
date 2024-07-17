@@ -4,7 +4,7 @@ import todoComponent from "./todoComponent";
 const sampleProject = {
   title: "My First Project",
   description: "Just a test for the projectComponent class.",
-  tags: new Set(["test", "first", "test"]),
+  tags: new Set(["test", "first"]),
 };
 
 const sampleTodo = {
@@ -21,11 +21,9 @@ const sampleTodo = {
 export default function initWebpage() {
   const project1 = new projectComponent(sampleProject);
   const project2 = new projectComponent(sampleProject);
-  const project3 = new projectComponent(sampleProject);
 
   console.log(project1.print());
   console.log(project2.print());
-  console.log(project3.print());
 
   const todo1 = new todoComponent(sampleTodo);
   const todo2 = new todoComponent(sampleTodo);
@@ -33,17 +31,15 @@ export default function initWebpage() {
   console.log(todo1.print());
   console.log(todo2.print());
 
-  console.log(project3.tags);
-  project3.addTag("new");
-  project3.addTag("new");
-  project3.addTag("aaa");
-  project3.addTag("bbb");
-  project3.addTag("ccc");
-  console.log(project3.tags);
-  project3.removeTag("new");
-  console.log(project3.tags);
-  project3.removeTag("test");
-  console.log(project3.tags);
-  project3.removeTag("55");
-  console.log(project3.tags);
+  project1.addTodo(sampleTodo);
+  project1.addTodo(sampleTodo);
+  project1.addTodo(sampleTodo);
+  project1.addTodo(sampleTodo);
+  console.log(project1.print());
+
+  project1.removeTodo(project1.todos[1]);
+  console.log(project1.print());
+
+  project1.removeTodo(project1.todos[1]);
+  console.log(project1.print());
 }

@@ -1,4 +1,5 @@
 import { format } from "date-fns";
+import todoComponent from "./todoComponent";
 
 export default class projectComponent {
   #data;
@@ -10,10 +11,10 @@ export default class projectComponent {
     dateOfCreation: null,
     dateOfEdit: null,
     tags: new Set() /* to avoid duplicated tags*/,
-    todosArray: [] /* array of todos */,
+    todos: [] /* array of todos */,
   };
   static nextId = 0;
-  static dateFormat = "yyyy-MM-dd hh:mm:ss";
+  static dateFormat = "yyyy-MM-dd HH:mm:ss.SSS";
 
   constructor(data) {
     this.#data = Object.assign({}, projectComponent.defaultData, data);
@@ -36,7 +37,12 @@ export default class projectComponent {
     let str = `P${this.#data.id}) '${this.#data.title}' [created: ${format(this.#data.dateOfCreation, dateFormat)}, last edited: ${format(this.#data.dateOfEdit, dateFormat)}]`;
     str += `\n\t${this.#data.description}`;
     str += `\n\ttags: ${this.tags}`;
-    str += `\n\tprojects: TODO`;
+    if (this.#data.todos.length) {
+      str += `\n\n\t------------------------------------`;
+      this.#data.todos.forEach((todo) => {
+        str += `\n\n${todo.print()}`;
+      });
+    }
     return str;
   }
 
@@ -62,8 +68,8 @@ export default class projectComponent {
     return this.#data.dateOfEdit;
   }
 
-  get todosArray() {
-    return this.#data.todosArray;
+  get todos() {
+    return this.#data.todos;
   }
 
   get tags() {
@@ -121,5 +127,21 @@ export default class projectComponent {
     }
   }
 
-  // TODO: edit todosArray (add new / delete / modify?)
+  // Methods related to #data.todos property
+  addTodo(data) {
+    data.associatedProjectId = this.#data.id;
+    this.#data.todos.push(new todoComponent(data));
+    this.#updateDateOfEdit();
+  }
+
+  removeTodo(todo) {
+    /* todo is a reference to a todo object */
+    const idx = this.#data.todos.indexOf(todo);
+    if (idx >= 0) {
+      this.#data.todos.splice(idx, 1);
+      this.#updateDateOfEdit();
+    }
+  }
+
+  /* note: a todo, when modified, must call this.#updateDateOfEdit(), too */
 }
