@@ -31,4 +31,11 @@ export default function initWebpage() {
 
   console.log(todo1.print());
   console.log(todo2.print());
+
+  project2.title = "My second project";
+  project3.description = "Testing...";
+
+  console.log(project1.print());
+  console.log(project2.print());
+  console.log(project3.print());
 }
