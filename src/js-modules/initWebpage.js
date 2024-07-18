@@ -15,7 +15,7 @@ const sampleTodo = {
   state: 0,
   imminence: 0,
   associatedProjectId: null,
-  tags: ["test", "todo"],
+  tags: new Set(["test", "todo"]),
 };
 
 export default function initWebpage() {

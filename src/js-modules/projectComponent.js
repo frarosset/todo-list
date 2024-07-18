@@ -13,7 +13,11 @@ export default class projectComponent extends baseComponent {
     // set the id, if not provided (specific for the projectComponent class)
     // but do not modify data
     const dataCopy = Object.assign({}, data);
+<<<<<<< HEAD
     if (dataCopy.id == null) {
+=======
+    if (dataCopy.id == null) {
+>>>>>>> 4e2bc99 (Refactor todoComponent class to inherit from baseComponent class)
       dataCopy.id = projectComponent.nextId;
       projectComponent.nextId++;
     }
