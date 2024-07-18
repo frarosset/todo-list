@@ -1,5 +1,5 @@
 import projectComponent from "./projectComponent";
-import todoComponent from "./todoComponent";
+import todoComponent from "./todoComponent.js";
 
 const sampleProject = {
   title: "My First Project",
@@ -30,6 +30,11 @@ export default function initWebpage() {
 
   console.log(todo1.print());
   console.log(todo2.print());
+
+  project1.addTag("easy");
+  project1.addTag("test");
+  project1.removeTag("todo");
+  console.log(project1.print());
 
   project1.addTodo(sampleTodo);
   project1.addTodo(sampleTodo);
