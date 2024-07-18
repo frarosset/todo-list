@@ -97,6 +97,11 @@ export default class baseComponent {
 
   updateDateOfEdit() {
     this.data.dateOfEdit = new Date();
+    // if the parent is not null, update its date of edit, too!
+    if (this.parent != null) {
+      // console.log(this.parent.printPath()); //debug
+      this.parent.updateDateOfEdit();
+    }
   }
 
   set title(title) {

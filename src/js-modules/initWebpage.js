@@ -46,48 +46,48 @@ export default function initWebpage() {
   project1.removeTodo(project1.todos[1]);
   console.log(project1.print());
 
-  todo1.dueDate = new Date("2024/07/20");
-  console.log(todo1.print());
+  project1.todos[1].dueDate = new Date("2024/07/20");
+  console.log(project1.print());
 
-  todo1.togglePriority();
-  console.log(todo1.print());
+  project1.todos[1].togglePriority();
+  console.log(project1.print());
 
-  todo1.togglePriority();
-  console.log(todo1.print());
+  project1.todos[1].togglePriority();
+  console.log(project1.print());
 
-  todo1.togglePriority();
-  console.log(todo1.print());
+  project1.todos[1].togglePriority();
+  console.log(project1.print());
 
-  todo1.togglePriority();
-  console.log(todo1.print());
+  project1.todos[1].togglePriority();
+  console.log(project1.print());
 
-  todo1.togglePriorityReverse();
-  console.log(todo1.print());
+  project1.todos[1].togglePriorityReverse();
+  console.log(project1.print());
 
-  todo1.togglePriorityReverse();
-  console.log(todo1.print());
+  project1.todos[1].togglePriorityReverse();
+  console.log(project1.print());
 
-  todo1.toggleState();
-  console.log(todo1.print());
+  project1.todos[1].toggleState();
+  console.log(project1.print());
 
-  todo1.toggleState();
-  console.log(todo1.print());
+  project1.todos[1].toggleState();
+  console.log(project1.print());
 
-  todo1.toggleState();
-  console.log(todo1.print());
+  project1.todos[1].toggleState();
+  console.log(project1.print());
 
-  todo1.toggleState();
-  console.log(todo1.print());
+  project1.todos[1].toggleState();
+  console.log(project1.print());
 
-  todo1.toggleStateReverse();
-  console.log(todo1.print());
+  project1.todos[1].toggleStateReverse();
+  console.log(project1.print());
 
-  todo1.toggleStateReverse();
-  console.log(todo1.print());
+  project1.todos[1].toggleStateReverse();
+  console.log(project1.print());
 
-  todo1.priority = 1;
-  console.log(todo1.print());
+  project1.todos[1].priority = 1;
+  console.log(project1.print());
 
-  todo1.state = 1;
-  console.log(todo1.print());
+  project1.todos[1].state = 1;
+  console.log(project1.print());
 }
