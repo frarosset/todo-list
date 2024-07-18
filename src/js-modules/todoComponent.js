@@ -34,7 +34,35 @@ export default class todoComponent extends baseComponent {
     let str = `P${this.data.associatedProjectId}/T${this.data.id}) '${this.data.title}' [created: ${format(this.data.dateOfCreation, dateFormat)}, last edited: ${format(this.data.dateOfEdit, dateFormat)}]`;
     str += `\n\t${this.data.description}`;
     str += `\n\ttags: ${this.tags}`;
-    str += `\n\tdue date:  ${this.data.dueDate ? format(this.data.dueDate, dateFormat) : "none"}, priority: ${this.data.priority}, state: ${this.data.state}, imminence: ${this.data.imminence}`;
+    str += `\n\tdue date: ${this.dueDateFormatted(dateFormat)}, priority: ${this.priority}, state: ${this.state}, imminence: ${this.imminence}`;
     return str;
   }
+
+  // Getter methods
+  get priority() {
+    console.log(this.data);
+    return todoComponent.priorityLabels[this.data.priority];
+  }
+
+  get state() {
+    return todoComponent.stateLabels[this.data.state];
+  }
+
+  get imminence() {
+    return todoComponent.imminenceLabels[this.data.imminence];
+  }
+
+  get associatedProjectId() {
+    return this.data.associatedProjectId;
+  }
+
+  get dueDate() {
+    return this.data.dueDate;
+  }
+
+  dueDateFormatted(dateFormat = todoComponent.dateFormat) {
+    return this.data.dueDate ? format(this.data.dueDate, dateFormat) : "none";
+  }
+
+  // imminence, associatedProjectId: todo
 }
