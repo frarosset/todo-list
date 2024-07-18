@@ -10,12 +10,10 @@ const sampleProject = {
 const sampleTodo = {
   title: "My First Todo",
   description: "Just a test for the todoComponent class.",
-  dueDate: null,
+  tags: new Set(["test", "todo"]),
+  dueDate: new Date("2024/06/20"),
   priority: 1,
   state: 0,
-  imminence: 0,
-  associatedProjectId: null,
-  tags: new Set(["test", "todo"]),
 };
 
 export default function initWebpage() {

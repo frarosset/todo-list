@@ -1,4 +1,4 @@
-import { format } from "date-fns";
+import { format, differenceInCalendarDays } from "date-fns";
 import baseComponent from "./baseComponent.js";
 
 export default class todoComponent extends baseComponent {
@@ -6,14 +6,29 @@ export default class todoComponent extends baseComponent {
     dueDate: null,
     priority: 0 /* index of todoComponent.prioritiesLabels array*/,
     state: 0 /* index of todoComponent.stateLabels array*/,
-    imminence: 0 /* index of todoComponent.imminenceLabels array*/,
   };
 
   static nextId = 0;
 
   static priorityLabels = ["none", "low", "medium", "high"];
   static stateLabels = ["todo", "wip", "done"];
-  static imminenceLabels = ["none", "upcoming", "due soon", "today", "expired"];
+  static imminenceLabels = [
+    "none",
+    "scheduled",
+    "upcoming",
+    "today",
+    "expired",
+  ];
+  static noImminenceIdx = 0;
+  static imminenceRanges = [
+    [0, -1] /* this is an empty range */,
+    [8, Infinity],
+    [1, 7],
+    [0, 0],
+    [-Infinity, -1],
+  ];
+
+  #imminenceIdx; /* index of todoComponent.imminenceLabels array*/
 
   constructor(data, parent = null) {
     // set the id, if not provided (specific for the todoComponent class)
@@ -30,6 +45,9 @@ export default class todoComponent extends baseComponent {
 
     // overwrite type
     this.type = "T";
+
+    // define imminence
+    this.updateImminence();
   }
 
   print(dateFormat = todoComponent.dateFormat) {
@@ -40,7 +58,6 @@ export default class todoComponent extends baseComponent {
 
   // Getter methods
   get priority() {
-    console.log(this.data);
     return todoComponent.priorityLabels[this.data.priority];
   }
 
@@ -49,7 +66,11 @@ export default class todoComponent extends baseComponent {
   }
 
   get imminence() {
-    return todoComponent.imminenceLabels[this.data.imminence];
+    return todoComponent.imminenceLabels[this.#imminenceIdx];
+  }
+
+  get imminenceIdx() {
+    return this.#imminenceIdx;
   }
 
   get dueDate() {
@@ -60,5 +81,24 @@ export default class todoComponent extends baseComponent {
     return this.data.dueDate ? format(this.data.dueDate, dateFormat) : "none";
   }
 
-  // imminence: todo
+  // imminence update method: note call it every time you modify this.data.dueDate
+  // or at midnight (todo)
+  updateImminence() {
+    if (this.data.dueDate == null) {
+      this.#imminenceIdx = todoComponent.noImminenceIdx; /* no imminence */
+      return;
+    }
+
+    const today = new Date();
+    const diff = differenceInCalendarDays(this.data.dueDate, today);
+    for (let idx = 0; idx < todoComponent.imminenceRanges.length; idx++) {
+      const range = todoComponent.imminenceRanges[idx];
+      if (diff >= range[0] && diff <= range[1]) {
+        this.#imminenceIdx = idx;
+        return;
+      }
+    }
+
+    this.#imminenceIdx = todoComponent.noImminenceIdx; /* no imminence */
+  }
 }
