@@ -7,7 +7,6 @@ export default class todoComponent extends baseComponent {
     priority: 0 /* index of todoComponent.prioritiesLabels array*/,
     state: 0 /* index of todoComponent.stateLabels array*/,
     imminence: 0 /* index of todoComponent.imminenceLabels array*/,
-    associatedProjectId: null /* id of the associated project */,
   };
 
   static nextId = 0;
@@ -16,7 +15,7 @@ export default class todoComponent extends baseComponent {
   static stateLabels = ["todo", "wip", "done"];
   static imminenceLabels = ["none", "upcoming", "due soon", "today", "expired"];
 
-  constructor(data) {
+  constructor(data, parent = null) {
     // set the id, if not provided (specific for the todoComponent class)
     // but do not modify data
     const dataCopy = Object.assign({}, data);
@@ -25,15 +24,16 @@ export default class todoComponent extends baseComponent {
       todoComponent.nextId++;
     }
 
-    super(dataCopy);
+    super(dataCopy, parent);
 
     this.data = Object.assign({}, todoComponent.defaultData, this.data);
+
+    // overwrite type
+    this.type = "T";
   }
 
   print(dateFormat = todoComponent.dateFormat) {
-    let str = `P${this.data.associatedProjectId}/T${this.data.id}) '${this.data.title}' [created: ${format(this.data.dateOfCreation, dateFormat)}, last edited: ${format(this.data.dateOfEdit, dateFormat)}]`;
-    str += `\n\t${this.data.description}`;
-    str += `\n\ttags: ${this.tags}`;
+    let str = this.printBaseInfo(dateFormat);
     str += `\n\tdue date: ${this.dueDateFormatted(dateFormat)}, priority: ${this.priority}, state: ${this.state}, imminence: ${this.imminence}`;
     return str;
   }
@@ -52,10 +52,6 @@ export default class todoComponent extends baseComponent {
     return todoComponent.imminenceLabels[this.data.imminence];
   }
 
-  get associatedProjectId() {
-    return this.data.associatedProjectId;
-  }
-
   get dueDate() {
     return this.data.dueDate;
   }
@@ -64,5 +60,5 @@ export default class todoComponent extends baseComponent {
     return this.data.dueDate ? format(this.data.dueDate, dateFormat) : "none";
   }
 
-  // imminence, associatedProjectId: todo
+  // imminence: todo
 }

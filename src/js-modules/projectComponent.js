@@ -1,4 +1,3 @@
-import { format } from "date-fns";
 import baseComponent from "./baseComponent.js";
 import todoComponent from "./todoComponent";
 
@@ -13,11 +12,7 @@ export default class projectComponent extends baseComponent {
     // set the id, if not provided (specific for the projectComponent class)
     // but do not modify data
     const dataCopy = Object.assign({}, data);
-<<<<<<< HEAD
     if (dataCopy.id == null) {
-=======
-    if (dataCopy.id == null) {
->>>>>>> 4e2bc99 (Refactor todoComponent class to inherit from baseComponent class)
       dataCopy.id = projectComponent.nextId;
       projectComponent.nextId++;
     }
@@ -26,13 +21,14 @@ export default class projectComponent extends baseComponent {
 
     this.data = Object.assign({}, projectComponent.defaultData, this.data);
 
+    // overwrite type
+    this.type = "P";
+
     // create any todo: TODO
   }
 
   print(dateFormat = projectComponent.dateFormat) {
-    let str = `P${this.data.id}) '${this.data.title}' [created: ${format(this.data.dateOfCreation, dateFormat)}, last edited: ${format(this.data.dateOfEdit, dateFormat)}]`;
-    str += `\n\t${this.data.description}`;
-    str += `\n\ttags: ${this.tags}`;
+    let str = this.printBaseInfo(dateFormat);
     if (this.data.todos.length) {
       str += `\n\n\t------------------------------------`;
       this.data.todos.forEach((todo) => {
@@ -51,8 +47,7 @@ export default class projectComponent extends baseComponent {
   // Methods related to #data.todos property
 
   addTodo(data) {
-    data.associatedProjectId = this.data.id;
-    this.data.todos.push(new todoComponent(data));
+    this.data.todos.push(new todoComponent(data, this));
     this.updateDateOfEdit();
   }
 

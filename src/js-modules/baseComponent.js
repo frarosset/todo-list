@@ -14,7 +14,7 @@ export default class baseComponent {
   static nextId = 0;
   static dateFormat = "yyyy-MM-dd HH:mm:ss.SSS";
 
-  constructor(data) {
+  constructor(data, parent = null) {
     this.data = Object.assign({}, baseComponent.defaultData, data);
 
     if (this.data.id == null) {
@@ -29,13 +29,32 @@ export default class baseComponent {
     if (!this.data.dateOfEdit) {
       this.data.dateOfEdit = this.data.dateOfCreation;
     }
+
+    this.parent = parent;
+    this.type = "B";
   }
 
-  print(dateFormat = baseComponent.dateFormat) {
-    let str = `${this.data.id}) '${this.data.title}' [created: ${format(this.data.dateOfCreation, dateFormat)}, last edited: ${format(this.data.dateOfEdit, dateFormat)}]`;
+  // print functions
+
+  printPath() {
+    let path = `${this.type}${this.id}`;
+    let obj = this.parent;
+    while (obj != null) {
+      path = `${obj.type}${obj.id}/` + path;
+      obj = obj.parent;
+    }
+    return path;
+  }
+
+  printBaseInfo(dateFormat = baseComponent.dateFormat) {
+    let str = `${this.printPath()}) '${this.data.title}' [created: ${format(this.data.dateOfCreation, dateFormat)}, last edited: ${format(this.data.dateOfEdit, dateFormat)}]`;
     str += `\n\t${this.data.description}`;
     str += `\n\ttags: ${this.tags}`;
     return str;
+  }
+
+  print(dateFormat = baseComponent.dateFormat) {
+    return this.printBaseInfo(dateFormat);
   }
 
   // Getter methods
