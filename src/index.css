@@ -140,6 +140,21 @@ body > main {
 }
 
 /* project */
+.base-path-ul,
+.base-div__tags-ul,
+.project-path-ul,
+.project-div__tags-ul {
+  display: flex;
+  gap: 0.5em;
+}
+
+.base-div__tag-li,
+.project-div__tag-li {
+  background-color: var(--col-secondary);
+  color: var(--col-txt-alt);
+}
+
+.base-div__footer,
 .project-div__footer {
   color: var(--col-txt-secondary);
   display: flex;
