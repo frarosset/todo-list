@@ -20,6 +20,18 @@ export function initH2(
   return element;
 }
 
+export function initH3(
+  className = null,
+  faIcon = null,
+  textPre = "",
+  textPost = ""
+) {
+  const element = document.createElement("h3");
+  applyClass(element, className);
+  setFaIconInBetweenText(element, faIcon, textPre, textPost);
+  return element;
+}
+
 export function initP(
   className = null,
   faIcon = null,

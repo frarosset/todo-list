@@ -1,14 +1,19 @@
 import {
-  //   initUl,
-  //   initLiAsChildInList,
+  initUl,
+  initLiAsChildInList,
   //   initButton,
   initDiv,
+  initH3,
 } from "../js-utilities/commonDomComponents.js";
 import baseDomComponent from "./baseDomComponent.js";
 
 const blockName = "project-div";
 const cssClass = {
   div: blockName,
+  todosDiv: `${blockName}__todos-div`,
+  titleH3: `${blockName}__title-h3`,
+  todosUl: `${blockName}__todos-ul`,
+  todoLi: `${blockName}__todo-li`,
 };
 
 export default class projectDomComponent extends baseDomComponent {
@@ -22,10 +27,35 @@ export default class projectDomComponent extends baseDomComponent {
   init() {
     this.div = initDiv(cssClass.div);
 
-    this.div.textContent = this.obj.print(); /* temporary */
-
     this.div.appendChild(this.initHeader());
-    this.div.appendChild(this.initMain());
+
+    this.main = this.initMain();
+    this.div.appendChild(this.main);
+    this.main.appendChild(this.initTodoList());
+
     this.div.appendChild(this.initFooter());
+  }
+
+  // helper methods
+  initTodoList() {
+    const div = initDiv(cssClass.todosDiv);
+
+    div.appendChild(initH3(cssClass.titleH3, null, "TODOS"));
+
+    const ul = initUl(cssClass.todosUl);
+    div.appendChild(ul);
+
+    if (this.obj.todos.length) {
+      this.obj.todos.forEach((todo) => {
+        initLiAsChildInList(
+          ul,
+          cssClass.todoLi,
+          null,
+          `${todo.print()}`
+        ); /*TODO*/
+      });
+    }
+
+    return div;
   }
 }
