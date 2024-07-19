@@ -139,10 +139,17 @@ body > main {
   flex: 1;
 }
 
-/* project */
-.base-path-ul,
+/* project/base */
+.base-div,
+.project-div {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.base-div__path-ul,
 .base-div__tags-ul,
-.project-path-ul,
+.project-div__path-ul,
 .project-div__tags-ul {
   display: flex;
   gap: 0.5em;
@@ -152,6 +159,12 @@ body > main {
 .project-div__tag-li {
   background-color: var(--col-secondary);
   color: var(--col-txt-alt);
+}
+
+.base-div__main,
+.project-div__main {
+  flex: 1;
+  height: 20vh;
 }
 
 .base-div__footer,

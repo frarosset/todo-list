@@ -12,6 +12,7 @@ let blockName = "base-div";
 const cssClass = {
   div: () => blockName,
   header: () => `${blockName}__header`,
+  main: () => `${blockName}__main`,
   footer: () => `${blockName}__footer`,
   pathUl: () => `${blockName}__path-ul`,
   pathLi: () => `${blockName}__path-li`,
@@ -46,6 +47,7 @@ export default class baseDomComponent {
   init(dateFormatFcn = baseDomComponent.dateFormatFcn) {
     this.div = initDiv(cssClass.div());
     this.div.appendChild(this.initHeader());
+    this.div.appendChild(this.initMain());
     this.div.appendChild(this.initFooter(dateFormatFcn));
   }
 
@@ -60,6 +62,12 @@ export default class baseDomComponent {
     header.appendChild(this.initDescription());
     header.appendChild(this.initTags());
     return header;
+  }
+
+  initMain() {
+    const main = document.createElement("main");
+    main.classList.add(cssClass.main());
+    return main;
   }
 
   initFooter(dateFormatFcn = baseDomComponent.dateFormatFcn) {

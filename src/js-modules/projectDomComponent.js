@@ -15,23 +15,8 @@ export default class projectDomComponent extends baseDomComponent {
   constructor(obj) {
     super(obj, blockName);
 
-    // this.div = initDiv(cssClass.div);
-
-    //  this.div.textContent = projectObj.print(); /* temporary */
-
-    // TODO:
-
-    // [HEADER]
-    // path
-    // title
-    // description
-    // tags
-
     // [TODOS]
     // list of todo (mini view)
-
-    // [FOOTER]
-    // info of creation time / last edit
   }
 
   init() {
@@ -40,8 +25,7 @@ export default class projectDomComponent extends baseDomComponent {
     this.div.textContent = this.obj.print(); /* temporary */
 
     this.div.appendChild(this.initHeader());
+    this.div.appendChild(this.initMain());
     this.div.appendChild(this.initFooter());
   }
-
-  // helper methods
 }
