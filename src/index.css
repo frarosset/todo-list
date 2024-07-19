@@ -16,6 +16,7 @@
   /* Colors (text/icons)*/
   --col-txt: var(--col-black);
   --col-txt-alt: var(--col-white);
+  --col-txt-secondary: var(--col-grey);
   --col-highlight: var(--col-accent-dark);
 
   /* Colors (icons)*/
@@ -130,10 +131,22 @@ a:visited {
 }
 
 /* Custom style */
-header {
+body > header {
   background-color: var(--header-bg-col);
 }
 
-main {
+body > main {
   flex: 1;
+}
+
+/* project */
+.project-div__footer {
+  color: var(--col-txt-secondary);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.base-div__footer > :not(:last-child):after,
+.project-div__footer > :not(:last-child):after {
+  content: "/\00a0";
 }
