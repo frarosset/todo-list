@@ -25,6 +25,9 @@ export default class projectComponent extends baseComponent {
     this.type = "P";
 
     // create any todo: TODO
+    if (this.data.todos.length == 0) {
+      this.data.todos = [];
+    }
   }
 
   print(dateFormat = projectComponent.dateFormat) {
@@ -47,8 +50,10 @@ export default class projectComponent extends baseComponent {
   // Methods related to #data.todos property
 
   addTodo(data) {
-    this.data.todos.push(new todoComponent(data, this));
+    const todo = new todoComponent(data, this);
+    this.data.todos.push(todo);
     this.updateDateOfEdit();
+    return todo;
   }
 
   removeTodo(todo) {

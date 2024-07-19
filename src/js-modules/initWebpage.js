@@ -1,93 +1,65 @@
-import projectComponent from "./projectComponent";
-import todoComponent from "./todoComponent.js";
+import rootComponent from "./rootComponent.js";
 
-const sampleProject = {
+const sampleProject0 = {
   title: "My First Project",
   description: "Just a test for the projectComponent class.",
   tags: new Set(["test", "first"]),
 };
 
-const sampleTodo = {
+const sampleProject1 = {
+  title: "My Second Project",
+  description: "Just a test for the projectComponent class.",
+  tags: new Set(["test", "second"]),
+};
+
+const sampleProject2 = {
+  title: "My Third Project",
+  description: "Just a test for the projectComponent class.",
+  tags: new Set(["test", "third"]),
+};
+
+const sampleTodo0 = {
   title: "My First Todo",
   description: "Just a test for the todoComponent class.",
-  tags: new Set(["test", "todo"]),
+  tags: new Set(["test", "first"]),
   dueDate: new Date("2024/06/20"),
   priority: 1,
   state: 0,
 };
 
+const sampleTodo1 = {
+  title: "My Second Todo",
+  description: "Just a test for the todoComponent class.",
+  tags: new Set(["test", "second"]),
+  dueDate: new Date("2024/08/20"),
+  priority: 1,
+  state: 0,
+};
+
+const sampleTodo2 = {
+  title: "My Third Todo",
+  description: "Just a test for the todoComponent class.",
+  tags: new Set(["test", "third"]),
+  dueDate: new Date("2024/07/20"),
+  priority: 1,
+  state: 0,
+};
+
 export default function initWebpage() {
-  const project1 = new projectComponent(sampleProject);
-  const project2 = new projectComponent(sampleProject);
+  const root = new rootComponent();
 
-  console.log(project1.print());
-  console.log(project2.print());
+  const project0 = root.addProject(sampleProject0); //root.customProjects[0]
+  const project1 = root.addProject(sampleProject1); //root.customProjects[1]
+  const project2 = root.addProject(sampleProject2); //root.customProjects[2]
 
-  const todo1 = new todoComponent(sampleTodo);
-  const todo2 = new todoComponent(sampleTodo);
+  root.removeProject(project1);
 
-  console.log(todo1.print());
-  console.log(todo2.print());
+  const todo0 = project2.addTodo(sampleTodo0);
+  const todo1 = project2.addTodo(sampleTodo1);
+  const todo2 = project0.addTodo(sampleTodo2);
+  const todo4 = root.inboxProject.addTodo(sampleTodo1);
 
-  project1.addTag("easy");
-  project1.addTag("test");
-  project1.removeTag("todo");
-  console.log(project1.print());
+  project2.removeTodo(todo1);
 
-  project1.addTodo(sampleTodo);
-  project1.addTodo(sampleTodo);
-  project1.addTodo(sampleTodo);
-  project1.addTodo(sampleTodo);
-  console.log(project1.print());
-
-  project1.removeTodo(project1.todos[1]);
-  console.log(project1.print());
-
-  project1.removeTodo(project1.todos[1]);
-  console.log(project1.print());
-
-  project1.todos[1].dueDate = new Date("2024/07/20");
-  console.log(project1.print());
-
-  project1.todos[1].togglePriority();
-  console.log(project1.print());
-
-  project1.todos[1].togglePriority();
-  console.log(project1.print());
-
-  project1.todos[1].togglePriority();
-  console.log(project1.print());
-
-  project1.todos[1].togglePriority();
-  console.log(project1.print());
-
-  project1.todos[1].togglePriorityReverse();
-  console.log(project1.print());
-
-  project1.todos[1].togglePriorityReverse();
-  console.log(project1.print());
-
-  project1.todos[1].toggleState();
-  console.log(project1.print());
-
-  project1.todos[1].toggleState();
-  console.log(project1.print());
-
-  project1.todos[1].toggleState();
-  console.log(project1.print());
-
-  project1.todos[1].toggleState();
-  console.log(project1.print());
-
-  project1.todos[1].toggleStateReverse();
-  console.log(project1.print());
-
-  project1.todos[1].toggleStateReverse();
-  console.log(project1.print());
-
-  project1.todos[1].priority = 1;
-  console.log(project1.print());
-
-  project1.todos[1].state = 1;
-  console.log(project1.print());
+  console.log(root.print());
 }
