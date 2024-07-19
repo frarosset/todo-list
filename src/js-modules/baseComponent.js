@@ -26,9 +26,9 @@ export default class baseComponent {
       this.data.dateOfCreation = new Date();
     }
 
-    if (!this.data.dateOfEdit) {
-      this.data.dateOfEdit = this.data.dateOfCreation;
-    }
+    // if (!this.data.dateOfEdit) {
+    //   this.data.dateOfEdit = this.data.dateOfCreation;
+    // }
 
     this.parent = parent;
     this.type = "B";
@@ -47,8 +47,8 @@ export default class baseComponent {
   }
 
   printBaseInfo(dateFormat = baseComponent.dateFormat) {
-    let str = `${this.printPath()}) '${this.data.title}' [created: ${format(this.data.dateOfCreation, dateFormat)}, last edited: ${format(this.data.dateOfEdit, dateFormat)}]`;
-    str += `\n\t${this.data.description}`;
+    let str = `${this.printPath()}) '${this.title}' [created: ${this.dateOfCreationFormatted(dateFormat)}, last edited: ${this.dateOfEditFormatted(dateFormat)}]`;
+    str += `\n\t${this.description}`;
     str += `\n\ttags: ${this.tags}`;
     return str;
   }
@@ -88,7 +88,14 @@ export default class baseComponent {
   }
 
   dateOfEditFormatted(dateFormat = baseComponent.dateFormat) {
+    if (!this.data.dateOfEdit) {
+      return "";
+    }
     return format(this.data.dateOfEdit, dateFormat);
+  }
+
+  hasBeenEdited() {
+    return this.data.dateOfEdit !== null;
   }
 
   // Setter methods
