@@ -39,6 +39,7 @@ export default class projectDomComponent extends baseDomComponent {
 
     this.div.textContent = this.obj.print(); /* temporary */
 
+    this.div.appendChild(this.initHeader());
     this.div.appendChild(this.initFooter());
   }
 

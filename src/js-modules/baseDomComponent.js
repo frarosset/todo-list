@@ -1,16 +1,24 @@
 import {
-  //   initUl,
-  //   initLiAsChildInList,
+  initUl,
+  initLiAsChildInList,
   //   initButton,
   initDiv,
   initP,
+  initH2,
 } from "../js-utilities/commonDomComponents.js";
 import { isToday, isThisYear } from "date-fns";
 
 let blockName = "base-div";
 const cssClass = {
   div: () => blockName,
+  header: () => `${blockName}__header`,
   footer: () => `${blockName}__footer`,
+  pathUl: () => `${blockName}__path-ul`,
+  pathLi: () => `${blockName}__path-li`,
+  titleH2: () => `${blockName}__title-h2`,
+  descriptionP: () => `${blockName}__description-p`,
+  tagsUl: () => `${blockName}__tags-ul`,
+  tagLi: () => `${blockName}__tag-li`,
   dateOfCreationP: () => `${blockName}__date-of-creation-p`,
   dateOfEditP: () => `${blockName}__date-of-edit-p`,
 };
@@ -29,55 +37,30 @@ export default class baseDomComponent {
   constructor(obj, customBlockName = null) {
     if (customBlockName) {
       blockName = customBlockName;
-      console.log(blockName, customBlockName);
     }
     this.obj = obj;
     this.init();
   }
 
-  //   printPath() {
-  //     let path = `${this.type}${this.id}`;
-  //     let obj = this.parent;
-  //     while (obj != null) {
-  //       path = `${obj.type}${obj.id}/` + path;
-  //       obj = obj.parent;
-  //     }
-  //     return path;
-  //   }
-
   // init method
   init(dateFormatFcn = baseDomComponent.dateFormatFcn) {
     this.div = initDiv(cssClass.div());
-    // todo
+    this.div.appendChild(this.initHeader());
     this.div.appendChild(this.initFooter(dateFormatFcn));
   }
 
-  // components render methods
-
-  //   initTitle() {
-  //     this.obj.title = title;
-  //     this.updateDateOfEdit();
-  //   }
-
-  //   initDescription() {
-  //     this.obj.description = description;
-  //     this.updateDateOfEdit();
-  //   }
-
-  //   initTag() {
-  //     if (this.obj.tags.delete(tag)) {
-  //       this.updateDateOfEdit();
-  //       return true;
-  //     } else {
-  //       return false;
-  //     }
-  //   }
-
-  //   get tags() {
-  //     return [...this.obj.tags.keys()];
-  //   }
-
   // Blocks initialization
+
+  initHeader() {
+    const header = document.createElement("header");
+    header.classList.add(cssClass.header());
+
+    header.appendChild(this.initPath());
+    header.appendChild(this.initTitle());
+    header.appendChild(this.initDescription());
+    header.appendChild(this.initTags());
+    return header;
+  }
 
   initFooter(dateFormatFcn = baseDomComponent.dateFormatFcn) {
     const footer = document.createElement("footer");
@@ -90,6 +73,40 @@ export default class baseDomComponent {
   }
 
   // Components initialization
+
+  initPath() {
+    /* TODO: test + add buttons with callbacks */
+    const ul = initUl(cssClass.pathUl());
+
+    let obj = this.obj.parent;
+    while (obj != null) {
+      initLiAsChildInList(ul, cssClass.pathLi(), null, `${obj.title} \\`);
+      obj = obj.parent;
+    }
+
+    return ul;
+  }
+
+  initTitle() {
+    return initH2(cssClass.titleH2(), null, this.obj.title);
+  }
+
+  initDescription() {
+    return initP(cssClass.descriptionP(), null, this.obj.description);
+  }
+
+  initTags() {
+    /* TODO: test + add buttons with callbacks */
+    const ul = initUl(cssClass.tagsUl());
+    for (const tag of this.obj.tags) {
+      initLiAsChildInList(ul, cssClass.tagLi(), null, tag);
+    }
+    return ul;
+  }
+
+  //   get tags() {
+  //     return [...this.obj.tags.keys()];
+  //   }
 
   initDateOfCreation(dateFormatFcn = baseDomComponent.dateFormatFcn) {
     const dateOfCreation = this.obj.dateOfCreation;
