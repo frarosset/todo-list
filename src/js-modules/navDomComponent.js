@@ -87,6 +87,6 @@ export default class navDomComponent {
 
   // callbacks
   #btnRenderProjectCallback = (e) => {
-    console.log(`Show projects from ${e.target.associatedProject.title}: TODO`);
+    document.body.mainDomObj.renderProject(e.target.associatedProject);
   };
 }

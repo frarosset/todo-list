@@ -31,3 +31,16 @@ export function initHorizontalSwipeDetection(
 export function triggerReflow(element) {
   element.offsetTop;
 }
+
+export function removeDescendants(elem) {
+  while (elem.hasChildNodes()) {
+    removeDescendants(elem.lastChild);
+    elem.removeChild(elem.lastChild);
+  }
+}
+
+export function resetContent(contentDiv) {
+  removeDescendants(contentDiv);
+  contentDiv.setAttribute("class", "");
+  window.scrollTo(0, 0);
+}
