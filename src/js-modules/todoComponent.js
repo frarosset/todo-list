@@ -11,7 +11,9 @@ export default class todoComponent extends baseComponent {
 
   static nextId = 0;
 
-  // see todoDomComponent.stateIcons and todoDomComponent.priorityColor if modified
+  // see todoDomComponent.stateIcons, todoDomComponent.priorityColor
+  // todoDomComponent.imminenceIcons, and todoDomComponent.imminenceColor
+  // if modified
   static priorityLabels = ["none", "low", "medium", "high"];
   static stateLabels = ["todo", "wip", "done"];
   static imminenceLabels = [
