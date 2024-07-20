@@ -141,7 +141,8 @@ body > main {
 
 /* project/base */
 .base-div,
-.project-div {
+.project-div,
+.todo-div {
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -150,31 +151,43 @@ body > main {
 .base-div__path-ul,
 .base-div__tags-ul,
 .project-div__path-ul,
-.project-div__tags-ul {
+.project-div__tags-ul,
+.todo-div__path-ul,
+.todo-div__tags-ul {
   display: flex;
   gap: 0.5em;
 }
 
 .base-div__tag-li,
-.project-div__tag-li {
+.project-div__tag-li,
+.todo-div__tag-li {
   background-color: var(--col-secondary);
   color: var(--col-txt-alt);
 }
 
 .base-div__main,
-.project-div__main {
+.project-div__main,
+.todo-div__main {
   flex: 1;
   height: 20vh;
 }
 
+.main-nav__btn-inbox,
+.main-nav__btn-custom-project,
+.project-div__todo-li {
+  cursor: pointer;
+}
+
 .base-div__footer,
-.project-div__footer {
+.project-div__footer,
+.todo-div__footer {
   color: var(--col-txt-secondary);
   display: flex;
   justify-content: flex-end;
 }
 
 .base-div__footer > :not(:last-child):after,
-.project-div__footer > :not(:last-child):after {
+.project-div__footer > :not(:last-child):after,
+.todo-div__footer > :not(:last-child):after {
   content: "/\00a0";
 }
