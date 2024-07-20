@@ -191,3 +191,8 @@ body > main {
 .todo-div__footer > :not(:last-child):after {
   content: "/\00a0";
 }
+
+.todo-div__other-info-div {
+  display: flex;
+  gap: 0.5em;
+}

@@ -1,4 +1,10 @@
-import { format, differenceInCalendarDays } from "date-fns";
+import {
+  format,
+  formatRelative,
+  differenceInCalendarDays,
+  isPast,
+  isToday,
+} from "date-fns";
 import { mod } from "../js-utilities/mathUtilities.js";
 import baseComponent from "./baseComponent.js";
 
@@ -91,6 +97,16 @@ export default class todoComponent extends baseComponent {
 
   dueDateFormatted(dateFormat = todoComponent.dateFormat) {
     return this.data.dueDate ? format(this.data.dueDate, dateFormat) : "none";
+  }
+
+  dueDateFormattedRelative() {
+    return this.data.dueDate
+      ? formatRelative(this.data.dueDate, new Date())
+      : "none";
+  }
+
+  isExpired() {
+    return isPast(this.data.dueDate) && !isToday(this.data.dueDate);
   }
 
   // Setter methods
