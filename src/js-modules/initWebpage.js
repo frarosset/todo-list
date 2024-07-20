@@ -24,8 +24,8 @@ const sampleTodo0 = {
   description: "Just a test for the todoComponent class.",
   tags: new Set(["test", "first"]),
   dueDate: new Date("2024/06/20"),
-  priority: 1,
-  state: 0,
+  priority: 0,
+  state: 2,
 };
 
 const sampleTodo1 = {
@@ -34,7 +34,7 @@ const sampleTodo1 = {
   tags: new Set(["test", "second"]),
   dueDate: new Date("2024/08/20"),
   priority: 1,
-  state: 0,
+  state: 1,
 };
 
 const sampleTodo2 = {
@@ -42,7 +42,16 @@ const sampleTodo2 = {
   description: "Just a test for the todoComponent class.",
   tags: new Set(["test", "third"]),
   dueDate: new Date("2024/07/20"),
-  priority: 1,
+  priority: 2,
+  state: 0,
+};
+
+const sampleTodo3 = {
+  title: "My Fourth Todo",
+  description: "Just a test for the todoComponent class.",
+  tags: new Set(["test", "4"]),
+  dueDate: new Date("2024/07/24"),
+  priority: 3,
   state: 0,
 };
 
@@ -55,6 +64,7 @@ export default function initWebpage() {
   project2.addTodo(sampleTodo0);
   project2.addTodo(sampleTodo1);
   project0.addTodo(sampleTodo2);
+  project2.addTodo(sampleTodo3);
   root.inboxProject.addTodo(sampleTodo1);
 
   console.log(root.print());

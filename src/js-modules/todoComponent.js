@@ -11,6 +11,7 @@ export default class todoComponent extends baseComponent {
 
   static nextId = 0;
 
+  // see todoDomComponent.stateIcons and todoDomComponent.priorityColor if modified
   static priorityLabels = ["none", "low", "medium", "high"];
   static stateLabels = ["todo", "wip", "done"];
   static imminenceLabels = [
@@ -62,8 +63,16 @@ export default class todoComponent extends baseComponent {
     return todoComponent.priorityLabels[this.data.priority];
   }
 
+  get priorityIdx() {
+    return this.data.priority;
+  }
+
   get state() {
     return todoComponent.stateLabels[this.data.state];
+  }
+
+  get stateIdx() {
+    return this.data.state;
   }
 
   get imminence() {
