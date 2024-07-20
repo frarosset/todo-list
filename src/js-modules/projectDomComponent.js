@@ -47,15 +47,23 @@ export default class projectDomComponent extends baseDomComponent {
 
     if (this.obj.todos.length) {
       this.obj.todos.forEach((todo) => {
-        initLiAsChildInList(
+        const li = initLiAsChildInList(
           ul,
           cssClass.todoLi,
           null,
           `${todo.print()}`
         ); /*TODO*/
+        li.associatedTodo = todo;
       });
+
+      ul.addEventListener("click", projectDomComponent.btnRenderTodoCallback);
     }
 
     return div;
   }
+
+  // callbacks
+  static btnRenderTodoCallback = (e) => {
+    document.body.mainDomObj.renderTodo(e.target.associatedTodo);
+  };
 }

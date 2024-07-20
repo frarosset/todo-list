@@ -77,7 +77,7 @@ export default class navDomComponent {
     const li = initLiAsChildInList(ul, liClass);
     const btn = initButton(
       btnClass,
-      this.#btnRenderProjectCallback,
+      navDomComponent.btnRenderProjectCallback,
       btnIcon,
       associatedProject.title
     );
@@ -86,7 +86,7 @@ export default class navDomComponent {
   }
 
   // callbacks
-  #btnRenderProjectCallback = (e) => {
+  static btnRenderProjectCallback = (e) => {
     document.body.mainDomObj.renderProject(e.target.associatedProject);
   };
 }

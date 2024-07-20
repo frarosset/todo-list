@@ -1,4 +1,5 @@
 import projectDomComponent from "./projectDomComponent.js";
+import todoDomComponent from "./todoDomComponent.js";
 import { resetContent } from "../js-utilities/commonDomUtilities.js";
 
 export default class mainDomComponent {
@@ -16,5 +17,11 @@ export default class mainDomComponent {
     this.#clearMainContent();
     const projectDomObj = new projectDomComponent(projectObj);
     this.main.append(projectDomObj.div);
+  }
+
+  renderTodo(todoObj) {
+    this.#clearMainContent();
+    const todoDomObj = new todoDomComponent(todoObj);
+    this.main.append(todoDomObj.div);
   }
 }
