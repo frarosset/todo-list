@@ -17,9 +17,7 @@
   --col-txt: var(--col-black);
   --col-txt-alt: var(--col-white);
   --col-txt-secondary: var(--col-grey);
-  --col-highlight: var(--col-accent-dark);
-
-  /* Colors (icons)*/
+  --col-highlight: var(--col-accent);
 
   /* Font family */
   --main-font: "Oswald", sans-serif;
@@ -130,6 +128,12 @@ a:visited {
   text-decoration: none;
 }
 
+button {
+  border: none;
+  background-color: inherit;
+  cursor: pointer;
+}
+
 /* Custom style */
 body > header {
   background-color: var(--header-bg-col);
@@ -137,16 +141,132 @@ body > header {
 
 body > main {
   flex: 1;
+  padding: var(--main-padding);
 }
 
-/* project/base */
-.base-div,
+/* project/todo div ---------------------------- */
 .project-div,
 .todo-div {
-  height: 100%;
   display: flex;
   flex-direction: column;
+  height: 100%;
 }
+
+/* header */
+
+/* main */
+
+.project-div__main,
+.todo-div__main {
+  flex: 1;
+}
+
+.project-div__title-h3,
+.todo-div__title-h3 {
+  font-size: var(--title-h3-fontsize);
+  margin-bottom: var(--title-h3-margin-bottom);
+}
+
+/* footer */
+.project-div__footer,
+.todo-div__footer {
+  color: var(--col-txt-secondary);
+  display: flex;
+  font-size: var(--base-footer-fontsize);
+  justify-content: flex-end;
+  padding: var(--base-footer-padding);
+}
+
+.project-div__footer > :not(:last-child):after,
+.todo-div__footer > :not(:last-child):after {
+  content: "/\00a0";
+}
+
+/* todo list */
+
+.project-div__todos-div {
+  background-color: var(--todos-bg-color);
+  border-radius: var(--todos-radius);
+  padding: var(--todos-padding);
+}
+
+.project-div__todos-ul {
+  display: flex;
+  flex-direction: column;
+  gap: var(--todos-gap);
+}
+
+/* todo mini view */
+.todo-mini-div {
+  padding: var(--todo-mini-padding);
+  border-radius: var(--todo-mini-radius);
+  background: var(--todo-mini-bg-color);
+  display: grid;
+  grid-template-areas:
+    ". path path"
+    "state imminence title"
+    ". otherinfo otherinfo";
+  grid-template-columns: min-content min-content 1fr;
+}
+
+.todo-mini-div__state-btn {
+  grid-area: state;
+  font-size: var(--base-mini-status-fontsize);
+  align-self: center;
+  margin-right: var(--base-mini-status-margin-right);
+}
+.todo-mini-div__imminence-icon {
+  grid-area: imminence;
+  font-size: var(--base-mini-title-fontsize);
+  align-self: center;
+}
+
+.todo-mini-div__path-ul {
+  grid-area: path;
+  font-size: var(--base-mini-path-fontsize);
+}
+.todo-mini-div__title-h2 {
+  grid-area: title;
+  font-size: var(--base-mini-title-fontsize);
+  align-self: center;
+}
+.todo-mini-div__other-infos-div {
+  grid-area: otherinfo;
+  font-size: var(--base-mini-other-info-fontsize);
+}
+
+.todo-mini-div__other-info-div {
+  display: flex;
+}
+
+/* --------------------------------------------*/
+
+:root {
+  --title-h3-fontsize: 0.8rem;
+  --base-mini-title-fontsize: 1rem;
+  --base-mini-status-fontsize: 1.4rem;
+  --base-mini-path-fontsize: 0.5rem;
+  --base-mini-other-info-fontsize: 0.8rem;
+  --base-footer-fontsize: 0.5rem;
+
+  --main-padding: 1rem;
+  --todos-padding: 1rem;
+  --todo-mini-padding: 0.5rem;
+  --base-footer-padding: 1rem 0 0;
+
+  --title-h3-margin-bottom: 1rem;
+  --base-mini-status-margin-right: 0.3rem;
+
+  --todos-gap: 0.5rem;
+
+  --todos-radius: 10px;
+  --todo-mini-radius: 10px;
+
+  --todos-bg-color: var(--col-grey);
+  --todo-mini-bg-color: var(--col-white);
+}
+
+/* --------------------------------------------*/
 
 .base-div__path-ul,
 .base-div__tags-ul,
@@ -165,31 +285,10 @@ body > main {
   color: var(--col-txt-alt);
 }
 
-.base-div__main,
-.project-div__main,
-.todo-div__main {
-  flex: 1;
-  height: 20vh;
-}
-
 .main-nav__btn-inbox,
 .main-nav__btn-custom-project,
 .project-div__todo-li {
   cursor: pointer;
-}
-
-.base-div__footer,
-.project-div__footer,
-.todo-div__footer {
-  color: var(--col-txt-secondary);
-  display: flex;
-  justify-content: flex-end;
-}
-
-.base-div__footer > :not(:last-child):after,
-.project-div__footer > :not(:last-child):after,
-.todo-div__footer > :not(:last-child):after {
-  content: "/\00a0";
 }
 
 .todo-div__other-info-div {
