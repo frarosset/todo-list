@@ -13,6 +13,16 @@ const cssClass = {
   otherInfosDiv: `${blockName}__other-infos-div`,
   otherInfoDiv: `${blockName}__other-info-div`,
   dueDateInfoDiv: `${blockName}__due-date-info-div`,
+  priorityInfoDiv: `${blockName}__priority-info-div`,
+  stateInfoDiv: `${blockName}__state-info-div`,
+};
+
+const colors = {
+  grey: `rgb(173,168,182)`,
+  green: `rgb(95,173,86)`,
+  yellow: `rgb(246,174,45)`,
+  red: `rgb(215,38,61)`,
+  blue: `rgb(60,145,230)`,
 };
 
 // see the correspondence in todoComponent.stateLabels
@@ -23,10 +33,16 @@ const stateIcons = [
 ];
 // see the correspondence in todoComponent.priorityLabels
 const priorityColors = [
-  `rgb(173,168,182)`, //"none"
-  `rgb(95,173,86)`, //"low"
-  `rgb(246,174,45)`, //"medium"
-  `rgb(215,38,61)`, //"high"
+  colors.grey, //"none"
+  colors.green, //"low"
+  colors.yellow, //"medium"
+  colors.red, //"high"
+];
+// see the correspondence in todoComponent.priorityLabels
+const stateColors = [
+  "inherit", //"todo"
+  "inherit", //"wip"
+  "inherit", //"done"
 ];
 // see the correspondence in todoComponent.imminenceLabels
 const imminenceIcons = [
@@ -38,15 +54,17 @@ const imminenceIcons = [
 ];
 // see the correspondence in todoComponent.imminenceLabels
 const imminenceColors = [
-  "inherit", //"none"
+  colors.grey, //"none"
   "inherit", //"scheduled"
-  `rgb(60,145,230)`, //"upcoming"
-  `rgb(60,145,230)`, //"today"
-  `rgb(215,38,61)`, //"expired"
+  colors.blue, //"upcoming"
+  colors.blue, //"today"
+  colors.red, //"expired"
 ];
 
 const genericIcons = {
   dueDate: { prefix: "solid", icon: "calendar-day" },
+  priority: { prefix: "solid", icon: "flag" },
+  state: { prefix: "solid", icon: "list-check" },
 };
 
 export default class projectDomComponent extends baseDomComponent {
@@ -74,6 +92,8 @@ export default class projectDomComponent extends baseDomComponent {
     const div = initDiv(cssClass.otherInfosDiv);
 
     div.append(this.initDueDate());
+    div.append(this.initPriority());
+    div.append(this.initState());
 
     return div;
   }
@@ -121,12 +141,41 @@ export default class projectDomComponent extends baseDomComponent {
       `${this.obj.dueDateFormattedRelative().split(/ at /)[0]}`
     );
 
+    dueDateInfoContent.style.color = imminenceColors[this.obj.imminenceIdx];
+
     if (this.obj.isExpired()) {
-      dueDateInfoContent.style.color = imminenceColors[this.obj.imminenceIdx];
       dueDateInfoContent.textContent += ` (expired)`;
     }
 
     return dueDateInfoDiv;
+  }
+
+  initPriority() {
+    // Init the button with the right icon
+    const [priorityInfoDiv, , priorityInfoContent] = this.initInfo(
+      cssClass.priorityInfoDiv,
+      genericIcons.priority,
+      `Priority: `,
+      `${this.obj.priority}`
+    );
+
+    priorityInfoContent.style.color = priorityColors[this.obj.priorityIdx];
+
+    return priorityInfoDiv;
+  }
+
+  initState() {
+    // Init the button with the right icon
+    const [stateInfoDiv, , stateInfoContent] = this.initInfo(
+      cssClass.stateInfoDiv,
+      genericIcons.state,
+      `State: `,
+      `${this.obj.state}`
+    );
+
+    stateInfoContent.style.color = stateColors[this.obj.stateIdx];
+
+    return stateInfoDiv;
   }
 
   initInfo(cssClassDiv, iconLabel, textLabel, textContent) {

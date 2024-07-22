@@ -196,3 +196,7 @@ body > main {
   display: flex;
   gap: 0.5em;
 }
+
+.todo-div__other-info-div-label {
+  width: 5em;
+}
