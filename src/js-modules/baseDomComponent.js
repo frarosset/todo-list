@@ -1,7 +1,7 @@
 import {
   initUl,
   initLiAsChildInList,
-  //   initButton,
+  initButton,
   initDiv,
   initP,
   initH2,
@@ -22,6 +22,11 @@ const cssClass = {
   tagLi: () => `${blockName}__tag-li`,
   dateOfCreationP: () => `${blockName}__date-of-creation-p`,
   dateOfEditP: () => `${blockName}__date-of-edit-p`,
+  backBtn: () => `${blockName}__back-btn`,
+};
+
+const genericIcons = {
+  back: { prefix: "solid", icon: "xmark" },
 };
 
 export default class baseDomComponent {
@@ -57,6 +62,7 @@ export default class baseDomComponent {
     const header = document.createElement("header");
     header.classList.add(cssClass.header());
 
+    header.appendChild(this.initBackBtn());
     header.appendChild(this.initPath());
     header.appendChild(this.initTitle());
     header.appendChild(this.initDescription());
@@ -112,10 +118,6 @@ export default class baseDomComponent {
     return ul;
   }
 
-  //   get tags() {
-  //     return [...this.obj.tags.keys()];
-  //   }
-
   initDateOfCreation(dateFormatFcn = baseDomComponent.dateFormatFcn) {
     const dateOfCreation = this.obj.dateOfCreation;
     const dateOfCreationFormatted = this.obj.dateOfCreationFormatted(
@@ -139,4 +141,19 @@ export default class baseDomComponent {
       `last edit: ${dateOfEditFormatted}`
     );
   }
+
+  initBackBtn() {
+    const backBtn = initButton(
+      cssClass.backBtn(),
+      baseDomComponent.renderParentObjCallback,
+      genericIcons.back
+    );
+    backBtn.parentObj = this.obj.parent;
+    return backBtn;
+  }
+
+  // callbacks
+  static renderParentObjCallback = (e) => {
+    document.body.mainDomObj.renderGeneric(e.currentTarget.parentObj);
+  };
 }
