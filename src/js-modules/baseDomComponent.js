@@ -16,6 +16,7 @@ const cssClass = {
   footer: () => `${blockName}__footer`,
   pathUl: () => `${blockName}__path-ul`,
   pathLi: () => `${blockName}__path-li`,
+  pathBtn: () => `${blockName}__path-btn`,
   titleH2: () => `${blockName}__title-h2`,
   descriptionP: () => `${blockName}__description-p`,
   tagsUl: () => `${blockName}__tags-ul`,
@@ -94,7 +95,18 @@ export default class baseDomComponent {
 
     let obj = this.obj.parent;
     while (obj != null) {
-      initLiAsChildInList(ul, cssClass.pathLi(), null, `${obj.title} \\`);
+      const li = initLiAsChildInList(ul, cssClass.pathLi(), null, ` \\`);
+
+      const btn = initButton(
+        cssClass.pathBtn(),
+        baseDomComponent.renderObjCallback,
+        null,
+        `${obj.title}`
+      );
+      btn.objToRender = obj;
+
+      li.prepend(btn);
+
       obj = obj.parent;
     }
 
@@ -145,15 +157,15 @@ export default class baseDomComponent {
   initBackBtn() {
     const backBtn = initButton(
       cssClass.backBtn(),
-      baseDomComponent.renderParentObjCallback,
+      baseDomComponent.renderObjCallback,
       genericIcons.back
     );
-    backBtn.parentObj = this.obj.parent;
+    backBtn.objToRender = this.obj.parent;
     return backBtn;
   }
 
   // callbacks
-  static renderParentObjCallback = (e) => {
-    document.body.mainDomObj.renderGeneric(e.currentTarget.parentObj);
+  static renderObjCallback = (e) => {
+    document.body.mainDomObj.renderGeneric(e.currentTarget.objToRender);
   };
 }
