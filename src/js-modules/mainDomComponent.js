@@ -5,6 +5,7 @@ import { resetContent } from "../js-utilities/commonDomUtilities.js";
 export default class mainDomComponent {
   constructor() {
     this.main = document.createElement("main");
+    this.renderHome();
   }
 
   // helper methods
@@ -23,5 +24,28 @@ export default class mainDomComponent {
     this.#clearMainContent();
     const todoDomObj = new todoDomComponent(todoObj);
     this.main.append(todoDomObj.div);
+  }
+
+  renderHome() {
+    // todo
+    this.#clearMainContent();
+    this.main.textContent = "HOME (todo)";
+  }
+
+  renderGeneric(obj) {
+    if (obj == null) {
+      this.renderHome();
+      return;
+    }
+
+    switch (obj.type) {
+      case "P":
+        this.renderProject(obj);
+        break;
+      case "T":
+        this.renderTodo(obj);
+        break;
+      default:
+    }
   }
 }
