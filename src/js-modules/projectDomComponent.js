@@ -7,25 +7,26 @@ import {
 } from "../js-utilities/commonDomComponents.js";
 import baseDomComponent from "./baseDomComponent.js";
 
-const blockName = "project-div";
-const cssClass = {
-  div: blockName,
-  todosDiv: `${blockName}__todos-div`,
-  titleH3: `${blockName}__title-h3`,
-  todosUl: `${blockName}__todos-ul`,
-  todoLi: `${blockName}__todo-li`,
-};
-
 export default class projectDomComponent extends baseDomComponent {
+  static blockName = "project-div";
+
+  static cssClass = {
+    ...baseDomComponent.cssClass,
+    todosDiv: `todos-div`,
+    titleH3: `title-h3`,
+    todosUl: `todos-ul`,
+    todoLi: `todo-li`,
+  };
+
   constructor(obj) {
-    super(obj, blockName);
+    super(obj);
 
     // [TODOS]
     // list of todo (mini view)
   }
 
   init() {
-    this.div = initDiv(cssClass.div);
+    this.div = initDiv(this.constructor.blockName);
 
     this.div.appendChild(this.initHeader());
 
@@ -38,18 +39,18 @@ export default class projectDomComponent extends baseDomComponent {
 
   // helper methods
   initTodoList() {
-    const div = initDiv(cssClass.todosDiv);
+    const div = initDiv(this.getCssClass("todosDiv"));
 
-    div.appendChild(initH3(cssClass.titleH3, null, "TODOS"));
+    div.appendChild(initH3(this.getCssClass("titleH3"), null, "TODOS"));
 
-    const ul = initUl(cssClass.todosUl);
+    const ul = initUl(this.getCssClass("todosUl"));
     div.appendChild(ul);
 
     if (this.obj.todos.length) {
       this.obj.todos.forEach((todo) => {
         const li = initLiAsChildInList(
           ul,
-          cssClass.todoLi,
+          this.getCssClass("todoLi"),
           null,
           `${todo.print()}`
         ); /*TODO*/

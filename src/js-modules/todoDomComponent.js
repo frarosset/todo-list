@@ -5,75 +5,78 @@ import {
 } from "../js-utilities/commonDomComponents.js";
 import baseDomComponent from "./baseDomComponent.js";
 
-const blockName = "todo-div";
-const cssClass = {
-  div: blockName,
-  stateBtn: `${blockName}__state-btn`,
-  imminenceIcon: `${blockName}__imminence-icon`,
-  otherInfosDiv: `${blockName}__other-infos-div`,
-  otherInfoDiv: `${blockName}__other-info-div`,
-  dueDateInfoDiv: `${blockName}__due-date-info-div`,
-  priorityInfoDiv: `${blockName}__priority-info-div`,
-  stateInfoDiv: `${blockName}__state-info-div`,
-};
+export default class todoDomComponent extends baseDomComponent {
+  static blockName = "todo-div";
+  static cssClass = {
+    ...baseDomComponent.cssClass,
+    stateBtn: `state-btn`,
+    imminenceIcon: `imminence-icon`,
+    otherInfosDiv: `other-infos-div`,
+    otherInfoDiv: `other-info-div`,
+    dueDateInfoDiv: `due-date-info-div`,
+    priorityInfoDiv: `priority-info-div`,
+    stateInfoDiv: `state-info-div`,
+  };
 
-const colors = {
-  grey: `rgb(173,168,182)`,
-  green: `rgb(95,173,86)`,
-  yellow: `rgb(246,174,45)`,
-  red: `rgb(215,38,61)`,
-  blue: `rgb(60,145,230)`,
-};
+  static colors = {
+    grey: `rgb(173,168,182)`,
+    green: `rgb(95,173,86)`,
+    yellow: `rgb(246,174,45)`,
+    red: `rgb(215,38,61)`,
+    blue: `rgb(60,145,230)`,
+  };
 
-// see the correspondence in todoComponent.stateLabels
-const stateIcons = [
-  { prefix: "regular", icon: "circle" }, //"todo"
-  { prefix: "regular", icon: "circle-dot" }, //"wip"
-  { prefix: "solid", icon: "circle-check" }, //"done"
-];
-// see the correspondence in todoComponent.priorityLabels
-const priorityColors = [
-  colors.grey, //"none"
-  colors.green, //"low"
-  colors.yellow, //"medium"
-  colors.red, //"high"
-];
-// see the correspondence in todoComponent.priorityLabels
-const stateColors = [
-  "inherit", //"todo"
-  "inherit", //"wip"
-  "inherit", //"done"
-];
-// see the correspondence in todoComponent.imminenceLabels
-const imminenceIcons = [
-  null, //"none"
-  null, //"scheduled"
-  { prefix: "solid", icon: "exclamation" }, //"upcoming"
-  { prefix: "solid", icon: "circle-exclamation" }, //"today"
-  { prefix: "solid", icon: "triangle-exclamation" }, //"expired"
-];
-// see the correspondence in todoComponent.imminenceLabels
-const imminenceColors = [
-  colors.grey, //"none"
-  "inherit", //"scheduled"
-  colors.blue, //"upcoming"
-  colors.blue, //"today"
-  colors.red, //"expired"
-];
+  // see the correspondence in todoComponent.stateLabels
+  static stateIcons = [
+    { prefix: "regular", icon: "circle" }, //"todo"
+    { prefix: "regular", icon: "circle-dot" }, //"wip"
+    { prefix: "solid", icon: "circle-check" }, //"done"
+  ];
+  // see the correspondence in todoComponent.priorityLabels
+  static priorityColors = [
+    todoDomComponent.colors.grey, //"none"
+    todoDomComponent.colors.green, //"low"
+    todoDomComponent.colors.yellow, //"medium"
+    todoDomComponent.colors.red, //"high"
+  ];
 
-const genericIcons = {
-  dueDate: { prefix: "solid", icon: "calendar-day" },
-  priority: { prefix: "solid", icon: "flag" },
-  state: { prefix: "solid", icon: "list-check" },
-};
+  // see the correspondence in todoComponent.priorityLabels
+  static stateColors = [
+    "inherit", //"todo"
+    "inherit", //"wip"
+    "inherit", //"done"
+  ];
 
-export default class projectDomComponent extends baseDomComponent {
+  // see the correspondence in todoComponent.imminenceLabels
+  static imminenceIcons = [
+    null, //"none"
+    null, //"scheduled"
+    { prefix: "solid", icon: "exclamation" }, //"upcoming"
+    { prefix: "solid", icon: "circle-exclamation" }, //"today"
+    { prefix: "solid", icon: "triangle-exclamation" }, //"expired"
+  ];
+
+  // see the correspondence in todoComponent.imminenceLabels
+  static imminenceColors = [
+    todoDomComponent.colors.grey, //"none"
+    "inherit", //"scheduled"
+    todoDomComponent.colors.blue, //"upcoming"
+    todoDomComponent.colors.blue, //"today"
+    todoDomComponent.colors.red, //"expired"
+  ];
+
+  static genericIcons = {
+    dueDate: { prefix: "solid", icon: "calendar-day" },
+    priority: { prefix: "solid", icon: "flag" },
+    state: { prefix: "solid", icon: "list-check" },
+  };
+
   constructor(obj) {
-    super(obj, blockName);
+    super(obj);
   }
 
   init() {
-    this.div = initDiv(cssClass.div);
+    this.div = initDiv(this.constructor.blockName);
 
     this.header = this.initHeader();
     this.div.appendChild(this.header);
@@ -89,7 +92,7 @@ export default class projectDomComponent extends baseDomComponent {
 
   // Block initialization
   initOtherInfo() {
-    const div = initDiv(cssClass.otherInfosDiv);
+    const div = initDiv(this.getCssClass("otherInfosDiv"));
 
     div.append(this.initDueDate());
     div.append(this.initPriority());
@@ -106,13 +109,13 @@ export default class projectDomComponent extends baseDomComponent {
 
     // Init the button with the right icon
     const iconBtn = initButton(
-      cssClass.stateBtn,
+      this.getCssClass("stateBtn"),
       () => {} /* todo */,
-      stateIcons[this.obj.stateIdx]
+      todoDomComponent.stateIcons[this.obj.stateIdx]
     );
 
     // Set the color
-    iconBtn.style.color = priorityColors[this.obj.priorityIdx];
+    iconBtn.style.color = todoDomComponent.priorityColors[this.obj.priorityIdx];
 
     // Set the tooltip when hovering
     iconBtn.title = `${this.obj.state} (priority: ${this.obj.priority})`;
@@ -125,31 +128,33 @@ export default class projectDomComponent extends baseDomComponent {
 
     // Init the button with the right icon
     const imminenceIcon = initP(
-      cssClass.imminenceIcon,
-      imminenceIcons[this.obj.imminenceIdx]
+      this.getCssClass("imminenceIcon"),
+      todoDomComponent.imminenceIcons[this.obj.imminenceIdx]
     );
 
     // Set the color
-    imminenceIcon.style.color = imminenceColors[this.obj.imminenceIdx];
+    imminenceIcon.style.color =
+      todoDomComponent.imminenceColors[this.obj.imminenceIdx];
 
     // Set the tooltip when hovering
-    if (imminenceIcons[this.obj.imminenceIdx] != null) {
+    if (todoDomComponent.imminenceIcons[this.obj.imminenceIdx] != null) {
       imminenceIcon.title = `${this.obj.imminence}`;
     }
 
     return imminenceIcon;
   }
 
-  initDueDate() {
+  initDueDate(label = `Due date: `) {
     // Init the button with the right icon
     const [dueDateInfoDiv, , dueDateInfoContent] = this.initInfo(
-      cssClass.dueDateInfoDiv,
-      genericIcons.dueDate,
-      `Due date: `,
+      this.getCssClass("dueDateInfoDiv"),
+      todoDomComponent.genericIcons.dueDate,
+      label,
       `${this.obj.dueDateFormattedRelative().split(/ at /)[0]}`
     );
 
-    dueDateInfoContent.style.color = imminenceColors[this.obj.imminenceIdx];
+    dueDateInfoContent.style.color =
+      todoDomComponent.imminenceColors[this.obj.imminenceIdx];
 
     if (this.obj.isExpired()) {
       dueDateInfoContent.textContent += ` (expired)`;
@@ -158,46 +163,48 @@ export default class projectDomComponent extends baseDomComponent {
     return dueDateInfoDiv;
   }
 
-  initPriority() {
+  initPriority(label = `Priority: `) {
     // Init the button with the right icon
     const [priorityInfoDiv, , priorityInfoContent] = this.initInfo(
-      cssClass.priorityInfoDiv,
-      genericIcons.priority,
-      `Priority: `,
+      this.getCssClass("priorityInfoDiv"),
+      todoDomComponent.genericIcons.priority,
+      label,
       `${this.obj.priority}`
     );
 
-    priorityInfoContent.style.color = priorityColors[this.obj.priorityIdx];
+    priorityInfoContent.style.color =
+      todoDomComponent.priorityColors[this.obj.priorityIdx];
 
     return priorityInfoDiv;
   }
 
-  initState() {
+  initState(label = `State: `) {
     // Init the button with the right icon
     const [stateInfoDiv, , stateInfoContent] = this.initInfo(
-      cssClass.stateInfoDiv,
-      genericIcons.state,
-      `State: `,
+      this.getCssClass("stateInfoDiv"),
+      todoDomComponent.genericIcons.state,
+      label,
       `${this.obj.state}`
     );
 
-    stateInfoContent.style.color = stateColors[this.obj.stateIdx];
+    stateInfoContent.style.color =
+      todoDomComponent.stateColors[this.obj.stateIdx];
 
     return stateInfoDiv;
   }
 
   initInfo(cssClassDiv, iconLabel, textLabel, textContent) {
-    const div = initDiv([cssClass.otherInfoDiv, cssClassDiv]);
+    const div = initDiv([this.getCssClass("otherInfoDiv"), cssClassDiv]);
 
     const label = initP(
-      [`${cssClass.otherInfoDiv}-label`, `${cssClassDiv}-label`],
+      [`${this.getCssClass("otherInfoDiv")}-label`, `${cssClassDiv}-label`],
       iconLabel,
       "",
       textLabel
     );
 
     const content = initP(
-      [`${cssClass.otherInfoDiv}-content`, `${cssClassDiv}-content`],
+      [`${this.getCssClass("otherInfoDiv")}-content`, `${cssClassDiv}-content`],
       null,
       "",
       textContent

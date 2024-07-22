@@ -8,29 +8,33 @@ import {
 } from "../js-utilities/commonDomComponents.js";
 import { isToday, isThisYear } from "date-fns";
 
-let blockName = "base-div";
-const cssClass = {
-  div: () => blockName,
-  header: () => `${blockName}__header`,
-  main: () => `${blockName}__main`,
-  footer: () => `${blockName}__footer`,
-  pathUl: () => `${blockName}__path-ul`,
-  pathLi: () => `${blockName}__path-li`,
-  pathBtn: () => `${blockName}__path-btn`,
-  titleH2: () => `${blockName}__title-h2`,
-  descriptionP: () => `${blockName}__description-p`,
-  tagsUl: () => `${blockName}__tags-ul`,
-  tagLi: () => `${blockName}__tag-li`,
-  dateOfCreationP: () => `${blockName}__date-of-creation-p`,
-  dateOfEditP: () => `${blockName}__date-of-edit-p`,
-  backBtn: () => `${blockName}__back-btn`,
-};
-
-const genericIcons = {
-  back: { prefix: "solid", icon: "xmark" },
-};
-
 export default class baseDomComponent {
+  static blockName = "base-div";
+
+  static cssClass = {
+    header: `header`,
+    main: `main`,
+    footer: `footer`,
+    pathUl: `path-ul`,
+    pathLi: `path-li`,
+    pathBtn: `path-btn`,
+    titleH2: `title-h2`,
+    descriptionP: `description-p`,
+    tagsUl: `tags-ul`,
+    tagLi: `tag-li`,
+    dateOfCreationP: `date-of-creation-p`,
+    dateOfEditP: `date-of-edit-p`,
+    backBtn: `back-btn`,
+  };
+
+  getCssClass(element) {
+    return `${this.constructor.blockName}__${this.constructor.cssClass[element]}`;
+  }
+
+  static genericIcons = {
+    back: { prefix: "solid", icon: "xmark" },
+  };
+
   static dateFormatFcn = (date) => {
     if (isToday(date)) {
       return "HH:mm";
@@ -41,17 +45,14 @@ export default class baseDomComponent {
     }
   };
 
-  constructor(obj, customBlockName = null) {
-    if (customBlockName) {
-      blockName = customBlockName;
-    }
+  constructor(obj) {
     this.obj = obj;
     this.init();
   }
 
   // init method
   init(dateFormatFcn = baseDomComponent.dateFormatFcn) {
-    this.div = initDiv(cssClass.div());
+    this.div = initDiv(this.constructor.blockName);
     this.div.appendChild(this.initHeader());
     this.div.appendChild(this.initMain());
     this.div.appendChild(this.initFooter(dateFormatFcn));
@@ -61,7 +62,7 @@ export default class baseDomComponent {
 
   initHeader() {
     const header = document.createElement("header");
-    header.classList.add(cssClass.header());
+    header.classList.add(this.getCssClass("header"));
 
     header.appendChild(this.initBackBtn());
     header.appendChild(this.initPath());
@@ -73,13 +74,13 @@ export default class baseDomComponent {
 
   initMain() {
     const main = document.createElement("main");
-    main.classList.add(cssClass.main());
+    main.classList.add(this.getCssClass("main"));
     return main;
   }
 
   initFooter(dateFormatFcn = baseDomComponent.dateFormatFcn) {
     const footer = document.createElement("footer");
-    footer.classList.add(cssClass.footer());
+    footer.classList.add(this.getCssClass("footer"));
     footer.appendChild(this.initDateOfCreation(dateFormatFcn));
     // Show last edit only if it has been edited
     if (this.obj.hasBeenEdited())
@@ -91,14 +92,19 @@ export default class baseDomComponent {
 
   initPath() {
     /* TODO: test + add buttons with callbacks */
-    const ul = initUl(cssClass.pathUl());
+    const ul = initUl(this.getCssClass("pathUl"));
 
     let obj = this.obj.parent;
     while (obj != null) {
-      const li = initLiAsChildInList(ul, cssClass.pathLi(), null, ` \\`);
+      const li = initLiAsChildInList(
+        ul,
+        this.getCssClass("pathLi"),
+        null,
+        ` \\`
+      );
 
       const btn = initButton(
-        cssClass.pathBtn(),
+        this.getCssClass("pathBtn"),
         baseDomComponent.renderObjCallback,
         null,
         `${obj.title}`
@@ -114,18 +120,18 @@ export default class baseDomComponent {
   }
 
   initTitle() {
-    return initH2(cssClass.titleH2(), null, this.obj.title);
+    return initH2(this.getCssClass("titleH2"), null, this.obj.title);
   }
 
   initDescription() {
-    return initP(cssClass.descriptionP(), null, this.obj.description);
+    return initP(this.getCssClass("descriptionP"), null, this.obj.description);
   }
 
   initTags() {
     /* TODO: test + add buttons with callbacks */
-    const ul = initUl(cssClass.tagsUl());
+    const ul = initUl(this.getCssClass("tagsUl"));
     for (const tag of this.obj.tags) {
-      initLiAsChildInList(ul, cssClass.tagLi(), null, tag);
+      initLiAsChildInList(ul, this.getCssClass("tagLi"), null, tag);
     }
     return ul;
   }
@@ -136,7 +142,7 @@ export default class baseDomComponent {
       dateFormatFcn(dateOfCreation)
     );
     return initP(
-      cssClass.dateOfCreationP(),
+      this.getCssClass("dateOfCreationP"),
       null,
       `created: ${dateOfCreationFormatted}`
     );
@@ -148,7 +154,7 @@ export default class baseDomComponent {
       dateFormatFcn(dateOfEdit)
     );
     return initP(
-      cssClass.dateOfEditP(),
+      this.getCssClass("dateOfEditP"),
       null,
       `last edit: ${dateOfEditFormatted}`
     );
@@ -156,9 +162,9 @@ export default class baseDomComponent {
 
   initBackBtn() {
     const backBtn = initButton(
-      cssClass.backBtn(),
+      this.getCssClass("backBtn"),
       baseDomComponent.renderObjCallback,
-      genericIcons.back
+      baseDomComponent.genericIcons.back
     );
     backBtn.objToRender = this.obj.parent;
     return backBtn;
