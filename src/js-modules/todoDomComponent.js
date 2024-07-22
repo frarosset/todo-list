@@ -114,6 +114,9 @@ export default class projectDomComponent extends baseDomComponent {
     // Set the color
     iconBtn.style.color = priorityColors[this.obj.priorityIdx];
 
+    // Set the tooltip when hovering
+    iconBtn.title = `${this.obj.state} (priority: ${this.obj.priority})`;
+
     return iconBtn;
   }
 
@@ -128,6 +131,11 @@ export default class projectDomComponent extends baseDomComponent {
 
     // Set the color
     imminenceIcon.style.color = imminenceColors[this.obj.imminenceIdx];
+
+    // Set the tooltip when hovering
+    if (imminenceIcons[this.obj.imminenceIdx] != null) {
+      imminenceIcon.title = `${this.obj.imminence}`;
+    }
 
     return imminenceIcon;
   }
