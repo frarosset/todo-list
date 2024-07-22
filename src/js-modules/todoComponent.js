@@ -25,6 +25,7 @@ export default class todoComponent extends baseComponent {
   // if modified
   static priorityLabels = ["none", "low", "medium", "high"];
   static stateLabels = ["todo", "wip", "done"];
+  static doneIdx = 2;
   static imminenceLabels = [
     "none",
     "scheduled",
@@ -99,7 +100,11 @@ export default class todoComponent extends baseComponent {
   }
 
   isExpired() {
-    return isPast(this.data.dueDate) && !isToday(this.data.dueDate);
+    return (
+      isPast(this.data.dueDate) &&
+      !isToday(this.data.dueDate) &&
+      !this.data.state == todoComponent.doneIdx
+    );
   }
 
   // Setter methods
@@ -151,7 +156,7 @@ export default class todoComponent extends baseComponent {
   // imminence update method: note call it every time you modify this.data.dueDate
   // or at midnight (todo)
   updateImminence() {
-    if (this.data.dueDate == null) {
+    if (this.data.dueDate == null || this.data.state == todoComponent.doneIdx) {
       this.#imminenceIdx = todoComponent.noImminenceIdx; /* no imminence */
       return;
     }
