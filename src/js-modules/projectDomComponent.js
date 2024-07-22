@@ -6,6 +6,7 @@ import {
   initH3,
 } from "../js-utilities/commonDomComponents.js";
 import baseDomComponent from "./baseDomComponent.js";
+import todoDomMiniComponent from "./todoDomMiniComponent.js";
 
 export default class projectDomComponent extends baseDomComponent {
   static blockName = "project-div";
@@ -20,9 +21,6 @@ export default class projectDomComponent extends baseDomComponent {
 
   constructor(obj) {
     super(obj);
-
-    // [TODOS]
-    // list of todo (mini view)
   }
 
   init() {
@@ -48,16 +46,13 @@ export default class projectDomComponent extends baseDomComponent {
 
     if (this.obj.todos.length) {
       this.obj.todos.forEach((todo) => {
-        const li = initLiAsChildInList(
-          ul,
-          this.getCssClass("todoLi"),
-          null,
-          `${todo.print()}`
-        ); /*TODO*/
-        li.associatedTodo = todo;
-      });
+        const li = initLiAsChildInList(ul, this.getCssClass("todoLi"));
 
-      ul.addEventListener("click", projectDomComponent.btnRenderTodoCallback);
+        li.associatedTodo = todo;
+        const miniTodo = new todoDomMiniComponent(todo);
+        li.appendChild(miniTodo.div);
+        li.addEventListener("click", projectDomComponent.btnRenderTodoCallback);
+      });
     }
 
     return div;
@@ -65,6 +60,6 @@ export default class projectDomComponent extends baseDomComponent {
 
   // callbacks
   static btnRenderTodoCallback = (e) => {
-    document.body.mainDomObj.renderTodo(e.target.associatedTodo);
+    document.body.mainDomObj.renderTodo(e.currentTarget.associatedTodo);
   };
 }
