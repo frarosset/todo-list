@@ -5,18 +5,14 @@ export default class projectComponent extends baseComponent {
   // the following default data are specific to projectComponent class
   // and will be merged with baseComponent.defaultData in the constructor
   static defaultData = {
+    ...baseComponent.defaultData,
     todos: [] /* array of todos */,
   };
 
   static nextId = 0;
 
   constructor(data) {
-    // do not modify data
-    const dataCopy = Object.assign({}, data);
-    super(dataCopy);
-
-    this.data = Object.assign({}, projectComponent.defaultData, this.data);
-
+    super(data);
     // overwrite type
     this.type = "P";
 

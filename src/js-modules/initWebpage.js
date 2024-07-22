@@ -41,7 +41,6 @@ const sampleTodo2 = {
   title: "My Third Todo",
   description: "Just a test for the todoComponent class.",
   tags: new Set(["test", "third"]),
-  dueDate: new Date("2024/07/20"),
   priority: 2,
   state: 0,
 };

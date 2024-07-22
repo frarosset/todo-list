@@ -12,6 +12,7 @@ export default class todoComponent extends baseComponent {
   // the following default data are specific to todoComponent class
   // and will be merged with baseComponent.defaultData in the constructor
   static defaultData = {
+    ...baseComponent.defaultData,
     dueDate: null,
     priority: 0 /* index of todoComponent.prioritiesLabels array*/,
     state: 0 /* index of todoComponent.stateLabels array*/,
@@ -43,11 +44,7 @@ export default class todoComponent extends baseComponent {
   #imminenceIdx; /* index of todoComponent.imminenceLabels array*/
 
   constructor(data, parent = null) {
-    // do not modify data
-    const dataCopy = Object.assign({}, data);
-    super(dataCopy, parent);
-
-    this.data = Object.assign({}, todoComponent.defaultData, this.data);
+    super(data, parent);
 
     // overwrite type
     this.type = "T";

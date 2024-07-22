@@ -15,7 +15,7 @@ export default class baseComponent {
   static dateFormat = "yyyy-MM-dd HH:mm:ss.SSS";
 
   constructor(data, parent = null) {
-    this.data = Object.assign({}, baseComponent.defaultData, data);
+    this.data = Object.assign({}, this.constructor.defaultData, data);
 
     if (this.data.id == null) {
       this.data.id = this.constructor.nextId;
