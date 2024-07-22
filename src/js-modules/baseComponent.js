@@ -18,8 +18,8 @@ export default class baseComponent {
     this.data = Object.assign({}, baseComponent.defaultData, data);
 
     if (this.data.id == null) {
-      this.data.id = baseComponent.nextId;
-      baseComponent.nextId++;
+      this.data.id = this.constructor.nextId;
+      this.constructor.nextId++;
     }
 
     if (!this.data.dateOfCreation) {

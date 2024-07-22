@@ -2,6 +2,8 @@ import baseComponent from "./baseComponent.js";
 import todoComponent from "./todoComponent";
 
 export default class projectComponent extends baseComponent {
+  // the following default data are specific to projectComponent class
+  // and will be merged with baseComponent.defaultData in the constructor
   static defaultData = {
     todos: [] /* array of todos */,
   };
@@ -9,14 +11,8 @@ export default class projectComponent extends baseComponent {
   static nextId = 0;
 
   constructor(data) {
-    // set the id, if not provided (specific for the projectComponent class)
-    // but do not modify data
+    // do not modify data
     const dataCopy = Object.assign({}, data);
-    if (dataCopy.id == null) {
-      dataCopy.id = projectComponent.nextId;
-      projectComponent.nextId++;
-    }
-
     super(dataCopy);
 
     this.data = Object.assign({}, projectComponent.defaultData, this.data);

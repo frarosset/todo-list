@@ -9,6 +9,8 @@ import { mod } from "../js-utilities/mathUtilities.js";
 import baseComponent from "./baseComponent.js";
 
 export default class todoComponent extends baseComponent {
+  // the following default data are specific to todoComponent class
+  // and will be merged with baseComponent.defaultData in the constructor
   static defaultData = {
     dueDate: null,
     priority: 0 /* index of todoComponent.prioritiesLabels array*/,
@@ -41,14 +43,8 @@ export default class todoComponent extends baseComponent {
   #imminenceIdx; /* index of todoComponent.imminenceLabels array*/
 
   constructor(data, parent = null) {
-    // set the id, if not provided (specific for the todoComponent class)
-    // but do not modify data
+    // do not modify data
     const dataCopy = Object.assign({}, data);
-    if (dataCopy.id == null) {
-      dataCopy.id = todoComponent.nextId;
-      todoComponent.nextId++;
-    }
-
     super(dataCopy, parent);
 
     this.data = Object.assign({}, todoComponent.defaultData, this.data);
