@@ -282,11 +282,6 @@ body > main {
   padding: var(--base-footer-padding);
 }
 
-.project-div__footer > :not(:last-child):after,
-.todo-div__footer > :not(:last-child):after {
-  content: "/\00a0";
-}
-
 /* todo list */
 
 .project-div__todos-div {

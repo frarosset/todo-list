@@ -1,4 +1,5 @@
 import { format } from "date-fns";
+import PubSub from "pubsub-js";
 
 export default class baseComponent {
   data;
@@ -109,6 +110,9 @@ export default class baseComponent {
       // console.log(this.parent.printPath()); //debug
       this.parent.updateDateOfEdit();
     }
+
+    // publish the 'BASE EDITED' only once, when you finish traversing the chain
+    PubSub.publish("BASE EDITED");
   }
 
   set title(title) {

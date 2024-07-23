@@ -7,6 +7,7 @@ import {
   initH2,
 } from "../js-utilities/commonDomComponents.js";
 import { isToday, isThisYear } from "date-fns";
+import PubSub from "pubsub-js";
 
 export default class baseDomComponent {
   static blockName = "base-div";
@@ -83,9 +84,7 @@ export default class baseDomComponent {
     const footer = document.createElement("footer");
     footer.classList.add(this.getCssClass("footer"));
     footer.appendChild(this.initDateOfCreation(dateFormatFcn));
-    // Show last edit only if it has been edited
-    if (this.obj.hasBeenEdited())
-      footer.appendChild(this.initDateOfEdit(dateFormatFcn));
+    footer.appendChild(this.initDateOfEdit(dateFormatFcn));
     return footer;
   }
 
@@ -150,15 +149,26 @@ export default class baseDomComponent {
   }
 
   initDateOfEdit(dateFormatFcn = baseDomComponent.dateFormatFcn) {
-    const dateOfEdit = this.obj.dateOfEdit;
-    const dateOfEditFormatted = this.obj.dateOfEditFormatted(
-      dateFormatFcn(dateOfEdit)
-    );
-    return initP(
+    const getDateOfEditFormatted = () => {
+      const dateOfEdit = this.obj.dateOfEdit;
+      return this.obj.dateOfEditFormatted(dateFormatFcn(dateOfEdit));
+    };
+
+    const getEditString = () => `\xa0/ last edit: ${getDateOfEditFormatted()}`;
+
+    // Show last edit only if it has been edited
+    const p = initP(
       this.getCssClass("dateOfEditP"),
       null,
-      `last edit: ${dateOfEditFormatted}`
+      this.obj.hasBeenEdited() ? getEditString() : ""
     );
+
+    const token = PubSub.subscribe("BASE EDITED", () => {
+      p.textContent = getEditString();
+    });
+    this.pubSubTokens.push(token);
+
+    return p;
   }
 
   initBackBtn() {
