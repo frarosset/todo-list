@@ -153,6 +153,111 @@ body > main {
 }
 
 /* header */
+.project-div__header,
+.todo-div__header {
+  padding: var(--base-header-padding);
+  display: grid;
+  grid-template-columns: min-content 1fr min-content min-content;
+}
+
+.project-div__header {
+  grid-template-areas:
+    ". path path back-btn"
+    ". title title title"
+    ". description description description"
+    "tags tags . .";
+}
+
+.todo-div__header {
+  grid-template-areas:
+    ". path path back-btn"
+    "state title title imminence"
+    ". description description description"
+    ". tags tags ."
+    ". otherinfo otherinfo otherinfo";
+}
+
+.todo-div__back-btn,
+.project-div__back-btn {
+  grid-area: back-btn;
+  font-size: var(--base-back-btn-fontsize);
+  align-self: top;
+}
+
+.todo-div__path-ul,
+.project-div__path-ul {
+  grid-area: path;
+  font-size: var(--base-path-fontsize);
+  align-self: end;
+}
+
+.todo-div__title-h2,
+.project-div__title-h2 {
+  grid-area: title;
+  font-size: var(--title-h2-fontsize);
+  align-self: center;
+}
+
+.todo-div__description-p,
+.project-div__description-p {
+  grid-area: description;
+  font-size: var(--base-description-fontsize);
+}
+
+.todo-div__tags-ul,
+.project-div__tags-ul {
+  grid-area: tags;
+  font-size: var(--base-tags-fontsize);
+  margin: var(--base-header-tags-margin);
+}
+
+.project-div__tag-li,
+.todo-div__tag-li {
+  background-color: var(--base-tag-bg-color);
+  color: var(--base-tag-color);
+  padding: var(--base-tag-padding);
+  border-radius: var(--base-tag-radius);
+}
+
+.project-div__path-ul,
+.project-div__tags-ul,
+.todo-div__path-ul,
+.todo-div__tags-ul {
+  display: flex;
+  gap: var(--base-ul-gap);
+  flex-wrap: wrap;
+}
+
+.todo-div__state-btn {
+  grid-area: state;
+  font-size: var(--base-status-fontsize);
+  align-self: center;
+  margin-right: var(--base-status-margin-right);
+}
+
+.todo-div__imminence-icon {
+  grid-area: imminence;
+  font-size: var(--base-imminence-fontsize);
+  align-self: center;
+  justify-self: center;
+}
+
+.todo-div__other-infos-div {
+  grid-area: otherinfo;
+  font-size: var(--base-mini-other-info-fontsize);
+  margin: var(--base-header-other-info-margin);
+  padding: var(--base-header-other-info-padding);
+  border-top: 1px solid var(--otherinfo-line-color);
+}
+
+.todo-div__other-info-div {
+  display: flex;
+  gap: var(----base-ul-gap);
+}
+
+.todo-div__other-info-div-label {
+  width: var(--base-other-info-label-width);
+}
 
 /* main */
 
@@ -204,9 +309,9 @@ body > main {
   display: grid;
   grid-template-areas:
     ". path path"
-    "state imminence title"
+    "state title imminence"
     ". otherinfo otherinfo";
-  grid-template-columns: min-content min-content 1fr;
+  grid-template-columns: min-content 1fr min-content;
 }
 
 .todo-mini-div__state-btn {
@@ -230,6 +335,7 @@ body > main {
   font-size: var(--base-mini-title-fontsize);
   align-self: center;
 }
+
 .todo-mini-div__other-infos-div {
   grid-area: otherinfo;
   font-size: var(--base-mini-other-info-fontsize);
@@ -242,7 +348,14 @@ body > main {
 /* --------------------------------------------*/
 
 :root {
+  --title-h2-fontsize: 2rem;
   --title-h3-fontsize: 0.8rem;
+  --base-back-btn-fontsize: 1.8rem;
+  --base-status-fontsize: 2rem;
+  --base-path-fontsize: 0.8rem;
+  --base-description-fontsize: 1rem;
+  --base-tags-fontsize: 1rem;
+  --base-imminence-fontsize: 1.4rem;
   --base-mini-title-fontsize: 1rem;
   --base-mini-status-fontsize: 1.4rem;
   --base-mini-path-fontsize: 0.5rem;
@@ -252,50 +365,31 @@ body > main {
   --main-padding: 1rem;
   --todos-padding: 1rem;
   --todo-mini-padding: 0.5rem;
+  --base-header-padding: 0 0 2rem;
   --base-footer-padding: 1rem 0 0;
+  --base-header-other-info-padding: 0.5rem 0 0;
 
   --title-h3-margin-bottom: 1rem;
+  --base-status-margin-right: 0.3rem;
+  --base-header-tags-margin: 1rem 0 0;
+  --base-header-other-info-margin: 1rem 0 0;
   --base-mini-status-margin-right: 0.3rem;
+  --base-tag-padding: 0.2rem 0.4rem;
 
+  --base-other-info-label-width: 5em;
   --todos-gap: 0.5rem;
+  --base-ul-gap: 0.5rem;
 
   --todos-radius: 10px;
+  --base-tag-radius: 5px;
   --todo-mini-radius: 10px;
+
+  --otherinfo-line-color: var(--col-grey);
+  --base-tag-color: var(--col-txt-alt);
 
   --todos-bg-color: var(--col-grey);
   --todo-mini-bg-color: var(--col-white);
+  --base-tag-bg-color: var(--col-secondary);
 }
 
 /* --------------------------------------------*/
-
-.base-div__path-ul,
-.base-div__tags-ul,
-.project-div__path-ul,
-.project-div__tags-ul,
-.todo-div__path-ul,
-.todo-div__tags-ul {
-  display: flex;
-  gap: 0.5em;
-}
-
-.base-div__tag-li,
-.project-div__tag-li,
-.todo-div__tag-li {
-  background-color: var(--col-secondary);
-  color: var(--col-txt-alt);
-}
-
-.main-nav__btn-inbox,
-.main-nav__btn-custom-project,
-.project-div__todo-li {
-  cursor: pointer;
-}
-
-.todo-div__other-info-div {
-  display: flex;
-  gap: 0.5em;
-}
-
-.todo-div__other-info-div-label {
-  width: 5em;
-}
