@@ -4,6 +4,8 @@ import {
   initP,
 } from "../js-utilities/commonDomComponents.js";
 import baseDomComponent from "./baseDomComponent.js";
+import { changeChildFaIcon } from "../js-utilities/fontAwesomeUtilities.js";
+import PubSub from "pubsub-js";
 
 export default class todoDomComponent extends baseDomComponent {
   static blockName = "todo-div";
@@ -104,24 +106,43 @@ export default class todoDomComponent extends baseDomComponent {
   // Components initialization
 
   initStatusBtn() {
-    /* TODO: test + add buttons with callbacks */
     // The icon shows the state of the todo, the color shows the priority
+    const getTitleString = () =>
+      `${this.obj.state} (priority: ${this.obj.priority})`;
+    const getIcon = () => todoDomComponent.stateIcons[this.obj.stateIdx];
 
     // Init the button with the right icon
-    const iconBtn = initButton(
+    const statusBtn = initButton(
       this.getCssClass("stateBtn"),
-      () => {} /* todo */,
-      todoDomComponent.stateIcons[this.obj.stateIdx]
+      this.constructor.statusBtnCallback,
+      getIcon()
     );
 
+    statusBtn.todo = this.obj; // for callback
+
     // Set the color
-    iconBtn.style.color = todoDomComponent.priorityColors[this.obj.priorityIdx];
+    statusBtn.style.color =
+      todoDomComponent.priorityColors[this.obj.priorityIdx];
 
     // Set the tooltip when hovering
-    iconBtn.title = `${this.obj.state} (priority: ${this.obj.priority})`;
+    statusBtn.title = getTitleString();
 
-    return iconBtn;
+    // Subscribe to the change of the state change of a todo component, to update the interface
+    const token = PubSub.subscribe("TODO STATE CHANGE", () => {
+      changeChildFaIcon(statusBtn, getIcon());
+      statusBtn.title = getTitleString();
+    });
+    this.pubSubTokens.push(token);
+
+    return statusBtn;
   }
+
+  // callbacks
+  static statusBtnCallback = (e) => {
+    e.currentTarget.todo.toggleState();
+    // The update of the interface is handled through PubSub pattern
+    e.stopPropagation();
+  };
 
   initImminenceIcon() {
     // The icon shows the state of the todo, the color shows the priority
@@ -179,16 +200,25 @@ export default class todoDomComponent extends baseDomComponent {
   }
 
   initState(label = `State: `) {
+    const getString = () => `${this.obj.state}`;
+    const getColor = () => todoDomComponent.stateColors[this.obj.stateIdx];
+
     // Init the button with the right icon
     const [stateInfoDiv, , stateInfoContent] = this.initInfo(
       this.getCssClass("stateInfoDiv"),
       todoDomComponent.genericIcons.state,
       label,
-      `${this.obj.state}`
+      getString()
     );
 
-    stateInfoContent.style.color =
-      todoDomComponent.stateColors[this.obj.stateIdx];
+    stateInfoContent.style.color = getColor();
+
+    // Subscribe to the change of the state change of a todo component, to update the interface
+    const token = PubSub.subscribe("TODO STATE CHANGE", () => {
+      stateInfoContent.textContent = getString();
+      stateInfoContent.style.color = getColor();
+    });
+    this.pubSubTokens.push(token);
 
     return stateInfoDiv;
   }

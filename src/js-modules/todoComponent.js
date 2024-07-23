@@ -7,6 +7,7 @@ import {
 } from "date-fns";
 import { mod } from "../js-utilities/mathUtilities.js";
 import baseComponent from "./baseComponent.js";
+import PubSub from "pubsub-js";
 
 export default class todoComponent extends baseComponent {
   // the following default data are specific to todoComponent class
@@ -24,7 +25,7 @@ export default class todoComponent extends baseComponent {
   // todoDomComponent.imminenceIcons, and todoDomComponent.imminenceColor
   // if modified
   static priorityLabels = ["none", "low", "medium", "high"];
-  static stateLabels = ["todo", "wip", "done"];
+  static stateLabels = ["todo", "work in progress", "done"];
   static doneIdx = 2;
   static imminenceLabels = [
     "none",
@@ -124,6 +125,9 @@ export default class todoComponent extends baseComponent {
 
   set state(state) {
     this.data.state = this.validateState(state);
+
+    PubSub.publish("TODO STATE CHANGE");
+
     this.updateDateOfEdit();
   }
 

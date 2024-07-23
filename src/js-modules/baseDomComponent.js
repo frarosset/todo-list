@@ -47,6 +47,7 @@ export default class baseDomComponent {
 
   constructor(obj) {
     this.obj = obj;
+    this.pubSubTokens = []; // this keeps track of all the subscriptions in this component
     this.init();
   }
 
