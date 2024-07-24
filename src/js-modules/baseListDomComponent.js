@@ -45,11 +45,8 @@ export default class baseListDomComponent {
   addDomItem(item) {
     const li = initLiAsChildInList(this.ul, this.getCssClass("li"));
 
-    li.associatedItem = item;
     const itemDom = this.initItemDom(item);
     li.appendChild(itemDom.div);
-
-    li.addEventListener("click", this.constructor.btnRenderItemCallback);
 
     return li;
   }
@@ -69,9 +66,4 @@ export default class baseListDomComponent {
     //   this.obj.updateParentDateOfEdit();
     // }
   }
-
-  // callbacks
-  static btnRenderItemCallback = () => {
-    // dummy callback for the base component (to be redefined)
-  };
 }
