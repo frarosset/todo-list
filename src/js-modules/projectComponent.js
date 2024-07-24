@@ -27,8 +27,8 @@ export default class projectComponent extends baseComponent {
 
   // Getter methods
 
-  get todos() {
-    return this.data.todoList.list;
+  get todoList() {
+    return this.data.todoList;
   }
 
   // Methods related to #data.todos property
