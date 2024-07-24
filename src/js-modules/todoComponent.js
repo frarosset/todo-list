@@ -10,8 +10,6 @@ import baseComponent from "./baseComponent.js";
 import PubSub from "pubsub-js";
 
 export default class todoComponent extends baseComponent {
-  // the following default data are specific to todoComponent class
-  // and will be merged with baseComponent.defaultData in the constructor
   static defaultData = {
     ...baseComponent.defaultData,
     dueDate: null,

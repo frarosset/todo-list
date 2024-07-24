@@ -1,12 +1,10 @@
 import baseComponent from "./baseComponent.js";
-import todoComponent from "./todoComponent";
+import todoListComponent from "./todoListComponent.js";
 
 export default class projectComponent extends baseComponent {
-  // the following default data are specific to projectComponent class
-  // and will be merged with baseComponent.defaultData in the constructor
   static defaultData = {
     ...baseComponent.defaultData,
-    todos: [] /* array of todos */,
+    todoList: null /* array of todos */,
   };
 
   static nextId = 0;
@@ -16,45 +14,32 @@ export default class projectComponent extends baseComponent {
     // overwrite type
     this.type = "P";
 
-    // create any todo: TODO
-    if (this.data.todos.length == 0) {
-      this.data.todos = [];
+    if (this.data.todoList == null) {
+      this.data.todoList = new todoListComponent("Todos", this);
     }
   }
 
   print(dateFormat = projectComponent.dateFormat) {
     let str = this.printBaseInfo(dateFormat);
-    if (this.data.todos.length) {
-      str += `\n\n\t------------------------------------`;
-      this.data.todos.forEach((todo) => {
-        str += `\n\n${todo.print()}`;
-      });
-    }
+    str += this.data.todoList.print();
     return str;
   }
 
   // Getter methods
 
   get todos() {
-    return this.data.todos;
+    return this.data.todoList.list;
   }
 
   // Methods related to #data.todos property
 
   addTodo(data) {
-    const todo = new todoComponent(data, this);
-    this.data.todos.push(todo);
-    this.updateDateOfEdit();
-    return todo;
+    return this.data.todoList.addItem(data);
   }
 
   removeTodo(todo) {
     /* todo is a reference to a todo object */
-    const idx = this.data.todos.indexOf(todo);
-    if (idx >= 0) {
-      this.data.todos.splice(idx, 1);
-      this.updateDateOfEdit();
-    }
+    this.data.todoList.removeItem(todo);
   }
 
   /* note: a todo, when modified, must call this.updateDateOfEdit(), too */
