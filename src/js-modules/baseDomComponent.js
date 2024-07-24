@@ -187,5 +187,6 @@ export default class baseDomComponent {
   // callbacks
   static renderObjCallback = (e) => {
     document.body.mainDomObj.renderGeneric(e.currentTarget.objToRender);
+    e.stopPropagation();
   };
 }

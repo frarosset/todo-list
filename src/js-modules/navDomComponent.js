@@ -88,5 +88,6 @@ export default class navDomComponent {
   // callbacks
   static btnRenderProjectCallback = (e) => {
     document.body.mainDomObj.renderProject(e.target.associatedProject);
+    e.stopPropagation();
   };
 }

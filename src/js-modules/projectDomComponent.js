@@ -61,5 +61,6 @@ export default class projectDomComponent extends baseDomComponent {
   // callbacks
   static btnRenderTodoCallback = (e) => {
     document.body.mainDomObj.renderTodo(e.currentTarget.associatedTodo);
+    e.stopPropagation();
   };
 }
