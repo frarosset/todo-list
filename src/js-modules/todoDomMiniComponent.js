@@ -1,8 +1,13 @@
-import { initDiv } from "../js-utilities/commonDomComponents.js";
+import { initDiv, initButton } from "../js-utilities/commonDomComponents.js";
 import todoDomComponent from "./todoDomComponent.js";
+import { uiIcons } from "./uiIcons.js";
 
 export default class todoDomMiniComponent extends todoDomComponent {
   static blockName = "todo-mini-div";
+  static cssClass = {
+    ...todoDomComponent.cssClass,
+    expandBtn: `expand-btn`,
+  };
 
   constructor(obj) {
     super(obj);
@@ -12,6 +17,7 @@ export default class todoDomMiniComponent extends todoDomComponent {
   init() {
     this.div = initDiv(this.constructor.blockName);
 
+    this.div.prepend(this.initExpandBtn());
     this.div.appendChild(this.initStatusBtn());
     this.div.appendChild(this.initImminenceIcon());
     this.div.appendChild(this.initPath());
@@ -30,4 +36,19 @@ export default class todoDomMiniComponent extends todoDomComponent {
   }
 
   // Components initialization
+  initExpandBtn() {
+    const expandBtn = initButton(
+      this.getCssClass("expandBtn"),
+      this.constructor.btnRenderTodoCallback,
+      uiIcons.expand
+    );
+    expandBtn.associatedTodo = this.obj;
+    return expandBtn;
+  }
+
+  // callbacks
+  static btnRenderTodoCallback = (e) => {
+    document.body.mainDomObj.renderTodo(e.currentTarget.associatedTodo);
+    e.stopPropagation();
+  };
 }

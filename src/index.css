@@ -310,10 +310,10 @@ body > main {
   background: var(--todo-mini-bg-color);
   display: grid;
   grid-template-areas:
-    ". path path"
-    "state title imminence"
-    ". otherinfo otherinfo";
-  grid-template-columns: min-content 1fr min-content;
+    ". path path  expand-btn"
+    "state title imminence ."
+    ". otherinfo otherinfo .";
+  grid-template-columns: min-content 1fr min-content min-content;
 }
 
 .todo-mini-div__state-btn {
@@ -332,6 +332,12 @@ body > main {
   grid-area: path;
   font-size: var(--base-mini-path-fontsize);
 }
+
+.todo-mini-div__expand-btn {
+  grid-area: expand-btn;
+  font-size: var(--base-mini-path-fontsize); /* use same size as path */
+}
+
 .todo-mini-div__title-h2 {
   grid-area: title;
   font-size: var(--base-mini-title-fontsize);
