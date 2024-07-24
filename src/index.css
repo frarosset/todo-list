@@ -198,6 +198,13 @@ body > main {
   align-self: center;
 }
 
+.project-div__title-h2,
+.todo-mini-div__title-h2,
+.todo-div__title-h2 {
+  color: var(--title-h2-color);
+  text-decoration-color: var(--title-h2-decoration-color);
+}
+
 .todo-div__description-p,
 .project-div__description-p {
   grid-area: description;
@@ -381,6 +388,8 @@ body > main {
 
   --otherinfo-line-color: var(--col-grey);
   --base-tag-color: var(--col-txt-alt);
+  --title-h2-color: var(--col-txt);
+  --title-h2-decoration-color: var(--col-secondary);
 
   --todos-bg-color: var(--col-grey);
   --todo-mini-bg-color: var(--col-white);

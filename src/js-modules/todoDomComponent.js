@@ -2,6 +2,7 @@ import {
   initDiv,
   initButton,
   initP,
+  initH2,
 } from "../js-utilities/commonDomComponents.js";
 import baseDomComponent from "./baseDomComponent.js";
 import { changeChildFaIcon } from "../js-utilities/fontAwesomeUtilities.js";
@@ -33,6 +34,11 @@ export default class todoDomComponent extends baseDomComponent {
     { prefix: "regular", icon: "circle" }, //"todo"
     { prefix: "regular", icon: "circle-dot" }, //"wip"
     { prefix: "solid", icon: "circle-check" }, //"done"
+  ];
+  static titleH2TextDecorationByState = [
+    "none", //"todo"
+    "none", //"wip"
+    "line-through", //"done"
   ];
   // see the correspondence in todoComponent.priorityLabels
   static priorityColors = [
@@ -135,6 +141,25 @@ export default class todoDomComponent extends baseDomComponent {
     });
 
     return statusBtn;
+  }
+
+  // Overwrite the following method in the todo class, to show custom style
+  initTitle() {
+    const getTitleH2TextDecorationByState = () =>
+      todoDomComponent.titleH2TextDecorationByState[this.obj.stateIdx];
+
+    const h2 = initH2(this.getCssClass("titleH2"), null, this.obj.title);
+
+    // Set the tooltip when hovering
+    h2.style.textDecorationLine = getTitleH2TextDecorationByState();
+
+    // Subscribe to the change of the state change of a todo component, to update the interface
+    PubSub.subscribe(this.getPubSubName("STATE CHANGE", "main"), (msg) => {
+      console.log(msg);
+      h2.style.textDecorationLine = getTitleH2TextDecorationByState();
+    });
+
+    return h2;
   }
 
   // callbacks
