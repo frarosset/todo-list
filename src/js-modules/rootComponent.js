@@ -1,8 +1,9 @@
 import projectComponent from "./projectComponent";
+import projectListComponent from "./projectListComponent.js";
 
 export default class rootComponent {
   #inboxProject;
-  #customProjects;
+  #customProjectsList;
 
   static dateFormat = "yyyy-MM-dd HH:mm:ss.SSS";
 
@@ -11,7 +12,7 @@ export default class rootComponent {
     this.#inboxProject = new projectComponent({ title: "Inbox" });
 
     // Custom projects list
-    this.#customProjects = [];
+    this.#customProjectsList = new projectListComponent("Projects", null);
   }
 
   // Getter methods
@@ -20,22 +21,17 @@ export default class rootComponent {
   }
 
   get customProjects() {
-    return this.#customProjects;
+    return this.#customProjectsList.list;
   }
 
   // Add / remove custom project
 
   addProject(data) {
-    const project = new projectComponent(data, null);
-    this.customProjects.push(project);
-    return project;
+    return this.#customProjectsList.addItem(data);
   }
 
   removeProject(project) {
-    const idx = this.customProjects.indexOf(project);
-    if (idx >= 0) {
-      this.customProjects.splice(idx, 1);
-    }
+    this.#customProjectsList.removeItem(project);
   }
 
   // print functions
@@ -45,10 +41,7 @@ export default class rootComponent {
     str += `\n${this.inboxProject.print(dateFormat)}`;
 
     str += "\n### PROJECTS ############################################";
-    this.customProjects.forEach((proj) => {
-      str += `\n\n${proj.print(dateFormat)}`;
-      str += "\n_________________________________________________________";
-    });
+    str += this.#customProjectsList.print();
 
     return str;
   }
