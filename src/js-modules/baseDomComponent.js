@@ -8,6 +8,7 @@ import {
 } from "../js-utilities/commonDomComponents.js";
 import { isToday, isThisYear } from "date-fns";
 import PubSub from "pubsub-js";
+import { uiIcons } from "./uiIcons.js";
 
 export default class baseDomComponent {
   static blockName = "base-div";
@@ -31,10 +32,6 @@ export default class baseDomComponent {
   getCssClass(element) {
     return `${this.constructor.blockName}__${this.constructor.cssClass[element]}`;
   }
-
-  static genericIcons = {
-    back: { prefix: "solid", icon: "xmark" },
-  };
 
   static dateFormatFcn = (date) => {
     if (isToday(date)) {
@@ -178,7 +175,7 @@ export default class baseDomComponent {
     const backBtn = initButton(
       this.getCssClass("backBtn"),
       baseDomComponent.renderObjCallback,
-      baseDomComponent.genericIcons.back
+      uiIcons.back
     );
     backBtn.objToRender = this.obj.parent;
     return backBtn;

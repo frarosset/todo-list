@@ -73,7 +73,7 @@ export default class todoDomComponent extends baseDomComponent {
     todoDomComponent.colors.red, //"expired"
   ];
 
-  static genericIcons = {
+  static otherInfoIcons = {
     dueDate: { prefix: "solid", icon: "calendar-day" },
     priority: { prefix: "solid", icon: "flag" },
     state: { prefix: "solid", icon: "list-check" },
@@ -194,7 +194,7 @@ export default class todoDomComponent extends baseDomComponent {
     // Init the button with the right icon
     const [dueDateInfoDiv, , dueDateInfoContent] = this.initInfo(
       this.getCssClass("dueDateInfoDiv"),
-      todoDomComponent.genericIcons.dueDate,
+      todoDomComponent.otherInfoIcons.dueDate,
       label,
       `${this.obj.dueDateFormattedRelative().split(/ at /)[0]}`
     );
@@ -213,7 +213,7 @@ export default class todoDomComponent extends baseDomComponent {
     // Init the button with the right icon
     const [priorityInfoDiv, , priorityInfoContent] = this.initInfo(
       this.getCssClass("priorityInfoDiv"),
-      todoDomComponent.genericIcons.priority,
+      todoDomComponent.otherInfoIcons.priority,
       label,
       `${this.obj.priority}`
     );
@@ -231,7 +231,7 @@ export default class todoDomComponent extends baseDomComponent {
     // Init the button with the right icon
     const [stateInfoDiv, , stateInfoContent] = this.initInfo(
       this.getCssClass("stateInfoDiv"),
-      todoDomComponent.genericIcons.state,
+      todoDomComponent.otherInfoIcons.state,
       label,
       getString()
     );
