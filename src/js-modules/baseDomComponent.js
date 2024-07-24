@@ -46,9 +46,12 @@ export default class baseDomComponent {
     }
   };
 
+  getPubSubName(str, topic = null) {
+    return this.obj.getPubSubName(str, topic);
+  }
+
   constructor(obj) {
     this.obj = obj;
-    this.pubSubTokens = []; // this keeps track of all the subscriptions in this component
     this.init();
   }
 
@@ -163,10 +166,10 @@ export default class baseDomComponent {
       this.obj.hasBeenEdited() ? getEditString() : ""
     );
 
-    const token = PubSub.subscribe("BASE EDITED", () => {
+    PubSub.subscribe(this.getPubSubName("EDITED", "main"), (msg) => {
+      console.log(msg);
       p.textContent = getEditString();
     });
-    this.pubSubTokens.push(token);
 
     return p;
   }

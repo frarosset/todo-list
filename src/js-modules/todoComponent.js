@@ -126,7 +126,7 @@ export default class todoComponent extends baseComponent {
   set state(state) {
     this.data.state = this.validateState(state);
 
-    PubSub.publish("TODO STATE CHANGE");
+    PubSub.publish(this.getPubSubName("STATE CHANGE", "main"));
 
     this.updateDateOfEdit();
   }

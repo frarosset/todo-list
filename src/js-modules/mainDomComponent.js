@@ -1,6 +1,7 @@
 import projectDomComponent from "./projectDomComponent.js";
 import todoDomComponent from "./todoDomComponent.js";
 import { resetContent } from "../js-utilities/commonDomUtilities.js";
+import PubSub from "pubsub-js";
 
 export default class mainDomComponent {
   constructor() {
@@ -10,7 +11,13 @@ export default class mainDomComponent {
 
   // helper methods
   #clearMainContent() {
+    this.#resetPubSubTokens();
     resetContent(this.main);
+  }
+
+  #resetPubSubTokens() {
+    // unsubscribe from all the subscription in the 'main' topic
+    PubSub.unsubscribe("main:");
   }
 
   // Render methods

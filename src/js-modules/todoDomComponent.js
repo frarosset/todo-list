@@ -128,11 +128,11 @@ export default class todoDomComponent extends baseDomComponent {
     statusBtn.title = getTitleString();
 
     // Subscribe to the change of the state change of a todo component, to update the interface
-    const token = PubSub.subscribe("TODO STATE CHANGE", () => {
+    PubSub.subscribe(this.getPubSubName("STATE CHANGE", "main"), (msg) => {
+      console.log(msg);
       changeChildFaIcon(statusBtn, getIcon());
       statusBtn.title = getTitleString();
     });
-    this.pubSubTokens.push(token);
 
     return statusBtn;
   }
@@ -214,11 +214,11 @@ export default class todoDomComponent extends baseDomComponent {
     stateInfoContent.style.color = getColor();
 
     // Subscribe to the change of the state change of a todo component, to update the interface
-    const token = PubSub.subscribe("TODO STATE CHANGE", () => {
+    PubSub.subscribe(this.getPubSubName("STATE CHANGE", "main"), (msg) => {
+      console.log(msg);
       stateInfoContent.textContent = getString();
       stateInfoContent.style.color = getColor();
     });
-    this.pubSubTokens.push(token);
 
     return stateInfoDiv;
   }

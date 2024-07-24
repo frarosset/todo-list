@@ -15,6 +15,11 @@ export default class baseComponent {
   static nextId = 0;
   static dateFormat = "yyyy-MM-dd HH:mm:ss.SSS";
 
+  getPubSubName(str, topic = null) {
+    const topicStr = topic ? `${topic}:` : "";
+    return `${topicStr}${this.type}${this.id} ${str}`;
+  }
+
   constructor(data, parent = null) {
     this.data = Object.assign({}, this.constructor.defaultData, data);
 
@@ -112,7 +117,7 @@ export default class baseComponent {
     }
 
     // publish the 'BASE EDITED' only once, when you finish traversing the chain
-    PubSub.publish("BASE EDITED");
+    PubSub.publish(this.getPubSubName("EDITED", "main"));
   }
 
   set title(title) {
