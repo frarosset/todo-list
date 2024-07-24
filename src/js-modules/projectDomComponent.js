@@ -14,11 +14,11 @@ export default class projectDomComponent extends baseDomComponent {
 
     this.div.appendChild(this.initHeader());
 
-    this.main = this.initMain();
-    this.div.appendChild(this.main);
+    this.content = this.initContent();
+    this.div.appendChild(this.content);
 
     const todoListDom = new todoListDomComponent(this.obj.todoList);
-    this.main.appendChild(todoListDom.div);
+    this.content.appendChild(todoListDom.div);
 
     this.div.appendChild(this.initFooter());
   }

@@ -92,8 +92,8 @@ export default class todoDomComponent extends baseDomComponent {
     this.header.prepend(this.initStatusBtn());
     this.header.append(this.initOtherInfo());
 
-    this.main = this.initMain();
-    this.div.appendChild(this.main);
+    this.content = this.initContent();
+    this.div.appendChild(this.content);
 
     this.div.appendChild(this.initFooter());
   }

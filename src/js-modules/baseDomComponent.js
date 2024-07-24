@@ -15,7 +15,7 @@ export default class baseDomComponent {
 
   static cssClass = {
     header: `header`,
-    main: `main`,
+    content: `content`,
     footer: `footer`,
     pathUl: `path-ul`,
     pathLi: `path-li`,
@@ -56,7 +56,7 @@ export default class baseDomComponent {
   init(dateFormatFcn = baseDomComponent.dateFormatFcn) {
     this.div = initDiv(this.constructor.blockName);
     this.div.appendChild(this.initHeader());
-    this.div.appendChild(this.initMain());
+    this.div.appendChild(this.initContent());
     this.div.appendChild(this.initFooter(dateFormatFcn));
   }
 
@@ -74,10 +74,9 @@ export default class baseDomComponent {
     return header;
   }
 
-  initMain() {
-    const main = document.createElement("main");
-    main.classList.add(this.getCssClass("main"));
-    return main;
+  initContent() {
+    const contentDiv = initDiv(this.getCssClass("content"));
+    return contentDiv;
   }
 
   initFooter(dateFormatFcn = baseDomComponent.dateFormatFcn) {
