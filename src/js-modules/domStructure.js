@@ -5,7 +5,7 @@ import setCreditFooter from "../js-utilities/creditFooter.js";
 export default class domStructure {
   constructor(root) {
     const headerDomObj = new headerDomComponent(root);
-    const mainDomObj = new mainDomComponent();
+    const mainDomObj = new mainDomComponent(root);
     document.body.mainDomObj = mainDomObj;
 
     document.body.appendChild(headerDomObj.header);

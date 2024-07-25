@@ -1,11 +1,13 @@
 import projectDomComponent from "./projectDomComponent.js";
 import todoDomComponent from "./todoDomComponent.js";
+import homeDomComponent from "./homeDomComponent.js";
 import { resetContent } from "../js-utilities/commonDomUtilities.js";
 import PubSub from "pubsub-js";
 
 export default class mainDomComponent {
-  constructor() {
+  constructor(root) {
     this.main = document.createElement("main");
+    this.root = root;
     this.renderHome();
   }
 
@@ -34,9 +36,9 @@ export default class mainDomComponent {
   }
 
   renderHome() {
-    // todo
     this.#clearMainContent();
-    this.main.textContent = "HOME (todo)";
+    const homeDomObj = new homeDomComponent(this.root);
+    this.main.append(homeDomObj.div);
   }
 
   renderGeneric(obj) {
