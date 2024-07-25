@@ -20,7 +20,12 @@ export default class rootComponent {
     return this.#inboxProject;
   }
 
+  get customProjectsList() {
+    return this.#customProjectsList;
+  }
+
   get customProjects() {
+    // todo remove
     return this.#customProjectsList.list;
   }
 
