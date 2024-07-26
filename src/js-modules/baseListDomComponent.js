@@ -125,8 +125,9 @@ export default class baseListDomComponent {
     changeChildFaIcon(e.currentTarget, nowHidden ? uiIcons.show : uiIcons.hide);
   }
 
-  static addNewItem(e) {
-    console.log(e.currentTarget.list);
+  static addNewItem() {
+    // reset form //tofix
+    document.body.projectFormDialog.dialog.showModal(); //tofix
 
     // open dialog with form to add new item
     //   - exit
