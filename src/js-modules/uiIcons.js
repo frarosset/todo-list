@@ -5,4 +5,6 @@ export const uiIcons = {
   edit: { prefix: "solid", icon: "pen-to-square" },
   delete: { prefix: "solid", icon: "trash" },
   home: { prefix: "solid", icon: "house" },
+  show: { prefix: "solid", icon: "caret-down" },
+  hide: { prefix: "solid", icon: "caret-up" },
 };

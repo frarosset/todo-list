@@ -134,6 +134,10 @@ button {
   cursor: pointer;
 }
 
+.hidden {
+  display: none !important;
+}
+
 /* Custom style */
 body > header {
   background-color: var(--header-bg-col);

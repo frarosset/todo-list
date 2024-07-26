@@ -3,8 +3,11 @@ import {
   initLiAsChildInList,
   initDiv,
   initH3,
+  initButton,
 } from "../js-utilities/commonDomComponents.js";
 import baseDomComponent from "./baseDomComponent.js";
+import { changeChildFaIcon } from "../js-utilities/fontAwesomeUtilities.js";
+import { uiIcons } from "./uiIcons.js";
 
 export default class baseListDomComponent {
   static blockName = "base-list-div";
@@ -32,15 +35,49 @@ export default class baseListDomComponent {
   init() {
     this.div = initDiv(this.constructor.blockName);
 
-    this.div.appendChild(
-      initH3(this.getCssClass("titleH3"), null, this.obj.name)
-    );
+    this.ul = this.initUl();
 
-    this.ul = initUl(this.getCssClass("ul"));
+    this.div.appendChild(this.initHeader(this.ul));
     this.div.appendChild(this.ul);
 
     this.addMultipleDomItems(this.obj.list);
   }
+
+  /* Blocks */
+
+  initHeader(ul) {
+    const header = document.createElement("header");
+    header.classList.add(this.getCssClass("header"));
+
+    header.appendChild(this.initName());
+    header.appendChild(this.initExpandBtn(ul));
+
+    return header;
+  }
+
+  initUl() {
+    const ul = initUl(this.getCssClass("ul"));
+    return ul;
+  }
+
+  /* Components */
+
+  initName() {
+    return initH3(this.getCssClass("titleH3"), null, this.obj.name);
+  }
+
+  initExpandBtn(ul) {
+    const expandBtn = initButton(
+      this.getCssClass("newBtn"),
+      baseListDomComponent.toggleVisibility,
+      uiIcons.hide
+    );
+    expandBtn.ul = ul;
+
+    return expandBtn;
+  }
+
+  /* Add / remove items */
 
   addDomItem(item) {
     const li = initLiAsChildInList(this.ul, this.getCssClass("li"));
@@ -65,5 +102,11 @@ export default class baseListDomComponent {
     //   this.obj.list.splice(idx, 1);
     //   this.obj.updateParentDateOfEdit();
     // }
+  }
+
+  static toggleVisibility(e) {
+    const nowHidden = e.currentTarget.ul.classList.toggle("hidden");
+
+    changeChildFaIcon(e.currentTarget, nowHidden ? uiIcons.show : uiIcons.hide);
   }
 }
