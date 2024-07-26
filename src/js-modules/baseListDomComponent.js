@@ -15,6 +15,8 @@ export default class baseListDomComponent {
     titleH3: `title-h3`,
     ul: `ul`,
     li: `li`,
+    newItemBtn: "new-item-btn",
+    expandBtn: "expand-btn",
   };
 
   getCssClass(element) {
@@ -50,6 +52,7 @@ export default class baseListDomComponent {
     header.classList.add(this.getCssClass("header"));
 
     header.appendChild(this.initName());
+    header.appendChild(this.initNewItemBtn());
     header.appendChild(this.initExpandBtn(ul));
 
     return header;
@@ -68,13 +71,24 @@ export default class baseListDomComponent {
 
   initExpandBtn(ul) {
     const expandBtn = initButton(
-      this.getCssClass("newBtn"),
+      this.getCssClass("expandBtn"),
       baseListDomComponent.toggleVisibility,
       uiIcons.hide
     );
     expandBtn.ul = ul;
 
     return expandBtn;
+  }
+
+  initNewItemBtn() {
+    const newItemBtn = initButton(
+      this.getCssClass("newItemBtn"),
+      baseListDomComponent.addNewItem,
+      uiIcons.new
+    );
+    newItemBtn.list = this;
+
+    return newItemBtn;
   }
 
   /* Add / remove items */
@@ -108,5 +122,15 @@ export default class baseListDomComponent {
     const nowHidden = e.currentTarget.ul.classList.toggle("hidden");
 
     changeChildFaIcon(e.currentTarget, nowHidden ? uiIcons.show : uiIcons.hide);
+  }
+
+  static addNewItem(e) {
+    console.log(e.currentTarget.list);
+
+    // open dialog with form to add new item
+    //   - exit
+    //   - get form data
+    //      create new object
+    //        add new item to list
   }
 }
