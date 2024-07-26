@@ -13,6 +13,7 @@ export default class baseListDomComponent {
   static blockName = "base-list-div";
   static cssClass = {
     titleH3: `title-h3`,
+    header: "header",
     ul: `ul`,
     li: `li`,
     newItemBtn: "new-item-btn",

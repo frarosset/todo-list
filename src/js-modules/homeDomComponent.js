@@ -32,7 +32,7 @@ export default class homeDomComponent {
     const header = document.createElement("header");
     header.classList.add(this.getCssClass("header"));
 
-    const path = initP(this.getCssClass("path"), uiIcons.home, "", ` \\`);
+    const path = initP(this.getCssClass("path"), uiIcons.home, "", "");
     const h2 = initH2(this.getCssClass("titleH2"), null, "Home");
 
     header.appendChild(path);
