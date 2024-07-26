@@ -266,16 +266,11 @@ body > main {
   width: var(--base-other-info-label-width);
 }
 
-/* main */
+/* content (of  project/todo div ) */
 
-.project-div__main,
-.todo-div__main {
+.project-div__content,
+.todo-div__content {
   flex: 1;
-}
-
-.todo-list-div__title-h3 {
-  font-size: var(--title-h3-fontsize);
-  margin-bottom: var(--title-h3-margin-bottom);
 }
 
 /* footer */
@@ -288,26 +283,51 @@ body > main {
   padding: var(--base-footer-padding);
 }
 
-/* todo list */
+/* project/todo list */
 
+.project-list-div,
 .todo-list-div {
-  background-color: var(--todos-bg-color);
-  border-radius: var(--todos-radius);
-  padding: var(--todos-padding);
+  background-color: var(--base-list-bg-color);
+  border-radius: var(--base-list-radius);
+  padding: var(--base-list-padding);
 }
 
+.project-list-div__title-h3,
+.todo-list-div__title-h3 {
+  font-size: var(--title-h3-fontsize);
+  margin-bottom: var(--title-h3-margin-bottom);
+}
+
+.project-list-div__ul,
 .todo-list-div__ul {
   display: flex;
   flex-direction: column;
-  gap: var(--todos-gap);
+  gap: var(--base-list-gap);
 }
 
 /* todo mini view */
+.project-mini-div,
+.project-mini-nav-div,
 .todo-mini-div {
-  padding: var(--todo-mini-padding);
-  border-radius: var(--todo-mini-radius);
-  background: var(--todo-mini-bg-color);
+  padding: var(--base-mini-padding);
+  border-radius: var(--base-mini-radius);
+  background: var(--base-mini-bg-color);
   display: grid;
+}
+
+.project-mini-div {
+  grid-template-areas:
+    "path expand-btn"
+    "title  .";
+  grid-template-columns: 1fr min-content;
+}
+
+.project-mini-nav-div {
+  grid-template-areas: "title";
+  grid-template-columns: 1fr;
+}
+
+.todo-mini-div {
   grid-template-areas:
     ". path path  expand-btn"
     "state title imminence ."
@@ -327,16 +347,20 @@ body > main {
   align-self: center;
 }
 
+.project-mini-div__path-ul,
 .todo-mini-div__path-ul {
   grid-area: path;
   font-size: var(--base-mini-path-fontsize);
 }
 
+.project-mini-div__expand-btn,
 .todo-mini-div__expand-btn {
   grid-area: expand-btn;
   font-size: var(--base-mini-path-fontsize); /* use same size as path */
 }
 
+.project-mini-div__title-h2,
+.project-mini-nav-div__title-h2,
 .todo-mini-div__title-h2 {
   grid-area: title;
   font-size: var(--base-mini-title-fontsize);
@@ -354,6 +378,8 @@ body > main {
 
 /* --------------------------------------------*/
 
+/* HOME PAGE */
+
 :root {
   --title-h2-fontsize: 2rem;
   --title-h3-fontsize: 0.8rem;
@@ -370,8 +396,8 @@ body > main {
   --base-footer-fontsize: 0.5rem;
 
   --main-padding: 1rem;
-  --todos-padding: 1rem;
-  --todo-mini-padding: 0.5rem;
+  --base-list-padding: 1rem;
+  --base-mini-padding: 0.5rem;
   --base-header-padding: 0 0 2rem;
   --base-footer-padding: 1rem 0 0;
   --base-header-other-info-padding: 0.5rem 0 0;
@@ -384,20 +410,20 @@ body > main {
   --base-tag-padding: 0.2rem 0.4rem;
 
   --base-other-info-label-width: 5em;
-  --todos-gap: 0.5rem;
+  --base-list-gap: 0.5rem;
   --base-ul-gap: 0.5rem;
 
-  --todos-radius: 10px;
+  --base-list-radius: 10px;
   --base-tag-radius: 5px;
-  --todo-mini-radius: 10px;
+  --base-mini-radius: 10px;
 
   --otherinfo-line-color: var(--col-grey);
   --base-tag-color: var(--col-txt-alt);
   --title-h2-color: var(--col-txt);
   --title-h2-decoration-color: var(--col-secondary);
 
-  --todos-bg-color: var(--col-grey);
-  --todo-mini-bg-color: var(--col-white);
+  --base-list-bg-color: var(--col-grey);
+  --base-mini-bg-color: var(--col-white);
   --base-tag-bg-color: var(--col-secondary);
 }
 
