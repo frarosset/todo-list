@@ -90,7 +90,6 @@ export default class baseDomComponent {
   // Components initialization
 
   initPath() {
-    /* TODO: test + add buttons with callbacks */
     const ul = initUl(this.getCssClass("pathUl"));
 
     let obj = this.obj.parent;
@@ -114,6 +113,18 @@ export default class baseDomComponent {
 
       obj = obj.parent;
     }
+
+    // Add link to home page
+    const li = initLiAsChildInList(ul, this.getCssClass("pathLi"), null, ` \\`);
+
+    const btn = initButton(
+      this.getCssClass("pathBtn"),
+      baseDomComponent.renderObjCallback,
+      uiIcons.home
+    );
+    btn.objToRender = null;
+
+    li.prepend(btn);
 
     return ul;
   }
