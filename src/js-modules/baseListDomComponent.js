@@ -20,6 +20,8 @@ export default class baseListDomComponent {
     expandBtn: "expand-btn",
   };
 
+  static associatedDialog = () => null; // method to fetch the dialog after its creation
+
   getCssClass(element) {
     return `${this.constructor.blockName}__${this.constructor.cssClass[element]}`;
   }
@@ -87,7 +89,7 @@ export default class baseListDomComponent {
       baseListDomComponent.addNewItem,
       uiIcons.new
     );
-    newItemBtn.list = this;
+    newItemBtn.associatedDialog = this.constructor.associatedDialog;
 
     return newItemBtn;
   }
@@ -125,9 +127,12 @@ export default class baseListDomComponent {
     changeChildFaIcon(e.currentTarget, nowHidden ? uiIcons.show : uiIcons.hide);
   }
 
-  static addNewItem() {
-    // reset form //tofix
-    document.body.projectFormDialog.dialog.showModal(); //tofix
+  static addNewItem(e) {
+    const associatedDialog = e.currentTarget.associatedDialog();
+    if (associatedDialog != null) {
+      // reset form //tofix
+      associatedDialog.dialog.showModal();
+    }
 
     // open dialog with form to add new item
     //   - exit
