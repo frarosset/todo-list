@@ -325,6 +325,7 @@ body > main {
 .project-mini-nav-div {
   grid-template-areas: "title";
   grid-template-columns: 1fr;
+  cursor: pointer;
 }
 
 .todo-mini-div {
@@ -380,6 +381,48 @@ body > main {
 
 /* HOME PAGE */
 
+.home-div__header {
+  padding: var(--base-header-padding);
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows:
+    calc(var(--base-back-btn-fontsize) * var(--txt-lineheight))
+    /* to align with .todo-div__header and .project-div__header*/
+    min-content;
+  grid-template-areas:
+    "path"
+    "title";
+}
+
+.home-div__path {
+  grid-area: path;
+  font-size: var(--base-path-fontsize);
+  align-self: end;
+}
+
+.home-div__title-h2 {
+  grid-area: title;
+  font-size: var(--title-h2-fontsize);
+  align-self: center;
+}
+
+.home-div__content {
+  display: grid;
+  gap: var(--home-content-gap);
+}
+
+.home-div__content .project-mini-nav-div {
+  color: var(--home-project-mini-nav-color);
+  background-color: var(--home-project-mini-nav-bg-color);
+  padding-left: var(--base-list-padding); /* to align with .project-list-div */
+}
+
+/* Adjust home icon */
+.home-div__path:first-child svg {
+  color: var(--col-accent);
+  vertical-align: top;
+}
+
 :root {
   --title-h2-fontsize: 2rem;
   --title-h3-fontsize: 0.8rem;
@@ -412,16 +455,19 @@ body > main {
   --base-other-info-label-width: 5em;
   --base-list-gap: 0.5rem;
   --base-ul-gap: 0.5rem;
+  --home-content-gap: 1rem;
 
   --base-list-radius: 10px;
   --base-tag-radius: 5px;
   --base-mini-radius: 10px;
 
+  --home-project-mini-nav-color: var(--col-txt);
   --otherinfo-line-color: var(--col-grey);
   --base-tag-color: var(--col-txt-alt);
   --title-h2-color: var(--col-txt);
   --title-h2-decoration-color: var(--col-secondary);
 
+  --home-project-mini-nav-bg-color: var(--col-accent);
   --base-list-bg-color: var(--col-grey);
   --base-mini-bg-color: var(--col-white);
   --base-tag-bg-color: var(--col-secondary);
