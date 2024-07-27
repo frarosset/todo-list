@@ -132,6 +132,7 @@ button {
   border: none;
   background-color: inherit;
   cursor: pointer;
+  user-select: none;
 }
 
 .hidden {

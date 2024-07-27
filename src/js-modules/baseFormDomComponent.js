@@ -72,7 +72,8 @@ export default class baseFormDomComponent {
   initContent() {
     const contentDiv = initDiv(this.getCssClass("content"));
 
-    contentDiv.appendChild(this.initForm());
+    this.form = this.initForm();
+    contentDiv.appendChild(this.form);
     contentDiv.appendChild(this.initSubmitBtn());
 
     return contentDiv;
@@ -107,13 +108,14 @@ export default class baseFormDomComponent {
   initSubmitBtn() {
     const submitBtn = initButton(
       this.getCssClass("submitBtn"),
-      () => this.dialog.close(), // todo
+      null,
       null,
       "Submit",
       "",
       "submit" //type
     );
-    submitBtn.for = this.getCssId("form");
+
+    submitBtn.setAttribute("form", this.getCssId("form"));
 
     return submitBtn;
   }
@@ -122,6 +124,7 @@ export default class baseFormDomComponent {
     const form = document.createElement("form");
     form.classList.add(this.getCssClass("form"));
     form.id = this.getCssId("form");
+    form.method = "dialog";
 
     this.input = {};
 
@@ -136,8 +139,34 @@ export default class baseFormDomComponent {
     form.appendChild(this.input.description);
     form.appendChild(tagsList);
 
+    form.addEventListener("submit", () => {
+      console.log("submitted");
+      // Get the data object
+      // todo
+      // Publish PubSub token to handle the data
+      //todo
+
+      // Clear the form
+      this.resetForm();
+    });
+
     return form;
   }
+
+  /* Data and submit */
+
+  resetForm() {
+    this.form.reset();
+
+    // reset the tags editor
+    this.input.tags.clear();
+    // do not delete the first children of this.tagsList (it is the newTag button)
+    const tagsListChildren = [...this.tagsList.children];
+    const liTags = tagsListChildren.splice(1, tagsListChildren.length - 1);
+    liTags.forEach((li) => deleteElement(li));
+  }
+
+  /* init input elements */
 
   initTitleInput() {
     const titleInput = initInput(
@@ -252,6 +281,8 @@ export default class baseFormDomComponent {
     li.appendChild(hiddenSpan);
     li.appendChild(tagInput);
     li.appendChild(deleteTagBtn);
+
+    tagInput.focus();
   }
 
   canAddTag() {
