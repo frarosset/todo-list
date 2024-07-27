@@ -133,7 +133,6 @@ export default class baseFormDomComponent {
 
     const tagsList = this.initTagsList();
     this.tagsList = tagsList;
-    this.input.tags = new Set(); /* to avoid duplicated tags*/
 
     form.appendChild(this.input.title);
     form.appendChild(this.input.description);
@@ -205,6 +204,9 @@ export default class baseFormDomComponent {
 
     const newTag = this.initNewTagButton();
     tagsList.appendChild(newTag);
+
+    this.repeatedTagsInList = [];
+    this.input.tags = new Set(); /* to avoid duplicated tags*/
 
     return tagsList;
   }
@@ -296,15 +298,24 @@ export default class baseFormDomComponent {
     return this.input.tags.has(tag);
   }
   addTag(tag) {
+    if (tag == null) {
+      return false;
+    }
+
     if (!this.hasTag(tag)) {
       this.input.tags.add(tag);
       return true;
     } else {
+      this.repeatedTagsInList.push(tag);
       return false;
     }
   }
   removeTag(tag) {
-    if (this.input.tags.delete(tag)) {
+    const repeatedIdx = this.repeatedTagsInList.indexOf(tag);
+    if (repeatedIdx >= 0) {
+      this.repeatedTagsInList.splice(repeatedIdx, 1);
+      return true;
+    } else if (this.input.tags.delete(tag)) {
       return true;
     } else {
       return false;
@@ -315,19 +326,22 @@ export default class baseFormDomComponent {
     const self = e.currentTarget.associatedThis;
     const tag = e.currentTarget.value;
 
-    self.removeTag(e.currentTarget.oldTag);
+    self.removeTag(e.currentTarget.oldValue);
 
     if (tag.length == "") {
       // todo display message: empty tag
       console.log("Fill this empty tag!");
+      // no tag to delete next
+      e.currentTarget.oldValue = null;
       return;
     }
+
     if (!self.addTag(tag)) {
       // todo display message: already present
       console.log("Tag already present!");
     }
 
-    e.currentTarget.oldTag = tag;
+    e.currentTarget.oldValue = tag;
   }
 
   static addNewTagCallBack(e) {
