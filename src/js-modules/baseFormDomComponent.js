@@ -129,7 +129,8 @@ export default class baseFormDomComponent {
     this.input.description = this.initDescriptionInput();
 
     const [tagsDiv, tagsList] = this.initTagsDiv();
-    this.input.tagsList = tagsList;
+    this.tagsList = tagsList;
+    this.input.tags = new Set(); /* to avoid duplicated tags*/
 
     form.appendChild(this.input.title);
     form.appendChild(this.input.description);
@@ -202,9 +203,14 @@ export default class baseFormDomComponent {
 
   addInputTagToList() {
     // Add only if other tags are valid todo
+    if (!this.canAddTag()) {
+      // display message todo
+      console.log("Fix invalid (repeated or empty) tags first!");
+      return;
+    }
 
     const li = initLiAsChildInList(
-      this.input.tagsList,
+      this.tagsList,
       this.getCssClass("tagLi"),
       null,
       ""
@@ -219,6 +225,11 @@ export default class baseFormDomComponent {
       "tag" // aria-label
     );
     tagInput.maxLength = 15;
+    tagInput.addEventListener(
+      "change",
+      this.constructor.tagInputChangeCallback
+    );
+    tagInput.associatedThis = this;
 
     const deleteTagBtn = initButton(
       this.getCssClass("deleteTagBtn"),
@@ -226,9 +237,56 @@ export default class baseFormDomComponent {
       uiIcons.back
     );
     deleteTagBtn.tagLiToDelete = li;
+    deleteTagBtn.associatedThis = this;
+    deleteTagBtn.associatedInput = tagInput;
 
     li.appendChild(tagInput);
     li.appendChild(deleteTagBtn);
+  }
+
+  canAddTag() {
+    return this.input.tags.size == this.tagsList.children.length;
+  }
+
+  getTags() {
+    return [...this.input.tags.keys()];
+  }
+  hasTag(tag) {
+    return this.input.tags.has(tag);
+  }
+  addTag(tag) {
+    if (!this.hasTag(tag)) {
+      this.input.tags.add(tag);
+      return true;
+    } else {
+      return false;
+    }
+  }
+  removeTag(tag) {
+    if (this.input.tags.delete(tag)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  static tagInputChangeCallback(e) {
+    const self = e.currentTarget.associatedThis;
+    const tag = e.currentTarget.value;
+
+    self.removeTag(e.currentTarget.oldTag);
+
+    if (tag.length == "") {
+      // todo display message: empty tag
+      console.log("Fill this empty tag!");
+      return;
+    }
+    if (!self.addTag(tag)) {
+      // todo display message: already present
+      console.log("Tag already present!");
+    }
+
+    e.currentTarget.oldTag = tag;
   }
 
   static addNewTagCallBack(e) {
@@ -237,7 +295,11 @@ export default class baseFormDomComponent {
   }
 
   static deleteTagCallBack(e) {
+    const self = e.currentTarget.associatedThis;
     const tagLiToDelete = e.currentTarget.tagLiToDelete;
+    const tagValue = e.currentTarget.associatedInput.value;
+
+    self.removeTag(tagValue);
     deleteElement(tagLiToDelete);
   }
 }
