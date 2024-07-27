@@ -116,7 +116,7 @@ export default class baseComponent {
       this.parent.updateDateOfEdit();
     }
 
-    // publish the 'BASE EDITED' only once, when you finish traversing the chain
+    // publish the 'EDITED' token only once
     PubSub.publish(this.getPubSubName("EDITED", "main"));
   }
 

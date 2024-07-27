@@ -1,7 +1,15 @@
 import baseComponent from "./baseComponent.js";
+import PubSub from "pubsub-js";
 
 export default class baseListComponent {
   #list;
+
+  getPubSubName(str, topic = null) {
+    const topicStr = topic ? `${topic}:` : "";
+    const parentStr =
+      this.parent != null ? `${this.parent.type}${this.parent.id}` : "null";
+    return `${topicStr} ${parentStr}>${this.name} ${str}`;
+  }
 
   constructor(name, parent) {
     this.name = name;
@@ -47,6 +55,10 @@ export default class baseListComponent {
     const item = this.initItem(data);
     this.#list.push(item);
     this.updateParentDateOfEdit();
+
+    // publish the 'ADD ITEM' only once
+    PubSub.publish(this.getPubSubName("ADD ITEM", "main"), item);
+
     return item;
   }
 

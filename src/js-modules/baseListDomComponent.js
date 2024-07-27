@@ -8,6 +8,7 @@ import {
 import baseDomComponent from "./baseDomComponent.js";
 import { changeChildFaIcon } from "../js-utilities/fontAwesomeUtilities.js";
 import { uiIcons } from "./uiIcons.js";
+import PubSub from "pubsub-js";
 
 export default class baseListDomComponent {
   static blockName = "base-list-div";
@@ -24,6 +25,10 @@ export default class baseListDomComponent {
 
   getCssClass(element) {
     return `${this.constructor.blockName}__${this.constructor.cssClass[element]}`;
+  }
+
+  getPubSubName(str, topic = null) {
+    return this.obj.getPubSubName(str, topic);
   }
 
   constructor(objList) {
@@ -46,6 +51,11 @@ export default class baseListDomComponent {
     this.div.appendChild(this.ul);
 
     this.addMultipleDomItems(this.obj.list);
+
+    PubSub.subscribe(this.getPubSubName("ADD ITEM", "main"), (msg, item) => {
+      console.log(msg);
+      this.addDomItem(item);
+    });
   }
 
   /* Blocks */
