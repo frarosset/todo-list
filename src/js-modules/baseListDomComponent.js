@@ -90,6 +90,7 @@ export default class baseListDomComponent {
       uiIcons.new
     );
     newItemBtn.associatedDialog = this.constructor.associatedDialog;
+    newItemBtn.parentObj = this.obj;
 
     return newItemBtn;
   }
@@ -131,13 +132,8 @@ export default class baseListDomComponent {
     const associatedDialog = e.currentTarget.associatedDialog();
     if (associatedDialog != null) {
       // reset form //tofix
+      associatedDialog.setObjectData(e.currentTarget.parentObj);
       associatedDialog.dialog.showModal();
     }
-
-    // open dialog with form to add new item
-    //   - exit
-    //   - get form data
-    //      create new object
-    //        add new item to list
   }
 }

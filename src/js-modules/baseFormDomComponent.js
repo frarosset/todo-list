@@ -44,6 +44,12 @@ export default class baseFormDomComponent {
   }
 
   constructor() {
+    this.action = null;
+    this.obj = null;
+    // action:
+    // - add --> obj is the parent, uses obj.addItem(data) method
+    // - edit --> obj is the object to edit
+
     this.init();
   }
 
@@ -54,6 +60,16 @@ export default class baseFormDomComponent {
 
     this.dialog.appendChild(this.initHeader());
     this.dialog.appendChild(this.initContent());
+  }
+
+  setObjectData(object, edit = false) {
+    this.obj = object;
+    if (edit) {
+      this.action = "edit";
+      // fill the form with the data: todo
+    } else {
+      this.action = "add";
+    }
   }
 
   // Blocks initialization
@@ -81,10 +97,11 @@ export default class baseFormDomComponent {
 
   // Components initialization
 
-  getDialogTitleString(edit = false) {
-    const action = edit
-      ? this.constructor.action.edit
-      : this.constructor.action.add;
+  getDialogTitleString() {
+    const action =
+      this.action == "edit"
+        ? this.constructor.action.edit
+        : this.constructor.action.add;
     return `${action} ${this.constructor.type}`;
   }
 
@@ -139,13 +156,15 @@ export default class baseFormDomComponent {
     form.appendChild(tagsList);
 
     form.addEventListener("submit", () => {
-      console.log("submitted");
       // Get the data object
       const data = this.getDataToSubmit();
-      console.log(data);
 
-      // Publish PubSub token to handle the data
-      //todo
+      // Perform the action to handle the data
+      if (this.action == "add") {
+        this.obj.addItem(data);
+      } else {
+        //todo
+      }
 
       // Clear the form
       this.resetForm();
@@ -174,6 +193,9 @@ export default class baseFormDomComponent {
     const tagsListChildren = [...this.tagsList.children];
     const liTags = tagsListChildren.splice(1, tagsListChildren.length - 1);
     liTags.forEach((li) => deleteElement(li));
+
+    this.action = null;
+    this.obj = null;
   }
 
   /* init input elements */
