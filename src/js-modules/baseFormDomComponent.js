@@ -141,7 +141,9 @@ export default class baseFormDomComponent {
     form.addEventListener("submit", () => {
       console.log("submitted");
       // Get the data object
-      // todo
+      const data = this.getDataToSubmit();
+      console.log(data);
+
       // Publish PubSub token to handle the data
       //todo
 
@@ -153,6 +155,15 @@ export default class baseFormDomComponent {
   }
 
   /* Data and submit */
+
+  getDataToSubmit() {
+    const data = {
+      title: this.input.title.value,
+      description: this.input.description.value,
+      tags: new Set([...this.input.tags]),
+    };
+    return data;
+  }
 
   resetForm() {
     this.form.reset();
@@ -230,7 +241,7 @@ export default class baseFormDomComponent {
   }
 
   addInputTagToList() {
-    // Add only if other tags are valid todo
+    // Add only if other tags are valid
     if (!this.canAddTag()) {
       // display message todo
       console.log("Fix invalid (repeated or empty) tags first!");
