@@ -220,6 +220,9 @@ body > main {
   grid-area: tags;
   font-size: var(--base-tags-fontsize);
   margin: var(--base-header-tags-margin);
+  display: flex;
+  gap: var(--base-ul-gap);
+  flex-wrap: wrap;
 }
 
 .project-div__tag-li,
@@ -228,13 +231,6 @@ body > main {
   color: var(--base-tag-color);
   padding: var(--base-tag-padding);
   border-radius: var(--base-tag-radius);
-}
-
-.project-div__tags-ul,
-.todo-div__tags-ul {
-  display: flex;
-  gap: var(--base-ul-gap);
-  flex-wrap: wrap;
 }
 
 .todo-div__state-btn {
@@ -544,10 +540,56 @@ body > main {
   font-size: var(--base-description-fontsize);
 }
 
+.project-form-dialog__tags-ul,
+.todo-form-dialog__tags-ul {
+  font-size: var(--base-tags-fontsize);
+  margin: var(--base-header-tags-margin);
+  display: flex;
+  gap: var(--base-ul-gap);
+  flex-wrap: wrap;
+}
+
+.project-form-dialog__new-tag-btn,
+.todo-form-dialog__new-tag-btn,
+.project-form-dialog__tag-li,
+.todo-form-dialog__tag-li {
+  padding: var(--base-tag-padding);
+  border-radius: var(--base-tag-radius);
+  display: flex;
+  align-items: center;
+}
+
+.project-form-dialog__new-tag-btn,
+.todo-form-dialog__new-tag-btn {
+  padding: var(--base-tag-padding-ul);
+  border: 2px solid var(--base-tag-bg-color);
+}
+
+.project-form-dialog__tag-li,
+.todo-form-dialog__tag-li {
+  max-width: 30%; /*temporary: to be improved. todo*/
+}
+.project-form-dialog__tag-input,
+.todo-form-dialog__tag-input {
+  max-width: 80%; /*temporary: to be improved. todo*/
+}
+
+.project-form-dialog__tag-li,
+.todo-form-dialog__tag-li,
+.project-form-dialog__tag-input,
+.todo-form-dialog__tag-input {
+  background-color: var(--base-tag-bg-color);
+  color: var(--base-tag-color);
+}
+
+/* ------------------------------------- */
+
 .project-form-dialog__title-input,
 .todo-form-dialog__title-input,
 .project-form-dialog__description-input,
-.todo-form-dialog__description-input {
+.todo-form-dialog__description-input,
+.project-form-dialog__tag-input,
+.todo-form-dialog__tag-input {
   border: none;
   outline: none;
 }
@@ -555,16 +597,21 @@ body > main {
 .project-form-dialog__title-input:focus-visible,
 .todo-form-dialog__title-input:focus-visible,
 .project-form-dialog__description-input:focus-visible,
-.todo-form-dialog__description-input:focus-visible {
+.todo-form-dialog__description-input:focus-visible,
+.project-form-dialog__tag-input:focus-visible,
+.todo-form-dialog__tag-input:focus-visible {
   border-left: 2px solid var(--col-accent);
   padding-left: 0.5em;
 }
 
-.project-form-dialog__title-input:placeholder-shown,
-.todo-form-dialog__title-input:placeholder-shown,
-.project-form-dialog__description-input:placeholder-shown,
-.todo-form-dialog__description-input:placeholder-shown {
+.project-form-dialog__title-input::placeholder,
+.todo-form-dialog__title-input::placeholder,
+.project-form-dialog__description-input::placeholder,
+.todo-form-dialog__description-input::placeholder,
+.project-form-dialog__tag-input::placeholder,
+.todo-form-dialog__tag-input::placeholder {
   font-style: italic;
+  color: var(--col-grey);
 }
 
 :root {
@@ -598,7 +645,8 @@ body > main {
   --base-header-tags-margin: 1rem 0 0;
   --base-header-other-info-margin: 1rem 0 0;
   --base-mini-status-margin-right: 0.3rem;
-  --base-tag-padding: 0.2rem 0.4rem;
+  --base-tag-padding-ul: 0.2rem;
+  --base-tag-padding: var(--base-tag-padding-ul) 0.4rem;
 
   --base-other-info-label-width: 5em;
   --base-list-gap: 0.5rem;
@@ -629,7 +677,8 @@ body > main {
   --dialog-content-bg-color: var(--bg-col);
   --dialog-submit-btn-bg-color: var(--col-accent);
 
-  --dialog-width: min(calc(var(--max-width) * 0.5), 50vw); /* todo / tofix*/
+  --dialog-margin: var(--main-padding);
+  --dialog-width: calc(var(--max-width) - 2 * var(--main-padding));
 }
 
 /* --------------------------------------------*/

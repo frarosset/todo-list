@@ -20,7 +20,6 @@ export default class baseFormDomComponent {
     // pathUl: `path-ul`,
     // pathLi: `path-li`,
     dialogTitleH2: `title-h2`,
-    tagsDiv: "tags-div",
     newTagBtn: "new-tag-btn",
     tagsUl: `tags-ul`,
     tagLi: `tag-li`,
@@ -128,13 +127,13 @@ export default class baseFormDomComponent {
     this.input.title = this.initTitleInput();
     this.input.description = this.initDescriptionInput();
 
-    const [tagsDiv, tagsList] = this.initTagsDiv();
+    const tagsList = this.initTagsList();
     this.tagsList = tagsList;
     this.input.tags = new Set(); /* to avoid duplicated tags*/
 
     form.appendChild(this.input.title);
     form.appendChild(this.input.description);
-    form.appendChild(tagsDiv);
+    form.appendChild(tagsList);
 
     return form;
   }
@@ -171,16 +170,13 @@ export default class baseFormDomComponent {
 
   // Tags handling
 
-  initTagsDiv() {
-    const tagsDiv = initDiv(this.getCssClass("tagsDiv"));
+  initTagsList() {
+    const tagsList = this.initTagsUl();
 
     const newTag = this.initNewTagButton();
-    const tagsList = this.initTagsList();
+    tagsList.appendChild(newTag);
 
-    tagsDiv.appendChild(newTag);
-    tagsDiv.appendChild(tagsList);
-
-    return [tagsDiv, tagsList];
+    return tagsList;
   }
 
   initNewTagButton() {
@@ -196,7 +192,7 @@ export default class baseFormDomComponent {
     return newTagBtn;
   }
 
-  initTagsList() {
+  initTagsUl() {
     const ul = initUl(this.getCssClass("tagsUl"));
     return ul;
   }
@@ -245,7 +241,7 @@ export default class baseFormDomComponent {
   }
 
   canAddTag() {
-    return this.input.tags.size == this.tagsList.children.length;
+    return this.input.tags.size == this.tagsList.children.length - 1;
   }
 
   getTags() {
