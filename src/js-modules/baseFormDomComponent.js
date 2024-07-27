@@ -151,7 +151,7 @@ export default class baseFormDomComponent {
     );
     descriptionInput.rows = 4;
     descriptionInput.cols = 25;
-    descriptionInput.maxLength = 10;
+    descriptionInput.maxLength = 100;
 
     return descriptionInput;
   }

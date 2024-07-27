@@ -528,6 +528,45 @@ body > main {
   padding: var(--base-list-btn-padding);
 }
 
+.project-form-dialog__form,
+.todo-form-dialog__form {
+  display: flex;
+  flex-direction: column;
+}
+
+.project-form-dialog__title-input,
+.todo-form-dialog__title-input {
+  font-size: var(--title-h2-fontsize);
+}
+
+.project-form-dialog__description-input,
+.todo-form-dialog__description-input {
+  font-size: var(--base-description-fontsize);
+}
+
+.project-form-dialog__title-input,
+.todo-form-dialog__title-input,
+.project-form-dialog__description-input,
+.todo-form-dialog__description-input {
+  border: none;
+  outline: none;
+}
+
+.project-form-dialog__title-input:focus-visible,
+.todo-form-dialog__title-input:focus-visible,
+.project-form-dialog__description-input:focus-visible,
+.todo-form-dialog__description-input:focus-visible {
+  border-left: 2px solid var(--col-accent);
+  padding-left: 0.5em;
+}
+
+.project-form-dialog__title-input:placeholder-shown,
+.todo-form-dialog__title-input:placeholder-shown,
+.project-form-dialog__description-input:placeholder-shown,
+.todo-form-dialog__description-input:placeholder-shown {
+  font-style: italic;
+}
+
 :root {
   --title-h2-fontsize: 2rem;
   --title-h3-fontsize: 0.8rem;
