@@ -32,6 +32,11 @@ export function triggerReflow(element) {
   element.offsetTop;
 }
 
+export function deleteElement(childToDelete) {
+  removeDescendants(childToDelete);
+  childToDelete.parentNode.removeChild(childToDelete);
+}
+
 export function removeDescendants(elem) {
   while (elem.hasChildNodes()) {
     removeDescendants(elem.lastChild);

@@ -1,12 +1,13 @@
 import {
-  //   initUl,
-  //   initLiAsChildInList,
+  initUl,
+  initLiAsChildInList,
   initButton,
   initDiv,
   initTextArea,
   initH2,
   initInput,
 } from "../js-utilities/commonDomComponents.js";
+import { deleteElement } from "../js-utilities/commonDomUtilities.js";
 // import { isToday, isThisYear } from "date-fns";
 import { uiIcons } from "./uiIcons.js";
 
@@ -19,8 +20,12 @@ export default class baseFormDomComponent {
     // pathUl: `path-ul`,
     // pathLi: `path-li`,
     dialogTitleH2: `title-h2`,
-    // tagsUl: `tags-ul`,
-    // tagLi: `tag-li`,
+    tagsDiv: "tags-div",
+    newTagBtn: "new-tag-btn",
+    tagsUl: `tags-ul`,
+    tagLi: `tag-li`,
+    tagInput: `tag-input`,
+    deleteTagBtn: "delete-tag-btn",
     form: "form",
     backBtn: `back-btn`,
     submitBtn: `submit-btn`,
@@ -104,9 +109,12 @@ export default class baseFormDomComponent {
       this.getCssClass("submitBtn"),
       () => this.dialog.close(), // todo
       null,
-      "Submit"
+      "Submit",
+      "",
+      "submit" //type
     );
     submitBtn.for = this.getCssId("form");
+
     return submitBtn;
   }
 
@@ -120,8 +128,12 @@ export default class baseFormDomComponent {
     this.input.title = this.initTitleInput();
     this.input.description = this.initDescriptionInput();
 
+    const [tagsDiv, tagsList] = this.initTagsDiv();
+    this.input.tagsList = tagsList;
+
     form.appendChild(this.input.title);
     form.appendChild(this.input.description);
+    form.appendChild(tagsDiv);
 
     return form;
   }
@@ -154,5 +166,78 @@ export default class baseFormDomComponent {
     descriptionInput.maxLength = 100;
 
     return descriptionInput;
+  }
+
+  // Tags handling
+
+  initTagsDiv() {
+    const tagsDiv = initDiv(this.getCssClass("tagsDiv"));
+
+    const newTag = this.initNewTagButton();
+    const tagsList = this.initTagsList();
+
+    tagsDiv.appendChild(newTag);
+    tagsDiv.appendChild(tagsList);
+
+    return [tagsDiv, tagsList];
+  }
+
+  initNewTagButton() {
+    const newTagBtn = initButton(
+      this.getCssClass("newTagBtn"),
+      this.constructor.addNewTagCallBack,
+      uiIcons.new,
+      "",
+      "tag"
+    );
+    newTagBtn.associatedThis = this;
+
+    return newTagBtn;
+  }
+
+  initTagsList() {
+    const ul = initUl(this.getCssClass("tagsUl"));
+    return ul;
+  }
+
+  addInputTagToList() {
+    // Add only if other tags are valid todo
+
+    const li = initLiAsChildInList(
+      this.input.tagsList,
+      this.getCssClass("tagLi"),
+      null,
+      ""
+    );
+
+    const tagInput = initInput(
+      this.getCssClass("tagInput"), // class
+      this.getCssId("tagInput"), // id
+      "tag", // name
+      "tag", // placeholder
+      true, // required
+      "tag" // aria-label
+    );
+    tagInput.maxLength = 15;
+
+    const deleteTagBtn = initButton(
+      this.getCssClass("deleteTagBtn"),
+      this.constructor.deleteTagCallBack,
+      uiIcons.back
+    );
+    deleteTagBtn.tagLiToDelete = li;
+
+    li.appendChild(tagInput);
+    li.appendChild(deleteTagBtn);
+  }
+
+  static addNewTagCallBack(e) {
+    const self = e.currentTarget.associatedThis;
+    self.addInputTagToList();
+  }
+
+  static deleteTagCallBack(e) {
+    const tagLiToDelete = e.currentTarget.tagLiToDelete;
+    deleteElement(tagLiToDelete);
   }
 }

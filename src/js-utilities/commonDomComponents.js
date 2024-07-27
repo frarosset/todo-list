@@ -49,12 +49,14 @@ export function initButton(
   clickCallback = () => {},
   faIcon = null,
   textPre = "",
-  textPost = ""
+  textPost = "",
+  type = "button"
 ) {
   const element = document.createElement("button");
   applyClass(element, className);
   setFaIconInBetweenText(element, faIcon, textPre, textPost);
   element.addEventListener("click", clickCallback);
+  element.type = type;
   return element;
 }
 
