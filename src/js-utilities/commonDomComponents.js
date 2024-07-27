@@ -82,6 +82,26 @@ export function initImg(className = null, src = "", alt = "") {
   return element;
 }
 
+export function initInput(
+  className = null,
+  id = "",
+  name = "",
+  placeholder = "",
+  required = false,
+  ariaLabel = ""
+) {
+  const element = document.createElement("input");
+  applyClass(element, className);
+
+  element.name = name;
+  element.id = id;
+  element.placeholder = placeholder;
+  element.required = required;
+  element.ariaLabel = ariaLabel;
+
+  return element;
+}
+
 export function initUl(className = null) {
   const element = document.createElement("ul");
   applyClass(element, className);

@@ -5,6 +5,7 @@ import {
   initDiv,
   //   initP,
   initH2,
+  initInput,
 } from "../js-utilities/commonDomComponents.js";
 // import { isToday, isThisYear } from "date-fns";
 import { uiIcons } from "./uiIcons.js";
@@ -24,12 +25,7 @@ export default class baseFormDomComponent {
     form: "form",
     backBtn: `back-btn`,
     submitBtn: `submit-btn`,
-  };
-
-  static cssId = {
-    form: "form",
-    backBtn: `back-btn`,
-    submitBtn: `submit-btn`,
+    titleInput: "title-input",
   };
 
   static type = "Base";
@@ -39,7 +35,7 @@ export default class baseFormDomComponent {
     return `${this.constructor.blockName}__${this.constructor.cssClass[element]}`;
   }
   getCssId(element) {
-    return `${this.constructor.blockName}__${this.constructor.cssId[element]}`;
+    return `${this.constructor.blockName}__${this.constructor.cssClass[element]}`;
   }
 
   constructor() {
@@ -118,7 +114,27 @@ export default class baseFormDomComponent {
     const form = document.createElement("form");
     form.classList.add(this.getCssClass("form"));
     form.id = this.getCssId("form");
-    form.textContent = "FORM TO BE DONE...";
+
+    this.input = {};
+
+    this.input.title = this.initTitleInput();
+
+    form.appendChild(this.input.title);
+
     return form;
+  }
+
+  initTitleInput() {
+    const titleInput = initInput(
+      this.getCssClass("titleInput"), // class
+      this.getCssId("titleInput"), // id
+      "title", // name
+      "Title (required)", // placeholder
+      true, // required
+      "title" // aria-label
+    );
+    titleInput.maxLength = 25;
+    titleInput.placeholder = "Title (required)";
+    return titleInput;
   }
 }
