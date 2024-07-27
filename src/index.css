@@ -31,7 +31,7 @@
     --main-itm-announcements-description-max-lines: 3; */
 
   /* Maximum width (including dashboard margin) */
-  /* --max-width: min(1440px, 100%); */
+  --max-width: min(1440px, 100%);
 
   /*Margins, gaps and paddings (+widths)*/
 
@@ -469,6 +469,65 @@ body > main {
   vertical-align: baseline;
 }
 
+/* new/edit todo/project dialog and form */
+::backdrop {
+  background-color: var(--bg-col);
+}
+
+.project-form-dialog,
+.todo-form-dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: var(--dialog-width);
+  max-width: var(--dialog-width);
+  background-color: var(--dialog-bg-color);
+  color: var(--dialog-color);
+  padding: var(--dialog-padding);
+  border: none;
+  border-radius: var(--base-list-radius);
+}
+
+.project-form-dialog__header,
+.todo-form-dialog__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: var(--dialog-header-padding);
+}
+
+.project-form-dialog__title-h2,
+.todo-form-dialog__title-h2 {
+  font-size: var(--base-path-fontsize);
+  padding: 0 var(--base-list-padding);
+  text-transform: uppercase;
+}
+.project-form-dialog__back-btn,
+.todo-form-dialog__back-btn {
+  font-size: var(--base-back-btn-fontsize);
+}
+
+.project-form-dialog__content,
+.todo-form-dialog__content {
+  background-color: var(--dialog-content-bg-color);
+  color: var(--dialog-content-color);
+  border-radius: var(--base-list-radius);
+  padding: var(--base-list-padding);
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-list-padding);
+}
+
+.project-form-dialog__submit-btn,
+.todo-form-dialog__submit-btn {
+  background-color: var(--dialog-submit-btn-bg-color);
+  color: var(--dialog-submit-btn-color);
+  border-radius: var(--base-list-new-item-btn-radius);
+  padding: var(--base-list-btn-padding);
+}
+
 :root {
   --title-h2-fontsize: 2rem;
   --title-h3-fontsize: 0.8rem;
@@ -492,6 +551,8 @@ body > main {
   --base-header-padding: 0 0 2rem;
   --base-footer-padding: 1rem 0 0;
   --base-header-other-info-padding: 0.5rem 0 0;
+  --dialog-padding: 0.3rem;
+  --dialog-header-padding: 0.3rem;
 
   --base-list-gap: 1rem;
   --base-status-margin-right: 0.3rem;
@@ -516,12 +577,20 @@ body > main {
   --base-tag-color: var(--col-txt-alt);
   --title-h2-color: var(--col-txt);
   --title-h2-decoration-color: var(--col-secondary);
+  --dialog-color: var(--col-txt-alt);
+  --dialog-content-color: var(--col-txt);
+  --dialog-submit-btn-color: var(var(--col-txt));
 
   --home-project-mini-nav-bg-color: var(--col-accent);
   --base-list-bg-color: var(--col-grey);
   --base-list-new-item-btn-bg-color: var(--col-secondary);
   --base-mini-bg-color: var(--col-white);
   --base-tag-bg-color: var(--col-secondary);
+  --dialog-bg-color: var(--col-black);
+  --dialog-content-bg-color: var(--bg-col);
+  --dialog-submit-btn-bg-color: var(--col-accent);
+
+  --dialog-width: min(calc(var(--max-width) * 0.5), 50vw); /* todo / tofix*/
 }
 
 /* --------------------------------------------*/

@@ -62,8 +62,9 @@ export default class baseFormDomComponent {
     header.classList.add(this.getCssClass("header"));
 
     this.dialogTitle = this.initDialogTitle();
-    header.appendChild(this.initBackBtn());
     header.appendChild(this.dialogTitle);
+    header.appendChild(this.initBackBtn());
+
     return header;
   }
 
