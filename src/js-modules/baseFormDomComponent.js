@@ -24,6 +24,7 @@ export default class baseFormDomComponent {
     tagsUl: `tags-ul`,
     tagLi: `tag-li`,
     tagInput: `tag-input`,
+    tagHiddenSpan: "tag-hidden-span",
     deleteTagBtn: "delete-tag-btn",
     form: "form",
     backBtn: `back-btn`,
@@ -227,6 +228,18 @@ export default class baseFormDomComponent {
     );
     tagInput.associatedThis = this;
 
+    /* to make tag input size fit to the value length */
+    /* see https://stackoverflow.com/questions/8100770/auto-scaling-inputtype-text-to-width-of-value/38867270#38867270*/
+    const hiddenSpan = document.createElement("span");
+    hiddenSpan.classList.add(this.getCssClass("tagHiddenSpan"));
+    function resize() {
+      hiddenSpan.textContent = tagInput.value;
+      tagInput.style.width = hiddenSpan.offsetWidth + "px";
+    }
+    resize();
+    tagInput.addEventListener("input", resize);
+    tagInput.addEventListener("paste", resize);
+
     const deleteTagBtn = initButton(
       this.getCssClass("deleteTagBtn"),
       this.constructor.deleteTagCallBack,
@@ -236,6 +249,7 @@ export default class baseFormDomComponent {
     deleteTagBtn.associatedThis = this;
     deleteTagBtn.associatedInput = tagInput;
 
+    li.appendChild(hiddenSpan);
     li.appendChild(tagInput);
     li.appendChild(deleteTagBtn);
   }

@@ -565,13 +565,9 @@ body > main {
   border: 2px solid var(--base-tag-bg-color);
 }
 
-.project-form-dialog__tag-li,
-.todo-form-dialog__tag-li {
-  max-width: 30%; /*temporary: to be improved. todo*/
-}
 .project-form-dialog__tag-input,
 .todo-form-dialog__tag-input {
-  max-width: 80%; /*temporary: to be improved. todo*/
+  min-width: 2em; /*to be adjusted manually, based on placeholder*/
 }
 
 .project-form-dialog__tag-li,
@@ -580,6 +576,17 @@ body > main {
 .todo-form-dialog__tag-input {
   background-color: var(--base-tag-bg-color);
   color: var(--base-tag-color);
+}
+
+/* to make tag input size fit to the value length */
+/* see https://stackoverflow.com/questions/8100770/auto-scaling-inputtype-text-to-width-of-value/38867270#38867270*/
+.project-form-dialog__tag-hidden-span,
+.todo-form-dialog__tag-hidden-span {
+  position: absolute;
+  height: 0px;
+  overflow: hidden;
+  white-space: pre;
+  padding-left: 1em; /*to be adjusted manually*/
 }
 
 /* ------------------------------------- */
