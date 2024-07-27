@@ -139,6 +139,10 @@ button {
   display: none !important;
 }
 
+.fa-blank {
+  display: none;
+}
+
 /* Custom style */
 body > header {
   background-color: var(--header-bg-col);

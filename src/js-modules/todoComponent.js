@@ -1,10 +1,4 @@
-import {
-  format,
-  formatRelative,
-  differenceInCalendarDays,
-  isPast,
-  isToday,
-} from "date-fns";
+import { format, formatRelative, differenceInCalendarDays } from "date-fns";
 import { mod } from "../js-utilities/mathUtilities.js";
 import baseComponent from "./baseComponent.js";
 import PubSub from "pubsub-js";
@@ -33,6 +27,7 @@ export default class todoComponent extends baseComponent {
     "expired",
   ];
   static noImminenceIdx = 0;
+  static expiredIdx = 4;
   static imminenceRanges = [
     [0, -1] /* this is an empty range */,
     [8, Infinity],
@@ -99,11 +94,7 @@ export default class todoComponent extends baseComponent {
   }
 
   isExpired() {
-    return (
-      isPast(this.data.dueDate) &&
-      !isToday(this.data.dueDate) &&
-      !this.data.state == todoComponent.doneIdx
-    );
+    return this.#imminenceIdx == todoComponent.expiredIdx;
   }
 
   // Setter methods
@@ -126,6 +117,7 @@ export default class todoComponent extends baseComponent {
 
     PubSub.publish(this.getPubSubName("STATE CHANGE", "main"));
 
+    this.updateImminence(); // this depends on the state, too
     this.updateDateOfEdit();
   }
 
@@ -151,8 +143,8 @@ export default class todoComponent extends baseComponent {
 
   set dueDate(dueDate) {
     this.data.dueDate = dueDate;
-    this.updateDateOfEdit();
     this.updateImminence();
+    this.updateDateOfEdit();
   }
 
   // imminence update method: note call it every time you modify this.data.dueDate
@@ -160,6 +152,7 @@ export default class todoComponent extends baseComponent {
   updateImminence() {
     if (this.data.dueDate == null || this.data.state == todoComponent.doneIdx) {
       this.#imminenceIdx = todoComponent.noImminenceIdx; /* no imminence */
+      PubSub.publish(this.getPubSubName("IMMINENCE CHANGE", "main"));
       return;
     }
 
@@ -169,10 +162,13 @@ export default class todoComponent extends baseComponent {
       const range = todoComponent.imminenceRanges[idx];
       if (diff >= range[0] && diff <= range[1]) {
         this.#imminenceIdx = idx;
+        PubSub.publish(this.getPubSubName("IMMINENCE CHANGE", "main"));
         return;
       }
     }
 
     this.#imminenceIdx = todoComponent.noImminenceIdx; /* no imminence */
+
+    PubSub.publish(this.getPubSubName("IMMINENCE CHANGE", "main"));
   }
 }

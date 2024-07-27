@@ -57,8 +57,8 @@ export default class todoDomComponent extends baseDomComponent {
 
   // see the correspondence in todoComponent.imminenceLabels
   static imminenceIcons = [
-    null, //"none"
-    null, //"scheduled"
+    { prefix: "solid", icon: "blank" }, //"none"
+    { prefix: "solid", icon: "blank" }, //"scheduled"
     { prefix: "solid", icon: "exclamation" }, //"upcoming"
     { prefix: "solid", icon: "circle-exclamation" }, //"today"
     { prefix: "solid", icon: "triangle-exclamation" }, //"expired"
@@ -171,40 +171,61 @@ export default class todoDomComponent extends baseDomComponent {
 
   initImminenceIcon() {
     // The icon shows the state of the todo, the color shows the priority
-
-    // Init the button with the right icon
-    const imminenceIcon = initP(
-      this.getCssClass("imminenceIcon"),
-      todoDomComponent.imminenceIcons[this.obj.imminenceIdx]
-    );
-
-    // Set the color
-    imminenceIcon.style.color =
+    const getIcon = () =>
+      todoDomComponent.imminenceIcons[this.obj.imminenceIdx];
+    const getColor = () =>
       todoDomComponent.imminenceColors[this.obj.imminenceIdx];
 
+    // Init the button with the right icon
+    const imminenceIcon = initP(this.getCssClass("imminenceIcon"), getIcon());
+
+    // Set the color
+    imminenceIcon.style.color = getColor();
+
     // Set the tooltip when hovering
-    if (todoDomComponent.imminenceIcons[this.obj.imminenceIdx] != null) {
+    imminenceIcon.title = `${this.obj.imminence}`;
+
+    PubSub.subscribe(this.getPubSubName("IMMINENCE CHANGE", "main"), (msg) => {
+      console.log(msg);
+
+      changeChildFaIcon(imminenceIcon, getIcon());
+      imminenceIcon.style.color = getColor();
       imminenceIcon.title = `${this.obj.imminence}`;
-    }
+    });
 
     return imminenceIcon;
   }
 
   initDueDate(label = `Due date: `) {
+    const getDate = () =>
+      `${this.obj.dueDateFormattedRelative().split(/ at /)[0]}`;
+    const getColor = () =>
+      todoDomComponent.imminenceColors[this.obj.imminenceIdx];
+
     // Init the button with the right icon
     const [dueDateInfoDiv, , dueDateInfoContent] = this.initInfo(
       this.getCssClass("dueDateInfoDiv"),
       todoDomComponent.otherInfoIcons.dueDate,
       label,
-      `${this.obj.dueDateFormattedRelative().split(/ at /)[0]}`
+      getDate()
     );
 
-    dueDateInfoContent.style.color =
-      todoDomComponent.imminenceColors[this.obj.imminenceIdx];
-
     if (this.obj.isExpired()) {
+      dueDateInfoContent.style.color = getColor();
       dueDateInfoContent.textContent += ` (expired)`;
     }
+
+    PubSub.subscribe(this.getPubSubName("IMMINENCE CHANGE", "main"), (msg) => {
+      console.log(msg);
+
+      dueDateInfoContent.textContent = getDate();
+      dueDateInfoContent.style.color = "inherit";
+
+      if (this.obj.isExpired()) {
+        dueDateInfoContent.style.color = getColor();
+        dueDateInfoContent.textContent += ` (expired)`;
+      }
+    });
 
     return dueDateInfoDiv;
   }
