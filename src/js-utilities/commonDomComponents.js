@@ -102,6 +102,26 @@ export function initInput(
   return element;
 }
 
+export function initTextArea(
+  className = null,
+  id = "",
+  name = "",
+  placeholder = "",
+  required = false,
+  ariaLabel = ""
+) {
+  const element = document.createElement("textarea");
+  applyClass(element, className);
+
+  element.name = name;
+  element.id = id;
+  element.placeholder = placeholder;
+  element.required = required;
+  element.ariaLabel = ariaLabel;
+
+  return element;
+}
+
 export function initUl(className = null) {
   const element = document.createElement("ul");
   applyClass(element, className);

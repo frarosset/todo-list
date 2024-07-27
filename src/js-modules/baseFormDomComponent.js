@@ -3,7 +3,7 @@ import {
   //   initLiAsChildInList,
   initButton,
   initDiv,
-  //   initP,
+  initTextArea,
   initH2,
   initInput,
 } from "../js-utilities/commonDomComponents.js";
@@ -19,13 +19,13 @@ export default class baseFormDomComponent {
     // pathUl: `path-ul`,
     // pathLi: `path-li`,
     dialogTitleH2: `title-h2`,
-    // descriptionP: `description-p`,
     // tagsUl: `tags-ul`,
     // tagLi: `tag-li`,
     form: "form",
     backBtn: `back-btn`,
     submitBtn: `submit-btn`,
     titleInput: "title-input",
+    descriptionInput: "description-input",
   };
 
   static type = "Base";
@@ -118,8 +118,10 @@ export default class baseFormDomComponent {
     this.input = {};
 
     this.input.title = this.initTitleInput();
+    this.input.description = this.initDescriptionInput();
 
     form.appendChild(this.input.title);
+    form.appendChild(this.input.description);
 
     return form;
   }
@@ -134,7 +136,23 @@ export default class baseFormDomComponent {
       "title" // aria-label
     );
     titleInput.maxLength = 25;
-    titleInput.placeholder = "Title (required)";
+
     return titleInput;
+  }
+
+  initDescriptionInput() {
+    const descriptionInput = initTextArea(
+      this.getCssClass("descriptionInput"), // class
+      this.getCssId("descriptionInput"), // id
+      "description", // name
+      "Description", // placeholder
+      false, // required
+      "description" // aria-label
+    );
+    descriptionInput.rows = 4;
+    descriptionInput.cols = 25;
+    descriptionInput.maxLength = 10;
+
+    return descriptionInput;
   }
 }
