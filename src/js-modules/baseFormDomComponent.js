@@ -116,7 +116,10 @@ export default class baseFormDomComponent {
   initBackBtn() {
     const backBtn = initButton(
       this.getCssClass("backBtn"),
-      () => this.dialog.close(),
+      () => {
+        this.dialog.close();
+        this.resetForm();
+      },
       uiIcons.back
     );
     return backBtn;

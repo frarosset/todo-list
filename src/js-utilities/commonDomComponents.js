@@ -124,6 +124,54 @@ export function initTextArea(
   return element;
 }
 
+export function initLabel(
+  className = null,
+  forAttribute = null,
+  faIcon = null,
+  textPre = "",
+  textPost = ""
+) {
+  const element = document.createElement("label");
+  applyClass(element, className);
+  setFaIconInBetweenText(element, faIcon, textPre, textPost);
+  element.for = forAttribute;
+  return element;
+}
+
+export function initSelect(className = null, id = "", name = "") {
+  const element = document.createElement("select");
+  applyClass(element, className);
+  element.id = id;
+  element.name = name;
+  return element;
+}
+
+export function initOption(
+  className = null,
+  value = "",
+  label = "",
+  textContent = ""
+) {
+  const element = document.createElement("option");
+  applyClass(element, className);
+  element.value = value;
+  element.label = label;
+  element.textContent = textContent;
+  return element;
+}
+
+export function initOptionAsChildInList(
+  parentList,
+  className = null,
+  value = "",
+  label = "",
+  textContent = ""
+) {
+  const element = initOption(className, value, label, textContent);
+  parentList.appendChild(element);
+  return element;
+}
+
 export function initUl(className = null) {
   const element = document.createElement("ul");
   applyClass(element, className);

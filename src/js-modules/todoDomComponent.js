@@ -270,21 +270,13 @@ export default class todoDomComponent extends baseDomComponent {
   }
 
   initInfo(cssClassDiv, iconLabel, textLabel, textContent) {
-    const div = initDiv([this.getCssClass("otherInfoDiv"), cssClassDiv]);
+    const divClasses = [this.getCssClass("otherInfoDiv"), cssClassDiv];
+    const labelClasses = divClasses.map((cls) => `${cls}-label`);
+    const selectClasses = divClasses.map((cls) => `${cls}-content`);
 
-    const label = initP(
-      [`${this.getCssClass("otherInfoDiv")}-label`, `${cssClassDiv}-label`],
-      iconLabel,
-      "",
-      textLabel
-    );
-
-    const content = initP(
-      [`${this.getCssClass("otherInfoDiv")}-content`, `${cssClassDiv}-content`],
-      null,
-      "",
-      textContent
-    );
+    const div = initDiv(divClasses);
+    const label = initP(labelClasses, iconLabel, "", textLabel);
+    const content = initP(selectClasses, null, "", textContent);
 
     div.append(label);
     div.append(content);
