@@ -244,8 +244,10 @@ export default class baseDomComponent {
 
   static removeObjCallback = (e) => {
     const obj = e.currentTarget.objToDelete;
-    // todo
-    console.log("Remove", obj);
+    const parentObj = obj.parent;
+    obj.list.removeItem(obj);
+    // refresh the whole view, to show the parent
+    document.body.mainDomObj.renderGeneric(parentObj);
     e.stopPropagation();
   };
 }
