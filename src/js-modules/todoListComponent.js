@@ -9,6 +9,6 @@ export default class todoListComponent extends baseListComponent {
   // Methods
 
   initItem(data) {
-    return new todoComponent(data, this.parent);
+    return new todoComponent(data, this.parent, this);
   }
 }

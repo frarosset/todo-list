@@ -9,6 +9,6 @@ export default class projectListComponent extends baseListComponent {
   // Methods
 
   initItem(data) {
-    return new projectComponent(data, this.parent);
+    return new projectComponent(data, this.parent, this);
   }
 }

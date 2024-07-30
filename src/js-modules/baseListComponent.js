@@ -42,7 +42,7 @@ export default class baseListComponent {
   // Methods
 
   initItem(data) {
-    return new baseComponent(data, this.parent);
+    return new baseComponent(data, this.parent, this);
   }
 
   updateParentDateOfEdit() {
@@ -71,7 +71,7 @@ export default class baseListComponent {
   }
 
   removeItem(item) {
-    /* todo is a reference to a todo object */
+    /* item is a reference to a item object */
     const idx = this.#list.indexOf(item);
     if (idx >= 0) {
       this.#list.splice(idx, 1);

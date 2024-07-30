@@ -9,8 +9,8 @@ export default class projectComponent extends baseComponent {
 
   static nextId = 0;
 
-  constructor(data) {
-    super(data);
+  constructor(data, parent = null, list = null) {
+    super(data, parent, list);
     // overwrite type
     this.type = "P";
 

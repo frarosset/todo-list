@@ -20,7 +20,7 @@ export default class baseComponent {
     return `${topicStr}${this.type}${this.id} ${str}`;
   }
 
-  constructor(data, parent = null) {
+  constructor(data, parent = null, list = null) {
     this.data = Object.assign({}, this.constructor.defaultData, data);
 
     if (this.data.id == null) {
@@ -37,6 +37,7 @@ export default class baseComponent {
     // }
 
     this.parent = parent;
+    this.list = list;
     this.type = "B";
   }
 

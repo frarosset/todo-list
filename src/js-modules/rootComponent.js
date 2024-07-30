@@ -9,7 +9,7 @@ export default class rootComponent {
 
   constructor() {
     // Generic project
-    this.#inboxProject = new projectComponent({ title: "Inbox" });
+    this.#inboxProject = new projectComponent({ title: "Inbox" }); // no parent, no list
 
     // Custom projects list
     this.#customProjectsList = new projectListComponent("Projects", null);
