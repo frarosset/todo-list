@@ -174,15 +174,15 @@ body > main {
     ". path path back-btn"
     ". title title title"
     ". description description description"
-    "tags tags . .";
+    "tags tags . action-div";
 }
 
 .todo-div__header {
   grid-template-areas:
     ". path path back-btn"
-    "state title title imminence"
+    "state title imminence  ."
     ". description description description"
-    ". tags tags ."
+    ". tags . action-div"
     ". otherinfo otherinfo otherinfo";
 }
 
@@ -191,6 +191,7 @@ body > main {
   grid-area: back-btn;
   font-size: var(--base-back-btn-fontsize);
   align-self: top;
+  justify-self: right;
 }
 
 .todo-div__path-ul,
@@ -269,6 +270,19 @@ body > main {
   width: var(--base-other-info-label-width);
 }
 
+.todo-div__action-div,
+.todo-mini-div__action-div,
+.project-mini-div__action-div,
+.project-div__action-div {
+  grid-area: action-div;
+  font-size: var(--base-mini-other-info-fontsize);
+  align-self: end;
+  justify-self: right;
+  padding-left: calc(2 * var(--base-list-gap));
+  display: flex;
+  gap: var(--base-list-gap);
+}
+
 /* content (of  project/todo div ) */
 
 .project-div__content,
@@ -344,7 +358,8 @@ body > main {
 .project-mini-div {
   grid-template-areas:
     "path expand-btn"
-    "title  .";
+    "title  ."
+    ".  action-div";
   grid-template-columns: 1fr min-content;
 }
 
@@ -358,7 +373,7 @@ body > main {
   grid-template-areas:
     ". path path  expand-btn"
     "state title imminence ."
-    ". otherinfo otherinfo .";
+    ". otherinfo otherinfo action-div";
   grid-template-columns: min-content 1fr min-content min-content;
 }
 
@@ -384,6 +399,7 @@ body > main {
 .todo-mini-div__expand-btn {
   grid-area: expand-btn;
   font-size: var(--base-mini-path-fontsize); /* use same size as path */
+  justify-self: right;
 }
 
 .project-mini-div__title-h2,

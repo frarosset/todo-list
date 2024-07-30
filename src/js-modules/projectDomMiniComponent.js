@@ -20,6 +20,7 @@ export default class projectDomMiniComponent extends projectDomComponent {
     this.div.append(this.initExpandBtn());
     this.div.append(this.initPath());
     this.div.append(this.initTitle());
+    this.div.appendChild(this.initActionButtons());
 
     this.div.associatedProject = this.obj;
     this.div.addEventListener(

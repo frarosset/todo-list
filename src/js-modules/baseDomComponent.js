@@ -27,6 +27,9 @@ export default class baseDomComponent {
     dateOfCreationP: `date-of-creation-p`,
     dateOfEditP: `date-of-edit-p`,
     backBtn: `back-btn`,
+    actionDiv: `action-div`,
+    removeBtn: `remove-btn`,
+    editBtn: `edit-btn`,
   };
 
   getCssClass(element) {
@@ -71,6 +74,8 @@ export default class baseDomComponent {
     header.appendChild(this.initTitle());
     header.appendChild(this.initDescription());
     header.appendChild(this.initTags());
+    header.appendChild(this.initActionButtons());
+
     return header;
   }
 
@@ -191,9 +196,56 @@ export default class baseDomComponent {
     return backBtn;
   }
 
+  initActionButtons() {
+    const div = initDiv(this.getCssClass("actionDiv"));
+
+    div.appendChild(this.initEditBtn());
+
+    if (this.obj.list) {
+      // remove only if the component is part of a list
+      div.appendChild(this.initRemoveBtn());
+    }
+
+    return div;
+  }
+
+  initEditBtn() {
+    const editBtn = initButton(
+      this.getCssClass("editBtn"),
+      baseDomComponent.editObjCallback,
+      uiIcons.edit
+    );
+    editBtn.objToEdit = this.obj;
+    return editBtn;
+  }
+
+  initRemoveBtn() {
+    const removeBtn = initButton(
+      this.getCssClass("removeBtn"),
+      baseDomComponent.removeObjCallback,
+      uiIcons.delete
+    );
+    removeBtn.objToDelete = this.obj;
+    return removeBtn;
+  }
+
   // callbacks
   static renderObjCallback = (e) => {
     document.body.mainDomObj.renderGeneric(e.currentTarget.objToRender);
+    e.stopPropagation();
+  };
+
+  static editObjCallback = (e) => {
+    const obj = e.currentTarget.objToEdit;
+    // todo
+    console.log("Edit", obj);
+    e.stopPropagation();
+  };
+
+  static removeObjCallback = (e) => {
+    const obj = e.currentTarget.objToDelete;
+    // todo
+    console.log("Remove", obj);
     e.stopPropagation();
   };
 }

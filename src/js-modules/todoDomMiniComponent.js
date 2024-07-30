@@ -24,6 +24,7 @@ export default class todoDomMiniComponent extends todoDomComponent {
     this.div.appendChild(this.initTitle());
 
     this.div.append(this.initOtherInfo());
+    this.div.appendChild(this.initActionButtons());
 
     this.div.associatedTodo = this.obj;
     this.div.addEventListener("click", this.constructor.btnRenderTodoCallback);
