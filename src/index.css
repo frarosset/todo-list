@@ -262,7 +262,7 @@ body > main {
 
 .todo-div__other-info-div {
   display: flex;
-  gap: var(----base-ul-gap);
+  gap: var(--base-ul-gap);
 }
 
 .todo-div__other-info-div-label {
@@ -592,6 +592,39 @@ body > main {
   overflow: hidden;
   white-space: pre;
   padding-left: 1em; /*to be adjusted manually*/
+}
+
+.todo-form-dialog__other-infos-div {
+  font-size: var(--base-mini-other-info-fontsize);
+  margin: var(--base-header-other-info-margin);
+  padding: var(--base-header-other-info-padding);
+  border-top: 1px solid var(--otherinfo-line-color);
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-ul-gap);
+}
+
+.todo-form-dialog__other-info-div {
+  display: flex;
+  gap: var(--base-ul-gap);
+  align-items: baseline;
+}
+
+.todo-form-dialog__other-info-div input,
+.todo-form-dialog__other-info-div select {
+  height: 2em;
+  width: 8em;
+}
+.todo-form-dialog__other-info-div input {
+  padding-left: 0.18em;
+}
+
+.todo-form-dialog__other-info-div svg {
+  vertical-align: baseline;
+}
+
+.todo-form-dialog__other-info-div-label {
+  width: var(--base-other-info-label-width);
 }
 
 /* ------------------------------------- */
