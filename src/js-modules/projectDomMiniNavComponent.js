@@ -1,5 +1,6 @@
 import { initDiv } from "../js-utilities/commonDomComponents.js";
 import projectDomComponent from "./projectDomComponent.js";
+import PubSub from "pubsub-js";
 
 //  Differently from projectDomMiniComponent, this is not editable via UI and shows only the title
 
@@ -28,4 +29,11 @@ export default class projectDomMiniNavComponent extends projectDomComponent {
     document.body.mainDomObj.renderProject(e.currentTarget.associatedProject);
     e.stopPropagation();
   };
+
+  updateView() {
+    PubSub.publish(
+      this.obj.list.getPubSubName("REMOVE ITEM", "main"),
+      this.div
+    );
+  }
 }

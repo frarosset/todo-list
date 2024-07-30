@@ -5,6 +5,7 @@ import {
   initH3,
   initButton,
 } from "../js-utilities/commonDomComponents.js";
+import { deleteElement } from "../js-utilities/commonDomUtilities.js";
 import baseDomComponent from "./baseDomComponent.js";
 import { changeChildFaIcon } from "../js-utilities/fontAwesomeUtilities.js";
 import { uiIcons } from "./uiIcons.js";
@@ -55,6 +56,11 @@ export default class baseListDomComponent {
     PubSub.subscribe(this.getPubSubName("ADD ITEM", "main"), (msg, item) => {
       console.log(msg);
       this.addDomItem(item);
+    });
+
+    PubSub.subscribe(this.getPubSubName("REMOVE ITEM", "main"), (msg, obj) => {
+      console.log(msg);
+      this.removeDomItem(obj);
     });
   }
 
@@ -122,14 +128,9 @@ export default class baseListDomComponent {
     });
   }
 
-  removeDomItem() {
-    // TODO
+  removeDomItem(item) {
     /* item is a reference to a baseDomComponent object */
-    // const idx = this.obj.list.indexOf(item);
-    // if (idx >= 0) {
-    //   this.obj.list.splice(idx, 1);
-    //   this.obj.updateParentDateOfEdit();
-    // }
+    deleteElement(item.parentElement); // delete the li item too, which is the parent of the item
   }
 
   static toggleVisibility(e) {

@@ -1,6 +1,7 @@
 import { initDiv, initButton } from "../js-utilities/commonDomComponents.js";
 import projectDomComponent from "./projectDomComponent.js";
 import { uiIcons } from "./uiIcons.js";
+import PubSub from "pubsub-js";
 
 export default class projectDomMiniComponent extends projectDomComponent {
   static blockName = "project-mini-div";
@@ -45,4 +46,11 @@ export default class projectDomMiniComponent extends projectDomComponent {
     document.body.mainDomObj.renderProject(e.currentTarget.associatedProject);
     e.stopPropagation();
   };
+
+  updateView() {
+    PubSub.publish(
+      this.obj.list.getPubSubName("REMOVE ITEM", "main"),
+      this.div
+    );
+  }
 }

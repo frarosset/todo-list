@@ -1,6 +1,7 @@
 import { initDiv, initButton } from "../js-utilities/commonDomComponents.js";
 import todoDomComponent from "./todoDomComponent.js";
 import { uiIcons } from "./uiIcons.js";
+import PubSub from "pubsub-js";
 
 export default class todoDomMiniComponent extends todoDomComponent {
   static blockName = "todo-mini-div";
@@ -55,4 +56,11 @@ export default class todoDomMiniComponent extends todoDomComponent {
     document.body.mainDomObj.renderTodo(e.currentTarget.associatedTodo);
     e.stopPropagation();
   };
+
+  updateView() {
+    PubSub.publish(
+      this.obj.list.getPubSubName("REMOVE ITEM", "main"),
+      this.div
+    );
+  }
 }

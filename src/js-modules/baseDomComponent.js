@@ -226,6 +226,7 @@ export default class baseDomComponent {
       uiIcons.delete
     );
     removeBtn.objToDelete = this.obj;
+    removeBtn.objDom = this;
     return removeBtn;
   }
 
@@ -242,12 +243,19 @@ export default class baseDomComponent {
     e.stopPropagation();
   };
 
-  static removeObjCallback = (e) => {
-    const obj = e.currentTarget.objToDelete;
-    const parentObj = obj.parent;
-    obj.list.removeItem(obj);
+  updateView(modifiedObj) {
+    const parentObj = modifiedObj.parent;
     // refresh the whole view, to show the parent
     document.body.mainDomObj.renderGeneric(parentObj);
+  }
+
+  static removeObjCallback = (e) => {
+    const obj = e.currentTarget.objToDelete;
+    const objDom = e.currentTarget.objDom;
+
+    obj.list.removeItem(obj);
+    objDom.updateView(obj);
+
     e.stopPropagation();
   };
 }
