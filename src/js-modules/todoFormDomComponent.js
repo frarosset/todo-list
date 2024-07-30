@@ -29,6 +29,13 @@ export default class todoFormDomComponent extends baseFormDomComponent {
   constructor(obj) {
     super(obj);
 
+    // redefine resetForm() method
+    this.resetFormBase = this.resetForm;
+    this.resetForm = () => {
+      this.resetFormBase();
+      this.resetFormOtherInfo();
+    };
+
     this.form.appendChild(this.initFormOtherInfo());
   }
 
@@ -59,6 +66,14 @@ export default class todoFormDomComponent extends baseFormDomComponent {
     div.append(this.initFormPriority());
 
     return div;
+  }
+
+  resetFormOtherInfo() {
+    // reset the due date input
+    this.resetDueDateOnSelect();
+
+    // reset the priority input
+    this.resetPrioritySelect();
   }
 
   // Due Date
