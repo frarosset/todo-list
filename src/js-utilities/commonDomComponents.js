@@ -134,7 +134,7 @@ export function initLabel(
   const element = document.createElement("label");
   applyClass(element, className);
   setFaIconInBetweenText(element, faIcon, textPre, textPost);
-  element.for = forAttribute;
+  element.setAttribute("for", forAttribute);
   return element;
 }
 
@@ -143,6 +143,13 @@ export function initSelect(className = null, id = "", name = "") {
   applyClass(element, className);
   element.id = id;
   element.name = name;
+  return element;
+}
+
+export function initDatalist(className = null, id = "") {
+  const element = document.createElement("datalist");
+  applyClass(element, className);
+  element.id = id;
   return element;
 }
 
