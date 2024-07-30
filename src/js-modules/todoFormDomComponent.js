@@ -36,6 +36,14 @@ export default class todoFormDomComponent extends baseFormDomComponent {
       this.resetFormOtherInfo();
     };
 
+    // redefine getDataToSubmit() method
+    this.getDataToSubmitBase = this.getDataToSubmit;
+    this.getDataToSubmit = () => {
+      const dataToSubmitBase = this.getDataToSubmitBase();
+      const dataToSubmitOtherInfo = this.getDataToSubmitOtherInfo();
+      return { ...dataToSubmitBase, ...dataToSubmitOtherInfo };
+    };
+
     this.form.appendChild(this.initFormOtherInfo());
   }
 
@@ -74,6 +82,14 @@ export default class todoFormDomComponent extends baseFormDomComponent {
 
     // reset the priority input
     this.resetPrioritySelect();
+  }
+
+  getDataToSubmitOtherInfo() {
+    const data = {
+      dueDate: this.getDueDateValue(),
+      priority: this.prioritySelect.value,
+    };
+    return data;
   }
 
   // Due Date
@@ -133,7 +149,6 @@ export default class todoFormDomComponent extends baseFormDomComponent {
 
     const datalist = initDatalist(listOfClasses.datalist, listOfIds.datalist);
     const sampleDates = this.getSampleDates();
-    console.log(sampleDates);
     sampleDates.forEach((itm) => {
       initOptionAsChildInList(datalist, listOfClasses.option, itm[1], itm[0]);
     });
@@ -182,6 +197,14 @@ export default class todoFormDomComponent extends baseFormDomComponent {
     this.dueDateSelect.style.display = "initial";
     this.dueDateSelect.value = 0;
     this.dueDateLabel.setAttribute("for", this.dueDateSelect.id);
+  }
+
+  getDueDateValue() {
+    if (!this.dueDateSelect.value || !this.dueDateInput.value) {
+      return null;
+    } else {
+      return new Date(this.dueDateInput.value);
+    }
   }
 
   /* Priority input */
