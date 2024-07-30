@@ -53,7 +53,7 @@ export default class todoDomMiniComponent extends todoDomComponent {
 
   // callbacks
   static btnRenderTodoCallback = (e) => {
-    document.body.mainDomObj.renderTodo(e.currentTarget.associatedTodo);
+    PubSub.publish("RENDER TODO", e.currentTarget.associatedTodo);
     e.stopPropagation();
   };
 

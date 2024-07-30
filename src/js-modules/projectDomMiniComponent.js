@@ -43,7 +43,7 @@ export default class projectDomMiniComponent extends projectDomComponent {
 
   // callbacks
   static btnRenderProjectCallback = (e) => {
-    document.body.mainDomObj.renderProject(e.currentTarget.associatedProject);
+    PubSub.publish("RENDER PROJECT", e.currentTarget.associatedProject);
     e.stopPropagation();
   };
 

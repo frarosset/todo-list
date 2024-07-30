@@ -8,7 +8,6 @@ export default class domStructure {
   constructor(root) {
     const headerDomObj = new headerDomComponent(root);
     const mainDomObj = new mainDomComponent(root);
-    document.body.mainDomObj = mainDomObj;
 
     document.body.appendChild(headerDomObj.header);
     document.body.appendChild(mainDomObj.main);

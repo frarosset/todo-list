@@ -232,7 +232,7 @@ export default class baseDomComponent {
 
   // callbacks
   static renderObjCallback = (e) => {
-    document.body.mainDomObj.renderGeneric(e.currentTarget.objToRender);
+    PubSub.publish("RENDER GENERIC", e.currentTarget.objToRender);
     e.stopPropagation();
   };
 
@@ -244,9 +244,8 @@ export default class baseDomComponent {
   };
 
   updateView(modifiedObj) {
-    const parentObj = modifiedObj.parent;
     // refresh the whole view, to show the parent
-    document.body.mainDomObj.renderGeneric(parentObj);
+    PubSub.publish("RENDER GENERIC", modifiedObj.parent);
   }
 
   static removeObjCallback = (e) => {

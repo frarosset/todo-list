@@ -9,6 +9,19 @@ export default class mainDomComponent {
     this.main = document.createElement("main");
     this.root = root;
     this.renderHome();
+
+    PubSub.subscribe("RENDER GENERIC", (msg, obj) => {
+      console.log(msg);
+      this.renderGeneric(obj);
+    });
+    PubSub.subscribe("RENDER PROJECT", (msg, obj) => {
+      console.log(msg);
+      this.renderProject(obj);
+    });
+    PubSub.subscribe("RENDER TODO", (msg, obj) => {
+      console.log(msg);
+      this.renderTodo(obj);
+    });
   }
 
   // helper methods

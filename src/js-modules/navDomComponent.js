@@ -4,6 +4,7 @@ import {
   initButton,
   initDiv,
 } from "../js-utilities/commonDomComponents.js";
+import PubSub from "pubsub-js";
 
 const blockName = "main-nav";
 const cssClass = {
@@ -87,7 +88,7 @@ export default class navDomComponent {
 
   // callbacks
   static btnRenderProjectCallback = (e) => {
-    document.body.mainDomObj.renderProject(e.target.associatedProject);
+    PubSub.publish("RENDER PROJECT", e.currentTarget.associatedProject);
     e.stopPropagation();
   };
 }
