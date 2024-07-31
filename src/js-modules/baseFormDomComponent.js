@@ -194,7 +194,7 @@ export default class baseFormDomComponent {
     const data = {
       title: this.input.title.value,
       description: this.input.description.value,
-      tags: new Set([...this.input.tags]),
+      tags: new Set(this.getTags()),
     };
     return data;
   }
@@ -241,6 +241,7 @@ export default class baseFormDomComponent {
     descriptionInput.rows = 4;
     descriptionInput.cols = 25;
     descriptionInput.maxLength = 100;
+    descriptionInput.resiz;
 
     return descriptionInput;
   }
@@ -253,8 +254,13 @@ export default class baseFormDomComponent {
     const newTag = this.initNewTagButton();
     tagsList.appendChild(newTag);
 
-    this.repeatedTagsInList = [];
-    this.input.tags = new Set(); /* to avoid duplicated tags*/
+    // Use Map to store unique tags as values (not repeated, by construction)
+    // and arrays of the corresponding input elements as values.
+    // Use '' as key too, to keep track of empty tags that have to be filled
+    // Having a '' keys means that there is an invalid empty tag that the user must fill.
+    // Having an array with more than one item as value in the map, means that the tag
+    // is repeated and the user must remove one of them.
+    this.input.tags = new Map();
 
     return tagsList;
   }
@@ -281,7 +287,7 @@ export default class baseFormDomComponent {
     // Add only if other tags are valid
     if (!this.canAddTag()) {
       // display message todo
-      console.log("Fix invalid (repeated or empty) tags first!");
+      this.checkAllTagInputValidity();
       return;
     }
 
@@ -301,10 +307,7 @@ export default class baseFormDomComponent {
       "tag" // aria-label
     );
     tagInput.maxLength = 15;
-    tagInput.addEventListener(
-      "change",
-      this.constructor.tagInputChangeCallback
-    );
+    tagInput.addEventListener("input", this.constructor.tagInputChangeCallback);
     tagInput.associatedThis = this;
 
     /* to make tag input size fit to the value length */
@@ -332,12 +335,15 @@ export default class baseFormDomComponent {
     li.appendChild(tagInput);
     li.appendChild(deleteTagBtn);
 
-    if (this.addTag(tagValue)) {
+    if (this.addTag(tagValue, tagInput)) {
       tagInput.value = tagValue;
+      tagInput.oldValue = tagValue;
       // make sure the dom is updated
       setTimeout(resize, 30); // for faster update
       setTimeout(resize, 100); // in case the previous one is too early
-    } else {
+    }
+
+    if (tagValue == "") {
       tagInput.focus();
     }
 
@@ -345,7 +351,10 @@ export default class baseFormDomComponent {
   }
 
   canAddTag() {
-    return this.input.tags.size == this.tagsList.children.length - 1;
+    return (
+      this.input.tags.size == this.tagsList.children.length - 1 &&
+      !this.input.tags.has("")
+    );
   }
 
   getTags() {
@@ -354,23 +363,33 @@ export default class baseFormDomComponent {
   hasTag(tag) {
     return this.input.tags.has(tag);
   }
-  addTag(tag) {
-    if (tag == null || !tag.length) {
+  addTag(tag, tagInput) {
+    if (tag == null) {
       return false;
     }
 
     if (!this.hasTag(tag)) {
-      this.input.tags.add(tag);
+      this.input.tags.set(tag, new Set([tagInput]));
       return true;
     } else {
-      this.repeatedTagsInList.push(tag);
+      const tagInputSet = this.input.tags.get(tag);
+      tagInputSet.add(tagInput);
       return false;
     }
   }
-  removeTag(tag) {
-    const repeatedIdx = this.repeatedTagsInList.indexOf(tag);
-    if (repeatedIdx >= 0) {
-      this.repeatedTagsInList.splice(repeatedIdx, 1);
+  removeTag(tag, tagInput) {
+    if (tag == null || !this.hasTag(tag)) {
+      return false;
+    }
+
+    const tagInputSet = this.input.tags.get(tag);
+
+    if (tagInputSet.size > 1) {
+      tagInputSet.delete(tagInput);
+      if (tagInputSet.size == 1) {
+        const tagInput = [...tagInputSet.keys()];
+        tagInput[0].setCustomValidity("");
+      }
       return true;
     } else if (this.input.tags.delete(tag)) {
       return true;
@@ -379,23 +398,38 @@ export default class baseFormDomComponent {
     }
   }
 
+  checkAllTagInputValidity() {
+    for (const inputDomArray of this.input.tags.values()) {
+      for (const inputDom of inputDomArray) {
+        if (!inputDom.reportValidity()) {
+          return;
+        }
+      }
+    }
+  }
+
   static tagInputChangeCallback(e) {
     const self = e.currentTarget.associatedThis;
     const tag = e.currentTarget.value;
+    self.removeTag(e.currentTarget.oldValue, e.currentTarget);
 
-    self.removeTag(e.currentTarget.oldValue);
+    if (tag == "") {
+      // display message: empty tag
+      // e.currentTarget.setCustomValidity("Fill this empty tag!");
+      e.currentTarget.reportValidity();
 
-    if (tag.length == "") {
-      // todo display message: empty tag
-      console.log("Fill this empty tag!");
-      // no tag to delete next
-      e.currentTarget.oldValue = null;
+      self.addTag("", e.currentTarget);
+      e.currentTarget.oldValue = "";
       return;
     }
 
-    if (!self.addTag(tag)) {
-      // todo display message: already present
-      console.log("Tag already present!");
+    if (!self.addTag(tag, e.currentTarget)) {
+      // display message: already present
+      e.currentTarget.setCustomValidity("Remove this repeated tag.");
+      e.currentTarget.reportValidity();
+    } else {
+      // set input as valid
+      e.currentTarget.setCustomValidity("");
     }
 
     e.currentTarget.oldValue = tag;
@@ -411,7 +445,7 @@ export default class baseFormDomComponent {
     const tagLiToDelete = e.currentTarget.tagLiToDelete;
     const tagValue = e.currentTarget.associatedInput.value;
 
-    self.removeTag(tagValue);
+    self.removeTag(tagValue, e.currentTarget.associatedInput);
     deleteElement(tagLiToDelete);
   }
 }

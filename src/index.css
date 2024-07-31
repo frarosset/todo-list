@@ -554,11 +554,13 @@ body > main {
 .project-form-dialog__title-input,
 .todo-form-dialog__title-input {
   font-size: var(--title-h2-fontsize);
+  line-height: 1; /* fix wrong alignment */
 }
 
 .project-form-dialog__description-input,
 .todo-form-dialog__description-input {
   font-size: var(--base-description-fontsize);
+  resize: none;
 }
 
 .project-form-dialog__tags-ul,
@@ -589,6 +591,11 @@ body > main {
 .project-form-dialog__tag-input,
 .todo-form-dialog__tag-input {
   min-width: 2em; /*to be adjusted manually, based on placeholder*/
+}
+
+.project-form-dialog__tag-input:invalid,
+.todo-form-dialog__tag-input:invalid {
+  color: var(--col-grey);
 }
 
 .project-form-dialog__tag-li,
