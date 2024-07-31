@@ -32,6 +32,8 @@ export default class baseDomComponent {
     editBtn: `edit-btn`,
   };
 
+  static associatedDialog = () => null; // method to fetch the dialog after its creation
+
   getCssClass(element) {
     return `${this.constructor.blockName}__${this.constructor.cssClass[element]}`;
   }
@@ -215,7 +217,7 @@ export default class baseDomComponent {
       baseDomComponent.editObjCallback,
       uiIcons.edit
     );
-    editBtn.objToEdit = this.obj;
+    editBtn.self = this;
     return editBtn;
   }
 
@@ -225,8 +227,7 @@ export default class baseDomComponent {
       baseDomComponent.removeObjCallback,
       uiIcons.delete
     );
-    removeBtn.objToDelete = this.obj;
-    removeBtn.objDom = this;
+    removeBtn.self = this;
     return removeBtn;
   }
 
@@ -237,9 +238,17 @@ export default class baseDomComponent {
   };
 
   static editObjCallback = (e) => {
-    const obj = e.currentTarget.objToEdit;
+    const self = e.currentTarget.self;
+    const objToEdit = self.obj;
+    const associatedDialog = self.constructor.associatedDialog();
+
     // todo
-    console.log("Edit", obj);
+    if (associatedDialog != null) {
+      // reset form //tofix
+      associatedDialog.setObjectData(objToEdit, true);
+      associatedDialog.dialog.showModal();
+    }
+
     e.stopPropagation();
   };
 
@@ -249,11 +258,11 @@ export default class baseDomComponent {
   }
 
   static removeObjCallback = (e) => {
-    const obj = e.currentTarget.objToDelete;
-    const objDom = e.currentTarget.objDom;
+    const self = e.currentTarget.self;
+    const objToDelete = self.obj;
 
-    obj.list.removeItem(obj);
-    objDom.updateView(obj);
+    objToDelete.list.removeItem(objToDelete);
+    self.updateView(objToDelete);
 
     e.stopPropagation();
   };

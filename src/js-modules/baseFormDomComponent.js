@@ -70,6 +70,7 @@ export default class baseFormDomComponent {
     } else {
       this.action = "add";
     }
+    this.setDialogTitle();
   }
 
   // Blocks initialization
@@ -111,6 +112,10 @@ export default class baseFormDomComponent {
       null,
       this.getDialogTitleString()
     );
+  }
+
+  setDialogTitle() {
+    this.dialogTitle.textContent = this.getDialogTitleString();
   }
 
   initBackBtn() {

@@ -79,6 +79,8 @@ export default class todoDomComponent extends baseDomComponent {
     state: { prefix: "solid", icon: "list-check" },
   };
 
+  static associatedDialog = () => document.body.todoFormDialog; // method to fetch the dialog after its creation
+
   constructor(obj) {
     super(obj);
   }

@@ -4,6 +4,7 @@ import todoListDomComponent from "./todoListDomComponent.js";
 
 export default class projectDomComponent extends baseDomComponent {
   static blockName = "project-div";
+  static associatedDialog = () => document.body.projectFormDialog; // method to fetch the dialog after its creation
 
   constructor(obj) {
     super(obj);
