@@ -28,6 +28,7 @@ export default class todoComponent extends baseComponent {
   ];
   static noImminenceIdx = 0;
   static expiredIdx = 4;
+  static completedIdx = 2;
   static imminenceRanges = [
     [0, -1] /* this is an empty range */,
     [8, Infinity],
@@ -91,6 +92,10 @@ export default class todoComponent extends baseComponent {
     return this.data.dueDate
       ? formatRelative(this.data.dueDate, new Date())
       : "none";
+  }
+
+  isCompleted() {
+    return this.stateIdx == todoComponent.completedIdx;
   }
 
   isExpired() {

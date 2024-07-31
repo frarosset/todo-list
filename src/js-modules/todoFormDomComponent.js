@@ -51,7 +51,25 @@ export default class todoFormDomComponent extends baseFormDomComponent {
       this.setDataToEditOtherInfo(obj);
     };
 
+    // redefine setObjectData() method
+    this.setObjectDataBase = this.setObjectData;
+    this.setObjectData = (obj, edit = false) => {
+      this.setObjectDataBase(obj, edit);
+      this.setObjectDataDueDate(obj, edit);
+    };
+
     this.form.appendChild(this.initFormOtherInfo());
+  }
+
+  setObjectDataDueDate(obj, edit = false) {
+    if (edit) {
+      this.dueDateInput.min = format(
+        obj.dateOfCreation,
+        this.constructor.dateFormat
+      );
+    } else {
+      this.dueDateInput.min = format(new Date(), this.constructor.dateFormat);
+    }
   }
 
   // Methods
