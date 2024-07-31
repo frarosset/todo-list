@@ -44,6 +44,13 @@ export default class todoFormDomComponent extends baseFormDomComponent {
       return { ...dataToSubmitBase, ...dataToSubmitOtherInfo };
     };
 
+    // redefine resetForm() method
+    this.setDataToEditBase = this.setDataToEdit;
+    this.setDataToEdit = (obj) => {
+      this.setDataToEditBase(obj);
+      this.setDataToEditOtherInfo(obj);
+    };
+
     this.form.appendChild(this.initFormOtherInfo());
   }
 
@@ -82,6 +89,11 @@ export default class todoFormDomComponent extends baseFormDomComponent {
 
     // reset the priority input
     this.resetPrioritySelect();
+  }
+
+  setDataToEditOtherInfo(obj) {
+    this.setDueDateValue(obj.dueDate);
+    this.setPrioritySelect(obj.priorityIdx);
   }
 
   getDataToSubmitOtherInfo() {
@@ -184,9 +196,9 @@ export default class todoFormDomComponent extends baseFormDomComponent {
     return div;
   }
 
-  resetDueDateOnInput() {
+  resetDueDateOnInput(dueDate = new Date()) {
     this.dueDateInput.style.display = "initial";
-    this.dueDateInput.value = format(new Date(), this.constructor.dateFormat);
+    this.dueDateInput.value = format(dueDate, this.constructor.dateFormat);
     this.dueDateSelect.style.display = "none";
     this.dueDateLabel.setAttribute("for", this.dueDateInput.id);
   }
@@ -204,6 +216,14 @@ export default class todoFormDomComponent extends baseFormDomComponent {
       return null;
     } else {
       return new Date(this.dueDateInput.value);
+    }
+  }
+
+  setDueDateValue(dueDate) {
+    if (dueDate == null) {
+      this.resetDueDateOnSelect();
+    } else {
+      this.resetDueDateOnInput(dueDate);
     }
   }
 

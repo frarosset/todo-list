@@ -62,11 +62,12 @@ export default class baseFormDomComponent {
     this.dialog.appendChild(this.initContent());
   }
 
-  setObjectData(object, edit = false) {
-    this.obj = object;
+  setObjectData(obj, edit = false) {
+    this.obj = obj;
     if (edit) {
       this.action = "edit";
-      // fill the form with the data: todo
+      // fill the form input with the data
+      this.setDataToEdit(obj);
     } else {
       this.action = "add";
     }
@@ -183,6 +184,12 @@ export default class baseFormDomComponent {
 
   /* Data and submit */
 
+  setDataToEdit(obj) {
+    this.input.title.value = obj.title;
+    this.input.description.value = obj.description;
+    obj.tags.forEach((tag) => this.addInputTagToList(tag));
+  }
+
   getDataToSubmit() {
     const data = {
       title: this.input.title.value,
@@ -270,7 +277,7 @@ export default class baseFormDomComponent {
     return ul;
   }
 
-  addInputTagToList() {
+  addInputTagToList(tagValue = "") {
     // Add only if other tags are valid
     if (!this.canAddTag()) {
       // display message todo
@@ -325,7 +332,16 @@ export default class baseFormDomComponent {
     li.appendChild(tagInput);
     li.appendChild(deleteTagBtn);
 
-    tagInput.focus();
+    if (this.addTag(tagValue)) {
+      tagInput.value = tagValue;
+      // make sure the dom is updated
+      setTimeout(resize, 30); // for faster update
+      setTimeout(resize, 100); // in case the previous one is too early
+    } else {
+      tagInput.focus();
+    }
+
+    return tagInput;
   }
 
   canAddTag() {
@@ -339,7 +355,7 @@ export default class baseFormDomComponent {
     return this.input.tags.has(tag);
   }
   addTag(tag) {
-    if (tag == null) {
+    if (tag == null || !tag.length) {
       return false;
     }
 
