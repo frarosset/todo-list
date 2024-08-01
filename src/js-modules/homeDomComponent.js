@@ -3,6 +3,7 @@ import projectDomMiniNavComponent from "./projectDomMiniNavComponent.js";
 import projectListDomComponent from "./projectListDomComponent.js";
 
 import noteComponent from "./noteComponent.js";
+import noteDomComponent from "./noteDomComponent.js";
 
 import { uiIcons } from "./uiIcons.js";
 
@@ -59,7 +60,8 @@ export default class homeDomComponent {
       tags: new Set(["to", "be", "removed"]),
     }); // no parent, no list
     console.log(testNote.print());
-    //const testNoteDom = new projectDomMiniNavComponent(root.inboxProject);
+    const testNoteDom = new noteDomComponent(testNote);
+    contentDiv.append(testNoteDom.div);
 
     return contentDiv;
   }
