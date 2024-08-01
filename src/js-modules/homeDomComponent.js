@@ -4,6 +4,7 @@ import projectListDomComponent from "./projectListDomComponent.js";
 
 import noteComponent from "./noteComponent.js";
 import noteDomComponent from "./noteDomComponent.js";
+import noteDomMiniComponent from "./noteDomMiniComponent.js";
 
 import { uiIcons } from "./uiIcons.js";
 
@@ -62,6 +63,8 @@ export default class homeDomComponent {
     console.log(testNote.print());
     const testNoteDom = new noteDomComponent(testNote);
     contentDiv.append(testNoteDom.div);
+    const testNoteMiniDom = new noteDomMiniComponent(testNote);
+    contentDiv.append(testNoteMiniDom.div);
 
     return contentDiv;
   }

@@ -1,5 +1,6 @@
 import projectDomComponent from "./projectDomComponent.js";
 import todoDomComponent from "./todoDomComponent.js";
+import noteDomComponent from "./noteDomComponent.js";
 import homeDomComponent from "./homeDomComponent.js";
 import { resetContent } from "../js-utilities/commonDomUtilities.js";
 import PubSub from "pubsub-js";
@@ -21,6 +22,10 @@ export default class mainDomComponent {
     PubSub.subscribe("RENDER TODO", (msg, obj) => {
       console.log(msg);
       this.renderTodo(obj);
+    });
+    PubSub.subscribe("RENDER NOTE", (msg, obj) => {
+      console.log(msg);
+      this.renderNote(obj);
     });
   }
 
@@ -48,6 +53,12 @@ export default class mainDomComponent {
     this.main.append(todoDomObj.div);
   }
 
+  renderNote(noteObj) {
+    this.#clearMainContent();
+    const noteDomObj = new noteDomComponent(noteObj);
+    this.main.append(noteDomObj.div);
+  }
+
   renderHome() {
     this.#clearMainContent();
     const homeDomObj = new homeDomComponent(this.root);
@@ -66,6 +77,9 @@ export default class mainDomComponent {
         break;
       case "T":
         this.renderTodo(obj);
+        break;
+      case "N":
+        this.renderNote(obj);
         break;
       default:
     }
