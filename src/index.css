@@ -284,7 +284,8 @@ body > main {
 .todo-mini-div__action-div,
 .project-mini-div__action-div,
 .project-div__action-div,
-.note-div__action-div {
+.note-div__action-div,
+.note-mini-div__action-div {
   grid-area: action-div;
   font-size: var(--base-mini-other-info-fontsize);
   align-self: end;
@@ -361,14 +362,16 @@ body > main {
 /* todo mini view */
 .project-mini-div,
 .project-mini-nav-div,
-.todo-mini-div {
+.todo-mini-div,
+.note-mini-div {
   padding: var(--base-mini-padding);
   border-radius: var(--base-mini-radius);
   background: var(--base-mini-bg-color);
   display: grid;
 }
 
-.project-mini-div {
+.project-mini-div,
+.note-mini-div {
   grid-template-areas:
     "path expand-btn"
     "title  ."
@@ -403,13 +406,15 @@ body > main {
 }
 
 .project-mini-div__path-ul,
-.todo-mini-div__path-ul {
+.todo-mini-div__path-ul,
+.note-mini-div__path-ul {
   grid-area: path;
   font-size: var(--base-mini-path-fontsize);
 }
 
 .project-mini-div__expand-btn,
-.todo-mini-div__expand-btn {
+.todo-mini-div__expand-btn,
+.note-mini-div__expand-btn {
   grid-area: expand-btn;
   font-size: var(--base-mini-path-fontsize); /* use same size as path */
   justify-self: right;
@@ -417,7 +422,8 @@ body > main {
 
 .project-mini-div__title-h2,
 .project-mini-nav-div__title-h2,
-.todo-mini-div__title-h2 {
+.todo-mini-div__title-h2,
+.note-mini-div__title-h2 {
   grid-area: title;
   font-size: var(--base-mini-title-fontsize);
   align-self: center;
@@ -476,6 +482,7 @@ body > main {
 .project-div__path-ul,
 .project-mini-div__path-ul,
 .note-div__path-ul,
+.note-mini-div__path-ul,
 .todo-div__path-ul,
 .todo-mini-div__path-ul {
   justify-self: start;
@@ -489,6 +496,7 @@ body > main {
 .project-div__path-li:last-of-type svg,
 .note-div__path-li:last-of-type svg,
 .project-mini-div__path-li:last-of-type svg,
+.note-mini-div__path-li:last-of-type svg,
 .todo-div__path-li:last-of-type svg,
 .todo-mini-div__path-li:last-of-type svg {
   vertical-align: baseline;
