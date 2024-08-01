@@ -317,7 +317,8 @@ body > main {
 /* project/todo list */
 
 .project-list-div,
-.todo-list-div {
+.todo-list-div,
+.note-list-div {
   background-color: var(--base-list-bg-color);
   border-radius: var(--base-list-radius);
   padding: var(--base-list-padding);
@@ -327,18 +328,21 @@ body > main {
 }
 
 .project-list-div__header,
-.todo-list-div__header {
+.todo-list-div__header,
+.note-list-div__header {
   display: flex;
 }
 
 .project-list-div__title-h3,
-.todo-list-div__title-h3 {
+.todo-list-div__title-h3,
+.note-list-div__title-h3 {
   flex: 1;
   font-size: var(--title-h3-fontsize);
 }
 
 .project-list-div__new-item-btn,
-.todo-list-div__new-item-btn {
+.todo-list-div__new-item-btn,
+.note-list-div__new-item-btn {
   background-color: var(--base-list-new-item-btn-bg-color);
   border-radius: var(--base-list-new-item-btn-radius);
   color: var(--base-list-new-item-btn-color);
@@ -346,14 +350,17 @@ body > main {
 
 .project-list-div__expand-btn,
 .todo-list-div__expand-btn,
+.note-list-div__expand-btn,
 .project-list-div__new-item-btn,
-.todo-list-div__new-item-btn {
+.todo-list-div__new-item-btn,
+.note-list-div__new-item-btn {
   padding: var(--base-list-btn-padding);
   font-size: var(--base-list-btn-fontsize);
 }
 
 .project-list-div__ul,
-.todo-list-div__ul {
+.todo-list-div__ul,
+.note-list-div__ul {
   display: flex;
   flex-direction: column;
   gap: var(--base-list-gap);
