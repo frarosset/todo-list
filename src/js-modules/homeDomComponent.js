@@ -1,6 +1,9 @@
 import { initDiv, initH2, initP } from "../js-utilities/commonDomComponents.js";
 import projectDomMiniNavComponent from "./projectDomMiniNavComponent.js";
 import projectListDomComponent from "./projectListDomComponent.js";
+
+import noteComponent from "./noteComponent.js";
+
 import { uiIcons } from "./uiIcons.js";
 
 export default class homeDomComponent {
@@ -48,6 +51,15 @@ export default class homeDomComponent {
     const projectListDom = new projectListDomComponent(root.customProjectsList);
 
     contentDiv.append(inboxDom.div, projectListDom.div);
+
+    // Sample test for notes
+    const testNote = new noteComponent({
+      title: "My first note",
+      description: "Just a test",
+      tags: new Set(["to", "be", "removed"]),
+    }); // no parent, no list
+    console.log(testNote.print());
+    //const testNoteDom = new projectDomMiniNavComponent(root.inboxProject);
 
     return contentDiv;
   }
