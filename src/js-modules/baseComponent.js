@@ -41,6 +41,13 @@ export default class baseComponent {
     this.type = "B";
   }
 
+  update(data) {
+    this.title = data.title;
+    this.description = data.description;
+    this.tags.forEach((tag) => this.removeTag(tag));
+    data.tags.forEach((tag) => this.addTag(tag));
+  }
+
   // print functions
 
   printPath() {

@@ -173,6 +173,7 @@ export default class baseFormDomComponent {
         this.obj.addItem(data);
       } else {
         //todo
+        this.obj.update(data);
       }
 
       // Clear the form
