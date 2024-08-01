@@ -516,7 +516,8 @@ body > main {
 }
 
 .project-form-dialog,
-.todo-form-dialog {
+.todo-form-dialog,
+.note-form-dialog {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -531,7 +532,8 @@ body > main {
 }
 
 .project-form-dialog__header,
-.todo-form-dialog__header {
+.todo-form-dialog__header,
+.note-form-dialog__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -540,18 +542,21 @@ body > main {
 }
 
 .project-form-dialog__title-h2,
-.todo-form-dialog__title-h2 {
+.todo-form-dialog__title-h2,
+.note-form-dialog__title-h2 {
   font-size: var(--base-path-fontsize);
   padding: 0 var(--base-list-padding);
   text-transform: uppercase;
 }
 .project-form-dialog__back-btn,
-.todo-form-dialog__back-btn {
+.todo-form-dialog__back-btn,
+.note-form-dialog__back-btn {
   font-size: var(--base-back-btn-fontsize);
 }
 
 .project-form-dialog__content,
-.todo-form-dialog__content {
+.todo-form-dialog__content,
+.note-form-dialog__content {
   background-color: var(--dialog-content-bg-color);
   color: var(--dialog-content-color);
   border-radius: var(--base-list-radius);
@@ -562,7 +567,8 @@ body > main {
 }
 
 .project-form-dialog__submit-btn,
-.todo-form-dialog__submit-btn {
+.todo-form-dialog__submit-btn,
+.note-form-dialog__submit-btn {
   background-color: var(--dialog-submit-btn-bg-color);
   color: var(--dialog-submit-btn-color);
   border-radius: var(--base-list-new-item-btn-radius);
@@ -570,25 +576,29 @@ body > main {
 }
 
 .project-form-dialog__form,
-.todo-form-dialog__form {
+.todo-form-dialog__form,
+.note-form-dialog__form {
   display: flex;
   flex-direction: column;
 }
 
 .project-form-dialog__title-input,
-.todo-form-dialog__title-input {
+.todo-form-dialog__title-input,
+.note-form-dialog__title-input {
   font-size: var(--title-h2-fontsize);
   line-height: 1; /* fix wrong alignment */
 }
 
 .project-form-dialog__description-input,
-.todo-form-dialog__description-input {
+.todo-form-dialog__description-input,
+.note-form-dialog__description-input {
   font-size: var(--base-description-fontsize);
   resize: none;
 }
 
 .project-form-dialog__tags-ul,
-.todo-form-dialog__tags-ul {
+.todo-form-dialog__tags-ul,
+.note-form-dialog__tags-ul {
   font-size: var(--base-tags-fontsize);
   margin: var(--base-header-tags-margin);
   display: flex;
@@ -598,8 +608,10 @@ body > main {
 
 .project-form-dialog__new-tag-btn,
 .todo-form-dialog__new-tag-btn,
+.note-form-dialog__new-tag-btn,
 .project-form-dialog__tag-li,
-.todo-form-dialog__tag-li {
+.todo-form-dialog__tag-li,
+.note-form-dialog__tag-li {
   padding: var(--base-tag-padding);
   border-radius: var(--base-tag-radius);
   display: flex;
@@ -607,25 +619,30 @@ body > main {
 }
 
 .project-form-dialog__new-tag-btn,
-.todo-form-dialog__new-tag-btn {
+.todo-form-dialog__new-tag-btn,
+.note-form-dialog__new-tag-btn {
   padding: var(--base-tag-padding-ul);
   border: 2px solid var(--base-tag-bg-color);
 }
 
 .project-form-dialog__tag-input,
-.todo-form-dialog__tag-input {
+.todo-form-dialog__tag-input,
+.note-form-dialog__tag-input {
   min-width: 2em; /*to be adjusted manually, based on placeholder*/
 }
 
 .project-form-dialog__tag-input:invalid,
-.todo-form-dialog__tag-input:invalid {
+.todo-form-dialog__tag-input:invalid,
+.note-form-dialog__tag-input:invalid {
   color: var(--col-grey);
 }
 
 .project-form-dialog__tag-li,
 .todo-form-dialog__tag-li,
+.note-form-dialog__tag-li,
 .project-form-dialog__tag-input,
-.todo-form-dialog__tag-input {
+.todo-form-dialog__tag-input,
+.note-form-dialog__tag-input {
   background-color: var(--base-tag-bg-color);
   color: var(--base-tag-color);
 }
@@ -633,7 +650,8 @@ body > main {
 /* to make tag input size fit to the value length */
 /* see https://stackoverflow.com/questions/8100770/auto-scaling-inputtype-text-to-width-of-value/38867270#38867270*/
 .project-form-dialog__tag-hidden-span,
-.todo-form-dialog__tag-hidden-span {
+.todo-form-dialog__tag-hidden-span,
+.note-form-dialog__tag-hidden-span {
   position: absolute;
   height: 0px;
   overflow: hidden;
@@ -678,30 +696,39 @@ body > main {
 
 .project-form-dialog__title-input,
 .todo-form-dialog__title-input,
+.note-form-dialog__title-input,
 .project-form-dialog__description-input,
 .todo-form-dialog__description-input,
+.note-form-dialog__description-input,
 .project-form-dialog__tag-input,
-.todo-form-dialog__tag-input {
+.todo-form-dialog__tag-input,
+.note-form-dialog__tag-input {
   border: none;
   outline: none;
 }
 
 .project-form-dialog__title-input:focus-visible,
 .todo-form-dialog__title-input:focus-visible,
+.note-form-dialog__title-input:focus-visible,
 .project-form-dialog__description-input:focus-visible,
 .todo-form-dialog__description-input:focus-visible,
+.note-form-dialog__description-input:focus-visible,
 .project-form-dialog__tag-input:focus-visible,
-.todo-form-dialog__tag-input:focus-visible {
+.todo-form-dialog__tag-input:focus-visible,
+.note-form-dialog__tag-input:focus-visible {
   border-left: 2px solid var(--col-accent);
   padding-left: 0.5em;
 }
 
 .project-form-dialog__title-input::placeholder,
 .todo-form-dialog__title-input::placeholder,
+.note-form-dialog__title-input::placeholder,
 .project-form-dialog__description-input::placeholder,
 .todo-form-dialog__description-input::placeholder,
+.note-form-dialog__description-input::placeholder,
 .project-form-dialog__tag-input::placeholder,
-.todo-form-dialog__tag-input::placeholder {
+.todo-form-dialog__tag-input::placeholder,
+.note-form-dialog__tag-input::placeholder {
   font-style: italic;
   color: var(--col-grey);
 }
