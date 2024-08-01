@@ -130,6 +130,9 @@ export default class baseComponent {
   set title(title) {
     if (this.data.title !== title) {
       this.data.title = title;
+
+      PubSub.publish(this.getPubSubName("TITLE CHANGE", "main"));
+
       this.updateDateOfEdit();
     }
   }
@@ -137,6 +140,9 @@ export default class baseComponent {
   set description(description) {
     if (this.data.description !== description) {
       this.data.description = description;
+
+      PubSub.publish(this.getPubSubName("DESCRIPTION CHANGE", "main"));
+
       this.updateDateOfEdit();
     }
   }
@@ -161,6 +167,9 @@ export default class baseComponent {
   addTag(tag) {
     if (!this.hasTag(tag)) {
       this.data.tags.add(tag);
+
+      PubSub.publish(this.getPubSubName("TAG ADD", "main"), tag);
+
       this.updateDateOfEdit();
       return true;
     } else {
@@ -170,6 +179,8 @@ export default class baseComponent {
 
   removeTag(tag) {
     if (this.data.tags.delete(tag)) {
+      PubSub.publish(this.getPubSubName(`TAG REMOVE ${tag}`, "main"));
+
       this.updateDateOfEdit();
       return true;
     } else {

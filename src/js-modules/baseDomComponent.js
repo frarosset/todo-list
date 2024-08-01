@@ -9,6 +9,7 @@ import {
 import { isToday, isThisYear } from "date-fns";
 import PubSub from "pubsub-js";
 import { uiIcons } from "./uiIcons.js";
+import { deleteElement } from "../js-utilities/commonDomUtilities.js";
 
 export default class baseDomComponent {
   static blockName = "base-div";
@@ -137,19 +138,66 @@ export default class baseDomComponent {
   }
 
   initTitle() {
-    return initH2(this.getCssClass("titleH2"), null, this.obj.title);
+    const h2 = initH2(this.getCssClass("titleH2"), null, this.obj.title);
+
+    // Subscribe to the change of the title of a base component, to update the interface
+    PubSub.subscribe(this.getPubSubName("TITLE CHANGE", "main"), (msg) => {
+      console.log(msg);
+      h2.textContent = this.obj.title;
+    });
+
+    return h2;
   }
 
   initDescription() {
-    return initP(this.getCssClass("descriptionP"), null, this.obj.description);
+    const p = initP(
+      this.getCssClass("descriptionP"),
+      null,
+      this.obj.description
+    );
+
+    // Subscribe to the change of the description of a base component, to update the interface
+    PubSub.subscribe(
+      this.getPubSubName("DESCRIPTION CHANGE", "main"),
+      (msg) => {
+        console.log(msg);
+        p.textContent = this.obj.description;
+      }
+    );
+
+    return p;
   }
 
   initTags() {
     /* TODO: test + add buttons with callbacks */
     const ul = initUl(this.getCssClass("tagsUl"));
+
+    const initLi = (tag) => {
+      const li = initLiAsChildInList(ul, this.getCssClass("tagLi"), null, tag);
+
+      // Subscribe to the add tag of a base component, to update the interface
+      PubSub.subscribe(
+        this.getPubSubName(`TAG REMOVE ${tag}`, "main"),
+        (msg) => {
+          console.log(msg);
+
+          PubSub.unsubscribe(this.getPubSubName(`TAG REMOVE ${tag}`, "main"));
+
+          deleteElement(li);
+        }
+      );
+    };
+
     for (const tag of this.obj.tags) {
-      initLiAsChildInList(ul, this.getCssClass("tagLi"), null, tag);
+      initLi(tag);
     }
+
+    // Subscribe to the add tag of a base component, to update the interface
+    PubSub.subscribe(this.getPubSubName("TAG ADD", "main"), (msg, tag) => {
+      console.log(msg, tag);
+      initLi(tag);
+    });
+
     return ul;
   }
 
@@ -242,9 +290,7 @@ export default class baseDomComponent {
     const objToEdit = self.obj;
     const associatedDialog = self.constructor.associatedDialog();
 
-    // todo
     if (associatedDialog != null) {
-      // reset form //tofix
       associatedDialog.setObjectData(objToEdit, true);
       associatedDialog.dialog.showModal();
     }

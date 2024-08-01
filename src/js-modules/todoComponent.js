@@ -133,6 +133,9 @@ export default class todoComponent extends baseComponent {
     const validatedPriority = this.validatePriority(priority);
     if (this.data.priority !== validatedPriority) {
       this.data.priority = validatedPriority;
+
+      PubSub.publish(this.getPubSubName("PRIORITY CHANGE", "main"));
+
       this.updateDateOfEdit();
     }
   }
@@ -174,6 +177,9 @@ export default class todoComponent extends baseComponent {
     const sameDate = isSameDay(this.data.dueDate, dueDate);
     if (!(bothNull || sameDate)) {
       this.data.dueDate = dueDate;
+
+      PubSub.publish(this.getPubSubName("DUEDATE CHANGE", "main"));
+
       this.updateImminence();
       this.updateDateOfEdit();
     }

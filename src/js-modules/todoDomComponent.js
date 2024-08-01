@@ -2,7 +2,6 @@ import {
   initDiv,
   initButton,
   initP,
-  initH2,
 } from "../js-utilities/commonDomComponents.js";
 import baseDomComponent from "./baseDomComponent.js";
 import { changeChildFaIcon } from "../js-utilities/fontAwesomeUtilities.js";
@@ -98,6 +97,13 @@ export default class todoDomComponent extends baseDomComponent {
     this.div.appendChild(this.content);
 
     this.div.appendChild(this.initFooter());
+
+    // redefine initTitle() method
+    this.initTitleBase = this.initTitle;
+    this.initTitle = () => {
+      const h2 = this.initTitleBase();
+      this.initTitleExtension(h2);
+    };
   }
 
   // Block initialization
@@ -118,6 +124,8 @@ export default class todoDomComponent extends baseDomComponent {
     const getTitleString = () =>
       `${this.obj.state} (priority: ${this.obj.priority})`;
     const getIcon = () => todoDomComponent.stateIcons[this.obj.stateIdx];
+    const getColor = () =>
+      todoDomComponent.priorityColors[this.obj.priorityIdx];
 
     // Init the button with the right icon
     const statusBtn = initButton(
@@ -129,28 +137,32 @@ export default class todoDomComponent extends baseDomComponent {
     statusBtn.todo = this.obj; // for callback
 
     // Set the color
-    statusBtn.style.color =
-      todoDomComponent.priorityColors[this.obj.priorityIdx];
+    statusBtn.style.color = getColor();
 
     // Set the tooltip when hovering
     statusBtn.title = getTitleString();
 
-    // Subscribe to the change of the state change of a todo component, to update the interface
+    // Subscribe to the change of the state of a todo component, to update the interface
     PubSub.subscribe(this.getPubSubName("STATE CHANGE", "main"), (msg) => {
       console.log(msg);
       changeChildFaIcon(statusBtn, getIcon());
       statusBtn.title = getTitleString();
     });
 
+    // Subscribe to the change of the priority of a todo component, to update the interface
+    PubSub.subscribe(this.getPubSubName("PRIORITY CHANGE", "main"), (msg) => {
+      console.log(msg);
+      statusBtn.style.color = getColor();
+      statusBtn.title = getTitleString();
+    });
+
     return statusBtn;
   }
 
-  // Overwrite the following method in the todo class, to show custom style
-  initTitle() {
+  // Extend the initTitle method in the todo class, to show custom style
+  initTitleExtension(h2) {
     const getTitleH2TextDecorationByState = () =>
       todoDomComponent.titleH2TextDecorationByState[this.obj.stateIdx];
-
-    const h2 = initH2(this.getCssClass("titleH2"), null, this.obj.title);
 
     // Set the tooltip when hovering
     h2.style.textDecorationLine = getTitleH2TextDecorationByState();
@@ -204,6 +216,16 @@ export default class todoDomComponent extends baseDomComponent {
     const getColor = () =>
       todoDomComponent.imminenceColors[this.obj.imminenceIdx];
 
+    const setContent = (contentDom) => {
+      contentDom.textContent = getDate();
+      contentDom.style.color = "inherit";
+
+      if (this.obj.isExpired()) {
+        contentDom.style.color = getColor();
+        contentDom.textContent += ` (expired)`;
+      }
+    };
+
     // Init the button with the right icon
     const [dueDateInfoDiv, , dueDateInfoContent] = this.initInfo(
       this.getCssClass("dueDateInfoDiv"),
@@ -212,37 +234,42 @@ export default class todoDomComponent extends baseDomComponent {
       getDate()
     );
 
-    if (this.obj.isExpired()) {
-      dueDateInfoContent.style.color = getColor();
-      dueDateInfoContent.textContent += ` (expired)`;
-    }
+    setContent(dueDateInfoContent);
 
     PubSub.subscribe(this.getPubSubName("IMMINENCE CHANGE", "main"), (msg) => {
       console.log(msg);
+      setContent(dueDateInfoContent);
+    });
 
-      dueDateInfoContent.textContent = getDate();
-      dueDateInfoContent.style.color = "inherit";
-
-      if (this.obj.isExpired()) {
-        dueDateInfoContent.style.color = getColor();
-        dueDateInfoContent.textContent += ` (expired)`;
-      }
+    PubSub.subscribe(this.getPubSubName("DUEDATE CHANGE", "main"), (msg) => {
+      console.log(msg);
+      setContent(dueDateInfoContent);
     });
 
     return dueDateInfoDiv;
   }
 
   initPriority(label = `Priority: `) {
+    const getString = () => `${this.obj.priority}`;
+    const getColor = () =>
+      todoDomComponent.priorityColors[this.obj.priorityIdx];
+
     // Init the button with the right icon
     const [priorityInfoDiv, , priorityInfoContent] = this.initInfo(
       this.getCssClass("priorityInfoDiv"),
       todoDomComponent.otherInfoIcons.priority,
       label,
-      `${this.obj.priority}`
+      getString()
     );
 
-    priorityInfoContent.style.color =
-      todoDomComponent.priorityColors[this.obj.priorityIdx];
+    priorityInfoContent.style.color = getColor();
+
+    // Subscribe to the change of the priority of a todo component, to update the interface
+    PubSub.subscribe(this.getPubSubName("PRIORITY CHANGE", "main"), (msg) => {
+      console.log(msg);
+      priorityInfoContent.textContent = getString();
+      priorityInfoContent.style.color = getColor();
+    });
 
     return priorityInfoDiv;
   }
