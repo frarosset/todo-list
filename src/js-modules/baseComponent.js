@@ -44,8 +44,7 @@ export default class baseComponent {
   update(data) {
     this.title = data.title;
     this.description = data.description;
-    this.tags.forEach((tag) => this.removeTag(tag));
-    data.tags.forEach((tag) => this.addTag(tag));
+    this.tags = data.tags;
   }
 
   // print functions
@@ -129,17 +128,31 @@ export default class baseComponent {
   }
 
   set title(title) {
-    this.data.title = title;
-    this.updateDateOfEdit();
+    if (this.data.title !== title) {
+      this.data.title = title;
+      this.updateDateOfEdit();
+    }
   }
 
   set description(description) {
-    this.data.description = description;
-    this.updateDateOfEdit();
+    if (this.data.description !== description) {
+      this.data.description = description;
+      this.updateDateOfEdit();
+    }
   }
 
   // Methods related to data.tags property
   // addTag and removeTag return true if the object is modified, false otherwise
+
+  set tags(tags) {
+    const equalSet = (s1, s2) =>
+      s1.size === s2.size && [...s1].every((itm) => s2.has(itm));
+
+    if (!equalSet(this.data.tags, tags)) {
+      this.tags.forEach((tag) => this.removeTag(tag));
+      tags.forEach((tag) => this.addTag(tag));
+    }
+  }
 
   hasTag(tag) {
     return this.data.tags.has(tag);

@@ -1,4 +1,9 @@
-import { format, formatRelative, differenceInCalendarDays } from "date-fns";
+import {
+  format,
+  formatRelative,
+  differenceInCalendarDays,
+  isSameDay,
+} from "date-fns";
 import { mod } from "../js-utilities/mathUtilities.js";
 import baseComponent from "./baseComponent.js";
 import PubSub from "pubsub-js";
@@ -125,17 +130,23 @@ export default class todoComponent extends baseComponent {
   }
 
   set priority(priority) {
-    this.data.priority = this.validatePriority(priority);
-    this.updateDateOfEdit();
+    const validatedPriority = this.validatePriority(priority);
+    if (this.data.priority !== validatedPriority) {
+      this.data.priority = validatedPriority;
+      this.updateDateOfEdit();
+    }
   }
 
   set state(state) {
-    this.data.state = this.validateState(state);
+    const validatedState = this.validateState(state);
+    if (this.data.state !== validatedState) {
+      this.data.state = validatedState;
 
-    PubSub.publish(this.getPubSubName("STATE CHANGE", "main"));
+      PubSub.publish(this.getPubSubName("STATE CHANGE", "main"));
 
-    this.updateImminence(); // this depends on the state, too
-    this.updateDateOfEdit();
+      this.updateImminence(); // this depends on the state, too
+      this.updateDateOfEdit();
+    }
   }
 
   togglePriority() {
@@ -159,9 +170,13 @@ export default class todoComponent extends baseComponent {
   }
 
   set dueDate(dueDate) {
-    this.data.dueDate = dueDate;
-    this.updateImminence();
-    this.updateDateOfEdit();
+    const bothNull = this.data.dueDate == null && dueDate == null;
+    const sameDate = isSameDay(this.data.dueDate, dueDate);
+    if (!(bothNull || sameDate)) {
+      this.data.dueDate = dueDate;
+      this.updateImminence();
+      this.updateDateOfEdit();
+    }
   }
 
   // imminence update method: note call it every time you modify this.data.dueDate
