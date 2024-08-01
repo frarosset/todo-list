@@ -3,6 +3,7 @@ import mainDomComponent from "./mainDomComponent.js";
 import setCreditFooter from "../js-utilities/creditFooter.js";
 import projectFormDomComponent from "./projectFormDomComponent.js";
 import todoFormDomComponent from "./todoFormDomComponent.js";
+import noteFormDomComponent from "./noteFormDomComponent.js";
 
 export default class domStructure {
   constructor(root) {
@@ -20,6 +21,10 @@ export default class domStructure {
     const todoFormDialog = new todoFormDomComponent();
     document.body.appendChild(todoFormDialog.dialog);
     document.body.todoFormDialog = todoFormDialog;
+
+    const noteFormDialog = new noteFormDomComponent();
+    document.body.appendChild(noteFormDialog.dialog);
+    document.body.noteFormDialog = noteFormDialog;
 
     setCreditFooter();
   }
