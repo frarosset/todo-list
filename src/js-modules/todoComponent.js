@@ -52,16 +52,10 @@ export default class todoComponent extends baseComponent {
 
     // define imminence
     this.updateImminence();
-
-    // redefine update() method
-    this.updateBase = this.update;
-    this.update = (data) => {
-      this.updateBase(data);
-      this.updateOtherInfo(data);
-    };
   }
 
-  updateOtherInfo(data) {
+  update(data) {
+    super.update(data);
     this.dueDate = data.dueDate;
     this.priority = data.priority;
   }

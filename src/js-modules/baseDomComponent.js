@@ -61,8 +61,13 @@ export default class baseDomComponent {
   // init method
   init(dateFormatFcn = baseDomComponent.dateFormatFcn) {
     this.div = initDiv(this.constructor.blockName);
-    this.div.appendChild(this.initHeader());
-    this.div.appendChild(this.initContent());
+
+    this.header = this.initHeader();
+    this.div.appendChild(this.header);
+
+    this.content = this.initContent();
+    this.div.appendChild(this.content);
+
     this.div.appendChild(this.initFooter(dateFormatFcn));
   }
 

@@ -2,12 +2,6 @@ import { initDiv, initH2, initP } from "../js-utilities/commonDomComponents.js";
 import projectDomMiniNavComponent from "./projectDomMiniNavComponent.js";
 import projectListDomComponent from "./projectListDomComponent.js";
 
-import noteComponent from "./noteComponent.js";
-import noteDomComponent from "./noteDomComponent.js";
-import noteDomMiniComponent from "./noteDomMiniComponent.js";
-import noteListDomComponent from "./noteListDomComponent.js";
-import noteListComponent from "./noteListComponent.js";
-
 import { uiIcons } from "./uiIcons.js";
 
 export default class homeDomComponent {
@@ -55,21 +49,6 @@ export default class homeDomComponent {
     const projectListDom = new projectListDomComponent(root.customProjectsList);
 
     contentDiv.append(inboxDom.div, projectListDom.div);
-
-    // Sample test for notes
-    const testNote = new noteComponent({
-      title: "My first note",
-      description: "Just a test",
-      tags: new Set(["to", "be", "removed"]),
-    }); // no parent, no list
-    console.log(testNote.print());
-    const testNoteDom = new noteDomComponent(testNote);
-    contentDiv.append(testNoteDom.div);
-    const testNoteMiniDom = new noteDomMiniComponent(testNote);
-    contentDiv.append(testNoteMiniDom.div);
-    const testNoteList = new noteListComponent("Notes", null); // note: initialized at each home page rendering
-    const testNoteListiDom = new noteListDomComponent(testNoteList);
-    contentDiv.append(testNoteListiDom.div);
 
     return contentDiv;
   }

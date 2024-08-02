@@ -29,39 +29,11 @@ export default class todoFormDomComponent extends baseFormDomComponent {
   constructor(obj) {
     super(obj);
 
-    // redefine resetForm() method
-    this.resetFormBase = this.resetForm;
-    this.resetForm = () => {
-      this.resetFormBase();
-      this.resetFormOtherInfo();
-    };
-
-    // redefine getDataToSubmit() method
-    this.getDataToSubmitBase = this.getDataToSubmit;
-    this.getDataToSubmit = () => {
-      const dataToSubmitBase = this.getDataToSubmitBase();
-      const dataToSubmitOtherInfo = this.getDataToSubmitOtherInfo();
-      return { ...dataToSubmitBase, ...dataToSubmitOtherInfo };
-    };
-
-    // redefine resetForm() method
-    this.setDataToEditBase = this.setDataToEdit;
-    this.setDataToEdit = (obj) => {
-      this.setDataToEditBase(obj);
-      this.setDataToEditOtherInfo(obj);
-    };
-
-    // redefine setObjectData() method
-    this.setObjectDataBase = this.setObjectData;
-    this.setObjectData = (obj, edit = false) => {
-      this.setObjectDataBase(obj, edit);
-      this.setObjectDataDueDate(obj, edit);
-    };
-
     this.form.appendChild(this.initFormOtherInfo());
   }
 
-  setObjectDataDueDate(obj, edit = false) {
+  setObjectData(obj, edit = false) {
+    super.setObjectData(obj, edit);
     if (edit) {
       this.dueDateInput.min = format(
         obj.dateOfCreation,
@@ -101,7 +73,9 @@ export default class todoFormDomComponent extends baseFormDomComponent {
     return div;
   }
 
-  resetFormOtherInfo() {
+  resetForm() {
+    super.resetForm();
+
     // reset the due date input
     this.resetDueDateOnSelect();
 
@@ -109,16 +83,16 @@ export default class todoFormDomComponent extends baseFormDomComponent {
     this.resetPrioritySelect();
   }
 
-  setDataToEditOtherInfo(obj) {
+  setDataToEdit(obj) {
+    super.setDataToEdit(obj);
     this.setDueDateValue(obj.dueDate);
     this.setPrioritySelect(obj.priorityIdx);
   }
 
-  getDataToSubmitOtherInfo() {
-    const data = {
-      dueDate: this.getDueDateValue(),
-      priority: this.prioritySelect.value,
-    };
+  getDataToSubmit() {
+    const data = super.getDataToSubmit();
+    data.dueDate = this.getDueDateValue();
+    data.priority = this.prioritySelect.value;
     return data;
   }
 

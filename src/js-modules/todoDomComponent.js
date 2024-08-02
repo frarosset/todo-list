@@ -84,26 +84,12 @@ export default class todoDomComponent extends baseDomComponent {
     super(obj);
   }
 
-  init() {
-    this.div = initDiv(this.constructor.blockName);
+  init(dateFormatFcn = baseDomComponent.dateFormatFcn) {
+    super.init(dateFormatFcn);
 
-    this.header = this.initHeader();
-    this.div.appendChild(this.header);
     this.header.prepend(this.initImminenceIcon());
     this.header.prepend(this.initStatusBtn());
     this.header.append(this.initOtherInfo());
-
-    this.content = this.initContent();
-    this.div.appendChild(this.content);
-
-    this.div.appendChild(this.initFooter());
-
-    // redefine initTitle() method
-    this.initTitleBase = this.initTitle;
-    this.initTitle = () => {
-      const h2 = this.initTitleBase();
-      this.initTitleExtension(h2);
-    };
   }
 
   // Block initialization
@@ -160,7 +146,9 @@ export default class todoDomComponent extends baseDomComponent {
   }
 
   // Extend the initTitle method in the todo class, to show custom style
-  initTitleExtension(h2) {
+  initTitle() {
+    const h2 = super.initTitle();
+
     const getTitleH2TextDecorationByState = () =>
       todoDomComponent.titleH2TextDecorationByState[this.obj.stateIdx];
 
