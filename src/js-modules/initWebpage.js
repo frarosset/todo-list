@@ -60,11 +60,11 @@ export default function initWebpage() {
   const project0 = root.addProject(sampleProject0); //root.customProjects[0]
   root.addProject(sampleProject1); //root.customProjects[1]
   const project2 = root.addProject(sampleProject2); //root.customProjects[2]
-  project2.addTodo(sampleTodo0);
-  project2.addTodo(sampleTodo1);
-  project0.addTodo(sampleTodo2);
-  project2.addTodo(sampleTodo3);
-  root.inboxProject.addTodo(sampleTodo1);
+  project2.addToTodoList(sampleTodo0);
+  project2.addToTodoList(sampleTodo1);
+  project0.addToTodoList(sampleTodo2);
+  project2.addToTodoList(sampleTodo3);
+  root.inboxProject.addToTodoList(sampleTodo1);
 
   console.log(root.print());
   // todo: read data from json

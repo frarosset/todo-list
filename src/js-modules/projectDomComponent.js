@@ -18,7 +18,7 @@ export default class projectDomComponent extends baseDomComponent {
     this.content = this.initContent();
     this.div.appendChild(this.content);
 
-    const todoListDom = new todoListDomComponent(this.obj.todoList);
+    const todoListDom = new todoListDomComponent(this.obj.getTodoList());
     this.content.appendChild(todoListDom.div);
 
     this.div.appendChild(this.initFooter());
