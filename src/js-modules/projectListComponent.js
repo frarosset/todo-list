@@ -1,4 +1,4 @@
-import projectComponent from "./projectComponent.js";
+import { projectComponent } from "./fixCircularDependenciesInComponents.js";
 import baseListComponent from "./baseListComponent.js";
 
 export default class projectListComponent extends baseListComponent {

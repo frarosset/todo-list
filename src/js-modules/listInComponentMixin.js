@@ -1,6 +1,6 @@
-import projectListComponent from "./projectListComponent.js";
-import todoListComponent from "./todoListComponent.js";
-import noteListComponent from "./noteListComponent.js";
+import { projectListComponent } from "./fixCircularDependenciesInComponents.js";
+import { todoListComponent } from "./fixCircularDependenciesInComponents.js";
+import { noteListComponent } from "./fixCircularDependenciesInComponents.js";
 
 // Call
 //   listInComponentMixin(className, ["T", "P", "N"]);

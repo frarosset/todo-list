@@ -7,6 +7,7 @@ import {
 import { mod } from "../js-utilities/mathUtilities.js";
 import baseComponent from "./baseComponent.js";
 import PubSub from "pubsub-js";
+import { listInComponentMixin } from "./fixCircularDependenciesInComponents.js";
 
 export default class todoComponent extends baseComponent {
   static defaultData = {
@@ -52,6 +53,8 @@ export default class todoComponent extends baseComponent {
 
     // define imminence
     this.updateImminence();
+
+    this.initAllLists(); // method added via composition (see below)
   }
 
   update(data) {
@@ -204,3 +207,11 @@ export default class todoComponent extends baseComponent {
     PubSub.publish(this.getPubSubName("IMMINENCE CHANGE", "main"));
   }
 }
+
+// Add todoList (T), projectList (P), noteList (N) with composition (using mixin) with these methods:
+// - initAllLists -------------> must be called in the constructor
+// - print()  -----------------> redefined
+// - getProjectList(), getTodoList(), getNoteList()
+// - addToProjectList(data), addToTodoList(data), addToNoteList(data)
+// - removeFromProjectList(obj), removeFromTodoList(obj), removeFromNoteList(obj)
+listInComponentMixin(todoComponent, ["T", "P", "N"]);

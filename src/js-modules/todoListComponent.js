@@ -1,4 +1,4 @@
-import todoComponent from "./todoComponent.js";
+import { todoComponent } from "./fixCircularDependenciesInComponents.js";
 import baseListComponent from "./baseListComponent.js";
 
 export default class todoListComponent extends baseListComponent {

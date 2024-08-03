@@ -1,4 +1,4 @@
-import noteComponent from "./noteComponent.js";
+import { noteComponent } from "./fixCircularDependenciesInComponents.js";
 import baseListComponent from "./baseListComponent.js";
 
 export default class noteListComponent extends baseListComponent {

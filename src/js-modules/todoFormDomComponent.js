@@ -7,7 +7,7 @@ import {
   initOptionAsChildInList,
 } from "../js-utilities/commonDomComponents.js";
 import baseFormDomComponent from "./baseFormDomComponent.js";
-import todoComponent from "./todoComponent.js";
+import { todoComponent } from "./fixCircularDependenciesInComponents.js";
 import todoDomComponent from "./todoDomComponent.js";
 import { format, addDays, addMonths, addYears } from "date-fns";
 

@@ -1,11 +1,7 @@
 import baseComponent from "./baseComponent.js";
-import listInComponentMixin from "./listInComponentMixin.js";
+import { listInComponentMixin } from "./fixCircularDependenciesInComponents.js";
 
 export default class projectComponent extends baseComponent {
-  static defaultData = {
-    ...baseComponent.defaultData,
-  };
-
   static nextId = 0;
 
   constructor(data, parent = null, list = null) {

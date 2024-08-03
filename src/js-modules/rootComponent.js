@@ -1,5 +1,5 @@
-import projectComponent from "./projectComponent";
-import projectListComponent from "./projectListComponent.js";
+import { projectComponent } from "./fixCircularDependenciesInComponents";
+import { projectListComponent } from "./fixCircularDependenciesInComponents.js";
 
 export default class rootComponent {
   #inboxProject;
