@@ -1,5 +1,5 @@
 import { initDiv } from "../js-utilities/commonDomComponents.js";
-import projectDomComponent from "./projectDomComponent.js";
+import { projectDomComponent } from "./fixCircularDependenciesInDomComponents.js";
 import PubSub from "pubsub-js";
 
 //  Differently from projectDomMiniComponent, this is not editable via UI and shows only the title

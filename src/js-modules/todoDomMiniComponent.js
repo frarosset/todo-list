@@ -1,5 +1,5 @@
 import { initDiv, initButton } from "../js-utilities/commonDomComponents.js";
-import todoDomComponent from "./todoDomComponent.js";
+import { todoDomComponent } from "./fixCircularDependenciesInDomComponents.js";
 import { uiIcons } from "./uiIcons.js";
 import PubSub from "pubsub-js";
 

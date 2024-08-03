@@ -8,7 +8,7 @@ import {
 } from "../js-utilities/commonDomComponents.js";
 import baseFormDomComponent from "./baseFormDomComponent.js";
 import { todoComponent } from "./fixCircularDependenciesInComponents.js";
-import todoDomComponent from "./todoDomComponent.js";
+import { todoDomComponent } from "./fixCircularDependenciesInDomComponents.js";
 import { format, addDays, addMonths, addYears } from "date-fns";
 
 export default class todoFormDomComponent extends baseFormDomComponent {

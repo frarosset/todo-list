@@ -1,6 +1,6 @@
-import projectDomComponent from "./projectDomComponent.js";
-import todoDomComponent from "./todoDomComponent.js";
-import noteDomComponent from "./noteDomComponent.js";
+import { projectDomComponent } from "./fixCircularDependenciesInDomComponents.js";
+import { todoDomComponent } from "./fixCircularDependenciesInDomComponents.js";
+import { noteDomComponent } from "./fixCircularDependenciesInDomComponents.js";
 import homeDomComponent from "./homeDomComponent.js";
 import { resetContent } from "../js-utilities/commonDomUtilities.js";
 import PubSub from "pubsub-js";

@@ -6,6 +6,7 @@ import {
 import baseDomComponent from "./baseDomComponent.js";
 import { changeChildFaIcon } from "../js-utilities/fontAwesomeUtilities.js";
 import PubSub from "pubsub-js";
+import { listInDomComponentMixin } from "./fixCircularDependenciesInDomComponents.js";
 
 export default class todoDomComponent extends baseDomComponent {
   static blockName = "todo-div";
@@ -90,6 +91,8 @@ export default class todoDomComponent extends baseDomComponent {
     this.header.prepend(this.initImminenceIcon());
     this.header.prepend(this.initStatusBtn());
     this.header.append(this.initOtherInfo());
+
+    this.initAllDomLists(); // method added via composition (see below)
   }
 
   // Block initialization
@@ -301,3 +304,8 @@ export default class todoDomComponent extends baseDomComponent {
     return [div, label, content];
   }
 }
+
+// Add todoDomList, projectDomList, noteDomList (based on what is defined in this.obj.list)
+// with composition (using mixin) with this method:
+// - initAllDomLists -------------> must be called in the constructor
+listInDomComponentMixin(todoDomComponent);

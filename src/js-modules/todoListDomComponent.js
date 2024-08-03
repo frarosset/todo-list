@@ -1,5 +1,5 @@
 import baseListDomComponent from "./baseListDomComponent.js";
-import todoDomMiniComponent from "./todoDomMiniComponent.js";
+import { todoDomMiniComponent } from "./fixCircularDependenciesInDomComponents.js";
 
 export default class todoListDomComponent extends baseListDomComponent {
   static blockName = "todo-list-div";

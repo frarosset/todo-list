@@ -1,5 +1,5 @@
 import baseListDomComponent from "./baseListDomComponent.js";
-import noteDomMiniComponent from "./noteDomMiniComponent.js";
+import { noteDomMiniComponent } from "./fixCircularDependenciesInDomComponents.js";
 
 export default class noteListDomComponent extends baseListDomComponent {
   static blockName = "note-list-div";

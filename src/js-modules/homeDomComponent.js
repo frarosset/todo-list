@@ -1,6 +1,6 @@
 import { initDiv, initH2, initP } from "../js-utilities/commonDomComponents.js";
 import projectDomMiniNavComponent from "./projectDomMiniNavComponent.js";
-import projectListDomComponent from "./projectListDomComponent.js";
+import { projectListDomComponent } from "./fixCircularDependenciesInDomComponents.js";
 
 import { uiIcons } from "./uiIcons.js";
 

@@ -1,5 +1,5 @@
 import baseDomComponent from "./baseDomComponent.js";
-import todoListDomComponent from "./todoListDomComponent.js";
+import { listInDomComponentMixin } from "./fixCircularDependenciesInDomComponents.js";
 
 export default class projectDomComponent extends baseDomComponent {
   static blockName = "project-div";
@@ -12,7 +12,11 @@ export default class projectDomComponent extends baseDomComponent {
   init(dateFormatFcn = baseDomComponent.dateFormatFcn) {
     super.init(dateFormatFcn);
 
-    const todoListDom = new todoListDomComponent(this.obj.getTodoList());
-    this.content.appendChild(todoListDom.div);
+    this.initAllDomLists(); // method added via composition (see below)
   }
 }
+
+// Add todoDomList, projectDomList, noteDomList (based on what is defined in this.obj.list)
+// with composition (using mixin) with this method:
+// - initAllDomLists -------------> must be called in the constructor
+listInDomComponentMixin(projectDomComponent);
