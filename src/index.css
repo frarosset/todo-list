@@ -301,6 +301,9 @@ body > main {
 .todo-div__content,
 .note-div__content {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-content-gap);
 }
 
 /* footer */
@@ -774,6 +777,7 @@ body > main {
   --base-tag-padding-ul: 0.2rem;
   --base-tag-padding: var(--base-tag-padding-ul) 0.4rem;
 
+  --base-content-gap: 1rem;
   --base-other-info-label-width: 5em;
   --base-list-gap: 0.5rem;
   --base-ul-gap: 0.5rem;

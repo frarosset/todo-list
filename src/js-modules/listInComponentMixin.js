@@ -19,15 +19,30 @@ const listData = {
     projectListComponent, // class
     "Projects", // displayed title
   ],
+  SP: [
+    "projectList", // variable label
+    projectListComponent, // class
+    "Sub-Projects", // displayed title
+  ],
   T: [
     "todoList", // variable label
     todoListComponent, // class
-    "Todos", // displayed title
+    "Todo", // displayed title
+  ],
+  ST: [
+    "todoList", // variable label
+    todoListComponent, // class
+    "Sub-Tasks", // displayed title
   ],
   N: [
     "noteList", // variable label
     noteListComponent, // class
     "Notes", // displayed title
+  ],
+  SN: [
+    "noteList", // variable label
+    noteListComponent, // class
+    "Replies", // displayed title
   ],
 };
 

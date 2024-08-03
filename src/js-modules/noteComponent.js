@@ -19,4 +19,4 @@ export default class noteComponent extends baseComponent {
 // - getProjectList(), getTodoList(), getNoteList()
 // - addToProjectList(data), addToTodoList(data), addToNoteList(data)
 // - removeFromProjectList(obj), removeFromTodoList(obj), removeFromNoteList(obj)
-listInComponentMixin(noteComponent, ["T", "P", "N"]);
+listInComponentMixin(noteComponent, ["SN"]);

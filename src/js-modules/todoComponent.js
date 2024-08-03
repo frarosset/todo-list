@@ -214,4 +214,4 @@ export default class todoComponent extends baseComponent {
 // - getProjectList(), getTodoList(), getNoteList()
 // - addToProjectList(data), addToTodoList(data), addToNoteList(data)
 // - removeFromProjectList(obj), removeFromTodoList(obj), removeFromNoteList(obj)
-listInComponentMixin(todoComponent, ["T", "P", "N"]);
+listInComponentMixin(todoComponent, ["ST", "N"]);
