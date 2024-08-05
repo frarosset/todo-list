@@ -1,6 +1,6 @@
 import headerDomComponent from "./headerDomComponent.js";
 import mainDomComponent from "./mainDomComponent.js";
-import setCreditFooter from "../js-utilities/creditFooter.js";
+import setCreditFooter from "../../js-utilities/creditFooter.js";
 import projectFormDomComponent from "./projectFormDomComponent.js";
 import todoFormDomComponent from "./todoFormDomComponent.js";
 import noteFormDomComponent from "./noteFormDomComponent.js";

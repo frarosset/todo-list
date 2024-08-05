@@ -1,4 +1,4 @@
-import { initDiv, initButton } from "../js-utilities/commonDomComponents.js";
+import { initDiv, initButton } from "../../js-utilities/commonDomComponents.js";
 import { noteDomComponent } from "./fixCircularDependenciesInDomComponents.js";
 import { uiIcons } from "./uiIcons.js";
 import PubSub from "pubsub-js";

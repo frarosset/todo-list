@@ -1,5 +1,5 @@
-import rootComponent from "./rootComponent.js";
-import domStructure from "./domStructure.js";
+import rootComponent from "./logic/rootComponent.js";
+import domStructure from "./dom/domStructure.js";
 
 const sampleProject0 = {
   title: "My First Project",

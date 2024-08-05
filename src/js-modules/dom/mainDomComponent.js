@@ -2,7 +2,7 @@ import { projectDomComponent } from "./fixCircularDependenciesInDomComponents.js
 import { todoDomComponent } from "./fixCircularDependenciesInDomComponents.js";
 import { noteDomComponent } from "./fixCircularDependenciesInDomComponents.js";
 import homeDomComponent from "./homeDomComponent.js";
-import { resetContent } from "../js-utilities/commonDomUtilities.js";
+import { resetContent } from "../../js-utilities/commonDomUtilities.js";
 import PubSub from "pubsub-js";
 
 export default class mainDomComponent {

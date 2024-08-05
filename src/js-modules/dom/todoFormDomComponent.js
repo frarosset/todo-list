@@ -5,9 +5,9 @@ import {
   initDatalist,
   initInput,
   initOptionAsChildInList,
-} from "../js-utilities/commonDomComponents.js";
+} from "../../js-utilities/commonDomComponents.js";
 import baseFormDomComponent from "./baseFormDomComponent.js";
-import { todoComponent } from "./fixCircularDependenciesInComponents.js";
+import { todoComponent } from "../logic/fixCircularDependenciesInComponents.js";
 import { todoDomComponent } from "./fixCircularDependenciesInDomComponents.js";
 import { format, addDays, addMonths, addYears } from "date-fns";
 

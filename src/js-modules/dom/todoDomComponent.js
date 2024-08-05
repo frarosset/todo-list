@@ -2,9 +2,9 @@ import {
   initDiv,
   initButton,
   initP,
-} from "../js-utilities/commonDomComponents.js";
+} from "../../js-utilities/commonDomComponents.js";
 import baseDomComponent from "./baseDomComponent.js";
-import { changeChildFaIcon } from "../js-utilities/fontAwesomeUtilities.js";
+import { changeChildFaIcon } from "../../js-utilities/fontAwesomeUtilities.js";
 import PubSub from "pubsub-js";
 import { listInDomComponentMixin } from "./fixCircularDependenciesInDomComponents.js";
 

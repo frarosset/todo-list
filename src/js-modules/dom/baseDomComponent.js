@@ -5,11 +5,11 @@ import {
   initDiv,
   initP,
   initH2,
-} from "../js-utilities/commonDomComponents.js";
+} from "../../js-utilities/commonDomComponents.js";
 import { isToday, isThisYear } from "date-fns";
 import PubSub from "pubsub-js";
 import { uiIcons } from "./uiIcons.js";
-import { deleteElement } from "../js-utilities/commonDomUtilities.js";
+import { deleteElement } from "../../js-utilities/commonDomUtilities.js";
 
 export default class baseDomComponent {
   static blockName = "base-div";

@@ -1,14 +1,11 @@
-import { initDiv, initButton } from "../js-utilities/commonDomComponents.js";
+import { initDiv } from "../../js-utilities/commonDomComponents.js";
 import { projectDomComponent } from "./fixCircularDependenciesInDomComponents.js";
-import { uiIcons } from "./uiIcons.js";
 import PubSub from "pubsub-js";
 
-export default class projectDomMiniComponent extends projectDomComponent {
-  static blockName = "project-mini-div";
-  static cssClass = {
-    ...projectDomComponent.cssClass,
-    expandBtn: `expand-btn`,
-  };
+//  Differently from projectDomMiniComponent, this is not editable via UI and shows only the title
+
+export default class projectDomMiniNavComponent extends projectDomComponent {
+  static blockName = "project-mini-nav-div";
 
   constructor(obj) {
     super(obj);
@@ -18,27 +15,13 @@ export default class projectDomMiniComponent extends projectDomComponent {
   init() {
     this.div = initDiv(this.constructor.blockName);
 
-    this.div.append(this.initExpandBtn());
-    this.div.append(this.initPath());
     this.div.append(this.initTitle());
-    this.div.appendChild(this.initActionButtons());
 
     this.div.associatedProject = this.obj;
     this.div.addEventListener(
       "click",
       this.constructor.btnRenderProjectCallback
     );
-  }
-
-  // Components initialization
-  initExpandBtn() {
-    const expandBtn = initButton(
-      this.getCssClass("expandBtn"),
-      this.constructor.btnRenderProjectCallback,
-      uiIcons.expand
-    );
-    expandBtn.associatedProject = this.obj;
-    return expandBtn;
   }
 
   // callbacks

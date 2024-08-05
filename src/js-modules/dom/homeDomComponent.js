@@ -1,4 +1,8 @@
-import { initDiv, initH2, initP } from "../js-utilities/commonDomComponents.js";
+import {
+  initDiv,
+  initH2,
+  initP,
+} from "../../js-utilities/commonDomComponents.js";
 import projectDomMiniNavComponent from "./projectDomMiniNavComponent.js";
 import { projectListDomComponent } from "./fixCircularDependenciesInDomComponents.js";
 

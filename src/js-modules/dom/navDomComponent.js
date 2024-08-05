@@ -3,7 +3,7 @@ import {
   initLiAsChildInList,
   initButton,
   initDiv,
-} from "../js-utilities/commonDomComponents.js";
+} from "../../js-utilities/commonDomComponents.js";
 import PubSub from "pubsub-js";
 
 const blockName = "main-nav";

@@ -4,7 +4,7 @@ import {
   differenceInCalendarDays,
   isSameDay,
 } from "date-fns";
-import { mod } from "../js-utilities/mathUtilities.js";
+import { mod } from "../../js-utilities/mathUtilities.js";
 import baseComponent from "./baseComponent.js";
 import PubSub from "pubsub-js";
 import { listInComponentMixin } from "./fixCircularDependenciesInComponents.js";

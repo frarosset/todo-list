@@ -4,10 +4,10 @@ import {
   initDiv,
   initH3,
   initButton,
-} from "../js-utilities/commonDomComponents.js";
-import { deleteElement } from "../js-utilities/commonDomUtilities.js";
+} from "../../js-utilities/commonDomComponents.js";
+import { deleteElement } from "../../js-utilities/commonDomUtilities.js";
 import baseDomComponent from "./baseDomComponent.js";
-import { changeChildFaIcon } from "../js-utilities/fontAwesomeUtilities.js";
+import { changeChildFaIcon } from "../../js-utilities/fontAwesomeUtilities.js";
 import { uiIcons } from "./uiIcons.js";
 import PubSub from "pubsub-js";
 

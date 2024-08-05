@@ -6,8 +6,8 @@ import {
   initTextArea,
   initH2,
   initInput,
-} from "../js-utilities/commonDomComponents.js";
-import { deleteElement } from "../js-utilities/commonDomUtilities.js";
+} from "../../js-utilities/commonDomComponents.js";
+import { deleteElement } from "../../js-utilities/commonDomUtilities.js";
 // import { isToday, isThisYear } from "date-fns";
 import { uiIcons } from "./uiIcons.js";
 
