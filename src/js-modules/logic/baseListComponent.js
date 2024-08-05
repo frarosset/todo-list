@@ -78,4 +78,11 @@ export default class baseListComponent {
       this.updateParentDateOfEdit();
     }
   }
+
+  // Serialization method
+  toJSON() {
+    const list = [];
+    this.#list.forEach((item) => list.push(item.toJSON()));
+    return list;
+  }
 }

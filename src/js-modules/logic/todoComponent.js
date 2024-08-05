@@ -206,6 +206,17 @@ export default class todoComponent extends baseComponent {
 
     PubSub.publish(this.getPubSubName("IMMINENCE CHANGE", "main"));
   }
+
+  // Serialization method
+  toJSON() {
+    const obj = super.toJSON();
+    return {
+      ...obj,
+      dueDate: this.data.dueDate,
+      priority: this.data.priority,
+      state: this.data.state,
+    };
+  }
 }
 
 // Add todoList (T), projectList (P), noteList (N) with composition (using mixin) with these methods:

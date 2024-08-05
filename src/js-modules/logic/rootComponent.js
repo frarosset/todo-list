@@ -1,4 +1,8 @@
-import { projectComponent } from "./fixCircularDependenciesInComponents";
+import {
+  projectComponent,
+  todoComponent,
+  noteComponent,
+} from "./fixCircularDependenciesInComponents";
 import { projectListComponent } from "./fixCircularDependenciesInComponents.js";
 
 export default class rootComponent {
@@ -49,5 +53,19 @@ export default class rootComponent {
     str += this.#customProjectsList.print();
 
     return str;
+  }
+
+  // Serialization method
+  toJSON() {
+    // nextId of the projectComponent, todoComponent, noteComponent classes needs to be memorized
+    return {
+      nextId: {
+        projectComponent: projectComponent.nextId,
+        todoComponent: todoComponent.nextId,
+        noteComponent: noteComponent.nextId,
+      },
+      inboxProject: this.#inboxProject.toJSON(),
+      customProjectsList: this.#customProjectsList.toJSON(),
+    };
   }
 }

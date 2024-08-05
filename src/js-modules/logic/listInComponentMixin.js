@@ -51,13 +51,17 @@ const listData = {
 // specify the lists you want (P,T,N) in the whichListArray
 
 export default function listInComponentMixin(targetClass, whichListArray) {
+  // This method is the original one, and will be redefined next
+  const originalToJSON = targetClass.prototype.toJSON;
+
   Object.assign(
     targetClass.prototype,
     initAllLists(whichListArray),
     allGetListMethod(whichListArray),
     allAddToListMethod(whichListArray),
     allRemoveFromListMethod(whichListArray),
-    redefinePrint(whichListArray)
+    redefinePrint(whichListArray),
+    redefineToJSON(originalToJSON)
   );
 }
 
@@ -152,6 +156,22 @@ function redefinePrint(whichListArray) {
         str += this.data.lists[label].print();
       });
       return str;
+    },
+  };
+}
+
+// Redefine toJSON method (serialization method) ------------------------
+
+function redefineToJSON(originalToJSON) {
+  return {
+    toJSON: function () {
+      // it becomes a method: 'this' is the object it will be attached to
+      const obj = originalToJSON.call(this);
+      obj.lists = {};
+      Object.entries(this.data.lists).forEach(([listLabel, listObj]) => {
+        obj.lists[listLabel] = listObj.toJSON();
+      });
+      return obj;
     },
   };
 }

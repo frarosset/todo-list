@@ -187,4 +187,16 @@ export default class baseComponent {
       return false;
     }
   }
+
+  // Serialization method
+  toJSON() {
+    return {
+      id: this.data.id,
+      title: this.data.title,
+      description: this.data.description,
+      tags: [...this.data.tags],
+      dateOfCreation: this.data.dateOfCreation,
+      dateOfEdit: this.data.dateOfEdit,
+    };
+  }
 }

@@ -71,4 +71,6 @@ export default function initWebpage() {
 
   //Build the dom structure
   new domStructure(root);
+
+  console.log(JSON.stringify(root));
 }
