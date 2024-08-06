@@ -1,0 +1,116 @@
+{
+  "nextId": { "projectComponent": 4, "todoComponent": 5, "noteComponent": 0 },
+  "inboxProject": {
+    "id": 0,
+    "title": "Inbox",
+    "description": "",
+    "tags": [],
+    "dateOfCreation": "2024-08-05T23:19:46.321Z",
+    "dateOfEdit": "2024-08-05T23:19:46.336Z",
+    "lists": {
+      "todoList": [
+        {
+          "id": 4,
+          "title": "My Second Todo",
+          "description": "Just a test for the todoComponent class.",
+          "tags": ["test", "second"],
+          "dateOfCreation": "2024-08-05T23:19:46.336Z",
+          "dateOfEdit": null,
+          "dueDate": "2024-08-19T22:00:00.000Z",
+          "priority": 1,
+          "state": 1,
+          "lists": { "todoList": [], "noteList": [] }
+        }
+      ],
+      "projectList": [],
+      "noteList": []
+    }
+  },
+  "customProjectsList": [
+    {
+      "id": 1,
+      "title": "My First Project",
+      "description": "Just a test for the projectComponent class.",
+      "tags": ["test", "first"],
+      "dateOfCreation": "2024-08-05T23:19:46.321Z",
+      "dateOfEdit": "2024-08-05T23:19:46.336Z",
+      "lists": {
+        "todoList": [
+          {
+            "id": 2,
+            "title": "My Third Todo",
+            "description": "Just a test for the todoComponent class.",
+            "tags": ["test", "third"],
+            "dateOfCreation": "2024-08-05T23:19:46.336Z",
+            "dateOfEdit": null,
+            "dueDate": null,
+            "priority": 2,
+            "state": 0,
+            "lists": { "todoList": [], "noteList": [] }
+          }
+        ],
+        "projectList": [],
+        "noteList": []
+      }
+    },
+    {
+      "id": 2,
+      "title": "My Second Project",
+      "description": "Just a test for the projectComponent class.",
+      "tags": ["test", "second"],
+      "dateOfCreation": "2024-08-05T23:19:46.336Z",
+      "dateOfEdit": null,
+      "lists": { "todoList": [], "projectList": [], "noteList": [] }
+    },
+    {
+      "id": 3,
+      "title": "My Third Project",
+      "description": "Just a test for the projectComponent class.",
+      "tags": ["test", "third"],
+      "dateOfCreation": "2024-08-05T23:19:46.336Z",
+      "dateOfEdit": "2024-08-05T23:19:46.336Z",
+      "lists": {
+        "todoList": [
+          {
+            "id": 0,
+            "title": "My First Todo",
+            "description": "Just a test for the todoComponent class.",
+            "tags": ["test", "first"],
+            "dateOfCreation": "2024-08-05T23:19:46.336Z",
+            "dateOfEdit": null,
+            "dueDate": "2024-06-19T22:00:00.000Z",
+            "priority": 0,
+            "state": 2,
+            "lists": { "todoList": [], "noteList": [] }
+          },
+          {
+            "id": 1,
+            "title": "My Second Todo",
+            "description": "Just a test for the todoComponent class.",
+            "tags": ["test", "second"],
+            "dateOfCreation": "2024-08-05T23:19:46.336Z",
+            "dateOfEdit": null,
+            "dueDate": "2024-08-19T22:00:00.000Z",
+            "priority": 1,
+            "state": 1,
+            "lists": { "todoList": [], "noteList": [] }
+          },
+          {
+            "id": 3,
+            "title": "My Fourth Todo",
+            "description": "Just a test for the todoComponent class.",
+            "tags": ["test", "4"],
+            "dateOfCreation": "2024-08-05T23:19:46.336Z",
+            "dateOfEdit": null,
+            "dueDate": "2024-07-23T22:00:00.000Z",
+            "priority": 3,
+            "state": 0,
+            "lists": { "todoList": [], "noteList": [] }
+          }
+        ],
+        "projectList": [],
+        "noteList": []
+      }
+    }
+  ]
+}
