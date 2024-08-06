@@ -136,9 +136,12 @@ export default class baseComponent {
     if (this.parent != null) {
       // console.log(this.parent.printPath()); //debug
       this.parent.updateDateOfEdit();
+    } else {
+      // publish the general 'EDITED' token only once, when you reach the root
+      PubSub.publish("EDITED");
     }
 
-    // publish the 'EDITED' token only once
+    // publish the 'main EDITED' token at each level
     PubSub.publish(this.getPubSubName("EDITED", "main"));
   }
 

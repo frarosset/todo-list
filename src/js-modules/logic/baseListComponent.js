@@ -50,6 +50,9 @@ export default class baseListComponent {
   updateParentDateOfEdit() {
     if (this.parent) {
       this.parent.updateDateOfEdit();
+    } else {
+      // publish the general 'EDITED' token only once, when you reach the root
+      PubSub.publish("EDITED");
     }
   }
 
