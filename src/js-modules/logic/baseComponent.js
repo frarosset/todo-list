@@ -20,8 +20,23 @@ export default class baseComponent {
     return `${topicStr}${this.type}${this.id} ${str}`;
   }
 
+  extractData(data) {
+    const dataProperties = Object.keys(this.constructor.defaultData);
+    const extractedData = dataProperties
+      .filter((key) => key in data)
+      .reduce((obj, key) => {
+        obj[key] = data[key];
+        return obj;
+      }, {});
+    return extractedData;
+  }
+
   constructor(data, parent = null, list = null) {
-    this.data = Object.assign({}, this.constructor.defaultData, data);
+    this.data = Object.assign(
+      {},
+      this.constructor.defaultData,
+      this.extractData(data)
+    );
 
     if (this.data.id == null) {
       this.data.id = this.constructor.nextId;
