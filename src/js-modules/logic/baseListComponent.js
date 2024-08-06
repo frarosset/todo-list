@@ -11,11 +11,13 @@ export default class baseListComponent {
     return `${topicStr} ${parentStr}>${this.name} ${str}`;
   }
 
-  constructor(name, parent) {
+  constructor(name, parent, itemData = []) {
     this.name = name;
     this.parent = parent;
 
     this.#list = [];
+
+    itemData.forEach((data) => this.addItem(data));
   }
 
   print() {

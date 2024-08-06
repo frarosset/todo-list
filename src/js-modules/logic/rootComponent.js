@@ -10,13 +10,37 @@ export default class rootComponent {
   #customProjectsList;
 
   static dateFormat = "yyyy-MM-dd HH:mm:ss.SSS";
+  static defaultInboxData = {
+    title: "Inbox",
+    dateOfCreation: null,
+  };
 
-  constructor() {
+  constructor(dataJSON = null) {
+    let inboxProjectData;
+    let customProjectsListData;
+
+    // apply data from dataJSON, if provided
+    if (dataJSON) {
+      const parsedData = JSON.parse(dataJSON, this.#parseReviver);
+
+      this.#restoreNextId(parsedData.nextId);
+
+      inboxProjectData = parsedData.inboxProject;
+      customProjectsListData = parsedData.customProjectsList;
+    } else {
+      inboxProjectData = rootComponent.defaultInboxData;
+      customProjectsListData = [];
+    }
+
     // Generic project
-    this.#inboxProject = new projectComponent({ title: "Inbox" }); // no parent, no list
+    this.#inboxProject = new projectComponent(inboxProjectData); // no parent, no list
 
     // Custom projects list
-    this.#customProjectsList = new projectListComponent("Projects", null);
+    this.#customProjectsList = new projectListComponent(
+      "Projects",
+      null,
+      customProjectsListData
+    );
   }
 
   // Getter methods
@@ -67,5 +91,36 @@ export default class rootComponent {
       inboxProject: this.#inboxProject.toJSON(),
       customProjectsList: this.#customProjectsList.toJSON(),
     };
+  }
+
+  // Deserialization methods
+  #restoreNextId(parsedNextId) {
+    if (!parsedNextId) {
+      return;
+    }
+
+    if (parsedNextId.projectComponent) {
+      projectComponent.nextId = parsedNextId.projectComponent;
+    }
+
+    if (parsedNextId.todoComponent) {
+      todoComponent.nextId = parsedNextId.todoComponent;
+    }
+
+    if (parsedNextId.noteComponent) {
+      noteComponent.nextId = parsedNextId.noteComponent;
+    }
+  }
+
+  #parseReviver(key, value) {
+    const dateKeys = ["dateOfCreation", "dateOfEdit", "dueDate"];
+    const setKeys = ["tags"];
+    if (dateKeys.includes(key) && value != null) {
+      return new Date(value);
+    } else if (setKeys.includes(key)) {
+      return new Set(value);
+    } else {
+      return value;
+    }
   }
 }
