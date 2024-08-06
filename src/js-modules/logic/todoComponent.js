@@ -54,7 +54,7 @@ export default class todoComponent extends baseComponent {
     // define imminence
     this.updateImminence();
 
-    this.initAllLists(); // method added via composition (see below)
+    this.initAllLists(data.lists); // method added via composition (see below)
   }
 
   update(data) {

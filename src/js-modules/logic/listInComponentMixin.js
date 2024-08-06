@@ -67,24 +67,28 @@ export default function listInComponentMixin(targetClass, whichListArray) {
 
 // Initialize the Lists -------------------------------------------------
 
-function initList(whichList) {
+function initList(whichList, itemDataLists = {}) {
   const listLabel = listData[whichList][0];
   const listClass = listData[whichList][1];
   const listTitle = listData[whichList][2];
 
   // Initialize the data object
   if (this.data.lists[listLabel] == null) {
-    this.data.lists[listLabel] = new listClass(listTitle, this);
+    this.data.lists[listLabel] = new listClass(
+      listTitle,
+      this,
+      itemDataLists[listLabel]
+    );
   }
 }
 
 function initAllLists(whichListArray) {
   return {
-    initAllLists: function () {
+    initAllLists: function (itemDataLists = {}) {
       this.data.lists = {};
       // it becomes a method: 'this' is the object it will be attached to
       whichListArray.forEach((whichList) => {
-        initList.call(this, whichList); // bind the function to this
+        initList.call(this, whichList, itemDataLists); // bind the function to this
       });
     },
   };

@@ -9,7 +9,7 @@ export default class projectComponent extends baseComponent {
     // overwrite type
     this.type = "P";
 
-    this.initAllLists(); // method added via composition (see below)
+    this.initAllLists(data.lists); // method added via composition (see below)
   }
 }
 
