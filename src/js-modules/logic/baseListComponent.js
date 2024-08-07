@@ -41,6 +41,10 @@ export default class baseListComponent {
     return this.#list;
   }
 
+  get size() {
+    return this.#list.length;
+  }
+
   // Methods
 
   initItem(data) {

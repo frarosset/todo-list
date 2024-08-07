@@ -10,6 +10,14 @@ export default function initWebpage() {
 
   //Build the dom structure
   new domStructure(root);
+
+  //temporary code to test the new functions *to be removed todo
+  console.log("customProjectsSize", root.customProjectsList.size);
+  root.customProjectsList.list.forEach((prj) => {
+    console.log("todoListSize", prj.data.lists.todoList.size);
+    console.log("projectsListSize", prj.data.lists.projectList.size);
+    console.log("noteListSize", prj.data.lists.noteList.size);
+  });
 }
 
 function getRootDataJSON() {
