@@ -235,4 +235,19 @@ export default class baseComponent {
 
     return callback(this, value);
   }
+
+  filterByNested(variable, value) {
+    const matchArray = this.match(variable, value) ? [this] : [];
+
+    // console.log(
+    //   `FilterByNested (${variable},${value}) from component '${this.title}':`,
+    //   matchArray
+    // ); // debug
+
+    return matchArray;
+  }
+
+  sizeByNested(variable, value) {
+    return this.filterByNested(variable, value).length;
+  }
 }

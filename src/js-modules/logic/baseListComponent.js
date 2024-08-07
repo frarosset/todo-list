@@ -102,7 +102,25 @@ export default class baseListComponent {
     return this.list.filter((itm) => itm.match(variable, value));
   }
 
+  filterByNested(variable, value) {
+    const matchArray = this.list.reduce((arr, itm) => {
+      arr.push(...itm.filterByNested(variable, value));
+      return arr;
+    }, []);
+
+    // console.log(
+    //   `FilterByNested (${variable},${value}) from list '${this.name}':`,
+    //   matchArray
+    // ); // debug
+
+    return matchArray;
+  }
+
   sizeBy(variable, value) {
     return this.filterBy(variable, value).length;
+  }
+
+  sizeByNested(variable, value) {
+    return this.filterByNested(variable, value).length;
   }
 }

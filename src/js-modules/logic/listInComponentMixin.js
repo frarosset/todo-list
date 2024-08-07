@@ -53,6 +53,7 @@ const listData = {
 export default function listInComponentMixin(targetClass, whichListArray) {
   // This method is the original one, and will be redefined next
   const originalToJSON = targetClass.prototype.toJSON;
+  const originalFilterByNested = targetClass.prototype.filterByNested;
 
   Object.assign(
     targetClass.prototype,
@@ -61,7 +62,8 @@ export default function listInComponentMixin(targetClass, whichListArray) {
     allAddToListMethod(whichListArray),
     allRemoveFromListMethod(whichListArray),
     redefinePrint(whichListArray),
-    redefineToJSON(originalToJSON)
+    redefineToJSON(originalToJSON),
+    redefineFilterByNested(originalFilterByNested)
   );
 }
 
@@ -176,6 +178,27 @@ function redefineToJSON(originalToJSON) {
         obj.lists[listLabel] = listObj.toJSON();
       });
       return obj;
+    },
+  };
+}
+
+// Redefine toJSON method (serialization method) ------------------------
+function redefineFilterByNested(originalFilterByNested) {
+  return {
+    filterByNested: function (variable, value) {
+      // it becomes a method: 'this' is the object it will be attached to
+      const matchArray = originalFilterByNested.call(this, variable, value);
+
+      Object.values(this.data.lists).forEach((listObj) => {
+        matchArray.push(...listObj.filterByNested(variable, value));
+      });
+
+      // console.log(
+      //   `FilterByNested (${variable},${value}) (mixin) of '${this.title}':`,
+      //   matchArray
+      // ); // debug
+
+      return matchArray;
     },
   };
 }

@@ -26,6 +26,13 @@ export default function initWebpage() {
     console.log("projectsListSize", prj.data.lists.projectList.size);
     console.log("noteListSize", prj.data.lists.noteList.size);
   });
+
+  console.log(
+    "customProjectsListNested",
+    root.customProjectsList.filterByNested("title", "first"),
+    root.customProjectsList.filterByNested("tags", "test"),
+    root.customProjectsList.filterByNested("state", 2)
+  );
 }
 
 function getRootDataJSON() {
