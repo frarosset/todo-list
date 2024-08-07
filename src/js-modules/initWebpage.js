@@ -14,7 +14,15 @@ export default function initWebpage() {
   //temporary code to test the new functions *to be removed todo
   console.log("customProjectsSize", root.customProjectsList.size);
   root.customProjectsList.list.forEach((prj) => {
-    console.log("todoListSize", prj.data.lists.todoList.size);
+    console.log(
+      "todoListSize",
+      prj.data.lists.todoList.size,
+      prj.data.lists.todoList.sizeBy("state", 2),
+      prj.data.lists.todoList.sizeBy("imminence", 3),
+      prj.data.lists.todoList.sizeBy("priority", 3),
+      prj.data.lists.todoList.sizeBy("title", "My od "),
+      prj.data.lists.todoList.sizeBy("tags", "test")
+    );
     console.log("projectsListSize", prj.data.lists.projectList.size);
     console.log("noteListSize", prj.data.lists.noteList.size);
   });

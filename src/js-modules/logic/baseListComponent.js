@@ -94,4 +94,15 @@ export default class baseListComponent {
     this.#list.forEach((item) => list.push(item.toJSON()));
     return list;
   }
+
+  // Filters and sizes
+  // variable is: state, imminence, tags, ... (any key in baseCompoennt.filterCallbacks)
+
+  filterBy(variable, value) {
+    return this.list.filter((itm) => itm.match(variable, value));
+  }
+
+  sizeBy(variable, value) {
+    return this.filterBy(variable, value).length;
+  }
 }
