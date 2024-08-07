@@ -1,5 +1,6 @@
 import { format } from "date-fns";
 import PubSub from "pubsub-js";
+import { subStrMatch } from "../../js-utilities/commonUtilities.js";
 
 export default class baseComponent {
   data;
@@ -216,5 +217,22 @@ export default class baseComponent {
       dateOfCreation: this.data.dateOfCreation,
       dateOfEdit: this.data.dateOfEdit,
     };
+  }
+
+  // Filters and sizes
+
+  static filterCallbacks = {
+    title: (itm, value) => subStrMatch(itm.title, value),
+    description: (itm, value) => subStrMatch(itm.description, value),
+    tags: (itm, value) => itm.hasTag(value),
+  };
+
+  // variable is: state, imminence, tags, ... (any key in filterCallbacks)
+  match(variable, value) {
+    const callback = this.constructor.filterCallbacks[variable];
+
+    if (!callback) return false;
+
+    return callback(this, value);
   }
 }

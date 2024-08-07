@@ -217,6 +217,15 @@ export default class todoComponent extends baseComponent {
       state: this.data.state,
     };
   }
+
+  // Filters and sizes
+
+  static filterCallbacks = {
+    ...baseComponent.filterCallbacks,
+    state: (itm, value) => itm.stateIdx == value,
+    imminence: (itm, value) => itm.imminenceIdx == value,
+    priority: (itm, value) => itm.priorityIdx == value,
+  };
 }
 
 // Add todoList (T), projectList (P), noteList (N) with composition (using mixin) with these methods:
