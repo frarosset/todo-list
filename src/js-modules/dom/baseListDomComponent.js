@@ -71,7 +71,9 @@ export default class baseListDomComponent {
     header.classList.add(this.getCssClass("header"));
 
     header.appendChild(this.initName());
-    header.appendChild(this.initNewItemBtn());
+    if (this.obj.editable) {
+      header.appendChild(this.initNewItemBtn());
+    }
     header.appendChild(this.initExpandBtn(ul));
 
     return header;
