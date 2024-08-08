@@ -40,6 +40,8 @@ export default function initWebpage() {
     root.filterByNested("tags", "test"),
     root.filterByNested("state", 2)
   );
+
+  console.log("search", root.search("My first"), root.search("test"));
 }
 
 function getRootDataJSON() {

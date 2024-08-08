@@ -139,4 +139,16 @@ export default class rootComponent {
   sizeByNested(variable, value) {
     return this.filterByNested(variable, value).length;
   }
+
+  search(lookupStr) {
+    // search in the title
+    const matchSet = new Set();
+    const variableArr = ["title", "description", "tags"];
+
+    variableArr.forEach((variable) => {
+      const titleLookup = this.filterByNested(variable, lookupStr);
+      if (titleLookup.length) titleLookup.forEach((itm) => matchSet.add(itm));
+    });
+    return [...matchSet];
+  }
 }
