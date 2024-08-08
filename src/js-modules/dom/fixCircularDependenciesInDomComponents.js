@@ -13,6 +13,7 @@ import todoListDomComponent from "./todoListDomComponent.js";
 import noteListDomComponent from "./noteListDomComponent.js";
 
 import listInDomComponentMixin from "./listInDomComponentMixin.js";
+import domMiniComponentMixin from "./domMiniComponentMixin.js";
 
 import projectDomComponent from "./projectDomComponent.js";
 import todoDomComponent from "./todoDomComponent.js";
@@ -33,4 +34,5 @@ export {
   todoListDomComponent,
   noteListDomComponent,
   listInDomComponentMixin,
+  domMiniComponentMixin,
 };

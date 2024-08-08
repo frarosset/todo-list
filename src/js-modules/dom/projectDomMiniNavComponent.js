@@ -1,6 +1,5 @@
-import { initDiv } from "../../js-utilities/commonDomComponents.js";
 import { projectDomComponent } from "./fixCircularDependenciesInDomComponents.js";
-import PubSub from "pubsub-js";
+import { domMiniComponentMixin } from "./fixCircularDependenciesInDomComponents.js";
 
 //  Differently from projectDomMiniComponent, this is not editable via UI and shows only the title
 
@@ -10,30 +9,6 @@ export default class projectDomMiniNavComponent extends projectDomComponent {
   constructor(obj) {
     super(obj);
   }
-
-  // redefine the init() method
-  init() {
-    this.div = initDiv(this.constructor.blockName);
-
-    this.div.append(this.initTitle());
-
-    this.div.associatedProject = this.obj;
-    this.div.addEventListener(
-      "click",
-      this.constructor.btnRenderProjectCallback
-    );
-  }
-
-  // callbacks
-  static btnRenderProjectCallback = (e) => {
-    PubSub.publish("RENDER PROJECT", e.currentTarget.associatedProject);
-    e.stopPropagation();
-  };
-
-  updateView() {
-    PubSub.publish(
-      this.obj.list.getPubSubName("REMOVE ITEM", "main"),
-      this.div
-    );
-  }
 }
+
+domMiniComponentMixin(projectDomMiniNavComponent, true); // for nav

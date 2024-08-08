@@ -11,6 +11,7 @@ export default class noteDomComponent extends baseDomComponent {
 
   init(dateFormatFcn = baseDomComponent.dateFormatFcn) {
     super.init(dateFormatFcn);
+
     this.initAllDomLists(); // method added via composition (see below)
   }
 }
