@@ -10,53 +10,6 @@ export default function initWebpage() {
 
   //Build the dom structure
   new domStructure(root);
-
-  //temporary code to test the new functions *to be removed todo
-  console.log("customProjectsSize", root.customProjectsList.size);
-  root.customProjectsList.list.forEach((prj) => {
-    console.log(
-      "todoListSize",
-      prj.data.lists.todoList.size,
-      prj.data.lists.todoList.sizeBy("state", 2),
-      prj.data.lists.todoList.sizeBy("imminence", 3),
-      prj.data.lists.todoList.sizeBy("priority", 3),
-      prj.data.lists.todoList.sizeBy("title", "My od "),
-      prj.data.lists.todoList.sizeBy("tags", "test")
-    );
-    console.log("projectsListSize", prj.data.lists.projectList.size);
-    console.log("noteListSize", prj.data.lists.noteList.size);
-  });
-
-  console.log(
-    "customProjectsListNested",
-    root.customProjectsList.filterByNested("title", "first"),
-    root.customProjectsList.filterByNested("tags", "test"),
-    root.customProjectsList.filterByNested("state", 2)
-  );
-
-  console.log(
-    "root",
-    root.filterByNested("title", "first"),
-    root.filterByNested("tags", "test"),
-    root.filterByNested("state", 2)
-  );
-
-  console.log("search", root.search("My first"), root.search("test"));
-
-  console.log("tags", root.getAllTagsNested());
-
-  console.log(
-    "projects",
-    root.getAllOfTypeNested("P").map((itm) => itm.pathAndTitle)
-  );
-  console.log(
-    "todo",
-    root.getAllOfTypeNested("T").map((itm) => itm.pathAndTitle)
-  );
-  console.log(
-    "notes",
-    root.getAllOfTypeNested("N").map((itm) => itm.pathAndTitle)
-  );
 }
 
 function getRootDataJSON() {
