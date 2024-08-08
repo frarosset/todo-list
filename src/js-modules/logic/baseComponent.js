@@ -92,6 +92,20 @@ export default class baseComponent {
     return this.data.id;
   }
 
+  get path() {
+    let path = "";
+    let obj = this.parent;
+    while (obj != null) {
+      path = `${obj.title} / ` + path;
+      obj = obj.parent;
+    }
+    return path;
+  }
+
+  get pathAndTitle() {
+    return this.path + this.title;
+  }
+
   get title() {
     return this.data.title;
   }

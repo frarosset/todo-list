@@ -47,15 +47,15 @@ export default function initWebpage() {
 
   console.log(
     "projects",
-    root.getAllOfTypeNested("P").map((itm) => itm.title)
+    root.getAllOfTypeNested("P").map((itm) => itm.pathAndTitle)
   );
   console.log(
     "todo",
-    root.getAllOfTypeNested("T").map((itm) => itm.title)
+    root.getAllOfTypeNested("T").map((itm) => itm.pathAndTitle)
   );
   console.log(
     "notes",
-    root.getAllOfTypeNested("N").map((itm) => itm.title)
+    root.getAllOfTypeNested("N").map((itm) => itm.pathAndTitle)
   );
 }
 
