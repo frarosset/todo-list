@@ -52,6 +52,7 @@ const listData = {
 
 export default function listInComponentMixin(targetClass, whichListArray) {
   // This method is the original one, and will be redefined next
+  const originalPrint = targetClass.prototype.print;
   const originalToJSON = targetClass.prototype.toJSON;
   const originalFilterByNested = targetClass.prototype.filterByNested;
   const originalGetAllTagsNested = targetClass.prototype.getAllTagsNested;
@@ -62,7 +63,7 @@ export default function listInComponentMixin(targetClass, whichListArray) {
     allGetListMethod(whichListArray),
     allAddToListMethod(whichListArray),
     allRemoveFromListMethod(whichListArray),
-    redefinePrint(whichListArray),
+    redefinePrint(originalPrint),
     redefineToJSON(originalToJSON),
     redefineFilterByNested(originalFilterByNested),
     redefineGetAllTagsNested(originalGetAllTagsNested),
@@ -156,14 +157,13 @@ function allRemoveFromListMethod(whichListArray) {
 
 // Redefine print method ------------------------------------------------
 
-function redefinePrint(whichListArray) {
+function redefinePrint(originalPrint) {
   return {
     print: function (dateFormat = this.constructor.dateFormat) {
       // it becomes a method: 'this' is the object it will be attached to
-      let str = this.printBaseInfo(dateFormat);
-      whichListArray.forEach((whichList) => {
-        const label = listData[whichList][0];
-        str += this.data.lists[label].print();
+      let str = originalPrint.call(this, dateFormat);
+      Object.values(this.data.lists).forEach((listObj) => {
+        str += listObj.print();
       });
       return str;
     },

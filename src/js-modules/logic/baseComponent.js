@@ -77,15 +77,11 @@ export default class baseComponent {
     return path;
   }
 
-  printBaseInfo(dateFormat = baseComponent.dateFormat) {
+  print(dateFormat = baseComponent.dateFormat) {
     let str = `${this.printPath()}) '${this.title}' [created: ${this.dateOfCreationFormatted(dateFormat)}, last edited: ${this.dateOfEditFormatted(dateFormat)}]`;
     str += `\n\t${this.description}`;
     str += `\n\ttags: ${this.tags}`;
     return str;
-  }
-
-  print(dateFormat = baseComponent.dateFormat) {
-    return this.printBaseInfo(dateFormat);
   }
 
   // Getter methods

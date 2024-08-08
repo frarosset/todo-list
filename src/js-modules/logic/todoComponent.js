@@ -70,7 +70,7 @@ export default class todoComponent extends baseComponent {
   }
 
   print(dateFormat = todoComponent.dateFormat) {
-    let str = this.printBaseInfo(dateFormat);
+    let str = super.print(dateFormat);
     str += `\n\tdue date: ${this.dueDateFormatted(dateFormat)}, priority: ${this.priority}, state: ${this.state}, imminence: ${this.imminence}`;
     return str;
   }
