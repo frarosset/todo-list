@@ -308,6 +308,7 @@ export default class baseFormDomComponent {
       "tag" // aria-label
     );
     tagInput.maxLength = 15;
+    tagInput.style.textTransform = "lowercase";
     tagInput.addEventListener("input", this.constructor.tagInputChangeCallback);
     tagInput.associatedThis = this;
 
@@ -361,7 +362,11 @@ export default class baseFormDomComponent {
   getTags() {
     return [...this.input.tags.keys()];
   }
+  validateTag(tag) {
+    return tag.toLowerCase().trim();
+  }
   hasTag(tag) {
+    tag = this.validateTag(tag);
     return this.input.tags.has(tag);
   }
   addTag(tag, tagInput) {
@@ -369,6 +374,7 @@ export default class baseFormDomComponent {
       return false;
     }
 
+    tag = this.validateTag(tag);
     if (!this.hasTag(tag)) {
       this.input.tags.set(tag, new Set([tagInput]));
       return true;
@@ -383,6 +389,7 @@ export default class baseFormDomComponent {
       return false;
     }
 
+    tag = this.validateTag(tag);
     const tagInputSet = this.input.tags.get(tag);
 
     if (tagInputSet.size > 1) {

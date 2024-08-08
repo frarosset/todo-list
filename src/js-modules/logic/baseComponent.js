@@ -179,11 +179,17 @@ export default class baseComponent {
     }
   }
 
+  validateTag(tag) {
+    return tag.toLowerCase().trim();
+  }
+
   hasTag(tag) {
+    tag = this.validateTag(tag);
     return this.data.tags.has(tag);
   }
 
   addTag(tag) {
+    tag = this.validateTag(tag);
     if (!this.hasTag(tag)) {
       this.data.tags.add(tag);
 
@@ -197,6 +203,7 @@ export default class baseComponent {
   }
 
   removeTag(tag) {
+    tag = this.validateTag(tag);
     if (this.data.tags.delete(tag)) {
       PubSub.publish(this.getPubSubName(`TAG REMOVE ${tag}`, "main"));
 
