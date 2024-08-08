@@ -123,4 +123,20 @@ export default class rootComponent {
       return value;
     }
   }
+
+  // Filters and sizes
+
+  filterByNested(variable, value) {
+    const matchArray = this.#inboxProject.filterByNested(variable, value);
+
+    matchArray.push(
+      ...this.#customProjectsList.filterByNested(variable, value)
+    );
+
+    return matchArray;
+  }
+
+  sizeByNested(variable, value) {
+    return this.filterByNested(variable, value).length;
+  }
 }

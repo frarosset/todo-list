@@ -33,6 +33,13 @@ export default function initWebpage() {
     root.customProjectsList.filterByNested("tags", "test"),
     root.customProjectsList.filterByNested("state", 2)
   );
+
+  console.log(
+    "root",
+    root.filterByNested("title", "first"),
+    root.filterByNested("tags", "test"),
+    root.filterByNested("state", 2)
+  );
 }
 
 function getRootDataJSON() {
