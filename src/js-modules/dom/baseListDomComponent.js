@@ -74,7 +74,12 @@ export default class baseListDomComponent {
     if (this.obj.editable) {
       header.appendChild(this.initNewItemBtn());
     }
-    header.appendChild(this.initExpandBtn(ul));
+    const expandBtn = this.initExpandBtn(ul);
+    header.appendChild(expandBtn);
+
+    header.ul = ul;
+    header.btn = expandBtn;
+    header.addEventListener("click", baseListDomComponent.toggleVisibility);
 
     return header;
   }
@@ -97,6 +102,7 @@ export default class baseListDomComponent {
       uiIcons.hide
     );
     expandBtn.ul = ul;
+    expandBtn.btn = expandBtn;
 
     return expandBtn;
   }
@@ -138,7 +144,11 @@ export default class baseListDomComponent {
   static toggleVisibility(e) {
     const nowHidden = e.currentTarget.ul.classList.toggle("hidden");
 
-    changeChildFaIcon(e.currentTarget, nowHidden ? uiIcons.show : uiIcons.hide);
+    changeChildFaIcon(
+      e.currentTarget.btn,
+      nowHidden ? uiIcons.show : uiIcons.hide
+    );
+    e.stopPropagation();
   }
 
   static addNewItem(e) {
@@ -148,5 +158,6 @@ export default class baseListDomComponent {
       associatedDialog.setObjectData(e.currentTarget.parentObj);
       associatedDialog.dialog.showModal();
     }
+    e.stopPropagation();
   }
 }
