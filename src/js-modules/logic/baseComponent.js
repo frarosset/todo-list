@@ -32,7 +32,7 @@ export default class baseComponent {
     return extractedData;
   }
 
-  constructor(data, parent = null, list = null) {
+  constructor(data, parent = null, list = null, editable = true) {
     this.data = Object.assign(
       {},
       this.constructor.defaultData,
@@ -55,6 +55,8 @@ export default class baseComponent {
     this.parent = parent;
     this.list = list;
     this.type = "B";
+
+    this.editable = editable; // note: this is only used in the dom
   }
 
   update(data) {

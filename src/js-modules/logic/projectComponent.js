@@ -4,8 +4,8 @@ import { listInComponentMixin } from "./fixCircularDependenciesInComponents.js";
 export default class projectComponent extends baseComponent {
   static nextId = 0;
 
-  constructor(data, parent = null, list = null) {
-    super(data, parent, list);
+  constructor(data, parent = null, list = null, editable = true) {
+    super(data, parent, list, editable);
     // overwrite type
     this.type = "P";
 

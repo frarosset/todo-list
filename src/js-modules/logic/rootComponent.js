@@ -33,7 +33,12 @@ export default class rootComponent {
     }
 
     // Generic project
-    this.#inboxProject = new projectComponent(inboxProjectData); // no parent, no list
+    this.#inboxProject = new projectComponent(
+      inboxProjectData,
+      null,
+      null,
+      false
+    ); // no parent, no list, no editable
 
     // Custom projects list
     this.#customProjectsList = new projectListComponent(

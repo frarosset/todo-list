@@ -82,7 +82,10 @@ export default class baseDomComponent {
     header.appendChild(this.initTitle());
     header.appendChild(this.initDescription());
     header.appendChild(this.initTags());
-    header.appendChild(this.initActionButtons());
+
+    if (this.obj.editable) {
+      header.appendChild(this.initActionButtons());
+    }
 
     return header;
   }

@@ -45,8 +45,8 @@ export default class todoComponent extends baseComponent {
 
   #imminenceIdx; /* index of todoComponent.imminenceLabels array*/
 
-  constructor(data, parent = null, list = null) {
-    super(data, parent, list);
+  constructor(data, parent = null, list = null, editable = true) {
+    super(data, parent, list, editable);
 
     // overwrite type
     this.type = "T";
