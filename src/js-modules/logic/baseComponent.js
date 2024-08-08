@@ -262,4 +262,14 @@ export default class baseComponent {
     const tagsArr = this.tags;
     return new Set(tagsArr);
   }
+
+  getAllOfTypeNested(type) {
+    const matchArray = this.type === type ? [this] : [];
+    matchArray.push(...this.getAllOfTypeNested_withoutThis(type));
+    return matchArray;
+  }
+
+  getAllOfTypeNested_withoutThis() {
+    return [];
+  }
 }

@@ -158,4 +158,10 @@ export default class rootComponent {
 
     return new Set([...inboxTagsSet, ...customProjectsListTagsSet]);
   }
+
+  getAllOfTypeNested(type) {
+    const matchArray = this.#inboxProject.getAllOfTypeNested(type);
+    matchArray.push(...this.#customProjectsList.getAllOfTypeNested(type));
+    return matchArray;
+  }
 }

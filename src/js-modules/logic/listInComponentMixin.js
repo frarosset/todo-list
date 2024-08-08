@@ -65,7 +65,8 @@ export default function listInComponentMixin(targetClass, whichListArray) {
     redefinePrint(whichListArray),
     redefineToJSON(originalToJSON),
     redefineFilterByNested(originalFilterByNested),
-    redefineGetAllTagsNested(originalGetAllTagsNested)
+    redefineGetAllTagsNested(originalGetAllTagsNested),
+    redefineGetAllOfTypeNested_withoutThis()
   );
 }
 
@@ -205,7 +206,7 @@ function redefineFilterByNested(originalFilterByNested) {
   };
 }
 
-// Redefine toJSON method (serialization method) ------------------------
+// Redefine getAllTagsNested method (serialization method) ------------------------
 function redefineGetAllTagsNested(originalGetAllTagsNested) {
   return {
     getAllTagsNested: function () {
@@ -217,6 +218,22 @@ function redefineGetAllTagsNested(originalGetAllTagsNested) {
       });
 
       return new Set(tagsArr);
+    },
+  };
+}
+
+// Redefine getAllOfTypeNested_withoutThis method (serialization method) ------------------------
+function redefineGetAllOfTypeNested_withoutThis() {
+  return {
+    getAllOfTypeNested_withoutThis: function (type) {
+      // it becomes a method: 'this' is the object it will be attached to
+      const matchArray = [];
+
+      Object.values(this.data.lists).forEach((listObj) => {
+        matchArray.push(...listObj.getAllOfTypeNested(type));
+      });
+
+      return matchArray;
     },
   };
 }

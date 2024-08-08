@@ -44,6 +44,19 @@ export default function initWebpage() {
   console.log("search", root.search("My first"), root.search("test"));
 
   console.log("tags", root.getAllTagsNested());
+
+  console.log(
+    "projects",
+    root.getAllOfTypeNested("P").map((itm) => itm.title)
+  );
+  console.log(
+    "todo",
+    root.getAllOfTypeNested("T").map((itm) => itm.title)
+  );
+  console.log(
+    "notes",
+    root.getAllOfTypeNested("N").map((itm) => itm.title)
+  );
 }
 
 function getRootDataJSON() {

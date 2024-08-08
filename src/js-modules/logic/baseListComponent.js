@@ -14,6 +14,7 @@ export default class baseListComponent {
   constructor(name, parent, itemData = []) {
     this.name = name;
     this.parent = parent;
+    this.type = "B";
 
     this.#list = [];
 
@@ -131,5 +132,18 @@ export default class baseListComponent {
     }, []);
 
     return new Set(tagsArr);
+  }
+
+  getAllOfTypeNested(type) {
+    const matchArray = this.type === type ? [...this.list] : [];
+
+    matchArray.push(
+      ...this.list.reduce((arr, itm) => {
+        arr.push(...itm.getAllOfTypeNested_withoutThis(type));
+        return arr;
+      }, [])
+    );
+
+    return matchArray;
   }
 }
