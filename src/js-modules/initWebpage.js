@@ -42,6 +42,8 @@ export default function initWebpage() {
   );
 
   console.log("search", root.search("My first"), root.search("test"));
+
+  console.log("tags", root.getAllTagsNested());
 }
 
 function getRootDataJSON() {

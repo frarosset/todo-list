@@ -250,4 +250,9 @@ export default class baseComponent {
   sizeByNested(variable, value) {
     return this.filterByNested(variable, value).length;
   }
+
+  getAllTagsNested() {
+    const tagsArr = this.tags;
+    return new Set(tagsArr);
+  }
 }

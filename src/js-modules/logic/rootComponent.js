@@ -141,7 +141,6 @@ export default class rootComponent {
   }
 
   search(lookupStr) {
-    // search in the title
     const matchSet = new Set();
     const variableArr = ["title", "description", "tags"];
 
@@ -150,5 +149,13 @@ export default class rootComponent {
       if (titleLookup.length) titleLookup.forEach((itm) => matchSet.add(itm));
     });
     return [...matchSet];
+  }
+
+  getAllTagsNested() {
+    const inboxTagsSet = this.#inboxProject.getAllTagsNested();
+    const customProjectsListTagsSet =
+      this.#customProjectsList.getAllTagsNested();
+
+    return new Set([...inboxTagsSet, ...customProjectsListTagsSet]);
   }
 }

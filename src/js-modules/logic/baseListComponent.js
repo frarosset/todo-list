@@ -123,4 +123,13 @@ export default class baseListComponent {
   sizeByNested(variable, value) {
     return this.filterByNested(variable, value).length;
   }
+
+  getAllTagsNested() {
+    const tagsArr = this.list.reduce((arr, itm) => {
+      arr.push(...itm.getAllTagsNested());
+      return arr;
+    }, []);
+
+    return new Set(tagsArr);
+  }
 }
