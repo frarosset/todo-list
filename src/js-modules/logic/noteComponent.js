@@ -4,12 +4,18 @@ import { listInComponentMixin } from "./fixCircularDependenciesInComponents.js";
 export default class noteComponent extends baseComponent {
   static nextId = 0;
 
-  constructor(data, parent = null, list = null, editable = true) {
+  constructor(
+    data,
+    parent = null,
+    list = null,
+    editable = true,
+    listsToExclude = []
+  ) {
     super(data, parent, list, editable);
     // overwrite type
     this.type = "N";
 
-    this.initAllLists(data.lists); // method added via composition (see below)
+    this.initAllLists(data.lists, listsToExclude); // method added via composition (see below)
   }
 }
 

@@ -45,7 +45,13 @@ export default class todoComponent extends baseComponent {
 
   #imminenceIdx; /* index of todoComponent.imminenceLabels array*/
 
-  constructor(data, parent = null, list = null, editable = true) {
+  constructor(
+    data,
+    parent = null,
+    list = null,
+    editable = true,
+    listsToExclude = []
+  ) {
     super(data, parent, list, editable);
 
     // overwrite type
@@ -54,7 +60,7 @@ export default class todoComponent extends baseComponent {
     // define imminence
     this.updateImminence();
 
-    this.initAllLists(data.lists); // method added via composition (see below)
+    this.initAllLists(data.lists, listsToExclude); // method added via composition (see below)
   }
 
   update(data) {

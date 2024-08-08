@@ -37,7 +37,8 @@ export default class rootComponent {
       inboxProjectData,
       null,
       null,
-      false
+      false,
+      ["SP"]
     ); // no parent, no list, no editable
 
     // Custom projects list

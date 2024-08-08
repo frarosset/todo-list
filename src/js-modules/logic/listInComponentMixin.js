@@ -89,11 +89,12 @@ function initList(whichList, itemDataLists = {}) {
 
 function initAllLists(whichListArray) {
   return {
-    initAllLists: function (itemDataLists = {}) {
+    initAllLists: function (itemDataLists = {}, listsToExclude) {
       this.data.lists = {};
       // it becomes a method: 'this' is the object it will be attached to
       whichListArray.forEach((whichList) => {
-        initList.call(this, whichList, itemDataLists); // bind the function to this
+        if (!listsToExclude.includes(whichList))
+          initList.call(this, whichList, itemDataLists); // bind the function to this
       });
     },
   };
