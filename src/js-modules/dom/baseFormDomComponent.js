@@ -14,6 +14,7 @@ import {
 } from "../../js-utilities/commonDomUtilities.js";
 // import { isToday, isThisYear } from "date-fns";
 import { uiIcons } from "./uiIcons.js";
+import { initFaIcon } from "../../js-utilities/fontAwesomeUtilities.js";
 
 export default class baseFormDomComponent {
   static blockName = "base-form-dialog";
@@ -323,9 +324,12 @@ export default class baseFormDomComponent {
       this.constructor.addNewTagCallBack,
       uiIcons.new,
       "",
-      "tag"
+      ""
     );
     newTagBtn.associatedThis = this;
+
+    const tagIcon = initFaIcon(uiIcons.tag);
+    newTagBtn.append(tagIcon);
 
     return newTagBtn;
   }

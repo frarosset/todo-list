@@ -17,7 +17,7 @@ export function initFaIcon(faIcon, fullWidth = true) {
 
 export function setFaIcon(parentElement, faIcon, fullWidth = true) {
   if (faIcon) {
-    parentElement.appendChild(initFaIcon(faIcon));
+    parentElement.appendChild(initFaIcon(faIcon, fullWidth));
   }
 }
 
