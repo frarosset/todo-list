@@ -146,7 +146,12 @@ export default class baseDomComponent {
   }
 
   initTitle() {
-    const h2 = initH2(this.getCssClass("titleH2"), null, this.obj.title);
+    const h2 = initH2(
+      this.getCssClass("titleH2"),
+      this.obj.icon,
+      "",
+      this.obj.title
+    );
 
     // Subscribe to the change of the title of a base component, to update the interface
     PubSub.subscribe(this.getPubSubName("TITLE CHANGE", "main"), (msg) => {

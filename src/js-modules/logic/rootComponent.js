@@ -32,6 +32,11 @@ export default class rootComponent {
       customProjectsListData = [];
     }
 
+    inboxProjectData = {
+      ...inboxProjectData,
+      icon: { prefix: "solid", icon: "inbox" },
+    };
+
     // Generic project
     this.#inboxProject = new projectComponent(
       inboxProjectData,

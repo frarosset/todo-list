@@ -3,6 +3,7 @@ import { listInComponentMixin } from "./fixCircularDependenciesInComponents.js";
 
 export default class projectComponent extends baseComponent {
   static nextId = 0;
+  static icon = { prefix: "solid", icon: "hashtag" };
 
   constructor(
     data,

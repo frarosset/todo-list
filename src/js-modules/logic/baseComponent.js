@@ -5,6 +5,8 @@ import { subStrMatch } from "../../js-utilities/commonUtilities.js";
 export default class baseComponent {
   data;
 
+  static icon = null;
+
   static defaultData = {
     id: null,
     title: "",
@@ -12,6 +14,7 @@ export default class baseComponent {
     tags: new Set() /* to avoid duplicated tags*/,
     dateOfCreation: null,
     dateOfEdit: null,
+    icon: null,
   };
   static nextId = 0;
   static dateFormat = "yyyy-MM-dd HH:mm:ss.SSS";
@@ -63,6 +66,14 @@ export default class baseComponent {
     this.title = data.title;
     this.description = data.description;
     this.tags = data.tags;
+  }
+
+  get icon() {
+    if (this.data.icon) {
+      return this.data.icon;
+    } else {
+      return this.constructor.icon;
+    }
   }
 
   // print functions
