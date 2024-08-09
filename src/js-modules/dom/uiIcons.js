@@ -7,4 +7,7 @@ export const uiIcons = {
   home: { prefix: "solid", icon: "house" },
   show: { prefix: "solid", icon: "caret-down" },
   hide: { prefix: "solid", icon: "caret-up" },
+  projectList: { prefix: "solid", icon: "hashtag" },
+  todoList: { prefix: "solid", icon: "list-check" },
+  noteList: { prefix: "regular", icon: "message" },
 };

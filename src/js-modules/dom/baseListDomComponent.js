@@ -23,6 +23,7 @@ export default class baseListDomComponent {
   };
 
   static associatedDialog = () => null; // method to fetch the dialog after its creation
+  static icon = null;
 
   getCssClass(element) {
     return `${this.constructor.blockName}__${this.constructor.cssClass[element]}`;
@@ -92,7 +93,12 @@ export default class baseListDomComponent {
   /* Components */
 
   initName() {
-    return initH3(this.getCssClass("titleH3"), null, this.obj.name);
+    return initH3(
+      this.getCssClass("titleH3"),
+      this.constructor.icon,
+      "",
+      this.obj.name
+    );
   }
 
   initExpandBtn(ul) {

@@ -76,7 +76,7 @@ export default class todoDomComponent extends baseDomComponent {
   static otherInfoIcons = {
     dueDate: { prefix: "solid", icon: "calendar-day" },
     priority: { prefix: "solid", icon: "flag" },
-    state: { prefix: "solid", icon: "list-check" },
+    state: { prefix: "solid", icon: "circle-half-stroke" },
   };
 
   static associatedDialog = () => document.body.todoFormDialog; // method to fetch the dialog after its creation
