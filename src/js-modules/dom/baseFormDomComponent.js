@@ -6,8 +6,12 @@ import {
   initTextArea,
   initH2,
   initInput,
+  initP,
 } from "../../js-utilities/commonDomComponents.js";
-import { deleteElement } from "../../js-utilities/commonDomUtilities.js";
+import {
+  deleteElement,
+  removeDescendants,
+} from "../../js-utilities/commonDomUtilities.js";
 // import { isToday, isThisYear } from "date-fns";
 import { uiIcons } from "./uiIcons.js";
 
@@ -17,8 +21,8 @@ export default class baseFormDomComponent {
   static cssClass = {
     header: `header`,
     content: `content`,
-    // pathUl: `path-ul`,
-    // pathLi: `path-li`,
+    pathDiv: `path-div`,
+    pathItem: `path-item`,
     dialogTitleH2: `title-h2`,
     newTagBtn: "new-tag-btn",
     tagsUl: `tags-ul`,
@@ -68,8 +72,10 @@ export default class baseFormDomComponent {
       this.action = "edit";
       // fill the form input with the data
       this.setDataToEdit(obj);
+      this.setPathDiv(obj);
     } else {
       this.action = "add";
+      this.setPathDiv(obj.parent);
     }
     this.setDialogTitle();
   }
@@ -146,6 +152,48 @@ export default class baseFormDomComponent {
     return submitBtn;
   }
 
+  initPathDiv() {
+    this.pathDiv = initDiv(this.getCssClass("pathDiv"));
+    return this.pathDiv;
+  }
+
+  setPathDiv(obj) {
+    const initItem = (icon, label, obj) => {
+      const cssItemClass = this.getCssClass("pathItem");
+
+      const item = initP(cssItemClass, icon, "", label);
+      const separator = initP(cssItemClass, null, "", `\\`);
+
+      if (obj) {
+        switch (obj.type) {
+          case "P":
+            item.style.fontWeight = "bold";
+            break;
+          case "N":
+            item.style.fontStyle = "italic";
+            break;
+          case "T":
+          default:
+        }
+      }
+
+      this.pathDiv.append(item);
+      this.pathDiv.append(separator);
+    };
+
+    // Add label to home page
+    initItem(uiIcons.home, "", null);
+
+    // Add label to each ancestor
+    if (obj) {
+      const path = obj.path;
+      if (this.action == "add") {
+        path.push(obj);
+      }
+      path.map((obj) => initItem(null, `${obj.title}`, obj));
+    }
+  }
+
   initForm() {
     const form = document.createElement("form");
     form.classList.add(this.getCssClass("form"));
@@ -160,6 +208,7 @@ export default class baseFormDomComponent {
     const tagsList = this.initTagsList();
     this.tagsList = tagsList;
 
+    form.appendChild(this.initPathDiv());
     form.appendChild(this.input.title);
     form.appendChild(this.input.description);
     form.appendChild(tagsList);
@@ -209,6 +258,8 @@ export default class baseFormDomComponent {
     const tagsListChildren = [...this.tagsList.children];
     const liTags = tagsListChildren.splice(1, tagsListChildren.length - 1);
     liTags.forEach((li) => deleteElement(li));
+
+    removeDescendants(this.pathDiv);
 
     this.action = null;
     this.obj = null;

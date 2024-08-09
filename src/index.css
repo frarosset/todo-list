@@ -497,6 +497,7 @@ body > main {
 .todo-mini-div__path-ul {
   justify-self: start;
   display: flex;
+  justify-content: flex-start;
   gap: 0 0.5em;
   flex-wrap: wrap;
 }
@@ -572,6 +573,24 @@ body > main {
   display: flex;
   flex-direction: column;
   gap: var(--base-list-padding);
+}
+
+.todo-form-dialog__path-div,
+.project-form-dialog__path-div,
+.note-form-dialog__path-div {
+  font-size: var(--base-path-fontsize);
+  justify-self: start;
+  display: flex;
+  justify-content: flex-start;
+  gap: 0 0.5em;
+  flex-wrap: wrap;
+  margin-bottom: 0.25em;
+}
+
+.todo-form-dialog__path-div svg,
+.project-form-dialog__path-div svg,
+.note-form-dialog__path-div svg {
+  vertical-align: baseline;
 }
 
 .project-form-dialog__submit-btn,
