@@ -760,6 +760,13 @@ body > main {
   color: var(--col-grey);
 }
 
+.project-form-dialog__tag-input::-webkit-calendar-picker-indicator,
+.todo-form-dialog__tag-input::-webkit-calendar-picker-indicator,
+.note-form-dialog__tag-input::-webkit-calendar-picker-indicator {
+  display: none !important;
+  opacity: 0;
+}
+
 :root {
   --title-h2-fontsize: 2rem;
   --title-h3-fontsize: 0.8rem;

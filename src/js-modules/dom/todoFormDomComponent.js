@@ -26,8 +26,8 @@ export default class todoFormDomComponent extends baseFormDomComponent {
     priorityInfoDiv: `priority-info-div`,
   };
 
-  constructor(obj) {
-    super(obj);
+  constructor(root) {
+    super(root);
 
     this.form.appendChild(this.initFormOtherInfo());
   }

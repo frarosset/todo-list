@@ -7,6 +7,8 @@ import {
   initH2,
   initInput,
   initP,
+  initDatalist,
+  initOptionAsChildInList,
 } from "../../js-utilities/commonDomComponents.js";
 import {
   deleteElement,
@@ -30,6 +32,8 @@ export default class baseFormDomComponent {
     tagLi: `tag-li`,
     tagInput: `tag-input`,
     tagHiddenSpan: "tag-hidden-span",
+    tagsDatalist: "tags-datalist",
+    tagsOption: "tags-option",
     deleteTagBtn: "delete-tag-btn",
     form: "form",
     backBtn: `back-btn`,
@@ -48,9 +52,10 @@ export default class baseFormDomComponent {
     return `${this.constructor.blockName}__${this.constructor.cssClass[element]}`;
   }
 
-  constructor() {
+  constructor(root) {
     this.action = null;
     this.obj = null;
+    this.root = root; // for tag lists
     // action:
     // - add --> obj is the parent, uses obj.addItem(data) method
     // - edit --> obj is the object to edit
@@ -69,6 +74,7 @@ export default class baseFormDomComponent {
 
   setObjectData(obj, edit = false) {
     this.obj = obj;
+    this.allTags = [...this.root.getAllTagsNested()];
     if (edit) {
       this.action = "edit";
       // fill the form input with the data
@@ -264,6 +270,7 @@ export default class baseFormDomComponent {
 
     this.action = null;
     this.obj = null;
+    this.allTags = [];
   }
 
   /* init input elements */
@@ -387,6 +394,16 @@ export default class baseFormDomComponent {
     deleteTagBtn.tagLiToDelete = li;
     deleteTagBtn.associatedThis = this;
     deleteTagBtn.associatedInput = tagInput;
+
+    const tagsDatalistId = this.getCssClass("tagsDatalist");
+    const tagsDatalistClass = this.getCssClass("tagsDatalist");
+    const tagsOptionClass = this.getCssClass("tagsOption");
+    tagInput.setAttribute("list", tagsDatalistId);
+    const datalist = initDatalist(tagsDatalistClass, tagsDatalistId);
+    this.allTags.forEach((tag) => {
+      initOptionAsChildInList(datalist, tagsOptionClass, tag, tag, tag);
+    });
+    li.appendChild(datalist);
 
     li.appendChild(hiddenSpan);
     li.appendChild(tagInput);

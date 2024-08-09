@@ -14,15 +14,15 @@ export default class domStructure {
     document.body.appendChild(mainDomObj.main);
 
     // Add dialogs
-    const projectFormDialog = new projectFormDomComponent();
+    const projectFormDialog = new projectFormDomComponent(root);
     document.body.appendChild(projectFormDialog.dialog);
     document.body.projectFormDialog = projectFormDialog;
 
-    const todoFormDialog = new todoFormDomComponent();
+    const todoFormDialog = new todoFormDomComponent(root);
     document.body.appendChild(todoFormDialog.dialog);
     document.body.todoFormDialog = todoFormDialog;
 
-    const noteFormDialog = new noteFormDomComponent();
+    const noteFormDialog = new noteFormDomComponent(root);
     document.body.appendChild(noteFormDialog.dialog);
     document.body.noteFormDialog = noteFormDialog;
 

@@ -4,8 +4,8 @@ export default class projectFormDomComponent extends baseFormDomComponent {
   static blockName = "project-form-dialog";
   static type = "Project";
 
-  constructor(obj) {
-    super(obj);
+  constructor(root) {
+    super(root);
   }
 
   // Methods

@@ -4,7 +4,7 @@ export default class noteFormDomComponent extends baseFormDomComponent {
   static blockName = "note-form-dialog";
   static type = "Note";
 
-  constructor(obj) {
-    super(obj);
+  constructor(root) {
+    super(root);
   }
 }
