@@ -119,7 +119,6 @@ export default class baseDomComponent {
       btn.objToRender = obj;
 
       if (obj) {
-        console.log(obj.type);
         switch (obj.type) {
           case "P":
             btn.style.fontWeight = "bold";
@@ -130,6 +129,12 @@ export default class baseDomComponent {
           case "T":
           default:
         }
+
+        // Subscribe to the change of the title of a base component, to update the interface
+        PubSub.subscribe(obj.getPubSubName("TITLE CHANGE", "main"), (msg) => {
+          console.log(msg);
+          btn.textContent = obj.title;
+        });
       }
 
       li.prepend(btn);
