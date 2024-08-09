@@ -79,13 +79,12 @@ export default class baseComponent {
   // print functions
 
   printPath() {
-    let path = `${this.type}${this.id}`;
-    let obj = this.parent;
-    while (obj != null) {
-      path = `${obj.type}${obj.id}/` + path;
-      obj = obj.parent;
-    }
-    return path;
+    return (
+      this.path.reduce((str, obj) => {
+        str += `${obj.type}${obj.id}/`;
+        return str;
+      }, "") + `${this.type}${this.id}`
+    );
   }
 
   print(dateFormat = baseComponent.dateFormat) {
@@ -102,17 +101,28 @@ export default class baseComponent {
   }
 
   get path() {
-    let path = "";
+    const path = [];
     let obj = this.parent;
     while (obj != null) {
-      path = `${obj.title} / ` + path;
+      path.unshift(obj);
       obj = obj.parent;
     }
     return path;
   }
 
-  get pathAndTitle() {
-    return this.path + this.title;
+  get pathAndThis() {
+    return [this.path, this];
+  }
+
+  get pathStr() {
+    return this.path.reduce((str, obj) => {
+      str += `${obj.title} / `;
+      return str;
+    }, "");
+  }
+
+  get pathAndThisStr() {
+    return this.pathStr + this.title;
   }
 
   get title() {
