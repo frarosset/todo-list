@@ -497,27 +497,25 @@ body > main {
 .todo-mini-div__path-ul {
   justify-self: start;
   display: flex;
-  gap: 0.5em;
+  gap: 0 0.5em;
   flex-wrap: wrap;
-  flex-direction: row-reverse;
 }
 
-.home-div__path:first-child svg,
-.project-div__path-li:last-of-type svg,
-.note-div__path-li:last-of-type svg,
-.project-mini-div__path-li:last-of-type svg,
-.note-mini-div__path-li:last-of-type svg,
-.todo-div__path-li:last-of-type svg,
-.todo-mini-div__path-li:last-of-type svg {
+.home-div__path svg,
+.project-div__path-li svg,
+.note-div__path-li svg,
+.project-mini-div__path-li svg,
+.note-mini-div__path-li svg,
+.todo-div__path-li svg,
+.todo-mini-div__path-li svg {
   vertical-align: baseline;
 }
 
 .home-div__path:first-child svg,
-.project-div__path-li:last-of-type svg,
-.note-div__path-li:last-of-type svg,
-.todo-div__path-li:last-of-type svg {
+.project-div__path-li:first-of-type svg,
+.note-div__path-li:first-of-type svg,
+.todo-div__path-li:first-of-type svg {
   color: var(--col-accent);
-  vertical-align: baseline;
 }
 
 /* new/edit todo/project dialog and form */

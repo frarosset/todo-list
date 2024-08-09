@@ -108,39 +108,38 @@ export default class baseDomComponent {
   initPath() {
     const ul = initUl(this.getCssClass("pathUl"));
 
-    let obj = this.obj.parent;
-    while (obj != null) {
-      const li = initLiAsChildInList(
-        ul,
-        this.getCssClass("pathLi"),
-        null,
-        ` \\`
-      );
+    const initLiBtn = (icon, label, obj) => {
+      const cssLiClass = this.getCssClass("pathLi");
+      const cssBtnClass = this.getCssClass("pathBtn");
+      const callback = baseDomComponent.renderObjCallback;
 
-      const btn = initButton(
-        this.getCssClass("pathBtn"),
-        baseDomComponent.renderObjCallback,
-        null,
-        `${obj.title}`
-      );
+      const li = initLiAsChildInList(ul, cssLiClass, null, ` \\`);
+
+      const btn = initButton(cssBtnClass, callback, icon, "", label);
       btn.objToRender = obj;
 
-      li.prepend(btn);
+      if (obj) {
+        console.log(obj.type);
+        switch (obj.type) {
+          case "P":
+            btn.style.fontWeight = "bold";
+            break;
+          case "N":
+            btn.style.fontStyle = "italic";
+            break;
+          case "T":
+          default:
+        }
+      }
 
-      obj = obj.parent;
-    }
+      li.prepend(btn);
+    };
 
     // Add link to home page
-    const li = initLiAsChildInList(ul, this.getCssClass("pathLi"), null, ` \\`);
+    initLiBtn(uiIcons.home, "", null);
 
-    const btn = initButton(
-      this.getCssClass("pathBtn"),
-      baseDomComponent.renderObjCallback,
-      uiIcons.home
-    );
-    btn.objToRender = null;
-
-    li.prepend(btn);
+    // Add link to each ancestor
+    this.obj.path.map((obj) => initLiBtn(null, `${obj.title}`, obj));
 
     return ul;
   }
