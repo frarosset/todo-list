@@ -60,6 +60,8 @@ export default class baseComponent {
     this.type = "B";
 
     this.editable = editable; // note: this is only used in the dom
+
+    this.nTodoNested = 0;
   }
 
   update(data) {
@@ -73,6 +75,27 @@ export default class baseComponent {
       return this.data.icon;
     } else {
       return this.constructor.icon;
+    }
+  }
+
+  increaseNTodoNested() {
+    this.nTodoNested++;
+    this.increaseParentNTodoNested();
+    console.log(this.pathAndThisStr, this.nTodoNested);
+  }
+  decreaseNTodoNested() {
+    this.nTodoNested--;
+    this.decreaseParentNTodoNested();
+    console.log(this.pathAndThisStr, this.nTodoNested);
+  }
+  increaseParentNTodoNested() {
+    if (this.parent != null) {
+      this.parent.increaseNTodoNested();
+    }
+  }
+  decreaseParentNTodoNested() {
+    if (this.parent != null) {
+      this.parent.decreaseNTodoNested();
     }
   }
 

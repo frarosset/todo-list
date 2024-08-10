@@ -12,4 +12,11 @@ export default class todoListComponent extends baseListComponent {
   initItem(data) {
     return new todoComponent(data, this.parent, this);
   }
+
+  removeItem(item) {
+    if (item.state !== todoComponent.doneIdx) {
+      item.decreaseParentNTodoNested();
+    }
+    super.removeItem(item);
+  }
 }

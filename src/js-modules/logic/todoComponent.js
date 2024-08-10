@@ -60,6 +60,10 @@ export default class todoComponent extends baseComponent {
     // define imminence
     this.updateImminence();
 
+    if (this.data.state !== todoComponent.doneIdx) {
+      this.increaseParentNTodoNested();
+    }
+
     this.initAllLists(data.lists, listsToExclude); // method added via composition (see below)
   }
 
@@ -146,6 +150,14 @@ export default class todoComponent extends baseComponent {
   set state(state) {
     const validatedState = this.validateState(state);
     if (this.data.state !== validatedState) {
+      if (this.data.state === todoComponent.doneIdx) {
+        // was completed, now changed to incompleted
+        this.increaseParentNTodoNested();
+      } else if (validatedState === todoComponent.doneIdx) {
+        // was incompleted, now changed to completed
+        this.decreaseParentNTodoNested();
+      }
+
       this.data.state = validatedState;
 
       PubSub.publish(this.getPubSubName("STATE CHANGE", "main"));
