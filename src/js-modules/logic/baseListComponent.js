@@ -19,7 +19,18 @@ export default class baseListComponent {
 
     this.#list = [];
 
+    this.nTodoNested = 0;
+
     itemData.forEach((data) => this.addItem(data));
+  }
+
+  increaseNTodoNested(amount = 1) {
+    this.nTodoNested += amount;
+    console.log(this.name, this.nTodoNested);
+  }
+  decreaseNTodoNested(amount = 1) {
+    this.nTodoNested -= amount;
+    console.log(this.name, this.nTodoNested);
   }
 
   print() {
@@ -85,6 +96,10 @@ export default class baseListComponent {
     /* item is a reference to a item object */
     const idx = this.#list.indexOf(item);
     if (idx >= 0) {
+      // Before deleting the item, decrease the number of todo in this list and the ancestors
+      this.decreaseNTodoNested(item.nTodoNested);
+      item.decreaseParentNTodoNested(item.nTodoNested);
+
       this.#list.splice(idx, 1);
       this.updateParentDateOfEdit();
     }

@@ -78,24 +78,36 @@ export default class baseComponent {
     }
   }
 
-  increaseNTodoNested() {
-    this.nTodoNested++;
-    this.increaseParentNTodoNested();
+  increaseNTodoNested(amount = 1) {
+    this.nTodoNested += amount;
+    this.increaseParentNTodoNested(amount);
+    this.increaseListNTodoNested(amount);
     console.log(this.pathAndThisStr, this.nTodoNested);
   }
-  decreaseNTodoNested() {
-    this.nTodoNested--;
-    this.decreaseParentNTodoNested();
+  decreaseNTodoNested(amount = 1) {
+    this.nTodoNested -= amount;
+    this.decreaseParentNTodoNested(amount);
+    this.decreaseListNTodoNested(amount);
     console.log(this.pathAndThisStr, this.nTodoNested);
   }
-  increaseParentNTodoNested() {
+  increaseParentNTodoNested(amount = 1) {
     if (this.parent != null) {
-      this.parent.increaseNTodoNested();
+      this.parent.increaseNTodoNested(amount);
     }
   }
-  decreaseParentNTodoNested() {
+  decreaseParentNTodoNested(amount = 1) {
     if (this.parent != null) {
-      this.parent.decreaseNTodoNested();
+      this.parent.decreaseNTodoNested(amount);
+    }
+  }
+  increaseListNTodoNested(amount = 1) {
+    if (this.list != null) {
+      this.list.increaseNTodoNested(amount);
+    }
+  }
+  decreaseListNTodoNested(amount = 1) {
+    if (this.list != null) {
+      this.list.decreaseNTodoNested(amount);
     }
   }
 
