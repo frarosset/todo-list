@@ -80,12 +80,18 @@ export default class baseComponent {
 
   increaseNTodoNested(amount = 1) {
     this.nTodoNested += amount;
+
+    PubSub.publish(this.getPubSubName("NTODONESTED CHANGE", "main"));
+
     this.increaseParentNTodoNested(amount);
     this.increaseListNTodoNested(amount);
     console.log(this.pathAndThisStr, this.nTodoNested);
   }
   decreaseNTodoNested(amount = 1) {
     this.nTodoNested -= amount;
+
+    PubSub.publish(this.getPubSubName("NTODONESTED CHANGE", "main"));
+
     this.decreaseParentNTodoNested(amount);
     this.decreaseListNTodoNested(amount);
     console.log(this.pathAndThisStr, this.nTodoNested);

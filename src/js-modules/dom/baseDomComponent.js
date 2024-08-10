@@ -31,6 +31,9 @@ export default class baseDomComponent {
     actionDiv: `action-div`,
     removeBtn: `remove-btn`,
     editBtn: `edit-btn`,
+    nTodoNestedIcon: `n-todo-nested-icon`,
+    otherInfoDiv: `other-info-div`,
+    otherInfosDiv: `other-infos-div`,
   };
 
   static associatedDialog = () => null; // method to fetch the dialog after its creation
@@ -86,6 +89,8 @@ export default class baseDomComponent {
     if (this.obj.editable) {
       header.appendChild(this.initActionButtons());
     }
+
+    header.append(this.initOtherInfo(false));
 
     return header;
   }
@@ -294,6 +299,42 @@ export default class baseDomComponent {
     );
     removeBtn.self = this;
     return removeBtn;
+  }
+
+  initOtherInfo(showNTodoNestedIcon = true) {
+    const div = initDiv(this.getCssClass("otherInfosDiv"));
+    if (showNTodoNestedIcon) {
+      div.appendChild(this.initNTodoNestedIcon());
+    }
+    return div;
+  }
+
+  initNTodoNestedIcon() {
+    const cssClass = this.getCssClass("nTodoNestedIcon");
+    const cssClassHidden = `${cssClass}__hidden`;
+
+    const nTodoNestedIcon = initP(cssClass, null, this.obj.nTodoNested);
+    const toggleHiddenClass = () =>
+      nTodoNestedIcon.classList.toggle(
+        cssClassHidden,
+        this.obj.nTodoNested === 0
+      );
+
+    toggleHiddenClass();
+
+    // Set the tooltip when hovering
+    nTodoNestedIcon.title = `Number of nested todo yet to be done`;
+
+    PubSub.subscribe(
+      this.getPubSubName("NTODONESTED CHANGE", "main"),
+      (msg) => {
+        console.log(msg);
+        nTodoNestedIcon.textContent = `${this.obj.nTodoNested}`;
+        toggleHiddenClass();
+      }
+    );
+
+    return nTodoNestedIcon;
   }
 
   // callbacks

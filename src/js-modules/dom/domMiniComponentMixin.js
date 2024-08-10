@@ -63,6 +63,8 @@ function redefineInitMini() {
 
       this.div.appendChild(this.initActionButtons());
 
+      this.div.append(this.initOtherInfo(true));
+
       this.div.associatedType = this.obj.type;
       this.div.associatedObject = this.obj;
       this.div.addEventListener("click", btnRenderTodoCallback);
@@ -76,6 +78,7 @@ function redefineInitMiniNav() {
       // it becomes a method: 'this' is the object it will be attached to
       this.div = initDiv(this.constructor.blockName);
       this.div.appendChild(this.initTitle());
+      this.div.appendChild(this.initNTodoNestedIcon());
 
       this.div.associatedType = this.obj.type;
       this.div.associatedObject = this.obj;

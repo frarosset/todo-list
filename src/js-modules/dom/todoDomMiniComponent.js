@@ -1,4 +1,3 @@
-import { initDiv } from "../../js-utilities/commonDomComponents.js";
 import { todoDomComponent } from "./fixCircularDependenciesInDomComponents.js";
 import { domMiniComponentMixin } from "./fixCircularDependenciesInDomComponents.js";
 
@@ -10,12 +9,11 @@ export default class todoDomMiniComponent extends todoDomComponent {
 
     this.div.appendChild(this.initStatusBtn());
     this.div.appendChild(this.initImminenceIcon());
-    this.div.append(this.initOtherInfo());
   }
 
   // Block initialization
   initOtherInfo() {
-    const div = initDiv(this.getCssClass("otherInfosDiv"));
+    const div = super.initOtherInfo(true, false);
     div.append(this.initDueDate(""));
 
     return div;

@@ -14,8 +14,6 @@ export default class todoDomComponent extends baseDomComponent {
     ...baseDomComponent.cssClass,
     stateBtn: `state-btn`,
     imminenceIcon: `imminence-icon`,
-    otherInfosDiv: `other-infos-div`,
-    otherInfoDiv: `other-info-div`,
     dueDateInfoDiv: `due-date-info-div`,
     priorityInfoDiv: `priority-info-div`,
     stateInfoDiv: `state-info-div`,
@@ -90,18 +88,19 @@ export default class todoDomComponent extends baseDomComponent {
 
     this.header.prepend(this.initImminenceIcon());
     this.header.prepend(this.initStatusBtn());
-    this.header.append(this.initOtherInfo());
 
     this.initAllDomLists(); // method added via composition (see below)
   }
 
   // Block initialization
-  initOtherInfo() {
-    const div = initDiv(this.getCssClass("otherInfosDiv"));
+  initOtherInfo(showNTodoNestedIcon = true, showTodoInfo = true) {
+    const div = super.initOtherInfo(showNTodoNestedIcon);
 
-    div.append(this.initDueDate());
-    div.append(this.initPriority());
-    div.append(this.initState());
+    if (showTodoInfo) {
+      div.append(this.initDueDate());
+      div.append(this.initPriority());
+      div.append(this.initState());
+    }
 
     return div;
   }
@@ -175,13 +174,12 @@ export default class todoDomComponent extends baseDomComponent {
   };
 
   initImminenceIcon() {
-    // The icon shows the state of the todo, the color shows the priority
     const getIcon = () =>
       todoDomComponent.imminenceIcons[this.obj.imminenceIdx];
     const getColor = () =>
       todoDomComponent.imminenceColors[this.obj.imminenceIdx];
 
-    // Init the button with the right icon
+    // Init the icon with the right icon
     const imminenceIcon = initP(this.getCssClass("imminenceIcon"), getIcon());
 
     // Set the color

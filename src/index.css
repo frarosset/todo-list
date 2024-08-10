@@ -171,13 +171,24 @@ body > main {
   grid-template-columns: min-content 1fr min-content min-content;
 }
 
-.project-div__header,
-.note-div__header {
+.project-div__header {
   grid-template-areas:
     ". path path back-btn"
-    ". title title title"
+    "title title title title"
     ". description description description"
-    "tags tags . action-div";
+    ". tags . action-div"
+    ". otherinfo otherinfo otherinfo";
+  grid-template-columns: calc(1.2 * var(--title-h2-fontsize)) 1fr min-content min-content;
+}
+
+.note-div__header {
+  grid-template-areas:
+    "path path back-btn"
+    "title title title"
+    "description description description"
+    "tags . action-div"
+    "otherinfo otherinfo otherinfo";
+  grid-template-columns: 1fr min-content min-content;
 }
 
 .todo-div__header {
@@ -187,6 +198,7 @@ body > main {
     ". description description description"
     ". tags . action-div"
     ". otherinfo otherinfo otherinfo";
+  grid-template-columns: min-content 1fr min-content min-content;
 }
 
 .todo-div__back-btn,
@@ -263,11 +275,16 @@ body > main {
   justify-self: center;
 }
 
-.todo-div__other-infos-div {
+.project-div__other-infos-div,
+.todo-div__other-infos-div,
+.note-div__other-infos-div {
   grid-area: otherinfo;
   font-size: var(--base-mini-other-info-fontsize);
   margin: var(--base-header-other-info-margin);
   padding: var(--base-header-other-info-padding);
+}
+
+.todo-div__other-infos-div {
   border-top: 1px solid var(--otherinfo-line-color);
 }
 
@@ -381,11 +398,24 @@ body > main {
 }
 
 .project-mini-div,
+.todo-mini-div,
+.note-mini-div {
+  grid-template-rows: min-content var(--base-mini-status-fontsize) min-content;
+}
+
+.project-mini-div {
+  grid-template-areas:
+    ". path expand-btn"
+    "title  title ."
+    ". otherinfo  action-div";
+  grid-template-columns: calc(1.2 * var(--base-mini-title-fontsize)) 1fr min-content;
+}
+
 .note-mini-div {
   grid-template-areas:
     "path expand-btn"
-    "title  ."
-    ".  action-div";
+    "title ."
+    "otherinfo  action-div";
   grid-template-columns: 1fr min-content;
 }
 
@@ -439,13 +469,34 @@ body > main {
   align-self: center;
 }
 
-.todo-mini-div__other-infos-div {
+.project-mini-div__other-infos-div,
+.todo-mini-div__other-infos-div,
+.note-mini-div__other-infos-div {
   grid-area: otherinfo;
   font-size: var(--base-mini-other-info-fontsize);
+  display: flex;
+  justify-content: flex-start;
+  align-items: baseline;
+  align-self: end;
+  gap: 0.5em;
 }
 
 .todo-mini-div__other-info-div {
   display: flex;
+}
+
+.project-mini-div__expand-btn,
+.todo-mini-div__expand-btn,
+.note-mini-div__expand-btn {
+  color: var(--light-btn-color);
+}
+.project-mini-div__edit-btn,
+.todo-mini-div__edit-btn,
+.note-mini-div__edit-btn,
+.project-mini-div__remove-btn,
+.todo-mini-div__remove-btn,
+.note-mini-div__remove-btn {
+  color: var(--lighter-btn-color);
 }
 
 /* --------------------------------------------*/
@@ -486,6 +537,44 @@ body > main {
   color: var(--home-project-mini-nav-color);
   background-color: var(--home-project-mini-nav-bg-color);
   padding-left: var(--base-list-padding); /* to align with .project-list-div */
+  padding-right: var(--base-list-padding); /* to align with .project-list-div */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Counters */
+.project-mini-div__n-todo-nested-icon,
+.todo-mini-div__n-todo-nested-icon,
+.note-mini-div__n-todo-nested-icon,
+.project-mini-nav-div__n-todo-nested-icon,
+.todo-mini-nav-div__n-todo-nested-icon,
+.note-mini-nav-div__n-todo-nested-icon {
+  color: var(--ntodonested-color);
+  background-color: var(--ntodonested-bg-color);
+  border-radius: 50%;
+  padding: 0.5em;
+  min-width: 2em;
+  height: 2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--ntodonested-fontsize);
+}
+
+.project-mini-nav-div__n-todo-nested-icon,
+.todo-mini-nav-div__n-todo-nested-icon,
+.note-mini-nav-div__n-todo-nested-icon {
+  font-size: var(--ntodonested-nav-fontsize);
+}
+
+.project-mini-div__n-todo-nested-icon__hidden,
+.todo-mini-div__n-todo-nested-icon__hidden,
+.note-mini-div__n-todo-nested-icon__hidden,
+.project-mini-nav-div__n-todo-nested-icon__hidden,
+.todo-mini-nav-div__n-todo-nested-icon__hidden,
+.note-mini-nav-div__n-todo-nested-icon__hidden {
+  display: none;
 }
 
 /* Adjust home icon and path */
@@ -782,6 +871,8 @@ body > main {
   --base-mini-path-fontsize: 0.5rem;
   --base-mini-other-info-fontsize: 0.8rem;
   --base-footer-fontsize: 0.5rem;
+  --ntodonested-fontsize: calc(0.5 * var(--base-mini-other-info-fontsize));
+  --ntodonested-nav-fontsize: calc(0.75 * var(--base-mini-other-info-fontsize));
 
   --main-padding: 1rem;
   --base-list-padding: 1rem;
@@ -821,6 +912,9 @@ body > main {
   --dialog-color: var(--col-txt-alt);
   --dialog-content-color: var(--col-txt);
   --dialog-submit-btn-color: var(var(--col-txt));
+  --light-btn-color: var(--col-grey);
+  --lighter-btn-color: var(--col-secondary);
+  --ntodonested-color: var(--col-white);
 
   --home-project-mini-nav-bg-color: var(--col-accent);
   --base-list-bg-color: var(--col-grey);
@@ -830,6 +924,7 @@ body > main {
   --dialog-bg-color: var(--col-black);
   --dialog-content-bg-color: var(--bg-col);
   --dialog-submit-btn-bg-color: var(--col-accent);
+  --ntodonested-bg-color: var(--col-black);
 
   --dialog-margin: var(--main-padding);
   --dialog-width: calc(var(--max-width) - 2 * var(--main-padding));
