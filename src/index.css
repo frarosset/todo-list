@@ -351,13 +351,30 @@ body > main {
 .todo-list-div__header,
 .note-list-div__header {
   display: flex;
+  align-items: flex-start;
+}
+
+.project-list-div__heading,
+.todo-list-div__heading,
+.note-list-div__heading {
+  display: flex;
+  gap: 1em;
+  flex: 1;
+  align-items: baseline;
+  user-select: none;
 }
 
 .project-list-div__title-h3,
 .todo-list-div__title-h3,
 .note-list-div__title-h3 {
-  flex: 1;
   font-size: var(--title-h3-fontsize);
+}
+
+.project-list-div__size,
+.todo-list-div__size,
+.note-list-div__size {
+  font-size: var(--base-list-size-fontsize);
+  color: var(--base-list-size-color);
 }
 
 .project-list-div__new-item-btn,
@@ -873,6 +890,7 @@ body > main {
   --base-footer-fontsize: 0.5rem;
   --ntodonested-fontsize: calc(0.5 * var(--base-mini-other-info-fontsize));
   --ntodonested-nav-fontsize: calc(0.75 * var(--base-mini-other-info-fontsize));
+  --base-list-size-fontsize: 0.7rem;
 
   --main-padding: 1rem;
   --base-list-padding: 1rem;
@@ -913,6 +931,7 @@ body > main {
   --dialog-content-color: var(--col-txt);
   --dialog-submit-btn-color: var(var(--col-txt));
   --light-btn-color: var(--col-grey);
+  --base-list-size-color: var(--col-secondary);
   --lighter-btn-color: var(--col-secondary);
   --ntodonested-color: var(--col-white);
 

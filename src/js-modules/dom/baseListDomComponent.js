@@ -4,6 +4,7 @@ import {
   initDiv,
   initH3,
   initButton,
+  initP,
 } from "../../js-utilities/commonDomComponents.js";
 import { deleteElement } from "../../js-utilities/commonDomUtilities.js";
 import baseDomComponent from "./baseDomComponent.js";
@@ -16,6 +17,8 @@ export default class baseListDomComponent {
   static cssClass = {
     titleH3: `title-h3`,
     header: "header",
+    heading: "heading",
+    size: "size",
     ul: `ul`,
     li: `li`,
     newItemBtn: "new-item-btn",
@@ -71,7 +74,11 @@ export default class baseListDomComponent {
     const header = document.createElement("header");
     header.classList.add(this.getCssClass("header"));
 
-    header.appendChild(this.initName());
+    const div = initDiv(this.getCssClass("heading"));
+    div.appendChild(this.initName());
+    div.appendChild(this.initSize());
+    header.appendChild(div);
+
     if (this.obj.editable) {
       header.appendChild(this.initNewItemBtn());
     }
@@ -99,6 +106,17 @@ export default class baseListDomComponent {
       "",
       this.obj.name
     );
+  }
+
+  initSize() {
+    const p = initP(this.getCssClass("size"), null, this.obj.size);
+
+    PubSub.subscribe(this.getPubSubName("CHANGE SIZE", "main"), (msg) => {
+      console.log(msg);
+      p.textContent = this.obj.size;
+    });
+
+    return p;
   }
 
   initExpandBtn(ul) {

@@ -80,6 +80,7 @@ export default class baseListComponent {
 
     // publish the 'ADD ITEM' only once
     PubSub.publish(this.getPubSubName("ADD ITEM", "main"), item);
+    PubSub.publish(this.getPubSubName("CHANGE SIZE", "main"));
 
     return item;
   }
@@ -102,6 +103,8 @@ export default class baseListComponent {
 
       this.#list.splice(idx, 1);
       this.updateParentDateOfEdit();
+
+      PubSub.publish(this.getPubSubName("CHANGE SIZE", "main"));
     }
   }
 
