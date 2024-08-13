@@ -20,16 +20,19 @@ export default class baseListComponent {
     this.#list = [];
 
     this.nTodoNested = 0;
+    this.nTodo = 0;
 
     itemData.forEach((data) => this.addItem(data));
   }
 
   increaseNTodoNested(amount = 1) {
     this.nTodoNested += amount;
+    PubSub.publish(this.getPubSubName("NTODONESTED CHANGE", "main"));
     console.log(this.name, this.nTodoNested);
   }
   decreaseNTodoNested(amount = 1) {
     this.nTodoNested -= amount;
+    PubSub.publish(this.getPubSubName("NTODONESTED CHANGE", "main"));
     console.log(this.name, this.nTodoNested);
   }
 
@@ -80,7 +83,7 @@ export default class baseListComponent {
 
     // publish the 'ADD ITEM' only once
     PubSub.publish(this.getPubSubName("ADD ITEM", "main"), item);
-    PubSub.publish(this.getPubSubName("CHANGE SIZE", "main"));
+    PubSub.publish(this.getPubSubName("SIZE CHANGE", "main"));
 
     return item;
   }
@@ -104,7 +107,7 @@ export default class baseListComponent {
       this.#list.splice(idx, 1);
       this.updateParentDateOfEdit();
 
-      PubSub.publish(this.getPubSubName("CHANGE SIZE", "main"));
+      PubSub.publish(this.getPubSubName("SIZE CHANGE", "main"));
     }
   }
 

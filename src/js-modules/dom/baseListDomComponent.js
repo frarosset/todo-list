@@ -111,7 +111,7 @@ export default class baseListDomComponent {
   initSize() {
     const p = initP(this.getCssClass("size"), null, this.obj.size);
 
-    PubSub.subscribe(this.getPubSubName("CHANGE SIZE", "main"), (msg) => {
+    PubSub.subscribe(this.getPubSubName("SIZE CHANGE", "main"), (msg) => {
       console.log(msg);
       p.textContent = this.obj.size;
     });

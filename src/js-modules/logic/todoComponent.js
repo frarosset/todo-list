@@ -73,6 +73,17 @@ export default class todoComponent extends baseComponent {
     this.priority = data.priority;
   }
 
+  increaseListNTodo(amount = 1) {
+    if (this.list != null) {
+      this.list.increaseNTodo(amount);
+    }
+  }
+  decreaseListNTodo(amount = 1) {
+    if (this.list != null) {
+      this.list.decreaseNTodo(amount);
+    }
+  }
+
   print(dateFormat = todoComponent.dateFormat) {
     let str = super.print(dateFormat);
     str += `\n\tdue date: ${this.dueDateFormatted(dateFormat)}, priority: ${this.priority}, state: ${this.state}, imminence: ${this.imminence}`;
@@ -153,9 +164,11 @@ export default class todoComponent extends baseComponent {
       if (this.data.state === todoComponent.doneIdx) {
         // was completed, now changed to incompleted
         this.increaseParentNTodoNested();
+        this.increaseListNTodo();
       } else if (validatedState === todoComponent.doneIdx) {
         // was incompleted, now changed to completed
         this.decreaseParentNTodoNested();
+        this.decreaseListNTodo();
       }
 
       this.data.state = validatedState;
