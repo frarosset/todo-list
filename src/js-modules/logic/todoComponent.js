@@ -137,6 +137,10 @@ export default class todoComponent extends baseComponent {
     return this.#imminenceIdx == todoComponent.expiredIdx;
   }
 
+  hasNotDueDate() {
+    return this.data.dueDate == null;
+  }
+
   // Setter methods
 
   validatePriority(priority) {

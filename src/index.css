@@ -585,6 +585,7 @@ body > main {
   font-size: var(--ntodonested-nav-fontsize);
 }
 
+.todo-mini-div__due-date-info-div__none,
 .project-mini-div__n-todo-nested-icon__hidden,
 .todo-mini-div__n-todo-nested-icon__hidden,
 .note-mini-div__n-todo-nested-icon__hidden,

@@ -200,39 +200,47 @@ export default class todoDomComponent extends baseDomComponent {
   }
 
   initDueDate(label = `Due date: `) {
+    const cssClass = this.getCssClass("dueDateInfoDiv");
+    const cssClassNone = `${cssClass}__none`;
+
     const getDate = () =>
       `${this.obj.dueDateFormattedRelative().split(/ at /)[0]}`;
     const getColor = () =>
       todoDomComponent.imminenceColors[this.obj.imminenceIdx];
 
-    const setContent = (contentDom) => {
+    const setContent = (dueDateInfoDiv, contentDom) => {
       contentDom.textContent = getDate();
-      contentDom.style.color = "inherit";
 
       if (this.obj.isExpired()) {
         contentDom.style.color = getColor();
         contentDom.textContent += ` (expired)`;
+      } else if (this.obj.hasNotDueDate()) {
+        contentDom.style.color = todoDomComponent.colors.grey;
+      } else {
+        contentDom.style.color = "inherit";
       }
+
+      dueDateInfoDiv.classList.toggle(cssClassNone, this.obj.hasNotDueDate());
     };
 
     // Init the button with the right icon
     const [dueDateInfoDiv, , dueDateInfoContent] = this.initInfo(
-      this.getCssClass("dueDateInfoDiv"),
+      cssClass,
       todoDomComponent.otherInfoIcons.dueDate,
       label,
       getDate()
     );
 
-    setContent(dueDateInfoContent);
+    setContent(dueDateInfoDiv, dueDateInfoContent);
 
     PubSub.subscribe(this.getPubSubName("IMMINENCE CHANGE", "main"), (msg) => {
       console.log(msg);
-      setContent(dueDateInfoContent);
+      setContent(dueDateInfoDiv, dueDateInfoContent);
     });
 
     PubSub.subscribe(this.getPubSubName("DUEDATE CHANGE", "main"), (msg) => {
       console.log(msg);
-      setContent(dueDateInfoContent);
+      setContent(dueDateInfoDiv, dueDateInfoContent);
     });
 
     return dueDateInfoDiv;
