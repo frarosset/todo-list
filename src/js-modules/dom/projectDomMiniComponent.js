@@ -4,8 +4,8 @@ import { domMiniComponentMixin } from "./fixCircularDependenciesInDomComponents.
 export default class projectDomMiniComponent extends projectDomComponent {
   static blockName = "project-mini-div";
 
-  constructor(obj) {
-    super(obj);
+  constructor(obj, showPath = true) {
+    super(obj, showPath);
   }
 }
 

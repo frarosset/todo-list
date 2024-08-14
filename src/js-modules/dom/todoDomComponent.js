@@ -79,8 +79,8 @@ export default class todoDomComponent extends baseDomComponent {
 
   static associatedDialog = () => document.body.todoFormDialog; // method to fetch the dialog after its creation
 
-  constructor(obj) {
-    super(obj);
+  constructor(obj, showPath = true) {
+    super(obj, showPath);
   }
 
   init(dateFormatFcn = baseDomComponent.dateFormatFcn) {
@@ -89,7 +89,7 @@ export default class todoDomComponent extends baseDomComponent {
     this.header.prepend(this.initImminenceIcon());
     this.header.prepend(this.initStatusBtn());
 
-    this.initAllDomLists(); // method added via composition (see below)
+    this.initAllDomLists(false); // method added via composition (see below), hide path
   }
 
   // Block initialization

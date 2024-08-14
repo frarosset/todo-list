@@ -4,8 +4,8 @@ import { domMiniComponentMixin } from "./fixCircularDependenciesInDomComponents.
 export default class noteDomMiniComponent extends noteDomComponent {
   static blockName = "note-mini-div";
 
-  constructor(obj) {
-    super(obj);
+  constructor(obj, showPath = true) {
+    super(obj, showPath);
   }
 }
 

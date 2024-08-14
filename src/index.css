@@ -423,7 +423,7 @@ body > main {
 .project-mini-div {
   grid-template-areas:
     ". path expand-btn"
-    "title  title ."
+    "title  title expand-btn"
     ". otherinfo  action-div";
   grid-template-columns: calc(1.2 * var(--base-mini-title-fontsize)) 1fr min-content;
 }
@@ -431,7 +431,7 @@ body > main {
 .note-mini-div {
   grid-template-areas:
     "path expand-btn"
-    "title ."
+    "title expand-btn"
     "otherinfo  action-div";
   grid-template-columns: 1fr min-content;
 }
@@ -445,7 +445,7 @@ body > main {
 .todo-mini-div {
   grid-template-areas:
     ". path path  expand-btn"
-    "state title imminence ."
+    "state title imminence expand-btn"
     ". otherinfo otherinfo action-div";
   grid-template-columns: min-content 1fr min-content min-content;
 }
@@ -475,6 +475,7 @@ body > main {
   grid-area: expand-btn;
   font-size: var(--base-mini-path-fontsize); /* use same size as path */
   justify-self: right;
+  align-self: start;
 }
 
 .project-mini-div__title-h2,

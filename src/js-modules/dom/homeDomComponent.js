@@ -50,7 +50,10 @@ export default class homeDomComponent {
 
     const inboxDom = new projectDomMiniNavComponent(root.inboxProject);
 
-    const projectListDom = new projectListDomComponent(root.customProjectsList);
+    const projectListDom = new projectListDomComponent(
+      root.customProjectsList,
+      false //hide path
+    );
 
     contentDiv.append(inboxDom.div, projectListDom.div);
 

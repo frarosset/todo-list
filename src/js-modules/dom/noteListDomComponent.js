@@ -7,13 +7,13 @@ export default class noteListDomComponent extends baseListDomComponent {
   static associatedDialog = () => document.body.noteFormDialog; // method to fetch the dialog after its creation
   static icon = uiIcons.noteList;
 
-  constructor(obj) {
-    super(obj);
+  constructor(obj, showPath = true) {
+    super(obj, showPath);
   }
 
   // Methods
 
   initItemDom(item) {
-    return new noteDomMiniComponent(item);
+    return new noteDomMiniComponent(item, this.showPath);
   }
 }

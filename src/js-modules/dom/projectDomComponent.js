@@ -5,14 +5,14 @@ export default class projectDomComponent extends baseDomComponent {
   static blockName = "project-div";
   static associatedDialog = () => document.body.projectFormDialog; // method to fetch the dialog after its creation
 
-  constructor(obj) {
-    super(obj);
+  constructor(obj, showPath = true) {
+    super(obj, showPath);
   }
 
   init(dateFormatFcn = baseDomComponent.dateFormatFcn) {
     super.init(dateFormatFcn);
 
-    this.initAllDomLists(); // method added via composition (see below)
+    this.initAllDomLists(false); // method added via composition (see below), hide path
   }
 }
 

@@ -36,15 +36,16 @@ export default class baseListDomComponent {
     return this.obj.getPubSubName(str, topic);
   }
 
-  constructor(objList) {
+  constructor(objList, showPath = true) {
     this.obj = objList;
+    this.showPath = showPath;
     this.init();
   }
 
   // Methods
 
   initItemDom(item) {
-    return new baseDomComponent(item);
+    return new baseDomComponent(item, this.showPath);
   }
 
   init() {

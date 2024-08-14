@@ -23,18 +23,18 @@ export default function listInDomComponentMixin(targetClass) {
 
 // Add generic methods to handle the lists ------------------------------
 
-function initDomList(listLabel, parent) {
+function initDomList(listLabel, parent, showPath) {
   // Initialize the dom objects
-  const objDom = new initDomListFor[listLabel](parent);
+  const objDom = new initDomListFor[listLabel](parent, showPath); // do not show path
   this.content.appendChild(objDom.div);
 }
 
 function initAllDomLists() {
   return {
-    initAllDomLists: function () {
+    initAllDomLists: function (showPath = true) {
       // it becomes a method: 'this' is the object it will be attached to
       Object.entries(this.obj.data.lists).forEach(([listLabel, list]) => {
-        initDomList.call(this, listLabel, list); // bind the function to this
+        initDomList.call(this, listLabel, list, showPath); // bind the function to this
       });
     },
   };

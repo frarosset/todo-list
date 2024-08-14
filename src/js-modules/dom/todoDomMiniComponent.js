@@ -4,8 +4,8 @@ import { domMiniComponentMixin } from "./fixCircularDependenciesInDomComponents.
 export default class todoDomMiniComponent extends todoDomComponent {
   static blockName = "todo-mini-div";
 
-  constructor(obj) {
-    super(obj);
+  constructor(obj, showPath = true) {
+    super(obj, showPath);
 
     this.div.appendChild(this.initStatusBtn());
     this.div.appendChild(this.initImminenceIcon());

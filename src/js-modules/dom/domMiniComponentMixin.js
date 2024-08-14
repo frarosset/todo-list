@@ -58,7 +58,9 @@ function redefineInitMini() {
 
       this.div.prepend(this.initExpandBtn());
 
-      this.div.appendChild(this.initPath());
+      if (this.showPath) {
+        this.div.appendChild(this.initPath());
+      }
       this.div.appendChild(this.initTitle());
 
       this.div.appendChild(this.initActionButtons());

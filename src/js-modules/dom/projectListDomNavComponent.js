@@ -7,13 +7,13 @@ export default class projectListDomNavComponent extends baseListDomComponent {
   static associatedDialog = () => document.body.projectFormDialog; // method to fetch the dialog after its creation
   static icon = uiIcons.projectList;
 
-  constructor(obj) {
-    super(obj);
+  constructor(obj, showPath = true) {
+    super(obj, showPath);
   }
 
   // Methods
 
   initItemDom(item) {
-    return new projectDomMiniNavComponent(item);
+    return new projectDomMiniNavComponent(item, this.showPath);
   }
 }

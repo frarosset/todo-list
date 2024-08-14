@@ -56,8 +56,9 @@ export default class baseDomComponent {
     return this.obj.getPubSubName(str, topic);
   }
 
-  constructor(obj) {
+  constructor(obj, showPath = true) {
     this.obj = obj;
+    this.showPath = showPath;
     this.init();
   }
 
@@ -81,7 +82,9 @@ export default class baseDomComponent {
     header.classList.add(this.getCssClass("header"));
 
     header.appendChild(this.initBackBtn());
-    header.appendChild(this.initPath());
+    if (this.showPath) {
+      header.appendChild(this.initPath());
+    }
     header.appendChild(this.initTitle());
     header.appendChild(this.initDescription());
     header.appendChild(this.initTags());
@@ -323,7 +326,7 @@ export default class baseDomComponent {
     toggleHiddenClass();
 
     // Set the tooltip when hovering
-    nTodoNestedIcon.title = `Number of nested todo yet to be done`;
+    nTodoNestedIcon.title = `Nested todo yet to be done`;
 
     PubSub.subscribe(
       this.getPubSubName("NTODONESTED CHANGE", "main"),

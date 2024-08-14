@@ -9,14 +9,14 @@ export default class todoListDomComponent extends baseListDomComponent {
   static associatedDialog = () => document.body.todoFormDialog; // method to fetch the dialog after its creation
   static icon = uiIcons.todoList;
 
-  constructor(obj) {
-    super(obj);
+  constructor(obj, showPath = true) {
+    super(obj, showPath);
   }
 
   // Methods
 
   initItemDom(item) {
-    return new todoDomMiniComponent(item);
+    return new todoDomMiniComponent(item, this.showPath);
   }
 
   initSize() {
