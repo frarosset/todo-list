@@ -4,30 +4,24 @@ import {
   initButton,
   initDiv,
   initP,
-  initH2,
 } from "../../js-utilities/commonDomComponents.js";
 import { isToday, isThisYear } from "date-fns";
 import PubSub from "pubsub-js";
 import { uiIcons } from "./uiIcons.js";
 import { deleteElement } from "../../js-utilities/commonDomUtilities.js";
+import genericBaseDomComponent from "./genericBaseDomComponent.js";
 
-export default class baseDomComponent {
+export default class baseDomComponent extends genericBaseDomComponent {
   static blockName = "base-div";
 
   static cssClass = {
-    header: `header`,
-    content: `content`,
+    ...genericBaseDomComponent.cssClass,
     footer: `footer`,
-    pathUl: `path-ul`,
-    pathLi: `path-li`,
-    pathBtn: `path-btn`,
-    titleH2: `title-h2`,
     descriptionP: `description-p`,
     tagsUl: `tags-ul`,
     tagLi: `tag-li`,
     dateOfCreationP: `date-of-creation-p`,
     dateOfEditP: `date-of-edit-p`,
-    backBtn: `back-btn`,
     actionDiv: `action-div`,
     removeBtn: `remove-btn`,
     editBtn: `edit-btn`,
@@ -37,10 +31,6 @@ export default class baseDomComponent {
   };
 
   static associatedDialog = () => null; // method to fetch the dialog after its creation
-
-  getCssClass(element) {
-    return `${this.constructor.blockName}__${this.constructor.cssClass[element]}`;
-  }
 
   static dateFormatFcn = (date) => {
     if (isToday(date)) {
@@ -57,35 +47,19 @@ export default class baseDomComponent {
   }
 
   constructor(obj, showPath = true) {
-    this.obj = obj;
-    this.showPath = showPath;
-    this.init();
+    super(obj, showPath);
   }
 
   // init method
   init(dateFormatFcn = baseDomComponent.dateFormatFcn) {
-    this.div = initDiv(this.constructor.blockName);
-
-    this.header = this.initHeader();
-    this.div.appendChild(this.header);
-
-    this.content = this.initContent();
-    this.div.appendChild(this.content);
-
+    super.init();
     this.div.appendChild(this.initFooter(dateFormatFcn));
   }
 
   // Blocks initialization
 
   initHeader() {
-    const header = document.createElement("header");
-    header.classList.add(this.getCssClass("header"));
-
-    header.appendChild(this.initBackBtn());
-    if (this.showPath) {
-      header.appendChild(this.initPath());
-    }
-    header.appendChild(this.initTitle());
+    const header = super.initHeader();
     header.appendChild(this.initDescription());
     header.appendChild(this.initTags());
 
@@ -96,11 +70,6 @@ export default class baseDomComponent {
     header.append(this.initOtherInfo(false));
 
     return header;
-  }
-
-  initContent() {
-    const contentDiv = initDiv(this.getCssClass("content"));
-    return contentDiv;
   }
 
   initFooter(dateFormatFcn = baseDomComponent.dateFormatFcn) {
@@ -114,17 +83,11 @@ export default class baseDomComponent {
   // Components initialization
 
   initPath() {
-    const ul = initUl(this.getCssClass("pathUl"));
+    const ul = super.initPath();
 
-    const initLiBtn = (icon, label, obj) => {
-      const cssLiClass = this.getCssClass("pathLi");
-      const cssBtnClass = this.getCssClass("pathBtn");
-      const callback = baseDomComponent.renderObjCallback;
-
-      const li = initLiAsChildInList(ul, cssLiClass, null, ` \\`);
-
-      const btn = initButton(cssBtnClass, callback, icon, "", label);
-      btn.objToRender = obj;
+    const customizeLiBtn = (li) => {
+      const btn = li.children[0];
+      const obj = btn.objToRender;
 
       if (obj) {
         switch (obj.type) {
@@ -144,27 +107,15 @@ export default class baseDomComponent {
           btn.textContent = obj.title;
         });
       }
-
-      li.prepend(btn);
     };
 
-    // Add link to home page
-    initLiBtn(uiIcons.home, "", null);
-
-    // Add link to each ancestor
-    this.obj.path.map((obj) => initLiBtn(null, `${obj.title}`, obj));
+    [...ul.children].forEach((li) => customizeLiBtn(li));
 
     return ul;
   }
 
   initTitle() {
-    const h2 = initH2(
-      this.getCssClass("titleH2"),
-      this.obj.icon,
-      "",
-      this.obj.title
-    );
-
+    const h2 = super.initTitle();
     // Subscribe to the change of the title of a base component, to update the interface
     PubSub.subscribe(this.getPubSubName("TITLE CHANGE", "main"), (msg) => {
       console.log(msg);
@@ -261,16 +212,6 @@ export default class baseDomComponent {
     return p;
   }
 
-  initBackBtn() {
-    const backBtn = initButton(
-      this.getCssClass("backBtn"),
-      baseDomComponent.renderObjCallback,
-      uiIcons.back
-    );
-    backBtn.objToRender = this.obj.parent;
-    return backBtn;
-  }
-
   initActionButtons() {
     const div = initDiv(this.getCssClass("actionDiv"));
 
@@ -287,7 +228,7 @@ export default class baseDomComponent {
   initEditBtn() {
     const editBtn = initButton(
       this.getCssClass("editBtn"),
-      baseDomComponent.editObjCallback,
+      this.constructor.editObjCallback,
       uiIcons.edit
     );
     editBtn.self = this;
@@ -297,7 +238,7 @@ export default class baseDomComponent {
   initRemoveBtn() {
     const removeBtn = initButton(
       this.getCssClass("removeBtn"),
-      baseDomComponent.removeObjCallback,
+      this.constructor.removeObjCallback,
       uiIcons.delete
     );
     removeBtn.self = this;
@@ -341,10 +282,6 @@ export default class baseDomComponent {
   }
 
   // callbacks
-  static renderObjCallback = (e) => {
-    PubSub.publish("RENDER GENERIC", e.currentTarget.objToRender);
-    e.stopPropagation();
-  };
 
   static editObjCallback = (e) => {
     const self = e.currentTarget.self;
