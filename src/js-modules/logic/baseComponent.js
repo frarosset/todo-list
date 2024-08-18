@@ -1,20 +1,15 @@
 import { format } from "date-fns";
 import PubSub from "pubsub-js";
 import { subStrMatch } from "../../js-utilities/commonUtilities.js";
+import genericBaseComponent from "./genericBaseComponent.js";
 
-export default class baseComponent {
-  data;
-
-  static icon = null;
-
+export default class baseComponent extends genericBaseComponent {
   static defaultData = {
-    id: null,
-    title: "",
+    ...genericBaseComponent.defaultData,
     description: "",
     tags: new Set() /* to avoid duplicated tags*/,
     dateOfCreation: null,
     dateOfEdit: null,
-    icon: null,
   };
   static nextId = 0;
   static dateFormat = "yyyy-MM-dd HH:mm:ss.SSS";
@@ -24,28 +19,8 @@ export default class baseComponent {
     return `${topicStr}${this.type}${this.id} ${str}`;
   }
 
-  extractData(data) {
-    const dataProperties = Object.keys(this.constructor.defaultData);
-    const extractedData = dataProperties
-      .filter((key) => key in data)
-      .reduce((obj, key) => {
-        obj[key] = data[key];
-        return obj;
-      }, {});
-    return extractedData;
-  }
-
   constructor(data, parent = null, list = null, editable = true) {
-    this.data = Object.assign(
-      {},
-      this.constructor.defaultData,
-      this.extractData(data)
-    );
-
-    if (this.data.id == null) {
-      this.data.id = this.constructor.nextId;
-      this.constructor.nextId++;
-    }
+    super(data, parent);
 
     if (!this.data.dateOfCreation) {
       this.data.dateOfCreation = new Date();
@@ -55,7 +30,6 @@ export default class baseComponent {
     //   this.data.dateOfEdit = this.data.dateOfCreation;
     // }
 
-    this.parent = parent;
     this.list = list;
     this.type = "B";
 
@@ -110,28 +84,14 @@ export default class baseComponent {
   }
 
   // print functions
-
-  printPath() {
-    return (
-      this.path.reduce((str, obj) => {
-        str += `${obj.type}${obj.id}/`;
-        return str;
-      }, "") + `${this.type}${this.id}`
-    );
-  }
-
   print(dateFormat = baseComponent.dateFormat) {
-    let str = `${this.printPath()}) '${this.title}' [created: ${this.dateOfCreationFormatted(dateFormat)}, last edited: ${this.dateOfEditFormatted(dateFormat)}]`;
+    let str = `${super.print()} [created: ${this.dateOfCreationFormatted(dateFormat)}, last edited: ${this.dateOfEditFormatted(dateFormat)}]`;
     str += `\n\t${this.description}`;
     str += `\n\ttags: ${this.tags}`;
     return str;
   }
 
   // Getter methods
-
-  get id() {
-    return this.data.id;
-  }
 
   get path() {
     const path = [];
@@ -167,7 +127,10 @@ export default class baseComponent {
   }
 
   get title() {
-    return this.data.title;
+    // this method is redefined due to how js treats inherited setter/getters
+    // below a setter method is defined, so without this the getter would be undefined
+    // see: https://stackoverflow.com/questions/53584705/javascript-extending-es6-class-setter-will-inheriting-getter
+    return super.title;
   }
 
   get description() {
