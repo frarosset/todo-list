@@ -266,7 +266,8 @@ export default class todoComponent extends baseComponent {
 // Add todoList (T), projectList (P), noteList (N) with composition (using mixin) with these methods:
 // - initAllLists -------------> must be called in the constructor
 // - print()  -----------------> redefined
-// - getProjectList(), getTodoList(), getNoteList()
-// - addToProjectList(data), addToTodoList(data), addToNoteList(data)
-// - removeFromProjectList(obj), removeFromTodoList(obj), removeFromNoteList(obj)
+// - getProjectList(), getTodoList(), getNoteList(), getList(type)
+// - addToProjectList(data), addToTodoList(data), addToNoteList(data), addToList(type,data)
+// - insertToProjectList(obj), insertToTodoList(obj), insertToNoteList(obj), insertToList(type,obj)
+// - removeFromProjectList(obj), removeFromTodoList(obj), removeFromNoteList(obj), removeToList(type,data)
 listInComponentMixin(todoComponent, ["ST", "N"]);

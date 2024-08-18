@@ -9,9 +9,10 @@ import { noteListComponent } from "./fixCircularDependenciesInComponents.js";
 // explotiong composition (using mixin), with these methods:
 // - initAllLists -------------> must be called in the constructor
 // - print()  -----------------> redefined
-// - getProjectList(), getTodoList(), getNoteList()
-// - addToProjectList(data), addToTodoList(data), addToNoteList(data)
-// - removeFromProjectList(obj), removeFromTodoList(obj), removeFromNoteList(obj)
+// - getProjectList(), getTodoList(), getNoteList(), getList(type)
+// - addToProjectList(data), addToTodoList(data), addToNoteList(data), addToList(type,data)
+// - insertToProjectList(obj), insertToTodoList(obj), insertToNoteList(obj), insertToList(type,obj)
+// - removeFromProjectList(obj), removeFromTodoList(obj), removeFromNoteList(obj), removeToList(type,data)
 
 const listData = {
   P: [
@@ -62,6 +63,7 @@ export default function listInComponentMixin(targetClass, whichListArray) {
     initAllLists(whichListArray),
     allGetListMethod(whichListArray),
     allAddToListMethod(whichListArray),
+    allInsertToListMethod(whichListArray),
     allRemoveFromListMethod(whichListArray),
     redefinePrint(originalPrint),
     redefineToJSON(originalToJSON),
@@ -90,7 +92,7 @@ function initList(whichList, itemDataLists = {}) {
 
 function initAllLists(whichListArray) {
   return {
-    initAllLists: function (itemDataLists = {}, listsToExclude) {
+    initAllLists: function (itemDataLists = {}, listsToExclude = []) {
       this.data.lists = {};
       // it becomes a method: 'this' is the object it will be attached to
       whichListArray.forEach((whichList) => {
@@ -115,6 +117,13 @@ function initObjOfMethods(whichListArray, name, associatedFunction) {
 
     methods[methodName] = associatedFunction(label);
   });
+
+  methods[name + "List"] = function (whichList, ...args) {
+    const label = listData[whichList][0];
+    const functionToCall = associatedFunction(label);
+    functionToCall.call(this, ...args); // bind the function to this
+  };
+
   return methods;
 }
 
@@ -140,6 +149,18 @@ function addToListMethod(label) {
 
 function allAddToListMethod(whichListArray) {
   return initObjOfMethods(whichListArray, "addTo", addToListMethod);
+}
+
+// Initialize insert to list methods ---------------------------------------
+
+function insertToListMethod(label) {
+  return function (obj) {
+    return this.data.lists[label].insertItem(obj);
+  };
+}
+
+function allInsertToListMethod(whichListArray) {
+  return initObjOfMethods(whichListArray, "insertTo", insertToListMethod);
 }
 
 // Initialize remove from list methods ----------------------------------

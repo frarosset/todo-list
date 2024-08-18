@@ -70,14 +70,6 @@ export default class baseComponent {
     this.tags = data.tags;
   }
 
-  get icon() {
-    if (this.data.icon) {
-      return this.data.icon;
-    } else {
-      return this.constructor.icon;
-    }
-  }
-
   increaseNTodoNested(amount = 1) {
     this.nTodoNested += amount;
 
@@ -164,6 +156,14 @@ export default class baseComponent {
 
   get pathAndThisStr() {
     return this.pathStr + this.title;
+  }
+
+  get icon() {
+    if (this.data.icon) {
+      return this.data.icon;
+    } else {
+      return this.constructor.icon;
+    }
   }
 
   get title() {

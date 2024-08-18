@@ -78,13 +78,7 @@ export default class baseListComponent {
 
   addItem(data) {
     const item = this.initItem(data);
-    this.#list.push(item);
-    this.updateParentDateOfEdit();
-
-    // publish the 'ADD ITEM' only once
-    PubSub.publish(this.getPubSubName("ADD ITEM", "main"), item);
-    PubSub.publish(this.getPubSubName("SIZE CHANGE", "main"));
-
+    this.insertItem(item);
     return item;
   }
 
@@ -94,6 +88,15 @@ export default class baseListComponent {
     dataArray.forEach((data) => {
       this.addItem(data);
     });
+  }
+
+  insertItem(item) {
+    this.#list.push(item);
+    this.updateParentDateOfEdit();
+
+    // publish the 'ADD ITEM' only once
+    PubSub.publish(this.getPubSubName("ADD ITEM", "main"), item);
+    PubSub.publish(this.getPubSubName("SIZE CHANGE", "main"));
   }
 
   removeItem(item) {

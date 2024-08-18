@@ -14,12 +14,11 @@ export default class todoListComponent extends baseListComponent {
     return new todoComponent(data, this.parent, this);
   }
 
-  addItem(data) {
-    const item = super.addItem(data);
+  insertItem(item) {
+    super.insertItem(item);
     if (item.stateIdx !== todoComponent.doneIdx) {
       this.increaseNTodo();
     }
-    return item;
   }
 
   removeItem(item) {
