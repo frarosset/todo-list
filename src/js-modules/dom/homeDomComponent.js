@@ -5,6 +5,7 @@ import {
 } from "../../js-utilities/commonDomComponents.js";
 import projectDomMiniNavComponent from "./projectDomMiniNavComponent.js";
 import { projectListDomComponent } from "./fixCircularDependenciesInDomComponents.js";
+import resultsComponent from "../logic/resultsComponent.js";
 
 import { uiIcons } from "./uiIcons.js";
 
@@ -54,6 +55,17 @@ export default class homeDomComponent {
       root.customProjectsList,
       false //hide path
     );
+
+    const resComp = new resultsComponent(
+      {
+        title: "Filter By",
+        icon: null,
+        variable: "priority",
+        value: 1,
+      },
+      root
+    );
+    console.log(resComp);
 
     contentDiv.append(inboxDom.div, projectListDom.div);
 

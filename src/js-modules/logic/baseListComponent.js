@@ -69,7 +69,10 @@ export default class baseListComponent {
 
   updateParentDateOfEdit() {
     if (this.parent) {
-      this.parent.updateDateOfEdit();
+      // update the date of edit of the parent only if it is not of type 'R'(results)
+      if (this.parent.type !== "R") {
+        this.parent.updateDateOfEdit();
+      }
     } else {
       // publish the general 'EDITED' token only once, when you reach the root
       PubSub.publish("EDITED");
