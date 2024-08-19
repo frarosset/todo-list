@@ -75,7 +75,7 @@ export default function listInComponentMixin(targetClass, whichListArray) {
 
 // Initialize the Lists -------------------------------------------------
 
-function initList(whichList, itemDataLists = {}) {
+function initList(whichList, itemDataLists = {}, editable = true) {
   const listLabel = listData[whichList][0];
   const listClass = listData[whichList][1];
   const listTitle = listData[whichList][2];
@@ -85,19 +85,24 @@ function initList(whichList, itemDataLists = {}) {
     this.data.lists[listLabel] = new listClass(
       listTitle,
       this,
-      itemDataLists[listLabel]
+      itemDataLists[listLabel],
+      editable
     );
   }
 }
 
 function initAllLists(whichListArray) {
   return {
-    initAllLists: function (itemDataLists = {}, listsToExclude = []) {
+    initAllLists: function (
+      itemDataLists = {},
+      listsToExclude = [],
+      editable = true
+    ) {
       this.data.lists = {};
       // it becomes a method: 'this' is the object it will be attached to
       whichListArray.forEach((whichList) => {
         if (!listsToExclude.includes(whichList))
-          initList.call(this, whichList, itemDataLists); // bind the function to this
+          initList.call(this, whichList, itemDataLists, editable); // bind the function to this
       });
     },
   };
@@ -121,7 +126,7 @@ function initObjOfMethods(whichListArray, name, associatedFunction) {
   methods[name + "List"] = function (whichList, ...args) {
     const label = listData[whichList][0];
     const functionToCall = associatedFunction(label);
-    functionToCall.call(this, ...args); // bind the function to this
+    return functionToCall.call(this, ...args); // bind the function to this
   };
 
   return methods;

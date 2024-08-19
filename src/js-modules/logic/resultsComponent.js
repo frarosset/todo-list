@@ -14,7 +14,7 @@ export default class resultsComponent extends genericBaseComponent {
     this.root = root;
     this.type = "R";
 
-    this.initAllLists(); // method added via composition (see below)
+    this.initAllLists({}, [], false); // method added via composition (see below)
     this.sortResultsInLists();
   }
 
