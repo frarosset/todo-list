@@ -27,18 +27,20 @@ export default class baseListDomComponent {
 
   static associatedDialog = () => null; // method to fetch the dialog after its creation
   static icon = null;
+  #listMap; // A Map object that stores (obj, div) pairs, where obj is a reference to a baseComponent instance and used as the key, and div the dom div representing it
 
   getCssClass(element) {
     return `${this.constructor.blockName}__${this.constructor.cssClass[element]}`;
   }
 
-  getPubSubName(str, topic = null) {
-    return this.obj.getPubSubName(str, topic);
+  getPubSubName(str, topic = null, includeParent = true) {
+    return this.obj.getPubSubName(str, topic, includeParent);
   }
 
   constructor(objList, showPath = true) {
     this.obj = objList;
     this.showPath = showPath;
+    this.#listMap = new Map();
     this.init();
   }
 
@@ -63,9 +65,9 @@ export default class baseListDomComponent {
       this.addDomItem(item);
     });
 
-    PubSub.subscribe(this.getPubSubName("REMOVE ITEM", "main"), (msg, obj) => {
-      console.log(msg);
-      this.removeDomItem(obj);
+    PubSub.subscribe(this.getPubSubName("REMOVE ITEM", "main"), (msg, item) => {
+      console.log(msg, `[${item.pathAndThisStr}]`);
+      this.removeItem(item); // item is a reference to a baseComponent object
     });
   }
 
@@ -145,11 +147,11 @@ export default class baseListDomComponent {
   }
 
   /* Add / remove items */
-
   addDomItem(item) {
     const li = initLiAsChildInList(this.ul, this.getCssClass("li"));
 
     const itemDom = this.initItemDom(item);
+    this.#listMap.set(itemDom.obj, itemDom.div);
     li.appendChild(itemDom.div);
 
     return li;
@@ -161,9 +163,17 @@ export default class baseListDomComponent {
     });
   }
 
-  removeDomItem(item) {
-    /* item is a reference to a baseDomComponent object */
-    deleteElement(item.parentElement); // delete the li item too, which is the parent of the item
+  removeItem(item) {
+    /* item is a reference to a baseComponent object */
+    const domItemDiv = this.#listMap.get(item);
+    if (domItemDiv != null) {
+      this.removeDomItemDiv(domItemDiv);
+    }
+  }
+
+  removeDomItemDiv(domItemDiv) {
+    /* item is a reference to a baseDomComponent.div object */
+    deleteElement(domItemDiv.parentElement); // delete the li item too, which is the parent of the item
   }
 
   static toggleVisibility(e) {

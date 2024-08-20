@@ -21,12 +21,12 @@ export default class todoListComponent extends baseListComponent {
     }
   }
 
-  removeItem(item) {
+  removeItem(item, notify = true) {
     if (item.stateIdx !== todoComponent.doneIdx) {
       item.decreaseParentNTodoNested();
       this.decreaseNTodo();
     }
-    super.removeItem(item);
+    super.removeItem(item, notify);
   }
 
   increaseNTodo(amount = 1) {

@@ -4,11 +4,12 @@ import PubSub from "pubsub-js";
 export default class baseListComponent {
   #list;
 
-  getPubSubName(str, topic = null) {
+  getPubSubName(str, topic = null, includeParent = true) {
     const topicStr = topic ? `${topic}:` : "";
     const parentStr =
       this.parent != null ? `${this.parent.type}${this.parent.id}` : "null";
-    return `${topicStr} ${parentStr}>${this.name} ${str}`;
+    const PathStr = includeParent ? `${parentStr}>` : "";
+    return `${topicStr}${PathStr}L${this.type} ${str}`;
   }
 
   constructor(name, parent, itemData = [], editable = true) {
@@ -102,7 +103,7 @@ export default class baseListComponent {
     PubSub.publish(this.getPubSubName("SIZE CHANGE", "main"));
   }
 
-  removeItem(item) {
+  removeItem(item, notify = true) {
     /* item is a reference to a item object */
     const idx = this.#list.indexOf(item);
     if (idx >= 0) {
@@ -112,6 +113,26 @@ export default class baseListComponent {
 
       this.#list.splice(idx, 1);
       this.updateParentDateOfEdit();
+
+      PubSub.publish(this.getPubSubName("REMOVE ITEM", "main"), item);
+
+      if (notify) {
+        const publishTokenToRemove = (item) => {
+          // First notify the removal also the descendants, if any, by recursion
+          Object.values(item.data.lists).forEach((listComponent) => {
+            listComponent.list.forEach((subItem) => {
+              publishTokenToRemove(subItem);
+            });
+          });
+          //Handle the removal of a item via PubSub: any list of the same type subscribed to this token checks whether obj is being represented there and removes it.
+          PubSub.publish(
+            item.list.getPubSubName("REMOVE ITEM", "main", false),
+            item
+          );
+        };
+
+        publishTokenToRemove(item);
+      }
 
       PubSub.publish(this.getPubSubName("SIZE CHANGE", "main"));
     }

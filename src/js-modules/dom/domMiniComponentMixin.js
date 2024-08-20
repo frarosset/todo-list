@@ -108,11 +108,7 @@ function initExpandBtn() {
 function redefineUpdateView() {
   return {
     updateView: function () {
-      // it becomes a method: 'this' is the object it will be attached to
-      PubSub.publish(
-        this.obj.list.getPubSubName("REMOVE ITEM", "main"),
-        this.div
-      );
+      // do not show the parent, but keep the current view
     },
   };
 }
