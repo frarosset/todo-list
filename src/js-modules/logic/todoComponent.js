@@ -167,12 +167,12 @@ export default class todoComponent extends baseComponent {
     if (this.data.state !== validatedState) {
       if (this.data.state === todoComponent.doneIdx) {
         // was completed, now changed to incompleted
-        this.increaseParentNTodoNested();
         this.increaseListNTodo();
+        this.increaseParentNTodoNested();
       } else if (validatedState === todoComponent.doneIdx) {
         // was incompleted, now changed to completed
-        this.decreaseParentNTodoNested();
         this.decreaseListNTodo();
+        this.decreaseParentNTodoNested();
       }
 
       this.data.state = validatedState;

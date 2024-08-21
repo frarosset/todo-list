@@ -31,12 +31,12 @@ export default class todoListComponent extends baseListComponent {
 
   increaseNTodo(amount = 1) {
     this.nTodo += amount;
-    console.log(this.name, this.nTodo, "(one level)");
+    console.log(this.infoOnPropertyStr("nTodo"));
     PubSub.publish(this.getPubSubName("NTODO CHANGE", "main"));
   }
   decreaseNTodo(amount = 1) {
     this.nTodo -= amount;
-    console.log(this.name, this.nTodo, "(one level)");
+    console.log(this.infoOnPropertyStr("nTodo"));
     PubSub.publish(this.getPubSubName("NTODO CHANGE", "main"));
   }
 }

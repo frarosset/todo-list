@@ -46,21 +46,19 @@ export default class baseComponent extends genericBaseComponent {
 
   increaseNTodoNested(amount = 1) {
     this.nTodoNested += amount;
-
+    console.log(this.infoOnPropertyStr("nTodoNested"));
     PubSub.publish(this.getPubSubName("NTODONESTED CHANGE", "main"));
 
-    this.increaseParentNTodoNested(amount);
     this.increaseListNTodoNested(amount);
-    console.log(this.pathAndThisStr, this.nTodoNested);
+    this.increaseParentNTodoNested(amount);
   }
   decreaseNTodoNested(amount = 1) {
     this.nTodoNested -= amount;
-
+    console.log(this.infoOnPropertyStr("nTodoNested"));
     PubSub.publish(this.getPubSubName("NTODONESTED CHANGE", "main"));
 
-    this.decreaseParentNTodoNested(amount);
     this.decreaseListNTodoNested(amount);
-    console.log(this.pathAndThisStr, this.nTodoNested);
+    this.decreaseParentNTodoNested(amount);
   }
   increaseParentNTodoNested(amount = 1) {
     if (this.parent != null) {
@@ -84,6 +82,10 @@ export default class baseComponent extends genericBaseComponent {
   }
 
   // print functions
+  infoOnPropertyStr(property) {
+    return `>>> ${property}: ${this[property]} [${this.pathAndThisStr}] (${this.type}${this.id})`;
+  }
+
   print(dateFormat = baseComponent.dateFormat) {
     let str = `${super.print()} [created: ${this.dateOfCreationFormatted(dateFormat)}, last edited: ${this.dateOfEditFormatted(dateFormat)}]`;
     str += `\n\t${this.description}`;
@@ -92,39 +94,6 @@ export default class baseComponent extends genericBaseComponent {
   }
 
   // Getter methods
-
-  get path() {
-    const path = [];
-    let obj = this.parent;
-    while (obj != null) {
-      path.unshift(obj);
-      obj = obj.parent;
-    }
-    return path;
-  }
-
-  get pathAndThis() {
-    return [this.path, this];
-  }
-
-  get pathStr() {
-    return this.path.reduce((str, obj) => {
-      str += `${obj.title} / `;
-      return str;
-    }, "");
-  }
-
-  get pathAndThisStr() {
-    return this.pathStr + this.title;
-  }
-
-  get icon() {
-    if (this.data.icon) {
-      return this.data.icon;
-    } else {
-      return this.constructor.icon;
-    }
-  }
 
   get title() {
     // this method is redefined due to how js treats inherited setter/getters

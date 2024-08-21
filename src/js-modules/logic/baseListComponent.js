@@ -28,13 +28,17 @@ export default class baseListComponent {
 
   increaseNTodoNested(amount = 1) {
     this.nTodoNested += amount;
+    console.log(this.infoOnPropertyStr("nTodoNested"));
     PubSub.publish(this.getPubSubName("NTODONESTED CHANGE", "main"));
-    console.log(this.name, this.nTodoNested);
   }
   decreaseNTodoNested(amount = 1) {
     this.nTodoNested -= amount;
+    console.log(this.infoOnPropertyStr("nTodoNested"));
     PubSub.publish(this.getPubSubName("NTODONESTED CHANGE", "main"));
-    console.log(this.name, this.nTodoNested);
+  }
+
+  infoOnPropertyStr(property) {
+    return `>>> ${property}: ${this[property]} [${this.pathAndThisStr}] (L${this.type})`;
   }
 
   print() {
@@ -60,6 +64,38 @@ export default class baseListComponent {
 
   get size() {
     return this.#list.length;
+  }
+
+  idxOf(item) {
+    return this.#list.indexOf(item);
+  }
+  has(item) {
+    return this.#list.includes(item);
+  }
+
+  get path() {
+    const path = [];
+    let obj = this.parent;
+    while (obj != null) {
+      path.unshift(obj);
+      obj = obj.parent;
+    }
+    return path;
+  }
+
+  get pathAndThis() {
+    return [this.path, this];
+  }
+
+  get pathStr() {
+    return this.path.reduce((str, obj) => {
+      str += `${obj.title} / `;
+      return str;
+    }, "");
+  }
+
+  get pathAndThisStr() {
+    return this.pathStr + this.name;
   }
 
   // Methods

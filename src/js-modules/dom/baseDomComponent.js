@@ -170,7 +170,7 @@ export default class baseDomComponent extends genericBaseDomComponent {
 
     // Subscribe to the add tag of a base component, to update the interface
     PubSub.subscribe(this.getPubSubName("TAG ADD", "main"), (msg, tag) => {
-      console.log(msg, tag);
+      console.log(msg, `[${tag}]`);
       initLi(tag);
     });
 
