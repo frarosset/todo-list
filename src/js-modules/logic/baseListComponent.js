@@ -130,13 +130,16 @@ export default class baseListComponent {
     });
   }
 
-  insertItem(item) {
+  insertItem(item, primary = true) {
     this.#list.push(item);
-    this.updateParentDateOfEdit();
 
-    // publish the 'ADD ITEM' only once
     PubSub.publish(this.getPubSubName("ADD ITEM", "main"), item);
     PubSub.publish(this.getPubSubName("SIZE CHANGE", "main"));
+
+    if (primary) {
+      this.updateParentDateOfEdit();
+      PubSub.publish(this.getPubSubName("ADD ITEM", "main", false), item);
+    }
   }
 
   removeItem(item, primary = true) {
@@ -145,6 +148,7 @@ export default class baseListComponent {
     if (idx >= 0) {
       this.#list.splice(idx, 1);
       PubSub.publish(this.getPubSubName("REMOVE ITEM", "main"), item);
+      PubSub.publish(this.getPubSubName("SIZE CHANGE", "main"));
 
       if (primary) {
         // Primary: the list is in the root tree
@@ -170,8 +174,6 @@ export default class baseListComponent {
 
         publishTokenToRemove(item);
       }
-
-      PubSub.publish(this.getPubSubName("SIZE CHANGE", "main"));
     }
   }
 

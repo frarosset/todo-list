@@ -159,8 +159,8 @@ function allAddToListMethod(whichListArray) {
 // Initialize insert to list methods ---------------------------------------
 
 function insertToListMethod(label) {
-  return function (obj) {
-    return this.data.lists[label].insertItem(obj);
+  return function (obj, primary = true) {
+    return this.data.lists[label].insertItem(obj, primary);
   };
 }
 
@@ -171,9 +171,9 @@ function allInsertToListMethod(whichListArray) {
 // Initialize remove from list methods ----------------------------------
 
 function removeFromListMethod(label) {
-  return function (obj) {
+  return function (obj, primary = true) {
     /* obj is a reference to the object to remove*/
-    this.data.lists[label].removeItem(obj);
+    this.data.lists[label].removeItem(obj, primary);
   };
 }
 

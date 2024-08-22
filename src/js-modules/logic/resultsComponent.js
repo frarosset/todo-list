@@ -19,23 +19,41 @@ export default class resultsComponent extends genericBaseComponent {
     this.sortResultsInLists();
 
     // remove also the descendants, if any, by recursion
-    const msgPubSub = (msg, list, item) =>
-      `${msg} [${list.parent.title}] (${item.title})`;
+    const msgPubSub = (msg, list, item, apply = null) =>
+      `${msg} [${list.parent.title}] (${item.title}) ${apply != null ? apply : ""}`;
 
     Object.values(this.data.lists).forEach((listComponent) => {
       PubSub.subscribe(
+        listComponent.getPubSubName("ADD ITEM", "main", false),
+        (msg, item) => {
+          const apply =
+            this.isInResults(item, listComponent) && !listComponent.has(item);
+          console.log(msgPubSub(msg, listComponent, item, apply));
+          if (apply) {
+            // item is a reference to a baseComponent object, listComponent is a list of results (not primary): do not notify the operation (it will be done by the items in the actual lists)
+            listComponent.insertItem(item, false);
+          }
+        }
+      );
+
+      PubSub.subscribe(
         listComponent.getPubSubName("REMOVE ITEM", "main", false),
         (msg, item) => {
-          console.log(msgPubSub(msg, listComponent, item));
-          listComponent.removeItem(item, false); // item is a reference to a baseComponent object, it's a list of results (not primary): do not notify the operation (it will be done by the items in the actual lists)
+          const apply = listComponent.has(item);
+          console.log(msgPubSub(msg, listComponent, item, apply));
+          // item is a reference to a baseComponent object, listComponent is a list of results (not primary): do not notify the operation (it will be done by the items in the actual lists)
+          if (apply) {
+            listComponent.removeItem(item, false);
+          }
         }
       );
 
       PubSub.subscribe(
         listComponent.getPubSubName("NTODO INCREASE", "main", false),
         (msg, item) => {
-          console.log(msgPubSub(msg, listComponent, item));
-          if (listComponent.has(item)) {
+          const apply = listComponent.has(item);
+          console.log(msgPubSub(msg, listComponent, item, apply));
+          if (apply) {
             listComponent.increaseNTodo();
           }
         }
@@ -44,8 +62,9 @@ export default class resultsComponent extends genericBaseComponent {
       PubSub.subscribe(
         listComponent.getPubSubName("NTODO DECREASE", "main", false),
         (msg, item) => {
-          console.log(msgPubSub(msg, listComponent, item));
-          if (listComponent.has(item)) {
+          const apply = listComponent.has(item);
+          console.log(msgPubSub(msg, listComponent, item, apply));
+          if (apply) {
             listComponent.decreaseNTodo();
           }
         }
@@ -56,7 +75,7 @@ export default class resultsComponent extends genericBaseComponent {
   isInResults(item) {
     return this.data.variable
       ? item.match(this.data.variable, this.data.value)
-      : item.search(this.data.value);
+      : item.searchMatch(this.data.value);
   }
 
   sortResultsInLists() {
@@ -67,7 +86,7 @@ export default class resultsComponent extends genericBaseComponent {
 
     // sort matching items in the right list
     resArr.forEach((itm) => {
-      this.insertToList(itm.type, itm);
+      this.insertToList(itm.type, itm, false); // items arenot primary
     });
   }
 }
