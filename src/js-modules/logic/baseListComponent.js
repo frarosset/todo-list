@@ -203,6 +203,18 @@ export default class baseListComponent {
     return matchArray;
   }
 
+  search(lookupStr, variableArr = ["title", "description", "tags"]) {
+    const matchSet = new Set();
+
+    variableArr.forEach((variable) => {
+      const lookupArr = this.filterByNested(variable, lookupStr);
+      if (lookupArr.length) {
+        lookupArr.forEach((itm) => matchSet.add(itm));
+      }
+    });
+    return [...matchSet];
+  }
+
   sizeBy(variable, value) {
     return this.filterBy(variable, value).length;
   }

@@ -151,15 +151,12 @@ export default class rootComponent {
     return this.filterByNested(variable, value).length;
   }
 
-  search(lookupStr) {
-    const matchSet = new Set();
-    const variableArr = ["title", "description", "tags"];
+  search(lookupStr, variableArr = ["title", "description", "tags"]) {
+    const matchArray = this.#inboxProject.search(lookupStr, variableArr);
 
-    variableArr.forEach((variable) => {
-      const titleLookup = this.filterByNested(variable, lookupStr);
-      if (titleLookup.length) titleLookup.forEach((itm) => matchSet.add(itm));
-    });
-    return [...matchSet];
+    matchArray.push(...this.#customProjectsList.search(lookupStr, variableArr));
+
+    return matchArray;
   }
 
   getAllTagsNested() {

@@ -53,6 +53,12 @@ export default class resultsComponent extends genericBaseComponent {
     });
   }
 
+  isInResults(item) {
+    return this.data.variable
+      ? item.match(this.data.variable, this.data.value)
+      : item.search(this.data.value);
+  }
+
   sortResultsInLists() {
     // find matching items
     const resArr = this.data.variable

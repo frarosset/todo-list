@@ -260,6 +260,27 @@ export default class baseComponent extends genericBaseComponent {
     return matchArray;
   }
 
+  searchMatch(lookupStr, variableArr = ["title", "description", "tags"]) {
+    for (const variable of variableArr) {
+      if (this.match(variable, lookupStr)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  search(lookupStr, variableArr = ["title", "description", "tags"]) {
+    const matchSet = new Set();
+
+    variableArr.forEach((variable) => {
+      const lookupArr = this.filterByNested(variable, lookupStr);
+      if (lookupArr.length) {
+        lookupArr.forEach((itm) => matchSet.add(itm));
+      }
+    });
+    return [...matchSet];
+  }
+
   sizeByNested(variable, value) {
     return this.filterByNested(variable, value).length;
   }
