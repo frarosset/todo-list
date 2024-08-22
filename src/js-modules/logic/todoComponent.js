@@ -76,11 +76,19 @@ export default class todoComponent extends baseComponent {
   increaseListNTodo(amount = 1) {
     if (this.list != null) {
       this.list.increaseNTodo(amount);
+      PubSub.publish(
+        this.list.getPubSubName("NTODO INCREASE", "main", false),
+        this
+      );
     }
   }
   decreaseListNTodo(amount = 1) {
     if (this.list != null) {
       this.list.decreaseNTodo(amount);
+      PubSub.publish(
+        this.list.getPubSubName("NTODO DECREASE", "main", false),
+        this
+      );
     }
   }
 

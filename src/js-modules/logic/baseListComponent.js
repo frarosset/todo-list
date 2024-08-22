@@ -139,20 +139,21 @@ export default class baseListComponent {
     PubSub.publish(this.getPubSubName("SIZE CHANGE", "main"));
   }
 
-  removeItem(item, notify = true) {
+  removeItem(item, primary = true) {
     /* item is a reference to a item object */
     const idx = this.#list.indexOf(item);
     if (idx >= 0) {
-      // Before deleting the item, decrease the number of todo in this list and the ancestors
-      this.decreaseNTodoNested(item.nTodoNested);
-      item.decreaseParentNTodoNested(item.nTodoNested);
-
       this.#list.splice(idx, 1);
-      this.updateParentDateOfEdit();
-
       PubSub.publish(this.getPubSubName("REMOVE ITEM", "main"), item);
 
-      if (notify) {
+      if (primary) {
+        // Primary: the list is in the root tree
+        // Decrease the number of todo in this list and the ancestors
+        this.decreaseNTodoNested(item.nTodoNested);
+        item.decreaseParentNTodoNested(item.nTodoNested);
+
+        this.updateParentDateOfEdit();
+
         const publishTokenToRemove = (item) => {
           // First notify the removal also the descendants, if any, by recursion
           Object.values(item.data.lists).forEach((listComponent) => {

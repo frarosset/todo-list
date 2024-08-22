@@ -19,12 +19,35 @@ export default class resultsComponent extends genericBaseComponent {
     this.sortResultsInLists();
 
     // remove also the descendants, if any, by recursion
+    const msgPubSub = (msg, list, item) =>
+      `${msg} [${list.parent.title}] (${item.title})`;
+
     Object.values(this.data.lists).forEach((listComponent) => {
       PubSub.subscribe(
         listComponent.getPubSubName("REMOVE ITEM", "main", false),
         (msg, item) => {
-          console.log(msg, `[${item.pathAndThisStr}]`);
-          listComponent.removeItem(item, false); // item is a reference to a baseComponent object, do not notify the operation (it will be done by the items in the actual lists)
+          console.log(msgPubSub(msg, listComponent, item));
+          listComponent.removeItem(item, false); // item is a reference to a baseComponent object, it's a list of results (not primary): do not notify the operation (it will be done by the items in the actual lists)
+        }
+      );
+
+      PubSub.subscribe(
+        listComponent.getPubSubName("NTODO INCREASE", "main", false),
+        (msg, item) => {
+          console.log(msgPubSub(msg, listComponent, item));
+          if (listComponent.has(item)) {
+            listComponent.increaseNTodo();
+          }
+        }
+      );
+
+      PubSub.subscribe(
+        listComponent.getPubSubName("NTODO DECREASE", "main", false),
+        (msg, item) => {
+          console.log(msgPubSub(msg, listComponent, item));
+          if (listComponent.has(item)) {
+            listComponent.decreaseNTodo();
+          }
         }
       );
     });
