@@ -49,6 +49,24 @@ export default class resultsComponent extends genericBaseComponent {
       );
 
       PubSub.subscribe(
+        listComponent.getPubSubName("EDIT ITEM", "main", false),
+        (msg, item) => {
+          const hasItem = listComponent.has(item);
+          const isInResults = this.isInResults(item, listComponent);
+          const applyAdd = isInResults && !hasItem;
+          const applyRemove = !isInResults && hasItem;
+          const applyStr = `${applyAdd || applyRemove}${applyAdd ? " (add)" : applyRemove ? " (remove)" : ""}`;
+          console.log(msgPubSub(msg, listComponent, item, applyStr));
+          if (applyAdd) {
+            // item is a reference to a baseComponent object, listComponent is a list of results (not primary): do not notify the operation (it will be done by the items in the actual lists)
+            listComponent.insertItem(item, false);
+          } else if (applyRemove) {
+            listComponent.removeItem(item, false);
+          }
+        }
+      );
+
+      PubSub.subscribe(
         listComponent.getPubSubName("NTODO INCREASE", "main", false),
         (msg, item) => {
           const apply = listComponent.has(item);

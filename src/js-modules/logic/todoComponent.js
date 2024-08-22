@@ -167,6 +167,7 @@ export default class todoComponent extends baseComponent {
       PubSub.publish(this.getPubSubName("PRIORITY CHANGE", "main"));
 
       this.updateDateOfEdit();
+      PubSub.publish(this.list.getPubSubName("EDIT ITEM", "main", false), this);
     }
   }
 
@@ -189,6 +190,7 @@ export default class todoComponent extends baseComponent {
 
       this.updateImminence(); // this depends on the state, too
       this.updateDateOfEdit();
+      PubSub.publish(this.list.getPubSubName("EDIT ITEM", "main", false), this);
     }
   }
 
@@ -222,6 +224,7 @@ export default class todoComponent extends baseComponent {
 
       this.updateImminence();
       this.updateDateOfEdit();
+      PubSub.publish(this.list.getPubSubName("EDIT ITEM", "main", false), this);
     }
   }
 
@@ -248,6 +251,7 @@ export default class todoComponent extends baseComponent {
     this.#imminenceIdx = todoComponent.noImminenceIdx; /* no imminence */
 
     PubSub.publish(this.getPubSubName("IMMINENCE CHANGE", "main"));
+    PubSub.publish(this.list.getPubSubName("EDIT ITEM", "main", false), this);
   }
 
   // Serialization method

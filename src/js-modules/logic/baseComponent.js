@@ -159,6 +159,7 @@ export default class baseComponent extends genericBaseComponent {
       PubSub.publish(this.getPubSubName("TITLE CHANGE", "main"));
 
       this.updateDateOfEdit();
+      PubSub.publish(this.list.getPubSubName("EDIT ITEM", "main", false), this);
     }
   }
 
@@ -169,6 +170,7 @@ export default class baseComponent extends genericBaseComponent {
       PubSub.publish(this.getPubSubName("DESCRIPTION CHANGE", "main"));
 
       this.updateDateOfEdit();
+      PubSub.publish(this.list.getPubSubName("EDIT ITEM", "main", false), this);
     }
   }
 
@@ -202,6 +204,7 @@ export default class baseComponent extends genericBaseComponent {
       PubSub.publish(this.getPubSubName("TAG ADD", "main"), tag);
 
       this.updateDateOfEdit();
+      PubSub.publish(this.list.getPubSubName("EDIT ITEM", "main", false), this);
       return true;
     } else {
       return false;
@@ -214,6 +217,7 @@ export default class baseComponent extends genericBaseComponent {
       PubSub.publish(this.getPubSubName(`TAG REMOVE ${tag}`, "main"));
 
       this.updateDateOfEdit();
+      PubSub.publish(this.list.getPubSubName("EDIT ITEM", "main", false), this);
       return true;
     } else {
       return false;
