@@ -1,6 +1,8 @@
 import { projectDomComponent } from "./fixCircularDependenciesInDomComponents.js";
 import { todoDomComponent } from "./fixCircularDependenciesInDomComponents.js";
 import { noteDomComponent } from "./fixCircularDependenciesInDomComponents.js";
+import resultsDomComponent from "./resultsDomComponent.js";
+import resultsComponent from "../logic/resultsComponent.js";
 import homeDomComponent from "./homeDomComponent.js";
 import { resetContent } from "../../js-utilities/commonDomUtilities.js";
 import PubSub from "pubsub-js";
@@ -26,6 +28,10 @@ export default class mainDomComponent {
     PubSub.subscribe("RENDER NOTE", (msg, obj) => {
       console.log(msg);
       this.renderNote(obj);
+    });
+    PubSub.subscribe("RENDER RESULTS", (msg, data) => {
+      console.log(msg);
+      this.renderResults(data);
     });
   }
 
@@ -57,6 +63,13 @@ export default class mainDomComponent {
     this.#clearMainContent();
     const noteDomObj = new noteDomComponent(noteObj);
     this.main.append(noteDomObj.div);
+  }
+
+  renderResults(resultsData) {
+    this.#clearMainContent();
+    const resultsObj = new resultsComponent(resultsData, this.root);
+    const resultsDomObj = new resultsDomComponent(resultsObj);
+    this.main.append(resultsDomObj.div);
   }
 
   renderHome() {
