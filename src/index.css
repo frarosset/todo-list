@@ -156,7 +156,8 @@ body > main {
 /* project/todo div ---------------------------- */
 .project-div,
 .todo-div,
-.note-div {
+.note-div,
+.results-div {
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -165,7 +166,8 @@ body > main {
 /* header */
 .project-div__header,
 .todo-div__header,
-.note-div__header {
+.note-div__header,
+.results-div__header {
   padding: var(--base-header-padding);
   display: grid;
   grid-template-columns: min-content 1fr min-content min-content;
@@ -181,16 +183,6 @@ body > main {
   grid-template-columns: calc(1.2 * var(--title-h2-fontsize)) 1fr min-content min-content;
 }
 
-.note-div__header {
-  grid-template-areas:
-    "path path back-btn"
-    "title title title"
-    "description description description"
-    "tags . action-div"
-    "otherinfo otherinfo otherinfo";
-  grid-template-columns: 1fr min-content min-content;
-}
-
 .todo-div__header {
   grid-template-areas:
     ". path path back-btn"
@@ -201,9 +193,27 @@ body > main {
   grid-template-columns: min-content 1fr min-content min-content;
 }
 
+.note-div__header {
+  grid-template-areas:
+    "path path back-btn"
+    "title title title"
+    "description description description"
+    "tags . action-div"
+    "otherinfo otherinfo otherinfo";
+  grid-template-columns: 1fr min-content min-content;
+}
+
+.results-div__header {
+  grid-template-areas:
+    ". path path back-btn"
+    "title title title title";
+  grid-template-columns: calc(1.2 * var(--title-h2-fontsize)) 1fr min-content min-content;
+}
+
 .todo-div__back-btn,
 .project-div__back-btn,
-.note-div__back-btn {
+.note-div__back-btn,
+.results-div__back-btn {
   grid-area: back-btn;
   font-size: var(--base-back-btn-fontsize);
   align-self: top;
@@ -212,7 +222,8 @@ body > main {
 
 .todo-div__path-ul,
 .project-div__path-ul,
-.note-div__path-ul {
+.note-div__path-ul,
+.results-div__path-ul {
   grid-area: path;
   font-size: var(--base-path-fontsize);
   align-self: end;
@@ -220,7 +231,8 @@ body > main {
 
 .todo-div__title-h2,
 .project-div__title-h2,
-.note-div__title-h2 {
+.note-div__title-h2,
+.results-div__title-h2 {
   grid-area: title;
   font-size: var(--title-h2-fontsize);
   align-self: center;
@@ -229,7 +241,8 @@ body > main {
 .project-div__title-h2,
 .note-div__title-h2,
 .todo-mini-div__title-h2,
-.todo-div__title-h2 {
+.todo-div__title-h2,
+.results-div__title-h2 {
   color: var(--title-h2-color);
   text-decoration-color: var(--title-h2-decoration-color);
 }
@@ -316,7 +329,8 @@ body > main {
 
 .project-div__content,
 .todo-div__content,
-.note-div__content {
+.note-div__content,
+.results-div__content {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -602,7 +616,8 @@ body > main {
 .note-div__path-ul,
 .note-mini-div__path-ul,
 .todo-div__path-ul,
-.todo-mini-div__path-ul {
+.todo-mini-div__path-ul,
+.results-div__path-ul {
   justify-self: start;
   display: flex;
   justify-content: flex-start;
@@ -616,14 +631,16 @@ body > main {
 .project-mini-div__path-li svg,
 .note-mini-div__path-li svg,
 .todo-div__path-li svg,
-.todo-mini-div__path-li svg {
+.todo-mini-div__path-li svg,
+.results-div__path-li svg {
   vertical-align: baseline;
 }
 
 .home-div__path:first-child svg,
 .project-div__path-li:first-of-type svg,
 .note-div__path-li:first-of-type svg,
-.todo-div__path-li:first-of-type svg {
+.todo-div__path-li:first-of-type svg,
+.results-div__path-li:first-of-type svg {
   color: var(--col-accent);
 }
 
