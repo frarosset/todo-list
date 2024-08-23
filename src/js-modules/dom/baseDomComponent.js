@@ -10,6 +10,7 @@ import PubSub from "pubsub-js";
 import { uiIcons } from "./uiIcons.js";
 import { deleteElement } from "../../js-utilities/commonDomUtilities.js";
 import genericBaseDomComponent from "./genericBaseDomComponent.js";
+import resultsComponent from "../logic/resultsComponent.js";
 
 export default class baseDomComponent extends genericBaseDomComponent {
   static blockName = "base-div";
@@ -20,6 +21,7 @@ export default class baseDomComponent extends genericBaseDomComponent {
     descriptionP: `description-p`,
     tagsUl: `tags-ul`,
     tagLi: `tag-li`,
+    tagBtn: `tag-btn`,
     dateOfCreationP: `date-of-creation-p`,
     dateOfEditP: `date-of-edit-p`,
     actionDiv: `action-div`,
@@ -145,11 +147,19 @@ export default class baseDomComponent extends genericBaseDomComponent {
   }
 
   initTags() {
-    /* TODO: test + add buttons with callbacks */
     const ul = initUl(this.getCssClass("tagsUl"));
 
     const initLi = (tag) => {
-      const li = initLiAsChildInList(ul, this.getCssClass("tagLi"), null, tag);
+      const li = initLiAsChildInList(ul, this.getCssClass("tagLi"));
+      const tagBtn = initButton(
+        this.getCssClass("tagBtn"),
+        this.constructor.tagBtnCallback,
+        null,
+        tag
+      );
+      tagBtn.tag = tag;
+
+      li.appendChild(tagBtn);
 
       // Subscribe to the add tag of a base component, to update the interface
       PubSub.subscribe(
@@ -307,6 +317,17 @@ export default class baseDomComponent extends genericBaseDomComponent {
 
     objToDelete.list.removeItem(objToDelete);
     self.updateView(objToDelete);
+
+    e.stopPropagation();
+  };
+
+  static tagBtnCallback = (e) => {
+    const tag = e.currentTarget.tag;
+
+    const resultsData = resultsComponent.getDefaultResultsData("tag", tag);
+
+    // refresh the whole view, to show the results of filtering by this tag
+    PubSub.publish("RENDER RESULTS", resultsData);
 
     e.stopPropagation();
   };

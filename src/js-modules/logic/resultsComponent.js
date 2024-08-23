@@ -1,6 +1,7 @@
 import { listInComponentMixin } from "./fixCircularDependenciesInComponents.js";
 import genericBaseComponent from "./genericBaseComponent.js";
 import PubSub from "pubsub-js";
+import { uiIcons } from "../dom/uiIcons.js";
 
 export default class resultsComponent extends genericBaseComponent {
   static defaultData = {
@@ -106,6 +107,19 @@ export default class resultsComponent extends genericBaseComponent {
     resArr.forEach((itm) => {
       this.insertToList(itm.type, itm, false); // items arenot primary
     });
+  }
+
+  static getDefaultResultsData(variable, value) {
+    const title = variable
+      ? `Filter by ${variable}: ${value}`
+      : `Search: ${value}`;
+    const icon = variable ? uiIcons.filter : uiIcons.search;
+    return {
+      title: title,
+      icon: icon,
+      variable: variable,
+      value: value,
+    };
   }
 }
 

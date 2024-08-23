@@ -241,7 +241,7 @@ export default class baseComponent extends genericBaseComponent {
   static filterCallbacks = {
     title: (itm, value) => subStrMatch(itm.title, value),
     description: (itm, value) => subStrMatch(itm.description, value),
-    tags: (itm, value) => itm.hasTag(value),
+    tag: (itm, value) => itm.hasTag(value),
   };
 
   // variable is: state, imminence, tags, ... (any key in filterCallbacks)

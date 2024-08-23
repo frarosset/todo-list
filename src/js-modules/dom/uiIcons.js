@@ -8,6 +8,8 @@ export const uiIcons = {
   show: { prefix: "solid", icon: "caret-down" },
   hide: { prefix: "solid", icon: "caret-up" },
   tag: { prefix: "solid", icon: "tag" },
+  filter: { prefix: "solid", icon: "filter" },
+  search: { prefix: "solid", icon: "magnify-glass" },
   projectList: { prefix: "solid", icon: "hashtag" },
   todoList: { prefix: "solid", icon: "list-check" },
   noteList: { prefix: "regular", icon: "message" },
