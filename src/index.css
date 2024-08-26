@@ -383,10 +383,16 @@ body > main {
 .results-div__content,
 .filters-and-tags-div__content,
 .filters-and-tags-div__todo-filters-div {
-  flex: 1;
   display: flex;
   flex-direction: column;
   gap: var(--base-content-gap);
+}
+.project-div__content,
+.todo-div__content,
+.note-div__content,
+.results-div__content,
+.filters-and-tags-div__content {
+  flex: 1;
 }
 
 /* footer */
@@ -469,11 +475,12 @@ body > main {
   gap: var(--base-list-gap);
 }
 
-/* todo mini view */
+/* mini / mini nav view */
 .project-mini-div,
 .project-mini-nav-div,
 .todo-mini-div,
-.note-mini-div {
+.note-mini-div,
+.filters-and-tags-mini-nav-div {
   padding: var(--base-mini-padding);
   border-radius: var(--base-mini-radius);
   background: var(--base-mini-bg-color);
@@ -502,7 +509,8 @@ body > main {
   grid-template-columns: 1fr min-content;
 }
 
-.project-mini-nav-div {
+.project-mini-nav-div,
+.filters-and-tags-mini-nav-div {
   grid-template-areas: "title";
   grid-template-columns: 1fr;
   cursor: pointer;
@@ -547,7 +555,8 @@ body > main {
 .project-mini-div__title-h2,
 .project-mini-nav-div__title-h2,
 .todo-mini-div__title-h2,
-.note-mini-div__title-h2 {
+.note-mini-div__title-h2,
+.filters-and-tags-mini-nav-div__title-h2 {
   grid-area: title;
   font-size: var(--base-mini-title-fontsize);
   align-self: center;
@@ -617,9 +626,8 @@ body > main {
   gap: var(--home-content-gap);
 }
 
-.home-div__content .project-mini-nav-div {
-  color: var(--home-project-mini-nav-color);
-  background-color: var(--home-project-mini-nav-bg-color);
+.home-div__content .project-mini-nav-div,
+.home-div__content .filters-and-tags-mini-nav-div {
   padding-left: var(
     --base-list-padding-sides
   ); /* to align with .project-list-div */
@@ -629,6 +637,20 @@ body > main {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.home-div__content .project-mini-nav-div {
+  color: var(--home-project-mini-nav-color);
+  background-color: var(--home-project-mini-nav-bg-color);
+}
+
+.home-div__content .filters-and-tags-mini-nav-div {
+  color: var(--home-filters-and-tags-mini-nav-color);
+  background-color: var(--home-filters-and-tags-mini-nav-bg-color);
+}
+
+.filters-and-tags-mini-nav-div__title-h2 {
+  font-weight: normal;
 }
 
 /* Counters */
@@ -1004,6 +1026,7 @@ body > main {
   --base-list-new-item-btn-radius: 5px;
 
   --home-project-mini-nav-color: var(--col-txt);
+  --home-filters-and-tags-mini-nav-color: var(--col-txt-alt);
   --base-list-new-item-btn-color: var(--col-grey);
   --otherinfo-line-color: var(--col-grey);
   --base-tag-color: var(--col-txt-alt);
@@ -1018,6 +1041,7 @@ body > main {
   --ntodonested-color: var(--col-white);
 
   --home-project-mini-nav-bg-color: var(--col-accent);
+  --home-filters-and-tags-mini-nav-bg-color: var(--col-black);
   --base-list-bg-color: var(--col-grey);
   --base-list-new-item-btn-bg-color: var(--col-secondary);
   --base-mini-bg-color: var(--col-white);

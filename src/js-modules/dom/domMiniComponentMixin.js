@@ -15,6 +15,7 @@ const pubsubLabel = {
   P: "PROJECT",
   T: "TODO",
   N: "NOTE",
+  F: "FILTERS AND TAGS",
 };
 
 export default function domMiniComponentMixin(targetClass, forNav = false) {
@@ -42,7 +43,7 @@ export default function domMiniComponentMixin(targetClass, forNav = false) {
 // Add generic methods to handle the lists ------------------------------
 
 // callback
-const btnRenderTodoCallback = (e) => {
+const btnRenderItemCallback = (e) => {
   const type = pubsubLabel[e.currentTarget.associatedType];
   const obj = e.currentTarget.associatedObject;
   PubSub.publish(`RENDER ${type}`, obj);
@@ -69,7 +70,7 @@ function redefineInitMini() {
 
       this.div.associatedType = this.obj.type;
       this.div.associatedObject = this.obj;
-      this.div.addEventListener("click", btnRenderTodoCallback);
+      this.div.addEventListener("click", btnRenderItemCallback);
     },
   };
 }
@@ -80,11 +81,12 @@ function redefineInitMiniNav() {
       // it becomes a method: 'this' is the object it will be attached to
       this.div = initDiv(this.constructor.blockName);
       this.div.appendChild(this.initTitle());
-      this.div.appendChild(this.initNTodoNestedIcon());
+      if (this.initNTodoNestedIcon != null)
+        this.div.appendChild(this.initNTodoNestedIcon());
 
       this.div.associatedType = this.obj.type;
       this.div.associatedObject = this.obj;
-      this.div.addEventListener("click", btnRenderTodoCallback);
+      this.div.addEventListener("click", btnRenderItemCallback);
     },
   };
 }
@@ -95,7 +97,7 @@ function initExpandBtn() {
       // it becomes a method: 'this' is the object it will be attached to
       const expandBtn = initButton(
         this.getCssClass("expandBtn"),
-        btnRenderTodoCallback,
+        btnRenderItemCallback,
         uiIcons.expand
       );
       expandBtn.associatedType = this.obj.type;

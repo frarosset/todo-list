@@ -8,7 +8,7 @@ import { projectListDomComponent } from "./fixCircularDependenciesInDomComponent
 import resultsComponent from "../logic/resultsComponent.js";
 import resultsDomComponent from "./resultsDomComponent.js";
 import filtersAndTagsComponent from "../logic/filtersAndTagsComponent.js";
-import filtersAndTagsDomComponent from "./filtersAndTagsDomComponent.js";
+import filtersAndTagsDomMiniNavComponent from "./filtersAndTagsDomMiniNavComponent.js";
 
 import { uiIcons } from "./uiIcons.js";
 
@@ -59,17 +59,6 @@ export default class homeDomComponent {
       false //hide path
     );
 
-    const resComp = new resultsComponent(
-      {
-        title: "Filter By Priority: low",
-        icon: null,
-        variable: "priority",
-        value: 1,
-      },
-      root
-    );
-    const resDomComp = new resultsDomComponent(resComp);
-
     const resComp2 = new resultsComponent(
       {
         title: "Search: test",
@@ -82,14 +71,15 @@ export default class homeDomComponent {
     const resDomComp2 = new resultsDomComponent(resComp2);
 
     const filtersAndTags = new filtersAndTagsComponent({}, root);
-    const filtersAndTagsDom = new filtersAndTagsDomComponent(filtersAndTags);
+    const filtersAndTagsDomMiniNav = new filtersAndTagsDomMiniNavComponent(
+      filtersAndTags
+    );
 
     contentDiv.append(
       inboxDom.div,
+      filtersAndTagsDomMiniNav.div,
       projectListDom.div,
-      resDomComp.div,
-      resDomComp2.div,
-      filtersAndTagsDom.div
+      resDomComp2.div
     );
 
     return contentDiv;
