@@ -10,11 +10,17 @@ export default class resultsComponent extends genericBaseComponent {
     value: "",
   };
 
+  getPubSubName(str, topic = null) {
+    const topicStr = topic ? `${topic}:` : "";
+    return `${topicStr}${this.type}${this.id} ${str}`;
+  }
+
   constructor(data, root, parent = null) {
     super(data, parent);
 
     this.root = root;
     this.type = "R";
+    this.nTodo = 0;
 
     this.initAllLists({}, [], false); // method added via composition (see below)
     this.sortResultsInLists();
@@ -24,6 +30,8 @@ export default class resultsComponent extends genericBaseComponent {
       `${msg} [${list.parent.title}] (${item.title}) ${apply != null ? apply : ""}`;
 
     Object.values(this.data.lists).forEach((listComponent) => {
+      this.nTodo += listComponent.nTodo;
+
       PubSub.subscribe(
         listComponent.getPubSubName("ADD ITEM", "main", false),
         (msg, item) => {
@@ -74,6 +82,7 @@ export default class resultsComponent extends genericBaseComponent {
           console.log(msgPubSub(msg, listComponent, item, apply));
           if (apply) {
             listComponent.increaseNTodo();
+            this.increaseNTodo();
           }
         }
       );
@@ -85,10 +94,20 @@ export default class resultsComponent extends genericBaseComponent {
           console.log(msgPubSub(msg, listComponent, item, apply));
           if (apply) {
             listComponent.decreaseNTodo();
+            this.decreaseNTodo();
           }
         }
       );
     });
+  }
+
+  increaseNTodo(amount = 1) {
+    this.nTodo += amount;
+    PubSub.publish(this.getPubSubName("NTODO CHANGE", "main"));
+  }
+  decreaseNTodo(amount = 1) {
+    this.nTodo -= amount;
+    PubSub.publish(this.getPubSubName("NTODO CHANGE", "main"));
   }
 
   isInResults(item) {
