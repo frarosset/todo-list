@@ -158,6 +158,7 @@ export default class baseDomComponent extends genericBaseDomComponent {
         tag
       );
       tagBtn.tag = tag;
+      tagBtn.parentObj = this.obj;
 
       li.appendChild(tagBtn);
 
@@ -323,11 +324,12 @@ export default class baseDomComponent extends genericBaseDomComponent {
 
   static tagBtnCallback = (e) => {
     const tag = e.currentTarget.tag;
+    const parent = e.currentTarget.parentObj;
 
     const resultsData = resultsComponent.getDefaultResultsData("tag", tag);
 
     // refresh the whole view, to show the results of filtering by this tag
-    PubSub.publish("RENDER RESULTS", resultsData);
+    PubSub.publish("RENDER RESULTS", { data: resultsData, parent: parent });
 
     e.stopPropagation();
   };

@@ -109,10 +109,13 @@ export default class resultsComponent extends genericBaseComponent {
     });
   }
 
-  static getDefaultResultsData(variable, value) {
+  static getDefaultResultsData(variable, value, label = null) {
+    if (label == null) {
+      label = value;
+    }
     const title = variable
-      ? `Filter by ${variable}: ${value}`
-      : `Search: ${value}`;
+      ? `Filter by ${variable}: ${label}`
+      : `Search: ${label}`;
     const icon = variable ? uiIcons.filter : uiIcons.search;
     return {
       title: title,

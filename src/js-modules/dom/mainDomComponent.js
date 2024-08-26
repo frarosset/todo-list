@@ -3,6 +3,7 @@ import { todoDomComponent } from "./fixCircularDependenciesInDomComponents.js";
 import { noteDomComponent } from "./fixCircularDependenciesInDomComponents.js";
 import resultsDomComponent from "./resultsDomComponent.js";
 import resultsComponent from "../logic/resultsComponent.js";
+import filtersAndTagsDomComponent from "./filtersAndTagsDomComponent.js";
 import homeDomComponent from "./homeDomComponent.js";
 import { resetContent } from "../../js-utilities/commonDomUtilities.js";
 import PubSub from "pubsub-js";
@@ -29,9 +30,13 @@ export default class mainDomComponent {
       console.log(msg);
       this.renderNote(obj);
     });
-    PubSub.subscribe("RENDER RESULTS", (msg, data) => {
+    PubSub.subscribe("RENDER RESULTS", (msg, obj) => {
       console.log(msg);
-      this.renderResults(data);
+      this.renderResults(obj.data, obj.parent);
+    });
+    PubSub.subscribe("RENDER FILTERS AND TAGS", (msg, obj) => {
+      console.log(msg);
+      this.renderFiltersAndTags(obj);
     });
   }
 
@@ -65,11 +70,19 @@ export default class mainDomComponent {
     this.main.append(noteDomObj.div);
   }
 
-  renderResults(resultsData) {
+  renderResults(resultsData, parent = null) {
     this.#clearMainContent();
-    const resultsObj = new resultsComponent(resultsData, this.root);
+    const resultsObj = new resultsComponent(resultsData, this.root, parent);
     const resultsDomObj = new resultsDomComponent(resultsObj);
     this.main.append(resultsDomObj.div);
+  }
+
+  renderFiltersAndTags(filtersAndTagsObj) {
+    this.#clearMainContent();
+    const filtersAndTagsDomObj = new filtersAndTagsDomComponent(
+      filtersAndTagsObj
+    );
+    this.main.append(filtersAndTagsDomObj.div);
   }
 
   renderHome() {
@@ -83,7 +96,6 @@ export default class mainDomComponent {
       this.renderHome();
       return;
     }
-
     switch (obj.type) {
       case "P":
         this.renderProject(obj);
@@ -93,6 +105,9 @@ export default class mainDomComponent {
         break;
       case "N":
         this.renderNote(obj);
+        break;
+      case "F":
+        this.renderFiltersAndTags(obj);
         break;
       default:
     }

@@ -13,4 +13,8 @@ export const uiIcons = {
   projectList: { prefix: "solid", icon: "hashtag" },
   todoList: { prefix: "solid", icon: "list-check" },
   noteList: { prefix: "regular", icon: "message" },
+  imminence: { prefix: "solid", icon: "calendar-day" },
+  dueDate: { prefix: "solid", icon: "calendar-day" },
+  priority: { prefix: "solid", icon: "flag" },
+  state: { prefix: "solid", icon: "circle-half-stroke" },
 };

@@ -7,6 +7,9 @@ import projectDomMiniNavComponent from "./projectDomMiniNavComponent.js";
 import { projectListDomComponent } from "./fixCircularDependenciesInDomComponents.js";
 import resultsComponent from "../logic/resultsComponent.js";
 import resultsDomComponent from "./resultsDomComponent.js";
+import filtersAndTagsComponent from "../logic/filtersAndTagsComponent.js";
+import filtersAndTagsDomComponent from "./filtersAndTagsDomComponent.js";
+
 import { uiIcons } from "./uiIcons.js";
 
 export default class homeDomComponent {
@@ -65,7 +68,6 @@ export default class homeDomComponent {
       },
       root
     );
-    console.log(resComp);
     const resDomComp = new resultsDomComponent(resComp);
 
     const resComp2 = new resultsComponent(
@@ -79,11 +81,15 @@ export default class homeDomComponent {
     );
     const resDomComp2 = new resultsDomComponent(resComp2);
 
+    const filtersAndTags = new filtersAndTagsComponent({}, root);
+    const filtersAndTagsDom = new filtersAndTagsDomComponent(filtersAndTags);
+
     contentDiv.append(
       inboxDom.div,
       projectListDom.div,
       resDomComp.div,
-      resDomComp2.div
+      resDomComp2.div,
+      filtersAndTagsDom.div
     );
 
     return contentDiv;
