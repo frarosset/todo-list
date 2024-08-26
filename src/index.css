@@ -157,7 +157,8 @@ body > main {
 .project-div,
 .todo-div,
 .note-div,
-.results-div {
+.results-div,
+.filters-and-tags-div {
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -167,7 +168,8 @@ body > main {
 .project-div__header,
 .todo-div__header,
 .note-div__header,
-.results-div__header {
+.results-div__header,
+.filters-and-tags-div__header {
   padding: var(--base-header-padding);
   display: grid;
   grid-template-columns: min-content 1fr min-content min-content;
@@ -203,7 +205,8 @@ body > main {
   grid-template-columns: 1fr min-content min-content;
 }
 
-.results-div__header {
+.results-div__header,
+.filters-and-tags-div__header {
   grid-template-areas:
     ". path path back-btn"
     "title title title title";
@@ -213,7 +216,8 @@ body > main {
 .todo-div__back-btn,
 .project-div__back-btn,
 .note-div__back-btn,
-.results-div__back-btn {
+.results-div__back-btn,
+.filters-and-tags-div__back-btn {
   grid-area: back-btn;
   font-size: var(--base-back-btn-fontsize);
   align-self: top;
@@ -223,7 +227,8 @@ body > main {
 .todo-div__path-ul,
 .project-div__path-ul,
 .note-div__path-ul,
-.results-div__path-ul {
+.results-div__path-ul,
+.filters-and-tags-div__path-ul {
   grid-area: path;
   font-size: var(--base-path-fontsize);
   align-self: end;
@@ -232,7 +237,8 @@ body > main {
 .todo-div__title-h2,
 .project-div__title-h2,
 .note-div__title-h2,
-.results-div__title-h2 {
+.results-div__title-h2,
+.filters-and-tags-div__title-h2 {
   grid-area: title;
   font-size: var(--title-h2-fontsize);
   align-self: center;
@@ -242,7 +248,8 @@ body > main {
 .note-div__title-h2,
 .todo-mini-div__title-h2,
 .todo-div__title-h2,
-.results-div__title-h2 {
+.results-div__title-h2,
+.filters-and-tags-div__title-h2 {
   color: var(--title-h2-color);
   text-decoration-color: var(--title-h2-decoration-color);
 }
@@ -256,7 +263,9 @@ body > main {
 
 .todo-div__tags-ul,
 .project-div__tags-ul,
-.note-div__tags-ul {
+.note-div__tags-ul,
+.filters-and-tags-div__tag-filter-ul,
+.filters-and-tags-div__todo-filter-ul {
   grid-area: tags;
   font-size: var(--base-tags-fontsize);
   margin: var(--base-header-tags-margin);
@@ -265,13 +274,54 @@ body > main {
   flex-wrap: wrap;
 }
 
-.project-div__tag-li,
-.todo-div__tag-li,
-.note-div__tag-li {
+.filters-and-tags-div__todo-filter-ul {
+  border-radius: var(--base-tag-radius);
+  overflow: hidden;
+  gap: 2px;
+}
+
+.project-div__tag-btn,
+.todo-div__tag-btn,
+.note-div__tag-btn,
+.filters-and-tags-div__tag-filter-btn {
   background-color: var(--base-tag-bg-color);
   color: var(--base-tag-color);
   padding: var(--base-tag-padding);
   border-radius: var(--base-tag-radius);
+}
+
+.filters-and-tags-div__todo-filter-btn {
+  background-color: var(--base-tag-bg-color);
+  color: var(--base-tag-color);
+  padding: var(--base-todo-padding);
+  width: 100%;
+  height: 100%;
+}
+
+.filters-and-tags-div__todo-filter-li {
+  border-radius: 0;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.todo-div__tag-btn:active,
+.project-div__tag-btn:active,
+.note-div__tag-btn:active,
+.filters-and-tags-div__tag-filter-btn:active,
+.filters-and-tags-div__todo-filter-btn:active {
+  background-color: var(--col-accent);
+}
+
+@media not all and (hover: none) {
+  .todo-div__tag-btn:hover,
+  .project-div__tag-btn:hover,
+  .note-div__tag-btn:hover,
+  .filters-and-tags-div__tag-filter-btn:hover,
+  .filters-and-tags-div__todo-filter-btn:hover {
+    background-color: var(--col-accent);
+  }
 }
 
 .todo-div__state-btn {
@@ -330,7 +380,9 @@ body > main {
 .project-div__content,
 .todo-div__content,
 .note-div__content,
-.results-div__content {
+.results-div__content,
+.filters-and-tags-div__content,
+.filters-and-tags-div__todo-filters-div {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -568,8 +620,12 @@ body > main {
 .home-div__content .project-mini-nav-div {
   color: var(--home-project-mini-nav-color);
   background-color: var(--home-project-mini-nav-bg-color);
-  padding-left: var(--base-list-padding); /* to align with .project-list-div */
-  padding-right: var(--base-list-padding); /* to align with .project-list-div */
+  padding-left: var(
+    --base-list-padding-sides
+  ); /* to align with .project-list-div */
+  padding-right: var(
+    --base-list-padding-sides
+  ); /* to align with .project-list-div */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -617,7 +673,8 @@ body > main {
 .note-mini-div__path-ul,
 .todo-div__path-ul,
 .todo-mini-div__path-ul,
-.results-div__path-ul {
+.results-div__path-ul,
+.filters-and-tags-div__path-ul {
   justify-self: start;
   display: flex;
   justify-content: flex-start;
@@ -632,7 +689,8 @@ body > main {
 .note-mini-div__path-li svg,
 .todo-div__path-li svg,
 .todo-mini-div__path-li svg,
-.results-div__path-li svg {
+.results-div__path-li svg,
+.filters-and-tags-div__path-li svg {
   vertical-align: baseline;
 }
 
@@ -640,7 +698,8 @@ body > main {
 .project-div__path-li:first-of-type svg,
 .note-div__path-li:first-of-type svg,
 .todo-div__path-li:first-of-type svg,
-.results-div__path-li:first-of-type svg {
+.results-div__path-li:first-of-type svg,
+.filters-and-tags-div__path-li:first-of-type svg {
   color: var(--col-accent);
 }
 
@@ -679,7 +738,7 @@ body > main {
 .todo-form-dialog__title-h2,
 .note-form-dialog__title-h2 {
   font-size: var(--base-path-fontsize);
-  padding: 0 var(--base-list-padding);
+  padding: 0 var(--base-list-padding-top);
   text-transform: uppercase;
 }
 .project-form-dialog__back-btn,
@@ -694,10 +753,10 @@ body > main {
   background-color: var(--dialog-content-bg-color);
   color: var(--dialog-content-color);
   border-radius: var(--base-list-radius);
-  padding: var(--base-list-padding);
+  padding: var(--base-list-padding-top);
   display: flex;
   flex-direction: column;
-  gap: var(--base-list-padding);
+  gap: var(--base-list-padding-top);
 }
 
 .todo-form-dialog__path-div,
@@ -912,7 +971,10 @@ body > main {
   --base-list-size-fontsize: 0.7rem;
 
   --main-padding: 1rem;
-  --base-list-padding: 1rem;
+  --base-list-padding-top: 1rem;
+  --base-list-padding-sides: 0.5rem;
+  --base-list-padding: var(--base-list-padding-top)
+    var(--base-list-padding-sides) var(--base-list-padding-sides);
   --base-list-btn-padding: 3px;
   --base-mini-padding: 0.5rem;
   --base-header-padding: 0 0 2rem;
@@ -928,6 +990,7 @@ body > main {
   --base-mini-status-margin-right: 0.3rem;
   --base-tag-padding-ul: 0.2rem;
   --base-tag-padding: var(--base-tag-padding-ul) 0.4rem;
+  --base-todo-padding: 1em;
 
   --base-content-gap: 1rem;
   --base-other-info-label-width: 5em;

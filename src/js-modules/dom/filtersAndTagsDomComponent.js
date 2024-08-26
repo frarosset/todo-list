@@ -23,7 +23,7 @@ export default class filtersAndTagsDomComponent extends genericBaseDomComponent 
     tagFiltersDiv: `tag-filters-div`,
     tagFilterDiv: `tag-filter-div`,
     tagFilterH3: `tag-filter-h3`,
-    agFilterUl: `tag-filter-ul`,
+    tagFilterUl: `tag-filter-ul`,
     tagFilterLi: `tag-filter-li`,
     tagFilterBtn: `tag-filter-btn`,
   };
