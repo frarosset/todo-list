@@ -480,7 +480,8 @@ body > main {
 .project-mini-nav-div,
 .todo-mini-div,
 .note-mini-div,
-.filters-and-tags-mini-nav-div {
+.filters-and-tags-mini-nav-div,
+.results-mini-nav-div {
   padding: var(--base-mini-padding);
   border-radius: var(--base-mini-radius);
   background: var(--base-mini-bg-color);
@@ -510,6 +511,7 @@ body > main {
 }
 
 .project-mini-nav-div,
+.results-mini-nav-div,
 .filters-and-tags-mini-nav-div {
   grid-template-areas: "title";
   grid-template-columns: 1fr;
@@ -556,6 +558,7 @@ body > main {
 .project-mini-nav-div__title-h2,
 .todo-mini-div__title-h2,
 .note-mini-div__title-h2,
+.results-mini-nav-div__title-h2,
 .filters-and-tags-mini-nav-div__title-h2 {
   grid-area: title;
   font-size: var(--base-mini-title-fontsize);
@@ -627,6 +630,7 @@ body > main {
 }
 
 .home-div__content .project-mini-nav-div,
+.home-div__content .results-mini-nav-div,
 .home-div__content .filters-and-tags-mini-nav-div {
   padding-left: var(
     --base-list-padding-sides
@@ -639,7 +643,8 @@ body > main {
   align-items: center;
 }
 
-.home-div__content .project-mini-nav-div {
+.home-div__content .project-mini-nav-div,
+.home-div__content .results-mini-nav-div {
   color: var(--home-project-mini-nav-color);
   background-color: var(--home-project-mini-nav-bg-color);
 }
@@ -659,7 +664,8 @@ body > main {
 .note-mini-div__n-todo-nested-icon,
 .project-mini-nav-div__n-todo-nested-icon,
 .todo-mini-nav-div__n-todo-nested-icon,
-.note-mini-nav-div__n-todo-nested-icon {
+.note-mini-nav-div__n-todo-nested-icon,
+.results-mini-nav-div__n-todo-icon {
   color: var(--ntodonested-color);
   background-color: var(--ntodonested-bg-color);
   border-radius: 50%;
@@ -674,7 +680,8 @@ body > main {
 
 .project-mini-nav-div__n-todo-nested-icon,
 .todo-mini-nav-div__n-todo-nested-icon,
-.note-mini-nav-div__n-todo-nested-icon {
+.note-mini-nav-div__n-todo-nested-icon,
+.results-mini-nav-div__n-todo-icon {
   font-size: var(--ntodonested-nav-fontsize);
 }
 
@@ -682,9 +689,10 @@ body > main {
 .project-mini-div__n-todo-nested-icon__hidden,
 .todo-mini-div__n-todo-nested-icon__hidden,
 .note-mini-div__n-todo-nested-icon__hidden,
-.project-mini-nav-div__n-todo-nested-icon__hidden,
 .todo-mini-nav-div__n-todo-nested-icon__hidden,
-.note-mini-nav-div__n-todo-nested-icon__hidden {
+.note-mini-nav-div__n-todo-nested-icon__hidden,
+.resuls-mini-nav-div__n-todo-nested-icon__hidden,
+.project-mini-nav-div__n-todo-icon__hidden {
   display: none;
 }
 

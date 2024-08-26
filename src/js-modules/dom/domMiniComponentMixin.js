@@ -16,6 +16,7 @@ const pubsubLabel = {
   T: "TODO",
   N: "NOTE",
   F: "FILTERS AND TAGS",
+  R: "RESULTS",
 };
 
 export default function domMiniComponentMixin(targetClass, forNav = false) {
@@ -81,8 +82,11 @@ function redefineInitMiniNav() {
       // it becomes a method: 'this' is the object it will be attached to
       this.div = initDiv(this.constructor.blockName);
       this.div.appendChild(this.initTitle());
-      if (this.initNTodoNestedIcon != null)
+      if (this.initNTodoNestedIcon != null) {
         this.div.appendChild(this.initNTodoNestedIcon());
+      } else if (this.initNTodoIcon != null) {
+        this.div.appendChild(this.initNTodoIcon());
+      }
 
       this.div.associatedType = this.obj.type;
       this.div.associatedObject = this.obj;

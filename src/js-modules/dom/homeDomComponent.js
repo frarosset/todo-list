@@ -9,6 +9,7 @@ import resultsComponent from "../logic/resultsComponent.js";
 import resultsDomComponent from "./resultsDomComponent.js";
 import filtersAndTagsComponent from "../logic/filtersAndTagsComponent.js";
 import filtersAndTagsDomMiniNavComponent from "./filtersAndTagsDomMiniNavComponent.js";
+import resultsDomMiniNavComponent from "./resultsDomMiniNavComponent.js";
 
 import { uiIcons } from "./uiIcons.js";
 
@@ -69,6 +70,7 @@ export default class homeDomComponent {
       root
     );
     const resDomComp2 = new resultsDomComponent(resComp2);
+    const resDomComp3 = new resultsDomMiniNavComponent(resComp2);
 
     const filtersAndTags = new filtersAndTagsComponent({}, root);
     const filtersAndTagsDomMiniNav = new filtersAndTagsDomMiniNavComponent(
@@ -79,6 +81,7 @@ export default class homeDomComponent {
       inboxDom.div,
       filtersAndTagsDomMiniNav.div,
       projectListDom.div,
+      resDomComp3.div,
       resDomComp2.div
     );
 
