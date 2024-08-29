@@ -5,11 +5,10 @@ import {
 } from "../../js-utilities/commonDomComponents.js";
 import projectDomMiniNavComponent from "./projectDomMiniNavComponent.js";
 import { projectListDomComponent } from "./fixCircularDependenciesInDomComponents.js";
-import resultsComponent from "../logic/resultsComponent.js";
-import resultsDomComponent from "./resultsDomComponent.js";
 import filtersAndTagsComponent from "../logic/filtersAndTagsComponent.js";
 import filtersAndTagsDomMiniNavComponent from "./filtersAndTagsDomMiniNavComponent.js";
-import resultsDomMiniNavComponent from "./resultsDomMiniNavComponent.js";
+import searchComponent from "../logic/searchComponent.js";
+import searchDomComponent from "./searchDomComponent.js";
 
 import { uiIcons } from "./uiIcons.js";
 
@@ -60,29 +59,19 @@ export default class homeDomComponent {
       false //hide path
     );
 
-    const resComp2 = new resultsComponent(
-      {
-        title: "Search: test",
-        icon: null,
-        variable: "",
-        value: "test",
-      },
-      root
-    );
-    const resDomComp2 = new resultsDomComponent(resComp2);
-    const resDomComp3 = new resultsDomMiniNavComponent(resComp2);
-
     const filtersAndTags = new filtersAndTagsComponent({}, root);
     const filtersAndTagsDomMiniNav = new filtersAndTagsDomMiniNavComponent(
       filtersAndTags
     );
 
+    const search = new searchComponent({}, root);
+    const searchDom = new searchDomComponent(search);
+
     contentDiv.append(
       inboxDom.div,
       filtersAndTagsDomMiniNav.div,
-      projectListDom.div,
-      resDomComp3.div,
-      resDomComp2.div
+      searchDom.div,
+      projectListDom.div
     );
 
     return contentDiv;
