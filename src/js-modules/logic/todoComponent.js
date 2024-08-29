@@ -30,10 +30,12 @@ export default class todoComponent extends baseComponent {
     "scheduled",
     "upcoming",
     "today",
-    "expired",
+    "overdue",
   ];
   static noImminenceIdx = 0;
-  static expiredIdx = 4;
+  static upcomingIdx = 2;
+  static todayIdx = 3;
+  static overdueIdx = 4;
   static completedIdx = 2;
   static imminenceRanges = [
     [0, -1] /* this is an empty range */,
@@ -141,8 +143,8 @@ export default class todoComponent extends baseComponent {
     return this.stateIdx == todoComponent.completedIdx;
   }
 
-  isExpired() {
-    return this.#imminenceIdx == todoComponent.expiredIdx;
+  isOverdue() {
+    return this.#imminenceIdx == todoComponent.overdueIdx;
   }
 
   hasNotDueDate() {

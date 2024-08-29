@@ -59,7 +59,7 @@ export default class todoDomComponent extends baseDomComponent {
     { prefix: "solid", icon: "blank" }, //"scheduled"
     { prefix: "solid", icon: "exclamation" }, //"upcoming"
     { prefix: "solid", icon: "circle-exclamation" }, //"today"
-    { prefix: "solid", icon: "triangle-exclamation" }, //"expired"
+    { prefix: "solid", icon: "triangle-exclamation" }, //"overdue"
   ];
 
   // see the correspondence in todoComponent.imminenceLabels
@@ -68,7 +68,7 @@ export default class todoDomComponent extends baseDomComponent {
     "inherit", //"scheduled"
     todoDomComponent.colors.blue, //"upcoming"
     todoDomComponent.colors.blue, //"today"
-    todoDomComponent.colors.red, //"expired"
+    todoDomComponent.colors.red, //"overdue"
   ];
 
   static otherInfoIcons = {
@@ -211,9 +211,9 @@ export default class todoDomComponent extends baseDomComponent {
     const setContent = (dueDateInfoDiv, contentDom) => {
       contentDom.textContent = getDate();
 
-      if (this.obj.isExpired()) {
+      if (this.obj.isOverdue()) {
         contentDom.style.color = getColor();
-        contentDom.textContent += ` (expired)`;
+        contentDom.textContent += ` (overdue)`;
       } else if (this.obj.hasNotDueDate()) {
         contentDom.style.color = todoDomComponent.colors.grey;
       } else {
