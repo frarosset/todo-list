@@ -177,6 +177,11 @@ export default class baseListComponent {
     }
   }
 
+  reset(primary = true) {
+    const itemsToRemove = [...this.#list];
+    itemsToRemove.forEach((item) => this.removeItem(item, primary));
+  }
+
   // Serialization method
   toJSON() {
     const list = [];
