@@ -210,7 +210,7 @@ export default class baseListComponent {
     return matchArray;
   }
 
-  search(lookupStr, variableArr = ["title", "description", "tags"]) {
+  search(lookupStr, variableArr = ["title", "description", "tag"]) {
     const matchSet = new Set();
 
     variableArr.forEach((variable) => {

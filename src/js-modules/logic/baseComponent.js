@@ -264,7 +264,7 @@ export default class baseComponent extends genericBaseComponent {
     return matchArray;
   }
 
-  searchMatch(lookupStr, variableArr = ["title", "description", "tags"]) {
+  searchMatch(lookupStr, variableArr = ["title", "description", "tag"]) {
     for (const variable of variableArr) {
       if (this.match(variable, lookupStr)) {
         return true;
@@ -273,7 +273,7 @@ export default class baseComponent extends genericBaseComponent {
     return false;
   }
 
-  search(lookupStr, variableArr = ["title", "description", "tags"]) {
+  search(lookupStr, variableArr = ["title", "description", "tag"]) {
     const matchSet = new Set();
 
     variableArr.forEach((variable) => {

@@ -151,7 +151,7 @@ export default class rootComponent {
     return this.filterByNested(variable, value).length;
   }
 
-  search(lookupStr, variableArr = ["title", "description", "tags"]) {
+  search(lookupStr, variableArr = ["title", "description", "tag"]) {
     const matchArray = this.#inboxProject.search(lookupStr, variableArr);
 
     matchArray.push(...this.#customProjectsList.search(lookupStr, variableArr));
