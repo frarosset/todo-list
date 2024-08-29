@@ -128,6 +128,33 @@ export default class resultsComponent extends genericBaseComponent {
     });
   }
 
+  set value(value) {
+    // note: this does not update the title (todo)
+    this.data.value = value;
+    this.refreshResults();
+  }
+
+  set variable(variable) {
+    // note: this does not update the title (todo)
+    this.data.variable = variable;
+    this.refreshResults();
+  }
+
+  set variableAndValue([variable, value]) {
+    // note: this does not update the title (todo)
+    this.data.variable = variable;
+    this.data.value = value;
+    this.refreshResults();
+  }
+
+  refreshResults() {
+    Object.values(this.data.lists).forEach((listComponent) => {
+      listComponent.reset(false);
+    });
+
+    this.sortResultsInLists();
+  }
+
   static getDefaultResultsData(variable, value, label = null) {
     if (label == null) {
       label = value;
