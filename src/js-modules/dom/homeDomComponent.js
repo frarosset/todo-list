@@ -8,7 +8,7 @@ import { projectListDomComponent } from "./fixCircularDependenciesInDomComponent
 import filtersAndTagsComponent from "../logic/filtersAndTagsComponent.js";
 import filtersAndTagsDomMiniNavComponent from "./filtersAndTagsDomMiniNavComponent.js";
 import searchComponent from "../logic/searchComponent.js";
-import searchDomComponent from "./searchDomComponent.js";
+import searchDomMiniNavComponent from "./searchDomMiniNavComponent.js";
 
 import { uiIcons } from "./uiIcons.js";
 
@@ -65,12 +65,12 @@ export default class homeDomComponent {
     );
 
     const search = new searchComponent({}, root);
-    const searchDom = new searchDomComponent(search);
+    const searchDomMiniNav = new searchDomMiniNavComponent(search);
 
     contentDiv.append(
       inboxDom.div,
       filtersAndTagsDomMiniNav.div,
-      searchDom.div,
+      searchDomMiniNav.div,
       projectListDom.div
     );
 

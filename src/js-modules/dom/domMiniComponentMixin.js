@@ -17,6 +17,7 @@ const pubsubLabel = {
   N: "NOTE",
   F: "FILTERS AND TAGS",
   R: "RESULTS",
+  S: "SEARCH",
 };
 
 export default function domMiniComponentMixin(targetClass, forNav = false) {

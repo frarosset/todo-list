@@ -481,6 +481,7 @@ body > main {
 .todo-mini-div,
 .note-mini-div,
 .filters-and-tags-mini-nav-div,
+.search-mini-nav-div,
 .results-mini-nav-div {
   padding: var(--base-mini-padding);
   border-radius: var(--base-mini-radius);
@@ -512,7 +513,8 @@ body > main {
 
 .project-mini-nav-div,
 .results-mini-nav-div,
-.filters-and-tags-mini-nav-div {
+.filters-and-tags-mini-nav-div,
+.search-mini-nav-div {
   grid-template-areas: "title";
   grid-template-columns: 1fr;
   cursor: pointer;
@@ -559,7 +561,8 @@ body > main {
 .todo-mini-div__title-h2,
 .note-mini-div__title-h2,
 .results-mini-nav-div__title-h2,
-.filters-and-tags-mini-nav-div__title-h2 {
+.filters-and-tags-mini-nav-div__title-h2,
+.search-mini-nav-div__title-h2 {
   grid-area: title;
   font-size: var(--base-mini-title-fontsize);
   align-self: center;
@@ -631,7 +634,8 @@ body > main {
 
 .home-div__content .project-mini-nav-div,
 .home-div__content .results-mini-nav-div,
-.home-div__content .filters-and-tags-mini-nav-div {
+.home-div__content .filters-and-tags-mini-nav-div,
+.home-div__content .search-mini-nav-div {
   padding-left: var(
     --base-list-padding-sides
   ); /* to align with .project-list-div */
@@ -649,12 +653,14 @@ body > main {
   background-color: var(--home-project-mini-nav-bg-color);
 }
 
-.home-div__content .filters-and-tags-mini-nav-div {
+.home-div__content .filters-and-tags-mini-nav-div,
+.home-div__content .search-mini-nav-div {
   color: var(--home-filters-and-tags-mini-nav-color);
   background-color: var(--home-filters-and-tags-mini-nav-bg-color);
 }
 
-.filters-and-tags-mini-nav-div__title-h2 {
+.filters-and-tags-mini-nav-div__title-h2,
+.search-mini-nav-div__title-h2 {
   font-weight: normal;
 }
 

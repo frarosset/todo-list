@@ -4,6 +4,7 @@ import { noteDomComponent } from "./fixCircularDependenciesInDomComponents.js";
 import resultsDomComponent from "./resultsDomComponent.js";
 import resultsComponent from "../logic/resultsComponent.js";
 import filtersAndTagsDomComponent from "./filtersAndTagsDomComponent.js";
+import searchDomComponent from "./searchDomComponent.js";
 import homeDomComponent from "./homeDomComponent.js";
 import { resetContent } from "../../js-utilities/commonDomUtilities.js";
 import PubSub from "pubsub-js";
@@ -37,6 +38,10 @@ export default class mainDomComponent {
     PubSub.subscribe("RENDER FILTERS AND TAGS", (msg, obj) => {
       console.log(msg);
       this.renderFiltersAndTags(obj);
+    });
+    PubSub.subscribe("RENDER SEARCH", (msg, obj) => {
+      console.log(msg);
+      this.renderSearch(obj);
     });
   }
 
@@ -85,6 +90,12 @@ export default class mainDomComponent {
     this.main.append(filtersAndTagsDomObj.div);
   }
 
+  renderSearch(searchObj) {
+    this.#clearMainContent();
+    const searchDomObj = new searchDomComponent(searchObj);
+    this.main.append(searchDomObj.div);
+  }
+
   renderHome() {
     this.#clearMainContent();
     const homeDomObj = new homeDomComponent(this.root);
@@ -108,6 +119,9 @@ export default class mainDomComponent {
         break;
       case "F":
         this.renderFiltersAndTags(obj);
+        break;
+      case "S":
+        this.renderSearch(obj);
         break;
       default:
     }
