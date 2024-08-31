@@ -22,7 +22,10 @@ export default class resultsComponent extends genericBaseComponent {
     this.type = "R";
     this.nTodo = 0;
 
-    this.initAllLists({}, [], false); // method added via composition (see below)
+    const todoOnly = ["imminence", "state", "priority"].includes(data.variable);
+    const listsToExclude = todoOnly ? ["P", "N"] : [];
+
+    this.initAllLists({}, listsToExclude, false); // method added via composition (see below)
     this.sortResultsInLists();
 
     // remove also the descendants, if any, by recursion
