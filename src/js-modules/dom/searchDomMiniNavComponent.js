@@ -8,7 +8,6 @@ export default class searchDomMiniNavComponent extends searchDomComponent {
 
   constructor(obj, showPath = false) {
     super(obj, showPath);
-    console.log(obj);
   }
 }
 

@@ -1,6 +1,6 @@
 import { initDiv, initInput } from "../../js-utilities/commonDomComponents.js";
 import genericBaseDomComponent from "./genericBaseDomComponent.js";
-import resultsDomComponent from "./resultsDomComponent.js";
+import resultsDomListComponent from "./resultsDomListComponent.js";
 
 export default class searchDomComponent extends genericBaseDomComponent {
   static blockName = "search-div";
@@ -51,7 +51,7 @@ export default class searchDomComponent extends genericBaseDomComponent {
   }
 
   initLookupResults() {
-    this.resultsObjDom = new resultsDomComponent(this.obj.resultsObj);
+    this.resultsObjDom = new resultsDomListComponent(this.obj.resultsObj);
     return this.resultsObjDom.div;
   }
 
