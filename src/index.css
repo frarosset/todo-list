@@ -158,7 +158,8 @@ body > main {
 .todo-div,
 .note-div,
 .results-div,
-.filters-and-tags-div {
+.filters-and-tags-div,
+.search-div {
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -169,7 +170,8 @@ body > main {
 .todo-div__header,
 .note-div__header,
 .results-div__header,
-.filters-and-tags-div__header {
+.filters-and-tags-div__header,
+.search-div__header {
   padding: var(--base-header-padding);
   display: grid;
   grid-template-columns: min-content 1fr min-content min-content;
@@ -206,7 +208,8 @@ body > main {
 }
 
 .results-div__header,
-.filters-and-tags-div__header {
+.filters-and-tags-div__header,
+.search-div__header {
   grid-template-areas:
     ". path path back-btn"
     "title title title title";
@@ -217,7 +220,8 @@ body > main {
 .project-div__back-btn,
 .note-div__back-btn,
 .results-div__back-btn,
-.filters-and-tags-div__back-btn {
+.filters-and-tags-div__back-btn,
+.search-div__back-btn {
   grid-area: back-btn;
   font-size: var(--base-back-btn-fontsize);
   align-self: top;
@@ -228,7 +232,8 @@ body > main {
 .project-div__path-ul,
 .note-div__path-ul,
 .results-div__path-ul,
-.filters-and-tags-div__path-ul {
+.filters-and-tags-div__path-ul,
+.search-div__path-ul {
   grid-area: path;
   font-size: var(--base-path-fontsize);
   align-self: end;
@@ -238,7 +243,8 @@ body > main {
 .project-div__title-h2,
 .note-div__title-h2,
 .results-div__title-h2,
-.filters-and-tags-div__title-h2 {
+.filters-and-tags-div__title-h2,
+.search-div__title-h2 {
   grid-area: title;
   font-size: var(--title-h2-fontsize);
   align-self: center;
@@ -249,7 +255,8 @@ body > main {
 .todo-mini-div__title-h2,
 .todo-div__title-h2,
 .results-div__title-h2,
-.filters-and-tags-div__title-h2 {
+.filters-and-tags-div__title-h2,
+.search-div__title-h2 {
   color: var(--title-h2-color);
   text-decoration-color: var(--title-h2-decoration-color);
 }
@@ -382,7 +389,8 @@ body > main {
 .note-div__content,
 .results-div__content,
 .filters-and-tags-div__content,
-.filters-and-tags-div__todo-filters-div {
+.filters-and-tags-div__todo-filters-div,
+.search-div__content {
   display: flex;
   flex-direction: column;
   gap: var(--base-content-gap);
@@ -391,7 +399,8 @@ body > main {
 .todo-div__content,
 .note-div__content,
 .results-div__content,
-.filters-and-tags-div__content {
+.filters-and-tags-div__content,
+.search-div__content {
   flex: 1;
 }
 
@@ -710,7 +719,7 @@ body > main {
 .todo-div__path-ul,
 .todo-mini-div__path-ul,
 .results-div__path-ul,
-.filters-and-tags-div__path-ul {
+.filters-and-tags-div__path-ul .search-div__path-ul {
   justify-self: start;
   display: flex;
   justify-content: flex-start;
@@ -726,7 +735,8 @@ body > main {
 .todo-div__path-li svg,
 .todo-mini-div__path-li svg,
 .results-div__path-li svg,
-.filters-and-tags-div__path-li svg {
+.filters-and-tags-div__path-li svg,
+.search-div__path-li svg {
   vertical-align: baseline;
 }
 
@@ -735,8 +745,29 @@ body > main {
 .note-div__path-li:first-of-type svg,
 .todo-div__path-li:first-of-type svg,
 .results-div__path-li:first-of-type svg,
-.filters-and-tags-div__path-li:first-of-type svg {
+.filters-and-tags-div__path-li:first-of-type svg,
+.search-div__path-li:first-of-type svg {
   color: var(--col-accent);
+}
+
+.search-div__lookup-input {
+  font-size: var(--txt-fontsize);
+  line-height: 1; /* fix wrong alignment */
+  border: none;
+  outline: none;
+  width: 100%;
+  border: 1px solid var(--col-grey);
+  border-radius: var(--base-list-radius);
+  padding: 0.5em;
+}
+
+.search-div__lookup-input:focus-visible {
+  border-color: var(--col-accent);
+}
+
+.search-div__lookup-input::placeholder {
+  font-style: italic;
+  color: var(--col-grey);
 }
 
 /* new/edit todo/project dialog and form */
