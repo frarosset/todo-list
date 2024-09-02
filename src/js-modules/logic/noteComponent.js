@@ -3,6 +3,7 @@ import { listInComponentMixin } from "./fixCircularDependenciesInComponents.js";
 
 export default class noteComponent extends baseComponent {
   static nextId = 0;
+  static icon = { prefix: "regular", icon: "note-sticky" };
 
   constructor(
     data,

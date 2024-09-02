@@ -26,6 +26,21 @@
   --txt-fontsize: 18px;
   --txt-lineheight: 1.2;
 
+  --icon-h2-width: calc(
+    1.2 *
+      max(
+        var(--title-h2-fontsize),
+        var(--base-status-fontsize) + var(--base-status-margin-right)
+      )
+  );
+  --icon-h2-mini-width: calc(
+    1.2 *
+      max(
+        var(--base-mini-title-fontsize),
+        var(--base-mini-status-fontsize) + var(--base-mini-status-margin-right)
+      )
+  );
+
   /* Text clamping: number of lines */
   /* --main-itm-project-description-max-lines: 6;
     --main-itm-announcements-description-max-lines: 3; */
@@ -180,11 +195,11 @@ body > main {
 .project-div__header {
   grid-template-areas:
     ". path path back-btn"
-    "title title title title"
+    "icon title title ."
     ". description description description"
     ". tags . action-div"
     ". otherinfo otherinfo otherinfo";
-  grid-template-columns: calc(1.2 * var(--title-h2-fontsize)) 1fr min-content min-content;
+  grid-template-columns: var(--icon-h2-width) 1fr min-content min-content;
 }
 
 .todo-div__header {
@@ -194,17 +209,17 @@ body > main {
     ". description description description"
     ". tags . action-div"
     ". otherinfo otherinfo otherinfo";
-  grid-template-columns: min-content 1fr min-content min-content;
+  grid-template-columns: var(--icon-h2-width) 1fr min-content min-content;
 }
 
 .note-div__header {
   grid-template-areas:
-    "path path back-btn"
-    "title title title"
-    "description description description"
-    "tags . action-div"
-    "otherinfo otherinfo otherinfo";
-  grid-template-columns: 1fr min-content min-content;
+    ". path path back-btn"
+    "icon title title ."
+    ". description description description"
+    ". tags . action-div"
+    ". otherinfo otherinfo otherinfo";
+  grid-template-columns: var(--icon-h2-width) 1fr min-content min-content;
 }
 
 .results-div__header,
@@ -212,8 +227,8 @@ body > main {
 .search-div__header {
   grid-template-areas:
     ". path path back-btn"
-    "title title title title";
-  grid-template-columns: calc(1.2 * var(--title-h2-fontsize)) 1fr min-content min-content;
+    "icon title title .";
+  grid-template-columns: var(--icon-h2-width) 1fr min-content min-content;
 }
 
 .todo-div__back-btn,
@@ -244,10 +259,33 @@ body > main {
 .note-div__title-h2,
 .results-div__title-h2,
 .filters-and-tags-div__title-h2,
-.search-div__title-h2 {
-  grid-area: title;
+.search-div__title-h2,
+.todo-div__title-icon,
+.project-div__title-icon,
+.note-div__title-icon,
+.results-div__title-icon,
+.filters-and-tags-div__title-icon,
+.search-div__title-icon {
   font-size: var(--title-h2-fontsize);
   align-self: center;
+}
+
+.todo-div__title-h2,
+.project-div__title-h2,
+.note-div__title-h2,
+.results-div__title-h2,
+.filters-and-tags-div__title-h2,
+.search-div__title-h2 {
+  grid-area: title;
+}
+
+.todo-div__title-icon,
+.project-div__title-icon,
+.note-div__title-icon,
+.results-div__title-icon,
+.filters-and-tags-div__title-icon,
+.search-div__title-icon {
+  grid-area: icon;
 }
 
 .project-div__title-h2,
@@ -256,7 +294,14 @@ body > main {
 .todo-div__title-h2,
 .results-div__title-h2,
 .filters-and-tags-div__title-h2,
-.search-div__title-h2 {
+.search-div__title-h2,
+.project-div__title-icon,
+.note-div__title-icon,
+.todo-mini-div__title-icon,
+.todo-div__title-icon,
+.results-div__title-icon,
+.filters-and-tags-div__title-icon,
+.search-div__title-icon {
   color: var(--title-h2-color);
   text-decoration-color: var(--title-h2-decoration-color);
 }
@@ -507,25 +552,25 @@ body > main {
 .project-mini-div {
   grid-template-areas:
     ". path expand-btn"
-    "title  title expand-btn"
+    "icon  title expand-btn"
     ". otherinfo  action-div";
-  grid-template-columns: calc(1.2 * var(--base-mini-title-fontsize)) 1fr min-content;
+  grid-template-columns: var(--icon-h2-mini-width) 1fr min-content;
 }
 
 .note-mini-div {
   grid-template-areas:
-    "path expand-btn"
-    "title expand-btn"
-    "otherinfo  action-div";
-  grid-template-columns: 1fr min-content;
+    ". path expand-btn"
+    "icon title expand-btn"
+    ". otherinfo  action-div";
+  grid-template-columns: var(--icon-h2-mini-width) 1fr min-content;
 }
 
 .project-mini-nav-div,
 .results-mini-nav-div,
 .filters-and-tags-mini-nav-div,
 .search-mini-nav-div {
-  grid-template-areas: "title";
-  grid-template-columns: 1fr;
+  grid-template-areas: "icon title";
+  grid-template-columns: var(--icon-h2-mini-width) 1fr;
   cursor: pointer;
 }
 
@@ -534,7 +579,7 @@ body > main {
     ". path path  expand-btn"
     "state title imminence expand-btn"
     ". otherinfo otherinfo action-div";
-  grid-template-columns: min-content 1fr min-content min-content;
+  grid-template-columns: var(--icon-h2-mini-width) 1fr min-content min-content;
 }
 
 .todo-mini-div__state-btn {
@@ -571,10 +616,45 @@ body > main {
 .note-mini-div__title-h2,
 .results-mini-nav-div__title-h2,
 .filters-and-tags-mini-nav-div__title-h2,
-.search-mini-nav-div__title-h2 {
-  grid-area: title;
+.search-mini-nav-div__title-h2,
+.project-mini-div__title-icon,
+.project-mini-nav-div__title-icon,
+.todo-mini-div__title-icon,
+.note-mini-div__title-icon,
+.results-mini-nav-div__title-icon,
+.filters-and-tags-mini-nav-div__title-icon,
+.search-mini-nav-div__title-icon {
   font-size: var(--base-mini-title-fontsize);
   align-self: center;
+}
+
+.project-mini-div__title-h2,
+.project-mini-nav-div__title-h2,
+.todo-mini-div__title-h2,
+.note-mini-div__title-h2,
+.results-mini-nav-div__title-h2,
+.filters-and-tags-mini-nav-div__title-h2,
+.search-mini-nav-div__title-h2 {
+  grid-area: title;
+}
+
+.project-mini-div__title-icon,
+.project-mini-nav-div__title-icon,
+.todo-mini-div__title-icon,
+.note-mini-div__title-icon,
+.results-mini-nav-div__title-icon,
+.filters-and-tags-mini-nav-div__title-icon,
+.search-mini-nav-div__title-icon {
+  grid-area: icon;
+  justify-self: center;
+}
+
+.project-mini-nav-div__title-h2,
+.results-mini-nav-div__title-h2,
+.filters-and-tags-mini-nav-div__title-h2,
+.search-mini-nav-div__title-h2 {
+  font-weight: normal;
+  flex: 1;
 }
 
 .project-mini-div__other-infos-div,
@@ -652,7 +732,7 @@ body > main {
     --base-list-padding-sides
   ); /* to align with .project-list-div */
   display: flex;
-  justify-content: space-between;
+  justify-content: left;
   align-items: center;
 }
 
@@ -666,13 +746,6 @@ body > main {
 .home-div__content .search-mini-nav-div {
   color: var(--home-filters-and-tags-mini-nav-color);
   background-color: var(--home-filters-and-tags-mini-nav-bg-color);
-}
-
-.project-mini-nav-div__title-h2,
-.results-mini-nav-div__title-h2,
-.filters-and-tags-mini-nav-div__title-h2,
-.search-mini-nav-div__title-h2 {
-  font-weight: normal;
 }
 
 /* Counters */

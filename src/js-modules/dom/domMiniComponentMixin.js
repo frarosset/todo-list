@@ -64,6 +64,7 @@ function redefineInitMini() {
       if (this.showPath) {
         this.div.appendChild(this.initPath());
       }
+      this.div.appendChild(this.initIcon());
       this.div.appendChild(this.initTitle());
 
       this.div.appendChild(this.initActionButtons());
@@ -82,6 +83,7 @@ function redefineInitMiniNav() {
     init: function () {
       // it becomes a method: 'this' is the object it will be attached to
       this.div = initDiv(this.constructor.blockName);
+      this.div.appendChild(this.initIcon());
       this.div.appendChild(this.initTitle());
       if (this.initNTodoNestedIcon != null) {
         this.div.appendChild(this.initNTodoNestedIcon());

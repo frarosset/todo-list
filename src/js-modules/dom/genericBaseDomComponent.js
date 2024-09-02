@@ -4,6 +4,7 @@ import {
   initButton,
   initDiv,
   initH2,
+  initP,
 } from "../../js-utilities/commonDomComponents.js";
 import PubSub from "pubsub-js";
 import { uiIcons } from "./uiIcons.js";
@@ -18,6 +19,7 @@ export default class genericBaseDomComponent {
     pathLi: `path-li`,
     pathBtn: `path-btn`,
     titleH2: `title-h2`,
+    titleIcon: `title-icon`,
     backBtn: `back-btn`,
   };
 
@@ -53,6 +55,7 @@ export default class genericBaseDomComponent {
     if (this.showPath) {
       header.appendChild(this.initPath());
     }
+    header.appendChild(this.initIcon());
     header.appendChild(this.initTitle());
 
     return header;
@@ -92,13 +95,12 @@ export default class genericBaseDomComponent {
     return ul;
   }
 
+  initIcon() {
+    return initP(this.getCssClass("titleIcon"), this.obj.icon);
+  }
+
   initTitle() {
-    const h2 = initH2(
-      this.getCssClass("titleH2"),
-      this.obj.icon,
-      "",
-      this.obj.title
-    );
+    const h2 = initH2(this.getCssClass("titleH2"), null, "", this.obj.title);
     return h2;
   }
 
