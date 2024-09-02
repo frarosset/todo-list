@@ -67,6 +67,11 @@ export default class todoComponent extends baseComponent {
     }
 
     this.initAllLists(data.lists, listsToExclude); // method added via composition (see below)
+
+    PubSub.subscribe("FORCE IMMINENCE UPDATE", (msg) => {
+      console.log(msg);
+      this.updateImminence();
+    });
   }
 
   update(data) {

@@ -1,9 +1,11 @@
+import { differenceInMilliseconds, isAfter, addDays } from "date-fns";
 import {
   projectComponent,
   todoComponent,
   noteComponent,
 } from "./fixCircularDependenciesInComponents";
 import { projectListComponent } from "./fixCircularDependenciesInComponents.js";
+import PubSub from "pubsub-js";
 
 export default class rootComponent {
   #inboxProject;
@@ -52,6 +54,8 @@ export default class rootComponent {
       null,
       customProjectsListData
     );
+
+    this.scheduleUpdateImminence();
   }
 
   // Getter methods
@@ -171,5 +175,28 @@ export default class rootComponent {
     const matchArray = this.#inboxProject.getAllOfTypeNested(type);
     matchArray.push(...this.#customProjectsList.getAllOfTypeNested(type));
     return matchArray;
+  }
+
+  // Update imminence at midnight
+  scheduleUpdateImminence(hh = 0, mm = 0, ss = 0) {
+    const now = new Date();
+    const [YY, MM, DD] = [
+      now.getUTCFullYear(),
+      now.getUTCMonth(),
+      now.getUTCDate(),
+    ];
+
+    let scheduleAt = new Date(YY, MM, DD, hh, mm, ss);
+    while (isAfter(now, scheduleAt)) {
+      scheduleAt = addDays(scheduleAt, 1);
+    }
+
+    //console.log(now, "FORCE IMMINENCE UPDATE");
+    PubSub.publish("FORCE IMMINENCE UPDATE");
+
+    const delayInMs = differenceInMilliseconds(scheduleAt, now);
+    setTimeout(() => {
+      this.scheduleUpdateImminence(hh, mm, ss);
+    }, delayInMs);
   }
 }
