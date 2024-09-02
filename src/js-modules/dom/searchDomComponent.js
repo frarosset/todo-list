@@ -1,6 +1,7 @@
 import { initDiv, initInput } from "../../js-utilities/commonDomComponents.js";
 import genericBaseDomComponent from "./genericBaseDomComponent.js";
 import resultsDomListComponent from "./resultsDomListComponent.js";
+import resultsComponent from "../logic/resultsComponent.js";
 
 export default class searchDomComponent extends genericBaseDomComponent {
   static blockName = "search-div";
@@ -16,8 +17,15 @@ export default class searchDomComponent extends genericBaseDomComponent {
     super(obj, showPath);
   }
 
+  updateSearchResults(lookupStr) {
+    this.resultsObj.value = lookupStr;
+  }
+
   initContent() {
     const contentDiv = super.initContent();
+
+    const resultsData = resultsComponent.getDefaultResultsData("", "");
+    this.resultsObj = new resultsComponent(resultsData, this.obj.root);
 
     contentDiv.append(this.initLookupInput());
     contentDiv.append(this.initLookupResults());
@@ -41,7 +49,7 @@ export default class searchDomComponent extends genericBaseDomComponent {
     inputDiv.type = "search";
     inputDiv.maxLength = 500;
 
-    inputDiv.obj = this.obj;
+    inputDiv.self = this;
 
     div.append(inputDiv);
 
@@ -51,14 +59,14 @@ export default class searchDomComponent extends genericBaseDomComponent {
   }
 
   initLookupResults() {
-    this.resultsObjDom = new resultsDomListComponent(this.obj.resultsObj);
+    this.resultsObjDom = new resultsDomListComponent(this.resultsObj);
     return this.resultsObjDom.div;
   }
 
   static lookupInputCallback = (e) => {
     const value = e.currentTarget.value;
-    const obj = e.currentTarget.obj;
+    const self = e.currentTarget.self;
 
-    obj.updateSearchResults(value);
+    self.updateSearchResults(value);
   };
 }
