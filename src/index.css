@@ -668,6 +668,8 @@ body > main {
   background-color: var(--home-filters-and-tags-mini-nav-bg-color);
 }
 
+.project-mini-nav-div__title-h2,
+.results-mini-nav-div__title-h2,
 .filters-and-tags-mini-nav-div__title-h2,
 .search-mini-nav-div__title-h2 {
   font-weight: normal;
@@ -697,9 +699,19 @@ body > main {
 .todo-mini-nav-div__n-todo-nested-icon,
 .note-mini-nav-div__n-todo-nested-icon,
 .results-mini-nav-div__n-todo-icon {
+  color: var(--ntodonested-nav-color);
+  background-color: var(--ntodonested-nav-bg-color);
+}
+
+.project-mini-nav-div__n-todo-nested-icon,
+.todo-mini-nav-div__n-todo-nested-icon,
+.note-mini-nav-div__n-todo-nested-icon,
+.results-mini-nav-div__n-todo-icon {
   font-size: var(--ntodonested-nav-fontsize);
 }
 
+.project-mini-nav-div__n-todo-nested-icon__hidden,
+.results-mini-nav-div__n-todo-icon__hidden,
 .todo-mini-div__due-date-info-div__none,
 .project-mini-div__n-todo-nested-icon__hidden,
 .todo-mini-div__n-todo-nested-icon__hidden,
@@ -768,6 +780,14 @@ body > main {
 .search-div__lookup-input::placeholder {
   font-style: italic;
   color: var(--col-grey);
+}
+
+.home-div__imminence-results .results-mini-nav-div {
+  border-radius: var(--base-mini-radius) var(--base-mini-radius) 0 0;
+}
+
+.home-div__imminence-results .todo-list-div {
+  border-radius: 0 0 var(--base-mini-radius) var(--base-mini-radius);
 }
 
 /* new/edit todo/project dialog and form */
@@ -1070,7 +1090,7 @@ body > main {
   --base-mini-radius: 10px;
   --base-list-new-item-btn-radius: 5px;
 
-  --home-project-mini-nav-color: var(--col-txt);
+  --home-project-mini-nav-color: var(--col-txt-alt);
   --home-filters-and-tags-mini-nav-color: var(--col-txt-alt);
   --base-list-new-item-btn-color: var(--col-grey);
   --otherinfo-line-color: var(--col-grey);
@@ -1084,8 +1104,9 @@ body > main {
   --base-list-size-color: var(--col-secondary);
   --lighter-btn-color: var(--col-secondary);
   --ntodonested-color: var(--col-white);
+  --ntodonested-nav-color: var(--col-black);
 
-  --home-project-mini-nav-bg-color: var(--col-accent);
+  --home-project-mini-nav-bg-color: var(--col-black);
   --home-filters-and-tags-mini-nav-bg-color: var(--col-black);
   --base-list-bg-color: var(--col-grey);
   --base-list-new-item-btn-bg-color: var(--col-secondary);
@@ -1095,6 +1116,7 @@ body > main {
   --dialog-content-bg-color: var(--bg-col);
   --dialog-submit-btn-bg-color: var(--col-accent);
   --ntodonested-bg-color: var(--col-black);
+  --ntodonested-nav-bg-color: var(--col-accent);
 
   --dialog-margin: var(--main-padding);
   --dialog-width: calc(var(--max-width) - 2 * var(--main-padding));
