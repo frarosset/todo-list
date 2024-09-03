@@ -5,6 +5,11 @@ import PubSub from "pubsub-js";
 export default class baseListComponent {
   #list;
 
+  static defultSettings = {
+    sortBy: "title",
+    descending: false,
+  };
+
   getPubSubName(str, topic = null, includeParent = true) {
     const topicStr = topic ? `${topic}:` : "";
     const parentStr =
@@ -23,6 +28,8 @@ export default class baseListComponent {
 
     this.nTodoNested = 0;
     this.nTodo = 0;
+
+    this.settings = Object.assign({}, this.constructor.defultSettings);
 
     itemData.forEach((data) => this.addItem(data));
   }
@@ -272,7 +279,7 @@ export default class baseListComponent {
       baseListComponent.strSortCallback(a.pathAndThisStr, b.pathAndThisStr),
   };
 
-  getSortBy(variable, descending = false) {
+  getSortedBy(variable, descending = false) {
     const callback = this.constructor.sortCallbacks[variable];
     if (!callback || this.length == 0) return [];
 
@@ -281,5 +288,9 @@ export default class baseListComponent {
       sortedList.reverse();
     }
     return sortedList;
+  }
+
+  getSorted() {
+    return this.getSortedBy(this.settings.sortBy, this.settings.descending);
   }
 }

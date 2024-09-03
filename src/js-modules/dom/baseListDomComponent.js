@@ -72,7 +72,7 @@ export default class baseListDomComponent {
 
     PubSub.subscribe(this.getPubSubName("EDIT ITEM", "main", false), (msg) => {
       console.log(msg);
-      this.sortBy("title");
+      this.sortBy();
     });
   }
 
@@ -162,7 +162,7 @@ export default class baseListDomComponent {
     li.appendChild(itemDom.div);
     li.obj = itemDom.obj;
 
-    this.sortBy("title");
+    this.sortBy();
     return li;
   }
 
@@ -205,8 +205,12 @@ export default class baseListDomComponent {
     e.stopPropagation();
   }
 
-  sortBy(variable, descending = false) {
-    const sortedList = this.obj.getSortBy(variable, descending);
+  sortBy(variable = null, descending = false) {
+    const sortedList =
+      variable != null
+        ? this.obj.getSortedBy(variable, descending)
+        : this.obj.getSorted();
+
     if (sortedList.length > this.#listMap.size) {
       return;
     }
