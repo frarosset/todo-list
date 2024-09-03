@@ -46,7 +46,7 @@ export default class baseComponent extends genericBaseComponent {
 
   increaseNTodoNested(amount = 1) {
     this.nTodoNested += amount;
-    console.log(this.infoOnPropertyStr("nTodoNested"));
+    //console.log(this.infoOnPropertyStr("nTodoNested"));
     PubSub.publish(this.getPubSubName("NTODONESTED CHANGE", "main"));
 
     this.increaseListNTodoNested(amount);
@@ -54,7 +54,7 @@ export default class baseComponent extends genericBaseComponent {
   }
   decreaseNTodoNested(amount = 1) {
     this.nTodoNested -= amount;
-    console.log(this.infoOnPropertyStr("nTodoNested"));
+    //console.log(this.infoOnPropertyStr("nTodoNested"));
     PubSub.publish(this.getPubSubName("NTODONESTED CHANGE", "main"));
 
     this.decreaseListNTodoNested(amount);

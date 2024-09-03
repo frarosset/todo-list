@@ -69,6 +69,11 @@ export default class baseListDomComponent {
       console.log(msg, `[${item.pathAndThisStr}]`);
       this.removeItem(item); // item is a reference to a baseComponent object
     });
+
+    PubSub.subscribe(this.getPubSubName("EDIT ITEM", "main", false), (msg) => {
+      console.log(msg);
+      this.sortBy("title");
+    });
   }
 
   /* Blocks */
@@ -155,7 +160,9 @@ export default class baseListDomComponent {
     const itemDom = this.initItemDom(item);
     this.#listMap.set(itemDom.obj, itemDom.div);
     li.appendChild(itemDom.div);
+    li.obj = itemDom.obj;
 
+    this.sortBy("title");
     return li;
   }
 
@@ -196,5 +203,20 @@ export default class baseListDomComponent {
       associatedDialog.dialog.showModal();
     }
     e.stopPropagation();
+  }
+
+  sortBy(variable, descending = false) {
+    const sortedList = this.obj.getSortBy(variable, descending);
+    if (sortedList.length > this.#listMap.size) {
+      return;
+    }
+    //console.log(this.obj.type, variable, sortedList, this.#listMap);
+
+    sortedList.forEach((itm, idx) => {
+      const domItemDiv = this.#listMap.get(itm);
+      if (domItemDiv != null && domItemDiv.parentElement != null) {
+        domItemDiv.parentElement.style.order = idx;
+      }
+    });
   }
 }

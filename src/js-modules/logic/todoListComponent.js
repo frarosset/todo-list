@@ -35,12 +35,19 @@ export default class todoListComponent extends baseListComponent {
 
   increaseNTodo(amount = 1) {
     this.nTodo += amount;
-    console.log(this.infoOnPropertyStr("nTodo"));
+    //console.log(this.infoOnPropertyStr("nTodo"));
     PubSub.publish(this.getPubSubName("NTODO CHANGE", "main"));
   }
   decreaseNTodo(amount = 1) {
     this.nTodo -= amount;
-    console.log(this.infoOnPropertyStr("nTodo"));
+    //console.log(this.infoOnPropertyStr("nTodo"));
     PubSub.publish(this.getPubSubName("NTODO CHANGE", "main"));
   }
+
+  static sortCallbacks = {
+    ...baseListComponent.sortCallbacks,
+    priority: (a, b) => baseListComponent.numSortCallback(a.title, b.title),
+    state: (a, b) => baseListComponent.numSortCallback(a.title, b.title),
+    dueDate: (a, b) => baseListComponent.dateSortCallback(a.dueDate, b.dueDate),
+  };
 }

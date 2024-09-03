@@ -1,3 +1,4 @@
+import { isBefore, isAfter } from "date-fns";
 import baseComponent from "./baseComponent.js";
 import PubSub from "pubsub-js";
 
@@ -28,12 +29,12 @@ export default class baseListComponent {
 
   increaseNTodoNested(amount = 1) {
     this.nTodoNested += amount;
-    console.log(this.infoOnPropertyStr("nTodoNested"));
+    //console.log(this.infoOnPropertyStr("nTodoNested"));
     PubSub.publish(this.getPubSubName("NTODONESTED CHANGE", "main"));
   }
   decreaseNTodoNested(amount = 1) {
     this.nTodoNested -= amount;
-    console.log(this.infoOnPropertyStr("nTodoNested"));
+    //console.log(this.infoOnPropertyStr("nTodoNested"));
     PubSub.publish(this.getPubSubName("NTODONESTED CHANGE", "main"));
   }
 
@@ -250,5 +251,35 @@ export default class baseListComponent {
     );
 
     return matchArray;
+  }
+
+  static strSortCallback = (a, b) => {
+    a = a.toLowerCase();
+    b = b.toLowerCase();
+    return a < b ? -1 : a > b ? 1 : 0;
+  };
+  static dateSortCallback = (a, b) =>
+    isBefore(a, b) ? -1 : isAfter(a, b) ? 1 : 0;
+  static numSortCallback = (a, b) => a - b;
+
+  static sortCallbacks = {
+    title: (a, b) => baseListComponent.strSortCallback(a.title, b.title),
+    dateOfCreation: (a, b) =>
+      baseListComponent.dateSortCallback(a.dateOfCreation, b.dateOfCreation),
+    dateOfEdit: (a, b) =>
+      baseListComponent.dateSortCallback(a.dateOfEdit, b.dateOfEdit),
+    path: (a, b) =>
+      baseListComponent.strSortCallback(a.pathAndThisStr, b.pathAndThisStr),
+  };
+
+  getSortBy(variable, descending = false) {
+    const callback = this.constructor.sortCallbacks[variable];
+    if (!callback || this.length == 0) return [];
+
+    const sortedList = this.list.toSorted(callback);
+    if (descending) {
+      sortedList.reverse();
+    }
+    return sortedList;
   }
 }
