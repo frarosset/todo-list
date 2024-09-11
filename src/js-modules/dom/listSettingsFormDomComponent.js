@@ -8,7 +8,7 @@ import {
 } from "../../js-utilities/commonDomComponents.js";
 import { removeDescendants } from "../../js-utilities/commonDomUtilities.js";
 // import { isToday, isThisYear } from "date-fns";
-import { uiIcons } from "./uiIcons.js";
+import { uiIcons } from "../uiIcons.js";
 import { changeChildFaIcon } from "../../js-utilities/fontAwesomeUtilities.js";
 
 export default class listSettingsDomComponent {

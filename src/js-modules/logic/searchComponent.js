@@ -1,5 +1,5 @@
 import genericBaseComponent from "./genericBaseComponent.js";
-import { uiIcons } from "../dom/uiIcons.js";
+import { uiIcons } from "../uiIcons.js";
 
 export default class searchComponent extends genericBaseComponent {
   static defaultData = {

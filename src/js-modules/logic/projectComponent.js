@@ -1,9 +1,10 @@
 import baseComponent from "./baseComponent.js";
 import { listInComponentMixin } from "./fixCircularDependenciesInComponents.js";
+import { uiIcons } from "../uiIcons.js";
 
 export default class projectComponent extends baseComponent {
   static nextId = 0;
-  static icon = { prefix: "solid", icon: "hashtag" };
+  static icon = uiIcons.project;
 
   constructor(
     data,

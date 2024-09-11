@@ -1,6 +1,6 @@
 import genericBaseComponent from "./genericBaseComponent.js";
 import todoComponent from "./todoComponent.js";
-import { uiIcons } from "../dom/uiIcons.js";
+import { uiIcons } from "../uiIcons.js";
 
 export default class filtersAndTagsComponent extends genericBaseComponent {
   #todoFiltersData;

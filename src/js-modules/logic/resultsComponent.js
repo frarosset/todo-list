@@ -1,7 +1,7 @@
 import { listInComponentMixin } from "./fixCircularDependenciesInComponents.js";
 import genericBaseComponent from "./genericBaseComponent.js";
 import PubSub from "pubsub-js";
-import { uiIcons } from "../dom/uiIcons.js";
+import { uiIcons } from "../uiIcons.js";
 
 export default class resultsComponent extends genericBaseComponent {
   static defaultData = {

@@ -9,7 +9,7 @@ import {
 import { deleteElement } from "../../js-utilities/commonDomUtilities.js";
 import baseDomComponent from "./baseDomComponent.js";
 import { changeChildFaIcon } from "../../js-utilities/fontAwesomeUtilities.js";
-import { uiIcons } from "./uiIcons.js";
+import { uiIcons } from "../uiIcons.js";
 import PubSub from "pubsub-js";
 
 export default class baseListDomComponent {

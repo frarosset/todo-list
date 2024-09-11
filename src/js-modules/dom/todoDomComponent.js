@@ -7,6 +7,7 @@ import baseDomComponent from "./baseDomComponent.js";
 import { changeChildFaIcon } from "../../js-utilities/fontAwesomeUtilities.js";
 import PubSub from "pubsub-js";
 import { listInDomComponentMixin } from "./fixCircularDependenciesInDomComponents.js";
+import { uiIcons } from "../uiIcons.js";
 
 export default class todoDomComponent extends baseDomComponent {
   static blockName = "todo-div";
@@ -72,9 +73,9 @@ export default class todoDomComponent extends baseDomComponent {
   ];
 
   static otherInfoIcons = {
-    dueDate: { prefix: "solid", icon: "calendar-day" },
-    priority: { prefix: "solid", icon: "flag" },
-    state: { prefix: "solid", icon: "circle-half-stroke" },
+    dueDate: uiIcons.dueDate,
+    priority: uiIcons.priority,
+    state: uiIcons.state,
   };
 
   static associatedDialog = () => document.body.todoFormDialog; // method to fetch the dialog after its creation

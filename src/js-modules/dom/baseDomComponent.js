@@ -7,7 +7,7 @@ import {
 } from "../../js-utilities/commonDomComponents.js";
 import { isToday, isThisYear } from "date-fns";
 import PubSub from "pubsub-js";
-import { uiIcons } from "./uiIcons.js";
+import { uiIcons } from "../uiIcons.js";
 import { deleteElement } from "../../js-utilities/commonDomUtilities.js";
 import genericBaseDomComponent from "./genericBaseDomComponent.js";
 import resultsComponent from "../logic/resultsComponent.js";

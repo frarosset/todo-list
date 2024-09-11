@@ -15,7 +15,7 @@ import resultsComponent from "../logic/resultsComponent.js";
 import resultsDomListComponent from "./resultsDomListComponent.js";
 import resultsDomMiniNavComponent from "./resultsDomMiniNavComponent.js";
 
-import { uiIcons } from "./uiIcons.js";
+import { uiIcons } from "../uiIcons.js";
 
 export default class homeDomComponent {
   static blockName = "home-div";

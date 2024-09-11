@@ -6,6 +6,7 @@ import {
 } from "./fixCircularDependenciesInComponents";
 import { projectListComponent } from "./fixCircularDependenciesInComponents.js";
 import PubSub from "pubsub-js";
+import { uiIcons } from "../uiIcons.js";
 
 export default class rootComponent {
   #inboxProject;
@@ -36,7 +37,7 @@ export default class rootComponent {
 
     inboxProjectData = {
       ...inboxProjectData,
-      icon: { prefix: "solid", icon: "inbox" },
+      icon: uiIcons.inbox,
     };
 
     // Generic project

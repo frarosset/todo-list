@@ -7,7 +7,7 @@ import {
   initP,
 } from "../../js-utilities/commonDomComponents.js";
 import PubSub from "pubsub-js";
-import { uiIcons } from "./uiIcons.js";
+import { uiIcons } from "../uiIcons.js";
 
 export default class genericBaseDomComponent {
   static blockName = "base-view-div";
