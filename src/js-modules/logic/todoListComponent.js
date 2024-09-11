@@ -10,6 +10,16 @@ export default class todoListComponent extends baseListComponent {
 
   // Methods
 
+  get sizeInfo() {
+    return {
+      str: `${this.size - this.nTodo} / ${this.size}`,
+      tokens: [
+        this.getPubSubName("SIZE CHANGE", "main"),
+        this.getPubSubName("NTODO CHANGE", "main"),
+      ],
+    };
+  }
+
   initItem(data) {
     return new todoComponent(data, this.parent, this);
   }

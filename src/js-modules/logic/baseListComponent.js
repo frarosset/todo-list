@@ -74,6 +74,13 @@ export default class baseListComponent {
     return this.#list.length;
   }
 
+  get sizeInfo() {
+    return {
+      str: `${this.size}`,
+      tokens: [this.getPubSubName("SIZE CHANGE", "main")],
+    };
+  }
+
   idxOf(item) {
     return this.#list.indexOf(item);
   }

@@ -122,14 +122,14 @@ export default class baseListDomComponent {
   }
 
   initSize() {
-    const sizeStr = () => `${this.obj.size}`;
+    const p = initP(this.getCssClass("size"), null, this.obj.sizeInfo.str);
 
-    const p = initP(this.getCssClass("size"), null, sizeStr());
-
-    PubSub.subscribe(this.getPubSubName("SIZE CHANGE", "main"), (msg) => {
-      console.log(msg);
-      p.textContent = sizeStr();
-    });
+    for (const token of this.obj.sizeInfo.tokens) {
+      PubSub.subscribe(token, (msg) => {
+        console.log(msg);
+        p.textContent = this.obj.sizeInfo.str;
+      });
+    }
 
     return p;
   }
