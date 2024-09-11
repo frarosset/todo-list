@@ -1,5 +1,9 @@
-import { uiIcons } from "./uiIcons.js";
-import { initDiv, initButton } from "../../js-utilities/commonDomComponents.js";
+import { uiIcons } from "../uiIcons.js";
+import {
+  initDiv,
+  initP,
+  initButton,
+} from "../../js-utilities/commonDomComponents.js";
 import PubSub from "pubsub-js";
 
 // Call
@@ -28,6 +32,9 @@ export default function domMiniComponentMixin(targetClass, forNav = false) {
       redefineUpdateView()
     );
   } else {
+    // This method is the original one, and will be redefined next
+    const originalInitOtherInfo = targetClass.prototype.initOtherInfo;
+
     targetClass.cssClass = {
       ...targetClass.cssClass,
       expandBtn: `expand-btn`,
@@ -35,6 +42,7 @@ export default function domMiniComponentMixin(targetClass, forNav = false) {
 
     Object.assign(
       targetClass.prototype,
+      redefineInitOtherInfo(originalInitOtherInfo),
       redefineInitMini(),
       initExpandBtn(),
       redefineUpdateView()
@@ -76,6 +84,49 @@ function redefineInitMini() {
       this.div.addEventListener("click", btnRenderItemCallback);
     },
   };
+}
+
+function redefineInitOtherInfo(originalInitOtherInfo) {
+  return {
+    initOtherInfo: function () {
+      const div = originalInitOtherInfo.call(this, true);
+      Object.values(this.obj.data.lists).forEach((list) => {
+        div.append(initSubListSize.call(this, list));
+      });
+
+      return div;
+    },
+  };
+}
+
+function initSubListSize(list) {
+  const cssClass = this.getCssClass("otherInfoDiv");
+  const labelClass = `${cssClass}-label`;
+  const contentClass = `${cssClass}-content`;
+
+  const cssClassHidden = `${cssClass}__hidden`;
+
+  const subListSizeDiv = initDiv(cssClass);
+
+  const toggleHiddenClass = () =>
+    subListSizeDiv.classList.toggle(cssClassHidden, list.size === 0);
+
+  toggleHiddenClass();
+
+  const subListIcon = initP(labelClass, list.icon);
+  const subListCounter = initP(contentClass, null, list.sizeInfo.str);
+
+  for (const token of list.sizeInfo.tokens) {
+    PubSub.subscribe(token, (msg) => {
+      console.log(msg);
+      subListCounter.textContent = list.sizeInfo.str;
+      toggleHiddenClass();
+    });
+  }
+
+  subListSizeDiv.append(subListIcon, subListCounter);
+
+  return subListSizeDiv;
 }
 
 function redefineInitMiniNav() {

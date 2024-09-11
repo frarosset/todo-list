@@ -394,7 +394,7 @@ body > main {
 .todo-div__other-infos-div,
 .note-div__other-infos-div {
   grid-area: otherinfo;
-  font-size: var(--base-mini-other-info-fontsize);
+  font-size: var(--base-other-info-fontsize);
   margin: var(--base-header-other-info-margin);
   padding: var(--base-header-other-info-padding);
 }
@@ -419,7 +419,7 @@ body > main {
 .note-div__action-div,
 .note-mini-div__action-div {
   grid-area: action-div;
-  font-size: var(--base-mini-other-info-fontsize);
+  font-size: var(--base-other-info-fontsize);
   align-self: end;
   justify-self: right;
   padding-left: calc(2 * var(--base-list-gap));
@@ -494,6 +494,9 @@ body > main {
 .todo-list-div__title-h3,
 .note-list-div__title-h3 {
   font-size: var(--title-h3-fontsize);
+  display: flex;
+  align-items: bottom;
+  gap: 0.2em;
 }
 
 .project-list-div__size,
@@ -669,11 +672,20 @@ body > main {
   justify-content: flex-start;
   align-items: baseline;
   align-self: end;
-  gap: 0.5em;
+  gap: 0.7em;
 }
 
-.todo-mini-div__other-info-div {
+.project-mini-div__other-infos-div svg,
+.todo-mini-div__other-infos-div svg,
+.note-mini-div__other-infos-div svg {
+  vertical-align: baseline;
+}
+
+.project-mini-div__other-info-div,
+.todo-mini-div__other-info-div,
+.note-mini-div__other-info-div {
   display: flex;
+  gap: 0.1em;
 }
 
 .project-mini-div__expand-btn,
@@ -795,7 +807,10 @@ body > main {
 .todo-mini-nav-div__n-todo-nested-icon__hidden,
 .note-mini-nav-div__n-todo-nested-icon__hidden,
 .resuls-mini-nav-div__n-todo-nested-icon__hidden,
-.project-mini-nav-div__n-todo-icon__hidden {
+.project-mini-nav-div__n-todo-icon__hidden,
+.project-mini-div__other-info-div__hidden,
+.todo-mini-div__other-info-div__hidden,
+.note-mini-div__other-info-div__hidden {
   display: none;
 }
 
@@ -1042,7 +1057,7 @@ body > main {
 
 .todo-form-dialog__other-infos-div,
 .list-settings-form-dialog__ {
-  font-size: var(--base-mini-other-info-fontsize);
+  font-size: var(--base-other-info-fontsize);
   margin: var(--base-header-other-info-margin);
   padding: var(--base-header-other-info-padding);
   border-top: 1px solid var(--otherinfo-line-color);
@@ -1058,7 +1073,7 @@ body > main {
 }
 
 .list-settings-form-dialog__sort-by-input {
-  font-size: var(--base-mini-other-info-fontsize);
+  font-size: var(--base-other-info-fontsize);
   display: flex;
   gap: var(--base-ul-gap);
   align-items: baseline;
@@ -1145,10 +1160,11 @@ body > main {
   --base-mini-title-fontsize: 1rem;
   --base-mini-status-fontsize: 1.4rem;
   --base-mini-path-fontsize: 0.5rem;
-  --base-mini-other-info-fontsize: 0.8rem;
+  --base-other-info-fontsize: 0.8rem;
+  --base-mini-other-info-fontsize: 0.5rem;
   --base-footer-fontsize: 0.5rem;
-  --ntodonested-fontsize: calc(0.5 * var(--base-mini-other-info-fontsize));
-  --ntodonested-nav-fontsize: calc(0.75 * var(--base-mini-other-info-fontsize));
+  --ntodonested-fontsize: calc(0.5 * var(--base-other-info-fontsize));
+  --ntodonested-nav-fontsize: calc(0.75 * var(--base-other-info-fontsize));
   --base-list-size-fontsize: 0.7rem;
 
   --main-padding: 1rem;
