@@ -6,7 +6,7 @@ export default class baseListComponent {
   #list;
 
   static defultSettings = {
-    sortBy: "dateOfEdit",
+    sortBy: "dateOfCreation",
     descending: false,
   };
 

@@ -514,6 +514,9 @@ body > main {
 .project-list-div__expand-btn,
 .todo-list-div__expand-btn,
 .note-list-div__expand-btn,
+.project-list-div__settings-btn,
+.todo-list-div__settings-btn,
+.note-list-div__settings-btn,
 .project-list-div__new-item-btn,
 .todo-list-div__new-item-btn,
 .note-list-div__new-item-btn {
@@ -870,7 +873,8 @@ body > main {
 
 .project-form-dialog,
 .todo-form-dialog,
-.note-form-dialog {
+.note-form-dialog,
+.list-settings-form-dialog {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -886,7 +890,8 @@ body > main {
 
 .project-form-dialog__header,
 .todo-form-dialog__header,
-.note-form-dialog__header {
+.note-form-dialog__header,
+.list-settings-form-dialog__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -896,20 +901,23 @@ body > main {
 
 .project-form-dialog__title-h2,
 .todo-form-dialog__title-h2,
-.note-form-dialog__title-h2 {
+.note-form-dialog__title-h2,
+.list-settings-form-dialog__title-h2 {
   font-size: var(--base-path-fontsize);
   padding: 0 var(--base-list-padding-top);
   text-transform: uppercase;
 }
 .project-form-dialog__back-btn,
 .todo-form-dialog__back-btn,
-.note-form-dialog__back-btn {
+.note-form-dialog__back-btn,
+.list-settings-form-dialog__back-btn {
   font-size: var(--base-back-btn-fontsize);
 }
 
 .project-form-dialog__content,
 .todo-form-dialog__content,
-.note-form-dialog__content {
+.note-form-dialog__content,
+.list-settings-form-dialog__content {
   background-color: var(--dialog-content-bg-color);
   color: var(--dialog-content-color);
   border-radius: var(--base-list-radius);
@@ -939,7 +947,8 @@ body > main {
 
 .project-form-dialog__submit-btn,
 .todo-form-dialog__submit-btn,
-.note-form-dialog__submit-btn {
+.note-form-dialog__submit-btn,
+.list-settings-form-dialog__submit-btn {
   background-color: var(--dialog-submit-btn-bg-color);
   color: var(--dialog-submit-btn-color);
   border-radius: var(--base-list-new-item-btn-radius);
@@ -948,7 +957,8 @@ body > main {
 
 .project-form-dialog__form,
 .todo-form-dialog__form,
-.note-form-dialog__form {
+.note-form-dialog__form,
+.list-settings-form-dialog__form {
   display: flex;
   flex-direction: column;
 }
@@ -1030,7 +1040,8 @@ body > main {
   padding-left: 1em; /*to be adjusted manually*/
 }
 
-.todo-form-dialog__other-infos-div {
+.todo-form-dialog__other-infos-div,
+.list-settings-form-dialog__ {
   font-size: var(--base-mini-other-info-fontsize);
   margin: var(--base-header-other-info-margin);
   padding: var(--base-header-other-info-padding);
@@ -1046,8 +1057,16 @@ body > main {
   align-items: baseline;
 }
 
+.list-settings-form-dialog__sort-by-input {
+  font-size: var(--base-mini-other-info-fontsize);
+  display: flex;
+  gap: var(--base-ul-gap);
+  align-items: baseline;
+}
+
 .todo-form-dialog__other-info-div input,
-.todo-form-dialog__other-info-div select {
+.todo-form-dialog__other-info-div select,
+.list-settings-form-dialog__sort-by-input select {
   height: 2em;
   width: 8em;
 }
@@ -1055,11 +1074,13 @@ body > main {
   padding-left: 0.18em;
 }
 
-.todo-form-dialog__other-info-div svg {
+.todo-form-dialog__other-info-div svg,
+.list-settings-form-dialog__sort-by-input svg {
   vertical-align: baseline;
 }
 
-.todo-form-dialog__other-info-div-label {
+.todo-form-dialog__other-info-div-label,
+.list-settings-form-dialog__sort-by-input-label {
   width: var(--base-other-info-label-width);
 }
 
