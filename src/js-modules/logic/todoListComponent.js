@@ -1,8 +1,11 @@
 import { todoComponent } from "./fixCircularDependenciesInComponents.js";
 import baseListComponent from "./baseListComponent.js";
 import PubSub from "pubsub-js";
+import { uiIcons } from "../dom/uiIcons.js";
 
 export default class todoListComponent extends baseListComponent {
+  static icon = uiIcons.todoList;
+
   constructor(name, parent, itemData = [], editable = true) {
     super(name, parent, itemData, editable);
     this.type = "T";

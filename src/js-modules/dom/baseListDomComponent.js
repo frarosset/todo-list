@@ -28,7 +28,7 @@ export default class baseListDomComponent {
 
   static associatedDialog = () => null; // method to fetch the dialog after its creation
   static settingsDialog = () => document.body.listSettingsFormDialog;
-  static icon = null;
+
   #listMap; // A Map object that stores (obj, div) pairs, where obj is a reference to a baseComponent instance and used as the key, and div the dom div representing it
 
   getCssClass(element) {
@@ -115,7 +115,7 @@ export default class baseListDomComponent {
   initName() {
     return initH3(
       this.getCssClass("titleH3"),
-      this.constructor.icon,
+      this.obj.icon,
       "",
       this.obj.name
     );

@@ -1,7 +1,10 @@
 import { noteComponent } from "./fixCircularDependenciesInComponents.js";
 import baseListComponent from "./baseListComponent.js";
+import { uiIcons } from "../dom/uiIcons.js";
 
 export default class noteListComponent extends baseListComponent {
+  static icon = uiIcons.noteList;
+
   constructor(name, parent, itemData = [], editable = true) {
     super(name, parent, itemData, editable);
     this.type = "N";

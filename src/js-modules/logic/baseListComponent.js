@@ -10,6 +10,8 @@ export default class baseListComponent {
     descending: false,
   };
 
+  static icon = null;
+
   getPubSubName(str, topic = null, includeParent = true) {
     const topicStr = topic ? `${topic}:` : "";
     const parentStr =
@@ -79,6 +81,14 @@ export default class baseListComponent {
       str: `${this.size}`,
       tokens: [this.getPubSubName("SIZE CHANGE", "main")],
     };
+  }
+
+  get icon() {
+    if (this.cusomIcon) {
+      return this.cusomIcon;
+    } else {
+      return this.constructor.icon;
+    }
   }
 
   idxOf(item) {
