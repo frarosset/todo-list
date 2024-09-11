@@ -22,10 +22,12 @@ export default class baseListDomComponent {
     ul: `ul`,
     li: `li`,
     newItemBtn: "new-item-btn",
+    settingsBtn: "settings-btn",
     expandBtn: "expand-btn",
   };
 
   static associatedDialog = () => null; // method to fetch the dialog after its creation
+  static settingsDialog = () => document.body.listSettingsFormDialog;
   static icon = null;
   #listMap; // A Map object that stores (obj, div) pairs, where obj is a reference to a baseComponent instance and used as the key, and div the dom div representing it
 
@@ -87,11 +89,14 @@ export default class baseListDomComponent {
     div.appendChild(this.initSize());
     header.appendChild(div);
 
+    header.appendChild(this.initSettingsBtn());
+
+    const expandBtn = this.initExpandBtn(ul);
+    header.appendChild(expandBtn);
+
     if (this.obj.editable) {
       header.appendChild(this.initNewItemBtn());
     }
-    const expandBtn = this.initExpandBtn(ul);
-    header.appendChild(expandBtn);
 
     header.ul = ul;
     header.btn = expandBtn;
@@ -144,11 +149,23 @@ export default class baseListDomComponent {
   initNewItemBtn() {
     const newItemBtn = initButton(
       this.getCssClass("newItemBtn"),
-      baseListDomComponent.addNewItem,
+      baseListDomComponent.showDialog,
       uiIcons.new
     );
     newItemBtn.associatedDialog = this.constructor.associatedDialog;
     newItemBtn.parentObj = this.obj;
+
+    return newItemBtn;
+  }
+
+  initSettingsBtn() {
+    const newItemBtn = initButton(
+      this.getCssClass("settingsBtn"),
+      baseListDomComponent.showDialog,
+      uiIcons.settings
+    );
+    newItemBtn.associatedDialog = this.constructor.settingsDialog;
+    newItemBtn.parentObj = this;
 
     return newItemBtn;
   }
@@ -195,7 +212,7 @@ export default class baseListDomComponent {
     e.stopPropagation();
   }
 
-  static addNewItem(e) {
+  static showDialog(e) {
     const associatedDialog = e.currentTarget.associatedDialog();
     if (associatedDialog != null) {
       // reset form //tofix
@@ -222,5 +239,10 @@ export default class baseListDomComponent {
         domItemDiv.parentElement.style.order = idx;
       }
     });
+  }
+
+  updateSettings(data) {
+    Object.assign(this.obj.settings, data);
+    this.sortBy();
   }
 }

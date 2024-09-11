@@ -6,7 +6,7 @@ export default class baseListComponent {
   #list;
 
   static defultSettings = {
-    sortBy: "title",
+    sortBy: "dateOfEdit",
     descending: false,
   };
 
@@ -265,8 +265,13 @@ export default class baseListComponent {
     b = b.toLowerCase();
     return a < b ? -1 : a > b ? 1 : 0;
   };
-  static dateSortCallback = (a, b) =>
-    isBefore(a, b) ? -1 : isAfter(a, b) ? 1 : 0;
+  static dateSortCallback = (a, b) => {
+    if (a == null) {
+      return b == null ? 0 : -1;
+    }
+    if (b == null) return 1;
+    return isBefore(a, b) ? -1 : isAfter(a, b) ? 1 : 0;
+  };
   static numSortCallback = (a, b) => a - b;
 
   static sortCallbacks = {
@@ -275,8 +280,17 @@ export default class baseListComponent {
       baseListComponent.dateSortCallback(a.dateOfCreation, b.dateOfCreation),
     dateOfEdit: (a, b) =>
       baseListComponent.dateSortCallback(a.dateOfEdit, b.dateOfEdit),
-    path: (a, b) =>
-      baseListComponent.strSortCallback(a.pathAndThisStr, b.pathAndThisStr),
+    path: (a, b) => {
+      const result = baseListComponent.strSortCallback(a.pathStr, b.pathStr);
+      if (result == 0)
+        return baseListComponent.strSortCallback(
+          a.pathAndThisStr,
+          b.pathAndThisStr
+        );
+      else return result;
+    },
+    nTodoNested: (a, b) =>
+      baseListComponent.numSortCallback(a.nTodoNested, b.nTodoNested),
   };
 
   getSortedBy(variable, descending = false) {

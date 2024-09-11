@@ -46,8 +46,9 @@ export default class todoListComponent extends baseListComponent {
 
   static sortCallbacks = {
     ...baseListComponent.sortCallbacks,
-    priority: (a, b) => baseListComponent.numSortCallback(a.title, b.title),
-    state: (a, b) => baseListComponent.numSortCallback(a.title, b.title),
+    priority: (a, b) =>
+      baseListComponent.numSortCallback(a.priorityIdx, b.priorityIdx),
+    state: (a, b) => baseListComponent.numSortCallback(a.stateIdx, b.stateIdx),
     dueDate: (a, b) => baseListComponent.dateSortCallback(a.dueDate, b.dueDate),
   };
 }
