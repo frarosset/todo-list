@@ -6,14 +6,14 @@ const defaultData = {
   githubName: "frarosset",
 };
 
-export default function setCreditFooter(data) {
+export default function setCreditFooter(data, parent = document.body) {
   data = Object.assign(defaultData, data);
 
   //let footer = document.querySelector("footer");
   //if (!footer) {
   const footer = document.createElement("footer");
   footer.classList.add("credit-footer");
-  document.body.appendChild(footer);
+  parent.appendChild(footer);
   //}
 
   const a = document.createElement("a");

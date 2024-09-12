@@ -1,3 +1,4 @@
+import { initDiv } from "../../js-utilities/commonDomComponents.js";
 import headerDomComponent from "./headerDomComponent.js";
 import mainDomComponent from "./mainDomComponent.js";
 import setCreditFooter from "../../js-utilities/creditFooter.js";
@@ -11,8 +12,12 @@ export default class domStructure {
     const headerDomObj = new headerDomComponent(root);
     const mainDomObj = new mainDomComponent(root);
 
+    const contentDiv = initDiv("content-div");
     document.body.appendChild(headerDomObj.header);
-    document.body.appendChild(mainDomObj.main);
+    document.body.appendChild(contentDiv);
+
+    contentDiv.appendChild(mainDomObj.main);
+    setCreditFooter({}, contentDiv);
 
     // Add dialogs
     const projectFormDialog = new projectFormDomComponent(root);
@@ -30,7 +35,5 @@ export default class domStructure {
     const listSettingsFormDialog = new listSettingsFormDomComponent(root);
     document.body.appendChild(listSettingsFormDialog.dialog);
     document.body.listSettingsFormDialog = listSettingsFormDialog;
-
-    setCreditFooter();
   }
 }
