@@ -8,7 +8,7 @@ import {
 } from "../../js-utilities/commonDomComponents.js";
 import baseFormDomComponent from "./baseFormDomComponent.js";
 import { todoComponent } from "../logic/fixCircularDependenciesInComponents.js";
-import { todoDomComponent } from "./fixCircularDependenciesInDomComponents.js";
+import { uiIcons } from "../uiIcons.js";
 import { format, addDays, addMonths, addYears } from "date-fns";
 
 export default class todoFormDomComponent extends baseFormDomComponent {
@@ -129,7 +129,7 @@ export default class todoFormDomComponent extends baseFormDomComponent {
     const label = initLabel(
       listOfClasses.label,
       listOfIds.select, //for
-      todoDomComponent.otherInfoIcons.dueDate,
+      uiIcons.dueDate,
       "",
       "Due date: "
     );
@@ -233,7 +233,7 @@ export default class todoFormDomComponent extends baseFormDomComponent {
     const label = initLabel(
       listOfClasses.label,
       listOfIds.select, // for
-      todoDomComponent.otherInfoIcons.priority,
+      uiIcons.priority,
       "",
       "Priority: "
     );

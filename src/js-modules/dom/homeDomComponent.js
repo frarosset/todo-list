@@ -9,8 +9,8 @@ import filtersAndTagsComponent from "../logic/filtersAndTagsComponent.js";
 import filtersAndTagsDomMiniNavComponent from "./filtersAndTagsDomMiniNavComponent.js";
 import searchComponent from "../logic/searchComponent.js";
 import searchDomMiniNavComponent from "./searchDomMiniNavComponent.js";
-import todoComponent from "../logic/todoComponent.js";
-import todoDomComponent from "./todoDomComponent.js";
+import { todoComponent } from "../logic/fixCircularDependenciesInComponents.js";
+import { todoDomComponent } from "./fixCircularDependenciesInDomComponents.js";
 import resultsComponent from "../logic/resultsComponent.js";
 import resultsDomListComponent from "./resultsDomListComponent.js";
 import resultsDomMiniNavComponent from "./resultsDomMiniNavComponent.js";
@@ -60,40 +60,7 @@ export default class homeDomComponent {
 
     const inboxDom = new projectDomMiniNavComponent(root.inboxProject);
 
-    /**/
-
-    const imminenceResultsComponents = [];
-    const imminenceResults = [];
-    const getImminenceFilterResults = (idx) => {
-      return new resultsComponent(
-        {
-          title: todoComponent.imminenceLabels[idx],
-          icon: todoDomComponent.imminenceIcons[idx],
-          variable: "imminence",
-          value: idx,
-        },
-        root
-      );
-    };
-    const imminenceIdxArr = [
-      todoComponent.overdueIdx,
-      todoComponent.todayIdx,
-      todoComponent.upcomingIdx,
-    ];
-    imminenceIdxArr.forEach((idx) => {
-      imminenceResultsComponents.push(getImminenceFilterResults(idx));
-    });
-    imminenceResultsComponents.forEach((obj) => {
-      const resultsDomMiniNav = new resultsDomMiniNavComponent(obj);
-      const resultsDomList = new resultsDomListComponent(obj);
-
-      const imminenceResult = initDiv(this.getCssClass("imminenceResults"));
-      imminenceResult.append(resultsDomMiniNav.div, resultsDomList.div);
-
-      imminenceResults.push(imminenceResult);
-    });
-
-    /**/
+    const imminenceResults = this.initCustomImminenceFilters(root);
 
     const filtersAndTags = new filtersAndTagsComponent({}, root);
     const filtersAndTagsDomMiniNav = new filtersAndTagsDomMiniNavComponent(
@@ -117,5 +84,37 @@ export default class homeDomComponent {
     );
 
     return contentDiv;
+  }
+
+  initCustomImminenceFilters(root) {
+    const imminenceResults = [];
+    const getImminenceFilterResults = (idx) => {
+      return new resultsComponent(
+        {
+          title: todoComponent.imminenceLabels[idx],
+          icon: todoDomComponent.imminenceIcons[idx],
+          variable: "imminence",
+          value: idx,
+        },
+        root
+      );
+    };
+    const imminenceIdxArr = [
+      todoComponent.overdueIdx,
+      todoComponent.todayIdx,
+      todoComponent.upcomingIdx,
+    ];
+    imminenceIdxArr.forEach((idx) => {
+      const obj = getImminenceFilterResults(idx);
+      const resultsDomMiniNav = new resultsDomMiniNavComponent(obj);
+      const resultsDomList = new resultsDomListComponent(obj);
+
+      const imminenceResult = initDiv(this.getCssClass("imminenceResults"));
+      imminenceResult.append(resultsDomMiniNav.div, resultsDomList.div);
+
+      imminenceResults.push(imminenceResult);
+    });
+
+    return imminenceResults;
   }
 }

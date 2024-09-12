@@ -5,18 +5,20 @@ import {
   initDiv,
 } from "../../js-utilities/commonDomComponents.js";
 import PubSub from "pubsub-js";
+import filtersAndTagsComponent from "../logic/filtersAndTagsComponent.js";
+import searchComponent from "../logic/searchComponent.js";
+import { todoComponent } from "../logic/fixCircularDependenciesInComponents.js";
+import { todoDomComponent } from "./fixCircularDependenciesInDomComponents.js";
+import { uiIcons } from "../uiIcons.js";
 
 const blockName = "main-nav";
 const cssClass = {
   nav: blockName,
   divPredefined: `${blockName}__div-predefined`,
-  ulPredefined: `${blockName}__ul-predefined`,
-  liInbox: `${blockName}__li-inbox`,
-  btnInbox: `${blockName}__btn-inbox`,
-  divProjects: `${blockName}__div-custom-projects`,
-  ulProjects: `${blockName}__ul-custom-projects`,
-  liProjects: `${blockName}__li-custom-project`,
-  btnProjects: `${blockName}__btn-custom-project`,
+  divCustomProjects: `${blockName}__div-custom-projects`,
+  ul: `${blockName}__ul`,
+  li: `${blockName}__li`,
+  btn: `${blockName}__li-btn`,
 };
 
 export default class navDomComponent {
@@ -25,7 +27,7 @@ export default class navDomComponent {
     this.nav.classList.add(cssClass.nav);
 
     const predefinedDiv = this.#initPredefinedDiv(root);
-    const projectsDiv = this.#initProjectsDiv(root);
+    const projectsDiv = this.#initCustomProjectsDiv(root);
 
     this.nav.append(predefinedDiv, projectsDiv);
   }
@@ -34,61 +36,103 @@ export default class navDomComponent {
   #initPredefinedDiv(root) {
     const div = initDiv(cssClass.divPredefined);
 
-    const ul = initUl(cssClass.ulPredefined);
+    const ul = initUl(cssClass.ul);
 
     div.append(ul);
 
-    // Init inbox project button
-    this.#initProjectRenderLi(
+    // Init home project button -----------------------------------------
+
+    this.#initItemRenderLi(
       ul,
-      root.inboxProject,
-      cssClass.liInbox,
-      cssClass.btnInbox,
+      { title: "Home", icon: uiIcons.home },
+      "GENERIC",
       null
     );
+
+    // Init inbox project button -----------------------------------------
+
+    this.#initItemRenderLi(ul, root.inboxProject);
+
+    // Overdue, Today, Upcoming ------------------------------------------
+
+    ul.append(document.createElement("hr"));
+
+    this.#initCustomImminenceFilters(ul);
+
+    ul.append(document.createElement("hr"));
+
+    // Filters, tags, search ------------------------------------------------
+
+    const filtersAndTags = new filtersAndTagsComponent({}, root);
+    this.#initItemRenderLi(ul, filtersAndTags, "FILTERS AND TAGS");
+
+    const search = new searchComponent({}, root);
+    this.#initItemRenderLi(ul, search, "SEARCH");
 
     return div;
   }
 
-  #initProjectsDiv(root) {
-    const div = initDiv(cssClass.divProjects);
+  #initCustomImminenceFilters(ul) {
+    const getImminenceFilterResults = (idx) => {
+      return {
+        title: todoComponent.imminenceLabels[idx],
+        icon: todoDomComponent.imminenceIcons[idx],
+        variable: "imminence",
+        value: idx,
+      };
+    };
+    const imminenceIdxArr = [
+      todoComponent.overdueIdx,
+      todoComponent.todayIdx,
+      todoComponent.upcomingIdx,
+    ];
+    imminenceIdxArr.forEach((idx) => {
+      const resultsData = getImminenceFilterResults(idx);
+      this.#initItemRenderLi(ul, resultsData, "RESULTS", {
+        data: resultsData,
+        parent: null,
+      });
+    });
+  }
+
+  #initCustomProjectsDiv(root) {
+    const div = initDiv(cssClass.divCustomProjects);
 
     const h2 = document.createElement("h2");
     h2.textContent = "PROJECTS";
-    const ul = initUl(cssClass.ulProjects);
+    const ul = initUl(cssClass.ul);
 
     div.append(h2, ul);
 
     // Init custom projects buttons
 
     root.customProjects.forEach((project) => {
-      this.#initProjectRenderLi(
-        ul,
-        project,
-        cssClass.liProjects,
-        cssClass.btnProjects,
-        null
-      );
+      this.#initItemRenderLi(ul, project, "PROJECT");
     });
 
     return div;
   }
 
-  #initProjectRenderLi(ul, associatedProject, liClass, btnClass, btnIcon) {
-    const li = initLiAsChildInList(ul, liClass);
+  #initItemRenderLi(ul, item, renderStr = "GENERIC", itemToRender = item) {
+    const li = initLiAsChildInList(ul, cssClass.li);
     const btn = initButton(
-      btnClass,
-      navDomComponent.btnRenderProjectCallback,
-      btnIcon,
-      associatedProject.title
+      cssClass.btn,
+      navDomComponent.btnRenderItemCallback,
+      item.icon,
+      "",
+      item.title
     );
-    btn.associatedProject = associatedProject;
+    btn.associatedItem = itemToRender;
+    btn.renderStr = renderStr;
     li.appendChild(btn);
   }
 
   // callbacks
-  static btnRenderProjectCallback = (e) => {
-    PubSub.publish("RENDER PROJECT", e.currentTarget.associatedProject);
+  static btnRenderItemCallback = (e) => {
+    PubSub.publish(
+      `RENDER ${e.currentTarget.renderStr}`,
+      e.currentTarget.associatedItem
+    );
     e.stopPropagation();
   };
 }
