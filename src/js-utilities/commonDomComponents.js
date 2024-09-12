@@ -8,6 +8,18 @@ export function initDiv(className = null) {
   return element;
 }
 
+export function initH1(
+  className = null,
+  faIcon = null,
+  textPre = "",
+  textPost = ""
+) {
+  const element = document.createElement("h1");
+  applyClass(element, className);
+  setFaIconInBetweenText(element, faIcon, textPre, textPost);
+  return element;
+}
+
 export function initH2(
   className = null,
   faIcon = null,
