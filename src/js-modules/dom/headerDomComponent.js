@@ -1,4 +1,8 @@
-import { initH1, initButton } from "../../js-utilities/commonDomComponents.js";
+import {
+  initH1,
+  initButton,
+  initDiv,
+} from "../../js-utilities/commonDomComponents.js";
 import navDomComponent from "./navDomComponent.js";
 import { uiIcons } from "../uiIcons.js";
 import { changeChildFaIcon } from "../../js-utilities/fontAwesomeUtilities.js";
@@ -7,11 +11,13 @@ export default class headerDomComponent {
   constructor(root) {
     this.header = document.createElement("header");
 
+    const headingDiv = initDiv("app-heading");
     const h1 = initH1("app-title", null, "", "TODO APP");
     const navObj = new navDomComponent(root);
     const expandBtn = initExpandNavBtn(navObj.nav);
 
-    this.header.append(expandBtn, h1, navObj.nav);
+    headingDiv.append(expandBtn, h1);
+    this.header.append(headingDiv, navObj.nav);
   }
 }
 

@@ -120,8 +120,8 @@ body {
 body {
   display: grid;
   grid-template-areas: "header content";
-  grid-template-columns: min-content 1fr;
-  grid-template-rows: 1fr min-content;
+  grid-template-columns: max-content 1fr;
+  grid-template-rows: 1fr;
   align-items: start;
   overflow: hidden;
 }
@@ -179,6 +179,22 @@ body > header {
   top: 0;
   left: 0;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+body:has(.hidden) {
+  grid-template-areas:
+    "header"
+    "content";
+  grid-template-columns: 1fr;
+  grid-template-rows: min-content 1fr;
+}
+
+body > header:has(.hidden) {
+  height: min-content;
+  width: 100%;
+  position: static;
 }
 
 @media only screen and (min-width: 641px) {
@@ -201,6 +217,14 @@ body > header {
 }
 
 /* main nav */
+.app-heading {
+  display: flex;
+  gap: 0.3em;
+  padding: 0.5em;
+  font-size: 1.5rem;
+  align-items: center;
+}
+
 .main-nav {
   padding: var(--nav-padding);
   width: max-content;
