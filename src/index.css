@@ -11,13 +11,19 @@
 
   /* Colors (background)*/
   --bg-col: var(--col-white);
-  --header-bg-col: var(--col-secondary);
+  --header-bg-col: var(--col-black);
 
   /* Colors (text/icons)*/
   --col-txt: var(--col-black);
   --col-txt-alt: var(--col-white);
   --col-txt-secondary: var(--col-grey);
   --col-highlight: var(--col-accent);
+
+  --header-col: var(--col-white);
+  --nav-txt-col: var(--col-grey);
+  --nav-icon-col: var(--col-secondary);
+  --nav-highlight-txt-col: var(--col-white);
+  --nav-highlight-icon-col: var(--col-accent);
 
   /* Font family */
   --main-font: "Oswald", sans-serif;
@@ -49,8 +55,9 @@
   --max-width: min(1440px, 100%);
 
   /*Margins, gaps and paddings (+widths)*/
-
-  /* Images / icons size */
+  --nav-padding: 2em;
+  --nav-gap: 0.3em;
+  --nav-h2-padding: calc(3 * var(--nav-gap)) 0 calc(2 * var(--nav-gap));
 
   /* Radius */
   /* --radius:           10px; */
@@ -111,9 +118,12 @@ body {
 /* || Generic */
 
 body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: grid;
+  grid-template-areas: "header content";
+  grid-template-columns: min-content 1fr;
+  grid-template-rows: 1fr min-content;
+  align-items: start;
+  overflow: hidden;
 }
 
 body > * {
@@ -160,12 +170,80 @@ button {
 
 /* Custom style */
 body > header {
+  grid-area: header;
   background-color: var(--header-bg-col);
+  color: var(--header-col);
+  height: 100%;
+  width: max-content;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow: hidden;
 }
 
-body > main {
+@media only screen and (min-width: 641px) {
+  body > header {
+    position: static;
+  }
+}
+
+.content-div {
+  grid-area: content;
+  overflow: auto;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.content-div > main {
   flex: 1;
   padding: var(--main-padding);
+}
+
+/* main nav */
+.main-nav {
+  padding: var(--nav-padding);
+  width: max-content;
+  overflow: auto;
+  height: 100%;
+}
+
+.main-nav h2 {
+  color: var(--nav-highlight-txt-col);
+  padding: var(--nav-h2-padding);
+}
+
+.main-nav hr {
+  border: none;
+  margin: var(--nav-gap);
+}
+
+.main-nav__li-btn {
+  font-weight: normal;
+  display: flex;
+  gap: var(--nav-gap);
+  color: var(--nav-txt-col);
+  user-select: none;
+}
+
+.main-nav__li svg {
+  color: var(--nav-icon-col);
+}
+
+.main-nav__li-btn:active {
+  color: var(--nav-highlight-txt-col);
+}
+.main-nav__li:active svg {
+  color: var(--nav-highlight-icon-col);
+}
+
+@media not all and (hover: none) {
+  .main-nav__li-btn:hover {
+    color: var(--nav-highlight-txt-col);
+  }
+  .main-nav__li:hover svg {
+    color: var(--nav-highlight-icon-col);
+  }
 }
 
 /* project/todo div ---------------------------- */
