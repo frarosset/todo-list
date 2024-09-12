@@ -13,6 +13,19 @@
   --bg-col: var(--col-white);
   --header-bg-col: var(--col-black);
 
+  --home-project-mini-nav-bg-color: var(--col-secondary);
+  --home-project-mini-nav-hover-bg-color: var(--col-black);
+  --base-list-bg-color: var(--col-grey);
+  --base-list-new-item-btn-bg-color: var(--col-black);
+  --base-list-new-item-btn-hover-bg-color: var(--col-black);
+  --base-mini-bg-color: var(--col-white);
+  --base-tag-bg-color: var(--col-secondary);
+  --dialog-bg-color: var(--col-black);
+  --dialog-content-bg-color: var(--bg-col);
+  --dialog-submit-btn-bg-color: var(--col-accent);
+  --ntodonested-bg-color: var(--col-black);
+  --ntodonested-nav-bg-color: var(--col-accent);
+
   /* Colors (text/icons)*/
   --col-txt: var(--col-black);
   --col-txt-alt: var(--col-white);
@@ -25,12 +38,48 @@
   --nav-highlight-txt-col: var(--col-white);
   --nav-highlight-icon-col: var(--col-accent);
 
+  --home-project-mini-nav-color: var(--col-txt-alt);
+  --home-project-mini-nav-hover-color: var(--col-accent);
+  --base-list-new-item-btn-color: var(--col-white);
+  --base-list-new-item-btn-hover-color: var(--col-accent);
+  --otherinfo-line-color: var(--col-grey);
+  --base-tag-color: var(--col-txt-alt);
+  --title-h2-color: var(--col-txt);
+  --title-h2-decoration-color: var(--col-secondary);
+  --dialog-color: var(--col-txt-alt);
+  --dialog-content-color: var(--col-txt);
+  --dialog-submit-btn-color: var(var(--col-txt));
+  --light-btn-color: var(--col-secondary);
+  --base-list-size-color: var(--col-secondary);
+  --lighter-btn-color: var(--col-grey);
+  --btn-hover-color: var(--col-accent);
+  --ntodonested-color: var(--col-white);
+  --ntodonested-nav-color: var(--col-black);
+
   /* Font family */
   --main-font: "Oswald", sans-serif;
 
   /* Font sizes */
   --txt-fontsize: 18px;
   --txt-lineheight: 1.2;
+  --title-h2-fontsize: 2rem;
+  --title-h3-fontsize: 0.8rem;
+  --base-back-btn-fontsize: 1.8rem;
+  --base-status-fontsize: 2rem;
+  --base-path-fontsize: 0.8rem;
+  --base-description-fontsize: 1rem;
+  --base-tags-fontsize: 1rem;
+  --base-imminence-fontsize: 1.4rem;
+  --base-list-btn-fontsize: 1rem;
+  --base-mini-title-fontsize: 1rem;
+  --base-mini-status-fontsize: 1.4rem;
+  --base-mini-path-fontsize: 0.5rem;
+  --base-other-info-fontsize: 0.8rem;
+  --base-mini-other-info-fontsize: 0.5rem;
+  --base-footer-fontsize: 0.5rem;
+  --ntodonested-fontsize: calc(0.5 * var(--base-other-info-fontsize));
+  --ntodonested-nav-fontsize: calc(0.75 * var(--base-other-info-fontsize));
+  --base-list-size-fontsize: 0.7rem;
 
   --icon-h2-width: calc(
     1.2 *
@@ -59,8 +108,42 @@
   --nav-gap: 0.3em;
   --nav-h2-padding: calc(3 * var(--nav-gap)) 0 calc(2 * var(--nav-gap));
 
+  --main-padding: 1rem;
+  --base-list-padding-top: 1rem;
+  --base-list-padding-sides: 0.5rem;
+  --base-list-padding: var(--base-list-padding-top)
+    var(--base-list-padding-sides) var(--base-list-padding-sides);
+  --base-list-btn-padding: 3px;
+  --base-mini-padding: 0.5rem;
+  --base-header-padding: 0 0 2rem;
+  --base-footer-padding: 1rem 0 0;
+  --base-header-other-info-padding: 0.5rem 0 0;
+  --dialog-padding: 0.3rem;
+  --dialog-header-padding: 0.3rem;
+
+  --base-list-gap: 1rem;
+  --base-status-margin-right: 0.3rem;
+  --base-header-tags-margin: 1rem 0 0;
+  --base-header-other-info-margin: 1rem 0 0;
+  --base-mini-status-margin-right: 0.3rem;
+  --base-tag-padding-ul: 0.2rem;
+  --base-tag-padding: var(--base-tag-padding-ul) 0.4rem;
+  --base-todo-padding: 1em;
+
+  --base-content-gap: 1rem;
+  --base-other-info-label-width: 5em;
+  --base-list-gap: 0.5rem;
+  --base-ul-gap: 0.5rem;
+  --home-content-gap: 1rem;
+
+  --dialog-margin: var(--main-padding);
+  --dialog-width: calc(var(--max-width) - 2 * var(--main-padding));
+
   /* Radius */
-  /* --radius:           10px; */
+  --base-list-radius: 10px;
+  --base-tag-radius: 5px;
+  --base-mini-radius: 10px;
+  --base-list-new-item-btn-radius: 5px;
 
   /* Shadows */
   /* --outset-shadow: 2px 2px 8px var(--col-accent-medium);
@@ -1378,93 +1461,3 @@ body > header:has(nav.hidden) {
   display: none !important;
   opacity: 0;
 }
-
-:root {
-  --title-h2-fontsize: 2rem;
-  --title-h3-fontsize: 0.8rem;
-  --base-back-btn-fontsize: 1.8rem;
-  --base-status-fontsize: 2rem;
-  --base-path-fontsize: 0.8rem;
-  --base-description-fontsize: 1rem;
-  --base-tags-fontsize: 1rem;
-  --base-imminence-fontsize: 1.4rem;
-  --base-list-btn-fontsize: 1rem;
-  --base-mini-title-fontsize: 1rem;
-  --base-mini-status-fontsize: 1.4rem;
-  --base-mini-path-fontsize: 0.5rem;
-  --base-other-info-fontsize: 0.8rem;
-  --base-mini-other-info-fontsize: 0.5rem;
-  --base-footer-fontsize: 0.5rem;
-  --ntodonested-fontsize: calc(0.5 * var(--base-other-info-fontsize));
-  --ntodonested-nav-fontsize: calc(0.75 * var(--base-other-info-fontsize));
-  --base-list-size-fontsize: 0.7rem;
-
-  --main-padding: 1rem;
-  --base-list-padding-top: 1rem;
-  --base-list-padding-sides: 0.5rem;
-  --base-list-padding: var(--base-list-padding-top)
-    var(--base-list-padding-sides) var(--base-list-padding-sides);
-  --base-list-btn-padding: 3px;
-  --base-mini-padding: 0.5rem;
-  --base-header-padding: 0 0 2rem;
-  --base-footer-padding: 1rem 0 0;
-  --base-header-other-info-padding: 0.5rem 0 0;
-  --dialog-padding: 0.3rem;
-  --dialog-header-padding: 0.3rem;
-
-  --base-list-gap: 1rem;
-  --base-status-margin-right: 0.3rem;
-  --base-header-tags-margin: 1rem 0 0;
-  --base-header-other-info-margin: 1rem 0 0;
-  --base-mini-status-margin-right: 0.3rem;
-  --base-tag-padding-ul: 0.2rem;
-  --base-tag-padding: var(--base-tag-padding-ul) 0.4rem;
-  --base-todo-padding: 1em;
-
-  --base-content-gap: 1rem;
-  --base-other-info-label-width: 5em;
-  --base-list-gap: 0.5rem;
-  --base-ul-gap: 0.5rem;
-  --home-content-gap: 1rem;
-
-  --base-list-radius: 10px;
-  --base-tag-radius: 5px;
-  --base-mini-radius: 10px;
-  --base-list-new-item-btn-radius: 5px;
-
-  --home-project-mini-nav-color: var(--col-txt-alt);
-  --home-project-mini-nav-hover-color: var(--col-accent);
-  --base-list-new-item-btn-color: var(--col-white);
-  --base-list-new-item-btn-hover-color: var(--col-accent);
-  --otherinfo-line-color: var(--col-grey);
-  --base-tag-color: var(--col-txt-alt);
-  --title-h2-color: var(--col-txt);
-  --title-h2-decoration-color: var(--col-secondary);
-  --dialog-color: var(--col-txt-alt);
-  --dialog-content-color: var(--col-txt);
-  --dialog-submit-btn-color: var(var(--col-txt));
-  --light-btn-color: var(--col-secondary);
-  --base-list-size-color: var(--col-secondary);
-  --lighter-btn-color: var(--col-grey);
-  --btn-hover-color: var(--col-accent);
-  --ntodonested-color: var(--col-white);
-  --ntodonested-nav-color: var(--col-black);
-
-  --home-project-mini-nav-bg-color: var(--col-secondary);
-  --home-project-mini-nav-hover-bg-color: var(--col-black);
-  --base-list-bg-color: var(--col-grey);
-  --base-list-new-item-btn-bg-color: var(--col-black);
-  --base-list-new-item-btn-hover-bg-color: var(--col-black);
-  --base-mini-bg-color: var(--col-white);
-  --base-tag-bg-color: var(--col-secondary);
-  --dialog-bg-color: var(--col-black);
-  --dialog-content-bg-color: var(--bg-col);
-  --dialog-submit-btn-bg-color: var(--col-accent);
-  --ntodonested-bg-color: var(--col-black);
-  --ntodonested-nav-bg-color: var(--col-accent);
-
-  --dialog-margin: var(--main-padding);
-  --dialog-width: calc(var(--max-width) - 2 * var(--main-padding));
-}
-
-/* --------------------------------------------*/
