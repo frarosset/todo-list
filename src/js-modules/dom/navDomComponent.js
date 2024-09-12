@@ -4,6 +4,7 @@ import {
   initButton,
   initDiv,
 } from "../../js-utilities/commonDomComponents.js";
+import { capitalizeFirstLetter } from "../../js-utilities/commonUtilities.js";
 import PubSub from "pubsub-js";
 import filtersAndTagsComponent from "../logic/filtersAndTagsComponent.js";
 import searchComponent from "../logic/searchComponent.js";
@@ -75,7 +76,7 @@ export default class navDomComponent {
   #initCustomImminenceFilters(ul) {
     const getImminenceFilterResults = (idx) => {
       return {
-        title: todoComponent.imminenceLabels[idx],
+        title: capitalizeFirstLetter(todoComponent.imminenceLabels[idx]),
         icon: todoDomComponent.imminenceIcons[idx],
         variable: "imminence",
         value: idx,

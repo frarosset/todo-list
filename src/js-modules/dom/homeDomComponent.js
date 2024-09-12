@@ -3,6 +3,7 @@ import {
   initH2,
   initP,
 } from "../../js-utilities/commonDomComponents.js";
+import { capitalizeFirstLetter } from "../../js-utilities/commonUtilities.js";
 import projectDomMiniNavComponent from "./projectDomMiniNavComponent.js";
 import { projectListDomComponent } from "./fixCircularDependenciesInDomComponents.js";
 import filtersAndTagsComponent from "../logic/filtersAndTagsComponent.js";
@@ -25,6 +26,7 @@ export default class homeDomComponent {
     content: `content`,
     path: `path`,
     titleH2: `title-h2`,
+    titleIcon: "title-icon",
     imminenceResults: `imminence-results`,
   };
 
@@ -48,10 +50,10 @@ export default class homeDomComponent {
     header.classList.add(this.getCssClass("header"));
 
     const path = initP(this.getCssClass("path"), uiIcons.home, "", "");
+    const icon = initP(this.getCssClass("titleIcon"), uiIcons.home);
     const h2 = initH2(this.getCssClass("titleH2"), null, "Home");
 
-    header.appendChild(path);
-    header.appendChild(h2);
+    header.append(path, icon, h2);
     return header;
   }
 
@@ -91,7 +93,7 @@ export default class homeDomComponent {
     const getImminenceFilterResults = (idx) => {
       return new resultsComponent(
         {
-          title: todoComponent.imminenceLabels[idx],
+          title: capitalizeFirstLetter(todoComponent.imminenceLabels[idx]),
           icon: todoDomComponent.imminenceIcons[idx],
           variable: "imminence",
           value: idx,

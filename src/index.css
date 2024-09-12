@@ -71,11 +71,6 @@
   /* --transition-time: 0.8s; */
 }
 
-/* ::backdrop {
-  background-color: var(--col-black);
-  opacity: 0.75;
-} */
-
 html {
   background-color: var(--bg-col);
   color: var(--col-txt);
@@ -183,7 +178,7 @@ body > header {
   flex-direction: column;
 }
 
-body:has(.hidden) {
+body:has(nav.hidden) {
   grid-template-areas:
     "header"
     "content";
@@ -191,7 +186,7 @@ body:has(.hidden) {
   grid-template-rows: min-content 1fr;
 }
 
-body > header:has(.hidden) {
+body > header:has(nav.hidden) {
   height: min-content;
   width: 100%;
   position: static;
@@ -485,6 +480,17 @@ body > header:has(.hidden) {
   margin-right: var(--base-status-margin-right);
 }
 
+.todo-div__state-btn:active {
+  transform-origin: 50% 50%;
+  transform: scale(1.1);
+}
+@media not all and (hover: none) {
+  .todo-div__state-btn:hover {
+    transform-origin: 50% 50%;
+    transform: scale(1.1);
+  }
+}
+
 .todo-div__imminence-icon {
   grid-area: imminence;
   font-size: var(--base-imminence-fontsize);
@@ -580,6 +586,7 @@ body > header:has(.hidden) {
 .note-list-div__header {
   display: flex;
   align-items: flex-start;
+  padding: 0 var(--base-list-padding-sides);
 }
 
 .project-list-div__heading,
@@ -596,9 +603,12 @@ body > header:has(.hidden) {
 .todo-list-div__title-h3,
 .note-list-div__title-h3 {
   font-size: var(--title-h3-fontsize);
-  display: flex;
-  align-items: bottom;
-  gap: 0.2em;
+}
+
+.project-list-div__title-h3 svg,
+.todo-list-div__title-h3 svg,
+.note-list-div__title-h3 svg {
+  padding-right: 0.2em;
 }
 
 .project-list-div__size,
@@ -614,6 +624,22 @@ body > header:has(.hidden) {
   background-color: var(--base-list-new-item-btn-bg-color);
   border-radius: var(--base-list-new-item-btn-radius);
   color: var(--base-list-new-item-btn-color);
+}
+
+.project-list-div__new-item-btn:active,
+.todo-list-div__new-item-btn:active,
+.note-list-div__new-item-btn:active {
+  color: var(--base-list-new-item-btn-hover-color);
+  background-color: var(--base-list-new-item-btn-hover-bg-color);
+}
+
+@media not all and (hover: none) {
+  .project-list-div__new-item-btn:hover,
+  .todo-list-div__new-item-btn:hover,
+  .note-list-div__new-item-btn:hover {
+    color: var(--base-list-new-item-btn-hover-color);
+    background-color: var(--base-list-new-item-btn-hover-bg-color);
+  }
 }
 
 .project-list-div__expand-btn,
@@ -649,6 +675,21 @@ body > header:has(.hidden) {
   border-radius: var(--base-mini-radius);
   background: var(--base-mini-bg-color);
   display: grid;
+  gap: 0.2em;
+}
+
+.project-mini-div:active,
+.todo-mini-div:active,
+.note-mini-div:active {
+  box-shadow: 1px 1px 6px var(--col-secondary);
+}
+
+@media not all and (hover: none) {
+  .project-mini-div:hover,
+  .todo-mini-div:hover,
+  .note-mini-div:hover {
+    box-shadow: 1px 1px 6px var(--col-secondary);
+  }
 }
 
 .project-mini-div,
@@ -696,6 +737,18 @@ body > header:has(.hidden) {
   align-self: center;
   margin-right: var(--base-mini-status-margin-right);
 }
+
+.todo-mini-div__state-btn:active {
+  transform-origin: 50% 50%;
+  transform: scale(1.1);
+}
+@media not all and (hover: none) {
+  .todo-mini-div__state-btn:hover {
+    transform-origin: 50% 50%;
+    transform: scale(1.1);
+  }
+}
+
 .todo-mini-div__imminence-icon {
   grid-area: imminence;
   font-size: var(--base-mini-title-fontsize);
@@ -793,15 +846,54 @@ body > header:has(.hidden) {
 .project-mini-div__expand-btn,
 .todo-mini-div__expand-btn,
 .note-mini-div__expand-btn {
-  color: var(--light-btn-color);
+  color: var(--lighter-btn-color);
 }
+
+.project-div__edit-btn,
+.todo-div__edit-btn,
+.note-div__edit-btn,
+.project-div__remove-btn,
+.todo-div__remove-btn,
+.note-div__remove-btn,
 .project-mini-div__edit-btn,
 .todo-mini-div__edit-btn,
 .note-mini-div__edit-btn,
 .project-mini-div__remove-btn,
 .todo-mini-div__remove-btn,
 .note-mini-div__remove-btn {
-  color: var(--lighter-btn-color);
+  color: var(--light-btn-color);
+}
+
+.project__div__edit-btn:active,
+.todo-div__edit-btn:active,
+.note-div__edit-btn:active,
+.project-div__remove-btn:active,
+.todo-div__remove-btn:active,
+.note-div__remove-btn:active,
+.project-mini-div__edit-btn:active,
+.todo-mini-div__edit-btn:active,
+.note-mini-div__edit-btn:active,
+.project-mini-div__remove-btn:active,
+.todo-mini-div__remove-btn:active,
+.note-mini-div__remove-btn:active {
+  color: var(--btn-hover-color);
+}
+
+@media not all and (hover: none) {
+  .project__div__edit-btn:hover,
+  .todo-div__edit-btn:hover,
+  .note-div__edit-btn:hover,
+  .project-div__remove-btn:hover,
+  .todo-div__remove-btn:hover,
+  .note-div__remove-btn:hover,
+  .project-mini-div__edit-btn:hover,
+  .todo-mini-div__edit-btn:hover,
+  .note-mini-div__edit-btn:hover,
+  .project-mini-div__remove-btn:hover,
+  .todo-mini-div__remove-btn:hover,
+  .note-mini-div__remove-btn:hover {
+    color: var(--btn-hover-color);
+  }
 }
 
 /* --------------------------------------------*/
@@ -811,14 +903,14 @@ body > header:has(.hidden) {
 .home-div__header {
   padding: var(--base-header-padding);
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: var(--icon-h2-width) 1fr;
   grid-template-rows:
     calc(var(--base-back-btn-fontsize) * var(--txt-lineheight))
     /* to align with .todo-div__header and .project-div__header*/
     min-content;
   grid-template-areas:
-    "path"
-    "title";
+    ". path"
+    "icon title";
 }
 
 .home-div__path {
@@ -831,6 +923,17 @@ body > header:has(.hidden) {
   grid-area: title;
   font-size: var(--title-h2-fontsize);
   align-self: center;
+}
+
+.home-div__title-icon {
+  color: var(--title-h2-color);
+  grid-area: icon;
+  font-size: var(--title-h2-fontsize);
+  align-self: center;
+}
+
+.home-div__title-icon svg {
+  vertical-align: baseline;
 }
 
 .home-div__content {
@@ -854,15 +957,41 @@ body > header:has(.hidden) {
 }
 
 .home-div__content .project-mini-nav-div,
-.home-div__content .results-mini-nav-div {
+.home-div__content .results-mini-nav-div,
+.home-div__content .filters-and-tags-mini-nav-div,
+.home-div__content .search-mini-nav-div {
   color: var(--home-project-mini-nav-color);
   background-color: var(--home-project-mini-nav-bg-color);
 }
 
-.home-div__content .filters-and-tags-mini-nav-div,
-.home-div__content .search-mini-nav-div {
-  color: var(--home-filters-and-tags-mini-nav-color);
-  background-color: var(--home-filters-and-tags-mini-nav-bg-color);
+.home-div__content .project-mini-nav-div:active,
+.home-div__content .results-mini-nav-div:active,
+.home-div__content .filters-and-tags-mini-nav-div:active,
+.home-div__content .search-mini-nav-div:active {
+  background-color: var(--home-project-mini-nav-hover-bg-color);
+}
+
+.home-div__content .project-mini-nav-div:active svg,
+.home-div__content .results-mini-nav-div:active svg,
+.home-div__content .filters-and-tags-mini-nav-div:active svg,
+.home-div__content .search-mini-nav-div:active svg {
+  color: var(--home-project-mini-nav-hover-color);
+}
+
+@media not all and (hover: none) {
+  .home-div__content .project-mini-nav-div:hover,
+  .home-div__content .results-mini-nav-div:hover,
+  .home-div__content .filters-and-tags-mini-nav-div:hover,
+  .home-div__content .search-mini-nav-div:hover {
+    background-color: var(--home-project-mini-nav-hover-bg-color);
+  }
+
+  .home-div__content .project-mini-nav-div:hover svg,
+  .home-div__content .results-mini-nav-div:hover svg,
+  .home-div__content .filters-and-tags-mini-nav-div:hover svg,
+  .home-div__content .search-mini-nav-div:hover svg {
+    color: var(--home-project-mini-nav-hover-color);
+  }
 }
 
 /* Counters */
@@ -986,6 +1115,7 @@ body > header:has(.hidden) {
 /* new/edit todo/project dialog and form */
 ::backdrop {
   background-color: var(--bg-col);
+  opacity: 0.75;
 }
 
 .project-form-dialog,
@@ -1303,8 +1433,9 @@ body > header:has(.hidden) {
   --base-list-new-item-btn-radius: 5px;
 
   --home-project-mini-nav-color: var(--col-txt-alt);
-  --home-filters-and-tags-mini-nav-color: var(--col-txt-alt);
-  --base-list-new-item-btn-color: var(--col-grey);
+  --home-project-mini-nav-hover-color: var(--col-accent);
+  --base-list-new-item-btn-color: var(--col-white);
+  --base-list-new-item-btn-hover-color: var(--col-accent);
   --otherinfo-line-color: var(--col-grey);
   --base-tag-color: var(--col-txt-alt);
   --title-h2-color: var(--col-txt);
@@ -1312,16 +1443,18 @@ body > header:has(.hidden) {
   --dialog-color: var(--col-txt-alt);
   --dialog-content-color: var(--col-txt);
   --dialog-submit-btn-color: var(var(--col-txt));
-  --light-btn-color: var(--col-grey);
+  --light-btn-color: var(--col-secondary);
   --base-list-size-color: var(--col-secondary);
-  --lighter-btn-color: var(--col-secondary);
+  --lighter-btn-color: var(--col-grey);
+  --btn-hover-color: var(--col-accent);
   --ntodonested-color: var(--col-white);
   --ntodonested-nav-color: var(--col-black);
 
-  --home-project-mini-nav-bg-color: var(--col-black);
-  --home-filters-and-tags-mini-nav-bg-color: var(--col-black);
+  --home-project-mini-nav-bg-color: var(--col-secondary);
+  --home-project-mini-nav-hover-bg-color: var(--col-black);
   --base-list-bg-color: var(--col-grey);
-  --base-list-new-item-btn-bg-color: var(--col-secondary);
+  --base-list-new-item-btn-bg-color: var(--col-black);
+  --base-list-new-item-btn-hover-bg-color: var(--col-black);
   --base-mini-bg-color: var(--col-white);
   --base-tag-bg-color: var(--col-secondary);
   --dialog-bg-color: var(--col-black);
