@@ -70,7 +70,7 @@ export default function listInComponentMixin(targetClass, whichListArray) {
     redefineFilterByNested(originalFilterByNested),
     redefineGetAllTagsNested(originalGetAllTagsNested),
     redefineGetAllOfTypeNested_withoutThis(),
-    defineSetDoneNested()
+    defineSetRelatedStates()
   );
 }
 
@@ -268,7 +268,7 @@ function redefineGetAllOfTypeNested_withoutThis() {
 
 // Define setDoneNested method ------------------------------------------------
 
-function defineSetDoneNested() {
+function defineSetRelatedStates() {
   return {
     setDoneNested: function () {
       // it becomes a method: 'this' is the object it will be attached to
@@ -283,6 +283,15 @@ function defineSetDoneNested() {
           }
         });
       });
+    },
+    setTodoAncestors: function () {
+      // it becomes a method: 'this' is the object it will be attached to
+      if (this.parent !== null) {
+        if (this.parent.type == "T") {
+          this.parent.state = this.parent.constructor.todoIdx;
+        }
+        this.parent.setTodoAncestors();
+      }
     },
   };
 }

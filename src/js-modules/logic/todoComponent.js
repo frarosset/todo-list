@@ -25,6 +25,7 @@ export default class todoComponent extends baseComponent {
   static priorityLabels = ["none", "low", "medium", "high"];
   static stateLabels = ["todo", "work in progress", "done"];
   static doneIdx = 2;
+  static todoIdx = 0;
   static imminenceLabels = [
     "none",
     "scheduled",
@@ -183,14 +184,18 @@ export default class todoComponent extends baseComponent {
     if (this.data.state !== validatedState) {
       if (this.data.state === todoComponent.doneIdx) {
         // was completed, now changed to incompleted
+        // first set the all the descendants to done, if any
+        this.setTodoAncestors();
+        // then, increase the counters
         this.increaseListNTodo();
         this.increaseParentNTodoNested();
       } else if (validatedState === todoComponent.doneIdx) {
+        // was incompleted, now changed to completed
+        // first set the all the descendants to done, if any
         if (this.nTodoNested !== 0) {
           this.setDoneNested();
         }
-
-        // was incompleted, now changed to completed
+        // then, increase the counters
         this.decreaseListNTodo();
         this.decreaseParentNTodoNested();
       }
