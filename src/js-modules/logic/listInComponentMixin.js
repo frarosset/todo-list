@@ -69,7 +69,8 @@ export default function listInComponentMixin(targetClass, whichListArray) {
     redefineToJSON(originalToJSON),
     redefineFilterByNested(originalFilterByNested),
     redefineGetAllTagsNested(originalGetAllTagsNested),
-    redefineGetAllOfTypeNested_withoutThis()
+    redefineGetAllOfTypeNested_withoutThis(),
+    defineSetDoneNested()
   );
 }
 
@@ -261,6 +262,27 @@ function redefineGetAllOfTypeNested_withoutThis() {
       });
 
       return matchArray;
+    },
+  };
+}
+
+// Define setDoneNested method ------------------------------------------------
+
+function defineSetDoneNested() {
+  return {
+    setDoneNested: function () {
+      // it becomes a method: 'this' is the object it will be attached to
+      Object.values(this.data.lists).forEach((listObj) => {
+        // for each list, and for each item
+        listObj.list.forEach((item) => {
+          if (item.nTodoNested !== 0) {
+            item.setDoneNested();
+          }
+          if (item.type == "T") {
+            item.state = this.constructor.doneIdx;
+          }
+        });
+      });
     },
   };
 }

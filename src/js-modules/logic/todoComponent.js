@@ -186,6 +186,10 @@ export default class todoComponent extends baseComponent {
         this.increaseListNTodo();
         this.increaseParentNTodoNested();
       } else if (validatedState === todoComponent.doneIdx) {
+        if (this.nTodoNested !== 0) {
+          this.setDoneNested();
+        }
+
         // was incompleted, now changed to completed
         this.decreaseListNTodo();
         this.decreaseParentNTodoNested();
