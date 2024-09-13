@@ -3,6 +3,7 @@ import {
   initLiAsChildInList,
   initButton,
   initDiv,
+  initH2,
 } from "../../js-utilities/commonDomComponents.js";
 import { capitalizeFirstLetter } from "../../js-utilities/commonUtilities.js";
 import PubSub from "pubsub-js";
@@ -18,6 +19,9 @@ const cssClass = {
   nav: blockName,
   divPredefined: `${blockName}__div-predefined`,
   divCustomProjects: `${blockName}__div-custom-projects`,
+  divCustomProjectsHeading: `${blockName}__div-custom-projects-heading`,
+  divCustomProjectsH2: `${blockName}__div-custom-projects-h2`,
+  divCustomProjectsNewBtn: `${blockName}__div-custom-projects-new-btn`,
   ul: `${blockName}__ul`,
   li: `${blockName}__li`,
   btn: `${blockName}__li-btn`,
@@ -104,11 +108,19 @@ export default class navDomComponent {
 
     const div = initDiv(cssClass.divCustomProjects);
 
-    const h2 = document.createElement("h2");
-    h2.textContent = "PROJECTS";
+    const divHeading = initDiv(cssClass.divCustomProjectsHeading);
+    const h2 = initH2(cssClass.divCustomProjectsH2, null, "PROJECTS");
+    const addNewBtn = initButton(
+      cssClass.divCustomProjectsNewBtn,
+      navDomComponent.showDialog,
+      uiIcons.new
+    );
+    addNewBtn.parentObj = root.customProjectsList;
+    divHeading.append(h2, addNewBtn);
+
     const ul = initUl(cssClass.ul);
 
-    div.append(h2, ul);
+    div.append(divHeading, ul);
 
     // Init custom projects buttons
 
@@ -168,4 +180,14 @@ export default class navDomComponent {
     );
     e.stopPropagation();
   };
+
+  static showDialog(e) {
+    const associatedDialog = document.body.projectFormDialog;
+    if (associatedDialog != null) {
+      // reset form //tofix
+      associatedDialog.setObjectData(e.currentTarget.parentObj);
+      associatedDialog.dialog.showModal();
+    }
+    e.stopPropagation();
+  }
 }

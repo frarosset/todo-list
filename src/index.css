@@ -17,7 +17,7 @@
   --home-project-mini-nav-hover-bg-color: var(--col-black);
   --base-list-bg-color: var(--col-grey);
   --base-list-new-item-btn-bg-color: var(--col-black);
-  --base-list-new-item-btn-hover-bg-color: var(--col-black);
+  --base-list-new-item-btn-hover-bg-color: var(--col-secondary);
   --base-mini-bg-color: var(--col-white);
   --base-tag-bg-color: var(--col-secondary);
   --dialog-bg-color: var(--col-black);
@@ -41,7 +41,7 @@
   --home-project-mini-nav-color: var(--col-txt-alt);
   --home-project-mini-nav-hover-color: var(--col-accent);
   --base-list-new-item-btn-color: var(--col-white);
-  --base-list-new-item-btn-hover-color: var(--col-accent);
+  --base-list-new-item-btn-hover-color: var(--col-white);
   --otherinfo-line-color: var(--col-grey);
   --base-tag-color: var(--col-txt-alt);
   --title-h2-color: var(--col-txt);
@@ -121,7 +121,7 @@
   --dialog-padding: 0.3rem;
   --dialog-header-padding: 0.3rem;
 
-  --base-list-gap: 1rem;
+  --base-list-gap: 0.5rem;
   --base-status-margin-right: 0.3rem;
   --base-header-tags-margin: 1rem 0 0;
   --base-header-other-info-margin: 1rem 0 0;
@@ -132,7 +132,7 @@
 
   --base-content-gap: 1rem;
   --base-other-info-label-width: 5em;
-  --base-list-gap: 0.5rem;
+  --base-list-ul-gap: 0.3rem;
   --base-ul-gap: 0.5rem;
   --home-content-gap: 1rem;
 
@@ -310,9 +310,11 @@ body > header:has(nav.hidden) {
   height: 100%;
 }
 
-.main-nav h2 {
+.main-nav__div-custom-projects-heading {
   color: var(--nav-highlight-txt-col);
   padding: var(--nav-h2-padding);
+  display: flex;
+  justify-content: space-between;
 }
 
 .main-nav hr {
@@ -447,7 +449,7 @@ body > header:has(nav.hidden) {
 .filters-and-tags-div__title-icon,
 .search-div__title-icon {
   font-size: var(--title-h2-fontsize);
-  align-self: center;
+  align-self: start;
 }
 
 .todo-div__title-h2,
@@ -743,8 +745,24 @@ body > header:has(nav.hidden) {
 .note-list-div__ul {
   display: flex;
   flex-direction: column;
-  gap: var(--base-list-gap);
+  gap: var(--base-list-ul-gap);
 }
+
+/* .project-list-div__li .project-mini-div,
+.todo-list-div__li .todo-mini-div,
+.note-list-div__li .note-mini-div {
+  border-radius: 0;
+}
+.project-list-div__li:first-child .project-mini-div,
+.todo-list-div__li:first-child .todo-mini-div,
+.note-list-div__li:first-child .note-mini-div {
+  border-radius: var(--base-mini-radius) var(--base-mini-radius) 0 0;
+}
+.project-list-div__li:last-child .project-mini-div,
+.todo-list-div__li:last-child .todo-mini-div,
+.note-list-div__li:last-child .note-mini-div {
+  border-radius: 0 0 var(--base-mini-radius) var(--base-mini-radius);
+} */
 
 /* mini / mini nav view */
 .project-mini-div,
@@ -869,7 +887,7 @@ body > header:has(nav.hidden) {
 .filters-and-tags-mini-nav-div__title-icon,
 .search-mini-nav-div__title-icon {
   font-size: var(--base-mini-title-fontsize);
-  align-self: center;
+  align-self: start;
 }
 
 .project-mini-div__title-h2,
@@ -963,7 +981,7 @@ body > header:has(nav.hidden) {
 }
 
 @media not all and (hover: none) {
-  .project__div__edit-btn:hover,
+  .project-div__edit-btn:hover,
   .todo-div__edit-btn:hover,
   .note-div__edit-btn:hover,
   .project-div__remove-btn:hover,
