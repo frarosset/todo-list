@@ -44,6 +44,7 @@ export default class resultsComponent extends genericBaseComponent {
           if (apply) {
             // item is a reference to a baseComponent object, listComponent is a list of results (not primary): do not notify the operation (it will be done by the items in the actual lists)
             listComponent.insertItem(item, false);
+            this.refreshNTodo();
           }
         }
       );
@@ -56,6 +57,7 @@ export default class resultsComponent extends genericBaseComponent {
           // item is a reference to a baseComponent object, listComponent is a list of results (not primary): do not notify the operation (it will be done by the items in the actual lists)
           if (apply) {
             listComponent.removeItem(item, false);
+            this.refreshNTodo();
           }
         }
       );
@@ -72,8 +74,10 @@ export default class resultsComponent extends genericBaseComponent {
           if (applyAdd) {
             // item is a reference to a baseComponent object, listComponent is a list of results (not primary): do not notify the operation (it will be done by the items in the actual lists)
             listComponent.insertItem(item, false);
+            this.refreshNTodo();
           } else if (applyRemove) {
             listComponent.removeItem(item, false);
+            this.refreshNTodo();
           }
         }
       );
@@ -102,6 +106,15 @@ export default class resultsComponent extends genericBaseComponent {
         }
       );
     });
+  }
+
+  refreshNTodo() {
+    this.nTodo = 0;
+    Object.values(this.data.lists).forEach((listComponent) => {
+      this.nTodo += listComponent.nTodo;
+    });
+
+    PubSub.publish(this.getPubSubName("NTODO CHANGE", "main"));
   }
 
   increaseNTodo(amount = 1) {

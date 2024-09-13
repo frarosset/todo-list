@@ -670,7 +670,7 @@ body > header:has(nav.hidden) {
 .todo-list-div__header,
 .note-list-div__header {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   padding: 0 var(--base-list-padding-sides);
 }
 
@@ -890,6 +890,10 @@ body > header:has(nav.hidden) {
 .search-mini-nav-div__title-icon {
   font-size: var(--base-mini-title-fontsize);
   align-self: start;
+}
+
+.todo-mini-div__title-h2 {
+  align-self: center;
 }
 
 .project-mini-div__title-h2,
