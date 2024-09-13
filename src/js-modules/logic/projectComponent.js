@@ -1,6 +1,7 @@
 import baseComponent from "./baseComponent.js";
 import { listInComponentMixin } from "./fixCircularDependenciesInComponents.js";
 import { uiIcons } from "../uiIcons.js";
+import PubSub from "pubsub-js";
 
 export default class projectComponent extends baseComponent {
   static nextId = 0;
@@ -18,6 +19,15 @@ export default class projectComponent extends baseComponent {
     this.type = "P";
 
     this.initAllLists(data.lists, listsToExclude); // method added via composition (see below)
+  }
+
+  // If you redefine the setter, the getter is to be redefined too
+  set title(title) {
+    super.title = title;
+    PubSub.publish("EDIT TITLE PROJECT", this);
+  }
+  get title() {
+    return super.title;
   }
 }
 

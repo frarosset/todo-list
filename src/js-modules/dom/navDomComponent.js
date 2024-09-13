@@ -126,10 +126,19 @@ export default class navDomComponent {
     });
 
     PubSub.subscribe("REMOVE PROJECT", (msg, item) => {
-      console.log(msg, `[${item.pathAndThisStr}]`);
-      const domItemDiv = this.#listMap.get(item);
-      if (domItemDiv != null) {
-        deleteElement(domItemDiv);
+      const domItemLi = this.#listMap.get(item);
+      if (domItemLi != null) {
+        console.log(msg, `[${item.pathAndThisStr}]`);
+        deleteElement(domItemLi);
+        this.#listMap.delete(item, domItemLi);
+      }
+    });
+
+    PubSub.subscribe("EDIT TITLE PROJECT", (msg, item) => {
+      const domItemLi = this.#listMap.get(item);
+      if (domItemLi != null) {
+        console.log(msg, `[${item.pathAndThisStr}]`);
+        domItemLi.children[0].childNodes[3].textContent = item.data.title;
       }
     });
 
