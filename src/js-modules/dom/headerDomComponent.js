@@ -36,6 +36,8 @@ function initExpandNavBtn(nav) {
 
 function toggleVisibility(e) {
   const nowHidden = e.currentTarget.nav.classList.toggle("hidden");
+  // scroll back to top
+  e.currentTarget.nav.scrollTop = 0;
 
   changeChildFaIcon(
     e.currentTarget.btn,
