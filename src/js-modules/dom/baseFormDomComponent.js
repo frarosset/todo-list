@@ -284,7 +284,7 @@ export default class baseFormDomComponent {
       true, // required
       "title" // aria-label
     );
-    titleInput.maxLength = 25;
+    titleInput.maxLength = 40;
 
     return titleInput;
   }
@@ -300,7 +300,7 @@ export default class baseFormDomComponent {
     );
     descriptionInput.rows = 4;
     descriptionInput.cols = 25;
-    descriptionInput.maxLength = 100;
+    descriptionInput.maxLength = 1000;
     descriptionInput.resiz;
 
     return descriptionInput;

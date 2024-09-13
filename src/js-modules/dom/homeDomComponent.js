@@ -24,6 +24,8 @@ export default class homeDomComponent {
   static cssClass = {
     header: `header`,
     content: `content`,
+    contentCol1: `content-col-1`,
+    contentCol2: `content-col-2`,
     path: `path`,
     titleH2: `title-h2`,
     titleIcon: "title-icon",
@@ -59,6 +61,8 @@ export default class homeDomComponent {
 
   initContent(root) {
     const contentDiv = initDiv(this.getCssClass("content"));
+    const contentDivCol1 = initDiv(this.getCssClass("contentCol1"));
+    const contentDivCol2 = initDiv(this.getCssClass("contentCol2"));
 
     const inboxDom = new projectDomMiniNavComponent(root.inboxProject);
 
@@ -77,9 +81,12 @@ export default class homeDomComponent {
       false //hide path
     );
 
-    contentDiv.append(
+    contentDiv.append(contentDivCol1, contentDivCol2);
+    contentDivCol1.append(
       inboxDom.div,
-      ...imminenceResults, // it's an array of divs
+      ...imminenceResults // it's an array of divs
+    );
+    contentDivCol2.append(
       filtersAndTagsDomMiniNav.div,
       searchDomMiniNav.div,
       projectListDom.div
