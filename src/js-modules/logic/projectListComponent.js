@@ -24,4 +24,12 @@ export default class projectListComponent extends baseListComponent {
       PubSub.publish("ADD PROJECT", item);
     }
   }
+
+  removeItem(item, primary = true) {
+    super.removeItem(item, primary);
+
+    if (primary) {
+      PubSub.publish("REMOVE PROJECT", item);
+    }
+  }
 }

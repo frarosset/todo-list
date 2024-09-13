@@ -11,6 +11,7 @@ import searchComponent from "../logic/searchComponent.js";
 import { todoComponent } from "../logic/fixCircularDependenciesInComponents.js";
 import { todoDomComponent } from "./fixCircularDependenciesInDomComponents.js";
 import { uiIcons } from "../uiIcons.js";
+import { deleteElement } from "../../js-utilities/commonDomUtilities.js";
 
 const blockName = "main-nav";
 const cssClass = {
@@ -23,6 +24,8 @@ const cssClass = {
 };
 
 export default class navDomComponent {
+  #listMap; // A Map object that stores (obj, li) pairs, where obj is a reference to a project li button and used as the key, and li the dom li representing it
+
   constructor(root) {
     this.nav = document.createElement("nav");
     this.nav.classList.add(cssClass.nav);
@@ -97,6 +100,8 @@ export default class navDomComponent {
   }
 
   #initCustomProjectsDiv(root) {
+    this.#listMap = new Map();
+
     const div = initDiv(cssClass.divCustomProjects);
 
     const h2 = document.createElement("h2");
@@ -108,13 +113,23 @@ export default class navDomComponent {
     // Init custom projects buttons
 
     root.customProjects.forEach((project) => {
-      this.#initItemRenderLi(ul, project, "PROJECT");
+      const li = this.#initItemRenderLi(ul, project, "PROJECT");
+      this.#listMap.set(project, li);
     });
 
     PubSub.subscribe("ADD PROJECT", (msg, item) => {
       if (item.parent == null) {
-        console.log(msg);
-        this.#initItemRenderLi(ul, item, "PROJECT");
+        console.log(msg, `[${item.pathAndThisStr}]`);
+        const li = this.#initItemRenderLi(ul, item, "PROJECT");
+        this.#listMap.set(item, li);
+      }
+    });
+
+    PubSub.subscribe("REMOVE PROJECT", (msg, item) => {
+      console.log(msg, `[${item.pathAndThisStr}]`);
+      const domItemDiv = this.#listMap.get(item);
+      if (domItemDiv != null) {
+        deleteElement(domItemDiv);
       }
     });
 
@@ -133,6 +148,7 @@ export default class navDomComponent {
     btn.associatedItem = itemToRender;
     btn.renderStr = renderStr;
     li.appendChild(btn);
+    return li;
   }
 
   // callbacks
