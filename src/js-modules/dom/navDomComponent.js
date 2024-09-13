@@ -111,6 +111,13 @@ export default class navDomComponent {
       this.#initItemRenderLi(ul, project, "PROJECT");
     });
 
+    PubSub.subscribe("ADD PROJECT", (msg, item) => {
+      if (item.parent == null) {
+        console.log(msg);
+        this.#initItemRenderLi(ul, item, "PROJECT");
+      }
+    });
+
     return div;
   }
 

@@ -1,6 +1,7 @@
 import { projectComponent } from "./fixCircularDependenciesInComponents.js";
 import baseListComponent from "./baseListComponent.js";
 import { uiIcons } from "../uiIcons.js";
+import PubSub from "pubsub-js";
 
 export default class projectListComponent extends baseListComponent {
   static icon = uiIcons.projectList;
@@ -14,5 +15,13 @@ export default class projectListComponent extends baseListComponent {
 
   initItem(data) {
     return new projectComponent(data, this.parent, this);
+  }
+
+  insertItem(item, primary = true) {
+    super.insertItem(item, primary);
+
+    if (primary) {
+      PubSub.publish("ADD PROJECT", item);
+    }
   }
 }
