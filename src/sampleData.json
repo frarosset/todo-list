@@ -1,114 +1,684 @@
 {
-  "nextId": { "projectComponent": 4, "todoComponent": 5, "noteComponent": 0 },
+  "nextId": {
+    "projectComponent": 13,
+    "todoComponent": 42,
+    "noteComponent": 21
+  },
   "inboxProject": {
     "id": 0,
     "title": "Inbox",
     "description": "",
     "tags": [],
     "dateOfCreation": "2024-08-05T23:19:46.321Z",
-    "dateOfEdit": "2024-08-05T23:19:46.336Z",
+    "dateOfEdit": "2024-09-13T21:49:24.750Z",
     "lists": {
       "todoList": [
         {
-          "id": 4,
-          "title": "My Second Todo",
-          "description": "Just a test for the todoComponent class.",
-          "tags": ["test", "second"],
-          "dateOfCreation": "2024-08-05T23:19:46.336Z",
-          "dateOfEdit": null,
-          "dueDate": "2024-08-19T22:00:00.000Z",
+          "id": 36,
+          "title": "Order new book",
+          "description": "",
+          "tags": ["reading", "buy"],
+          "dateOfCreation": "2024-09-13T21:45:01.073Z",
+          "dateOfEdit": "2024-09-13T21:48:24.421Z",
+          "dueDate": "2024-09-13T00:00:00.000Z",
           "priority": 1,
-          "state": 1,
+          "state": 0,
+          "lists": {
+            "todoList": [
+              {
+                "id": 38,
+                "title": "Read the book",
+                "description": "",
+                "tags": ["reading"],
+                "dateOfCreation": "2024-09-13T21:46:54.334Z",
+                "dateOfEdit": "2024-09-13T21:48:10.841Z",
+                "dueDate": "2024-10-13T00:00:00.000Z",
+                "priority": 0,
+                "state": 0,
+                "lists": { "todoList": [], "noteList": [] }
+              }
+            ],
+            "noteList": []
+          }
+        },
+        {
+          "id": 39,
+          "title": "Buy the dog food",
+          "description": "",
+          "tags": ["buy"],
+          "dateOfCreation": "2024-09-13T21:47:18.206Z",
+          "dateOfEdit": "2024-09-13T21:49:24.750Z",
+          "dueDate": "2024-09-20T00:00:00.000Z",
+          "priority": 3,
+          "state": 2,
+          "lists": { "todoList": [], "noteList": [] }
+        },
+        {
+          "id": 40,
+          "title": "Book the hotel room",
+          "description": "",
+          "tags": ["book"],
+          "dateOfCreation": "2024-09-13T21:47:47.293Z",
+          "dateOfEdit": null,
+          "dueDate": "2024-09-14T00:00:00.000Z",
+          "priority": "3",
+          "state": 0,
+          "lists": { "todoList": [], "noteList": [] }
+        },
+        {
+          "id": 41,
+          "title": "Do the gardening",
+          "description": "",
+          "tags": ["garden"],
+          "dateOfCreation": "2024-09-13T21:48:53.174Z",
+          "dateOfEdit": null,
+          "dueDate": "2024-09-20T00:00:00.000Z",
+          "priority": "2",
+          "state": 0,
           "lists": { "todoList": [], "noteList": [] }
         }
       ],
-      "projectList": [],
       "noteList": []
     }
   },
   "customProjectsList": [
     {
-      "id": 1,
-      "title": "My First Project",
-      "description": "Just a test for the projectComponent class.",
-      "tags": ["test", "first"],
-      "dateOfCreation": "2024-08-05T23:19:46.321Z",
-      "dateOfEdit": "2024-08-05T23:19:46.336Z",
+      "id": 6,
+      "title": "The Odin Project",
+      "description": "A platform to learn web development, maintained by an open-source community.",
+      "tags": ["theodinproject", "webdev", "javascript"],
+      "dateOfCreation": "2024-09-13T20:57:15.268Z",
+      "dateOfEdit": "2024-09-13T21:41:05.026Z",
       "lists": {
         "todoList": [
           {
-            "id": 2,
-            "title": "My Third Todo",
-            "description": "Just a test for the todoComponent class.",
-            "tags": ["test", "third"],
-            "dateOfCreation": "2024-08-05T23:19:46.336Z",
+            "id": 6,
+            "title": "Complete the course",
+            "description": "",
+            "tags": ["theodinproject"],
+            "dateOfCreation": "2024-09-13T21:00:43.617Z",
             "dateOfEdit": null,
             "dueDate": null,
-            "priority": 2,
+            "priority": "3",
             "state": 0,
             "lists": { "todoList": [], "noteList": [] }
           }
         ],
-        "projectList": [],
-        "noteList": []
-      }
-    },
-    {
-      "id": 2,
-      "title": "My Second Project",
-      "description": "Just a test for the projectComponent class.",
-      "tags": ["test", "second"],
-      "dateOfCreation": "2024-08-05T23:19:46.336Z",
-      "dateOfEdit": null,
-      "lists": { "todoList": [], "projectList": [], "noteList": [] }
-    },
-    {
-      "id": 3,
-      "title": "My Third Project",
-      "description": "Just a test for the projectComponent class.",
-      "tags": ["test", "third"],
-      "dateOfCreation": "2024-08-05T23:19:46.336Z",
-      "dateOfEdit": "2024-08-05T23:19:46.336Z",
-      "lists": {
-        "todoList": [
+        "projectList": [
           {
-            "id": 0,
-            "title": "My First Todo",
-            "description": "Just a test for the todoComponent class.",
-            "tags": ["test", "first"],
-            "dateOfCreation": "2024-08-05T23:19:46.336Z",
-            "dateOfEdit": null,
-            "dueDate": "2024-06-19T22:00:00.000Z",
-            "priority": 0,
-            "state": 2,
-            "lists": { "todoList": [], "noteList": [] }
+            "id": 7,
+            "title": "Foundations path ",
+            "description": "To learn the essential tools for web dev",
+            "tags": ["webdev", "theodinproject", "html", "javascript", "css"],
+            "dateOfCreation": "2024-09-13T20:58:12.300Z",
+            "dateOfEdit": "2024-09-13T21:25:28.456Z",
+            "lists": {
+              "todoList": [
+                {
+                  "id": 11,
+                  "title": "Learn the basics of HTML",
+                  "description": "",
+                  "tags": ["theodinproject", "webdev", "html"],
+                  "dateOfCreation": "2024-09-13T21:07:08.532Z",
+                  "dateOfEdit": "2024-09-13T21:07:33.018Z",
+                  "dueDate": null,
+                  "priority": "3",
+                  "state": 2,
+                  "lists": { "todoList": [], "noteList": [] }
+                },
+                {
+                  "id": 12,
+                  "title": "Learn the basics of CSS",
+                  "description": "",
+                  "tags": ["theodinproject", "webdev", "css"],
+                  "dateOfCreation": "2024-09-13T21:07:31.877Z",
+                  "dateOfEdit": "2024-09-13T21:25:28.456Z",
+                  "dueDate": null,
+                  "priority": "3",
+                  "state": 2,
+                  "lists": {
+                    "todoList": [
+                      {
+                        "id": 25,
+                        "title": "Learn about flexbox",
+                        "description": "",
+                        "tags": ["theodinproject", "webdev", "flexbox"],
+                        "dateOfCreation": "2024-09-13T21:24:35.355Z",
+                        "dateOfEdit": "2024-09-13T21:25:28.456Z",
+                        "dueDate": null,
+                        "priority": 3,
+                        "state": 2,
+                        "lists": {
+                          "todoList": [],
+                          "noteList": [
+                            {
+                              "id": 12,
+                              "title": "Important tool!",
+                              "description": "This simplifies the creation of the interfaces.",
+                              "tags": ["flexbox"],
+                              "dateOfCreation": "2024-09-13T21:25:19.720Z",
+                              "dateOfEdit": null,
+                              "lists": { "noteList": [] }
+                            }
+                          ]
+                        }
+                      }
+                    ],
+                    "noteList": []
+                  }
+                },
+                {
+                  "id": 13,
+                  "title": "Learn the basics of Javascript",
+                  "description": "",
+                  "tags": ["theodinproject", "webdev", "javascript"],
+                  "dateOfCreation": "2024-09-13T21:08:08.851Z",
+                  "dateOfEdit": "2024-09-13T21:08:10.101Z",
+                  "dueDate": null,
+                  "priority": "0",
+                  "state": 2,
+                  "lists": { "todoList": [], "noteList": [] }
+                }
+              ],
+              "projectList": [
+                {
+                  "id": 9,
+                  "title": "Calculator",
+                  "description": "Create a calculator web app.",
+                  "tags": [
+                    "theodinproject",
+                    "project",
+                    "javascript",
+                    "css",
+                    "html"
+                  ],
+                  "dateOfCreation": "2024-09-13T21:02:22.457Z",
+                  "dateOfEdit": "2024-09-13T21:06:22.352Z",
+                  "lists": {
+                    "todoList": [
+                      {
+                        "id": 7,
+                        "title": "Create the logic of the calculator",
+                        "description": "Implement the basic operations.",
+                        "tags": ["theodinproject", "webdev"],
+                        "dateOfCreation": "2024-09-13T21:04:24.047Z",
+                        "dateOfEdit": "2024-09-13T21:06:22.352Z",
+                        "dueDate": null,
+                        "priority": "2",
+                        "state": 2,
+                        "lists": {
+                          "todoList": [],
+                          "noteList": [
+                            {
+                              "id": 10,
+                              "title": "Should work on the command line",
+                              "description": "You don't need a UI at this step.",
+                              "tags": [],
+                              "dateOfCreation": "2024-09-13T21:06:22.352Z",
+                              "dateOfEdit": null,
+                              "lists": { "noteList": [] }
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "id": 8,
+                        "title": "Create the basic interface",
+                        "description": "",
+                        "tags": ["theodinproject", "webdev"],
+                        "dateOfCreation": "2024-09-13T21:04:55.005Z",
+                        "dateOfEdit": "2024-09-13T21:04:56.255Z",
+                        "dueDate": null,
+                        "priority": "2",
+                        "state": 2,
+                        "lists": { "todoList": [], "noteList": [] }
+                      },
+                      {
+                        "id": 9,
+                        "title": "Improve the interface",
+                        "description": "",
+                        "tags": ["theodinproject", "webdev"],
+                        "dateOfCreation": "2024-09-13T21:05:14.600Z",
+                        "dateOfEdit": "2024-09-13T21:05:23.585Z",
+                        "dueDate": null,
+                        "priority": 2,
+                        "state": 2,
+                        "lists": { "todoList": [], "noteList": [] }
+                      },
+                      {
+                        "id": 10,
+                        "title": "Submit the solution",
+                        "description": "",
+                        "tags": ["theodinproject", "webdev"],
+                        "dateOfCreation": "2024-09-13T21:05:48.316Z",
+                        "dateOfEdit": "2024-09-13T21:05:50.068Z",
+                        "dueDate": null,
+                        "priority": "1",
+                        "state": 2,
+                        "lists": { "todoList": [], "noteList": [] }
+                      }
+                    ],
+                    "projectList": [],
+                    "noteList": []
+                  }
+                }
+              ],
+              "noteList": []
+            }
           },
           {
-            "id": 1,
-            "title": "My Second Todo",
-            "description": "Just a test for the todoComponent class.",
-            "tags": ["test", "second"],
-            "dateOfCreation": "2024-08-05T23:19:46.336Z",
-            "dateOfEdit": null,
-            "dueDate": "2024-08-19T22:00:00.000Z",
-            "priority": 1,
-            "state": 1,
-            "lists": { "todoList": [], "noteList": [] }
-          },
-          {
-            "id": 3,
-            "title": "My Fourth Todo",
-            "description": "Just a test for the todoComponent class.",
-            "tags": ["test", "4"],
-            "dateOfCreation": "2024-08-05T23:19:46.336Z",
-            "dateOfEdit": null,
-            "dueDate": "2024-07-23T22:00:00.000Z",
-            "priority": 3,
-            "state": 0,
-            "lists": { "todoList": [], "noteList": [] }
+            "id": 8,
+            "title": "Full Stack Javascript",
+            "description": "To learn about the tools to create beautiful responsive websites using Javascript and NodeJS.",
+            "tags": [
+              "theodinproject",
+              "webdev",
+              "javascript",
+              "webpack",
+              "react",
+              "nodejs"
+            ],
+            "dateOfCreation": "2024-09-13T20:59:40.018Z",
+            "dateOfEdit": "2024-09-13T21:41:05.026Z",
+            "lists": {
+              "todoList": [
+                {
+                  "id": 14,
+                  "title": "Complete the Javascript section",
+                  "description": "",
+                  "tags": ["theodinproject", "webdev", "javascript"],
+                  "dateOfCreation": "2024-09-13T21:10:19.793Z",
+                  "dateOfEdit": "2024-09-13T21:20:21.799Z",
+                  "dueDate": "2024-12-31T00:00:00.000Z",
+                  "priority": "3",
+                  "state": 1,
+                  "lists": {
+                    "todoList": [
+                      {
+                        "id": 17,
+                        "title": "Learn about OOP",
+                        "description": "OOP: Object-Oriented programming",
+                        "tags": ["theodinproject", "webdev", "javascript"],
+                        "dateOfCreation": "2024-09-13T21:14:32.654Z",
+                        "dateOfEdit": "2024-09-13T21:17:33.225Z",
+                        "dueDate": null,
+                        "priority": 2,
+                        "state": 2,
+                        "lists": { "todoList": [], "noteList": [] }
+                      },
+                      {
+                        "id": 18,
+                        "title": "Learn about Webpack",
+                        "description": "",
+                        "tags": ["theodinproject", "webdev", "webpack"],
+                        "dateOfCreation": "2024-09-13T21:14:52.204Z",
+                        "dateOfEdit": "2024-09-13T21:16:42.577Z",
+                        "dueDate": null,
+                        "priority": 2,
+                        "state": 2,
+                        "lists": { "todoList": [], "noteList": [] }
+                      },
+                      {
+                        "id": 19,
+                        "title": "Learn about Asyncronous code",
+                        "description": "",
+                        "tags": ["theodinproject", "webdev"],
+                        "dateOfCreation": "2024-09-13T21:15:43.839Z",
+                        "dateOfEdit": "2024-09-13T21:15:56.465Z",
+                        "dueDate": null,
+                        "priority": 2,
+                        "state": 1,
+                        "lists": { "todoList": [], "noteList": [] }
+                      },
+                      {
+                        "id": 20,
+                        "title": "Learn about Jest",
+                        "description": "",
+                        "tags": ["theodinproject", "webdev"],
+                        "dateOfCreation": "2024-09-13T21:16:16.528Z",
+                        "dateOfEdit": "2024-09-13T21:17:13.083Z",
+                        "dueDate": null,
+                        "priority": 2,
+                        "state": 1,
+                        "lists": { "todoList": [], "noteList": [] }
+                      }
+                    ],
+                    "noteList": [
+                      {
+                        "id": 11,
+                        "title": "This section is essential",
+                        "description": "You learn about Javascript, which is the base of React and NodeJS, introduced in the next sections.",
+                        "tags": [],
+                        "dateOfCreation": "2024-09-13T21:13:46.514Z",
+                        "dateOfEdit": null,
+                        "lists": { "noteList": [] }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": 15,
+                  "title": "Complete the React section",
+                  "description": "",
+                  "tags": ["theodinproject", "webdev", "react"],
+                  "dateOfCreation": "2024-09-13T21:10:58.752Z",
+                  "dateOfEdit": null,
+                  "dueDate": "2024-12-31T00:00:00.000Z",
+                  "priority": "3",
+                  "state": 0,
+                  "lists": { "todoList": [], "noteList": [] }
+                },
+                {
+                  "id": 16,
+                  "title": "Complete the NodeJS section",
+                  "description": "",
+                  "tags": ["theodinproject", "webdev", "nodejs"],
+                  "dateOfCreation": "2024-09-13T21:11:50.669Z",
+                  "dateOfEdit": "2024-09-13T21:11:57.357Z",
+                  "dueDate": "2025-03-31T00:00:00.000Z",
+                  "priority": 1,
+                  "state": 0,
+                  "lists": { "todoList": [], "noteList": [] }
+                }
+              ],
+              "projectList": [
+                {
+                  "id": 10,
+                  "title": "Restaurant page",
+                  "description": "",
+                  "tags": ["theodinproject", "webdev", "project"],
+                  "dateOfCreation": "2024-09-13T21:18:36.289Z",
+                  "dateOfEdit": "2024-09-13T21:40:34.761Z",
+                  "lists": {
+                    "todoList": [
+                      {
+                        "id": 21,
+                        "title": "Create the basic HTML structure",
+                        "description": "",
+                        "tags": [],
+                        "dateOfCreation": "2024-09-13T21:21:53.820Z",
+                        "dateOfEdit": "2024-09-13T21:21:55.726Z",
+                        "dueDate": null,
+                        "priority": "2",
+                        "state": 2,
+                        "lists": { "todoList": [], "noteList": [] }
+                      },
+                      {
+                        "id": 22,
+                        "title": "Search data to use in the website",
+                        "description": "",
+                        "tags": ["theodinproject", "webdev"],
+                        "dateOfCreation": "2024-09-13T21:22:23.169Z",
+                        "dateOfEdit": "2024-09-13T21:22:41.237Z",
+                        "dueDate": null,
+                        "priority": "0",
+                        "state": 2,
+                        "lists": { "todoList": [], "noteList": [] }
+                      },
+                      {
+                        "id": 23,
+                        "title": "Improve the UI",
+                        "description": "",
+                        "tags": ["webdev", "theodinproject"],
+                        "dateOfCreation": "2024-09-13T21:22:55.255Z",
+                        "dateOfEdit": "2024-09-13T21:23:01.865Z",
+                        "dueDate": null,
+                        "priority": 2,
+                        "state": 2,
+                        "lists": { "todoList": [], "noteList": [] }
+                      },
+                      {
+                        "id": 24,
+                        "title": "Submit the solution",
+                        "description": "",
+                        "tags": ["theodinproject", "webdev"],
+                        "dateOfCreation": "2024-09-13T21:23:21.133Z",
+                        "dateOfEdit": "2024-09-13T21:23:22.446Z",
+                        "dueDate": null,
+                        "priority": "1",
+                        "state": 2,
+                        "lists": { "todoList": [], "noteList": [] }
+                      }
+                    ],
+                    "projectList": [],
+                    "noteList": [
+                      {
+                        "id": 14,
+                        "title": "Practice using webpack",
+                        "description": "",
+                        "tags": [],
+                        "dateOfCreation": "2024-09-13T21:28:40.305Z",
+                        "dateOfEdit": null,
+                        "lists": { "noteList": [] }
+                      },
+                      {
+                        "id": 15,
+                        "title": "Practice creating tab dynamically",
+                        "description": "Use Javascript to create the tab view.",
+                        "tags": [],
+                        "dateOfCreation": "2024-09-13T21:29:09.480Z",
+                        "dateOfEdit": "2024-09-13T21:40:34.761Z",
+                        "lists": { "noteList": [] }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": 11,
+                  "title": "To-do app",
+                  "description": "",
+                  "tags": ["theodinproject", "webdev", "project"],
+                  "dateOfCreation": "2024-09-13T21:19:24.590Z",
+                  "dateOfEdit": "2024-09-13T21:41:05.026Z",
+                  "lists": {
+                    "todoList": [
+                      {
+                        "id": 29,
+                        "title": "Code the logic part",
+                        "description": "",
+                        "tags": ["theodinproject", "webdev"],
+                        "dateOfCreation": "2024-09-13T21:30:24.749Z",
+                        "dateOfEdit": "2024-09-13T21:30:26.639Z",
+                        "dueDate": null,
+                        "priority": "2",
+                        "state": 2,
+                        "lists": { "todoList": [], "noteList": [] }
+                      },
+                      {
+                        "id": 30,
+                        "title": "Code the UI part",
+                        "description": "",
+                        "tags": ["theodinproject", "webdev"],
+                        "dateOfCreation": "2024-09-13T21:30:53.379Z",
+                        "dateOfEdit": "2024-09-13T21:30:55.238Z",
+                        "dueDate": null,
+                        "priority": "2",
+                        "state": 2,
+                        "lists": { "todoList": [], "noteList": [] }
+                      },
+                      {
+                        "id": 31,
+                        "title": "Add new features",
+                        "description": "",
+                        "tags": ["theodinproject", "webdev"],
+                        "dateOfCreation": "2024-09-13T21:31:14.072Z",
+                        "dateOfEdit": "2024-09-13T21:32:50.347Z",
+                        "dueDate": null,
+                        "priority": "1",
+                        "state": 2,
+                        "lists": {
+                          "todoList": [
+                            {
+                              "id": 32,
+                              "title": "Add sub-projects, tasks and notes",
+                              "description": "",
+                              "tags": ["theodinproject", "webdev"],
+                              "dateOfCreation": "2024-09-13T21:31:46.446Z",
+                              "dateOfEdit": "2024-09-13T21:31:48.509Z",
+                              "dueDate": null,
+                              "priority": "1",
+                              "state": 2,
+                              "lists": { "todoList": [], "noteList": [] }
+                            },
+                            {
+                              "id": 33,
+                              "title": "Add local storage support",
+                              "description": "You don't loose data if you refresh the page!",
+                              "tags": ["theodinproject", "webdev"],
+                              "dateOfCreation": "2024-09-13T21:32:20.841Z",
+                              "dateOfEdit": "2024-09-13T21:32:22.278Z",
+                              "dueDate": null,
+                              "priority": "1",
+                              "state": 2,
+                              "lists": { "todoList": [], "noteList": [] }
+                            },
+                            {
+                              "id": 34,
+                              "title": "Add filter and search features",
+                              "description": "",
+                              "tags": ["theodinproject", "webdev"],
+                              "dateOfCreation": "2024-09-13T21:32:49.316Z",
+                              "dateOfEdit": "2024-09-13T21:32:50.347Z",
+                              "dueDate": null,
+                              "priority": "0",
+                              "state": 2,
+                              "lists": { "todoList": [], "noteList": [] }
+                            }
+                          ],
+                          "noteList": []
+                        }
+                      },
+                      {
+                        "id": 35,
+                        "title": "Submit the solution",
+                        "description": "",
+                        "tags": ["theodinproject", "webdev"],
+                        "dateOfCreation": "2024-09-13T21:33:21.966Z",
+                        "dateOfEdit": "2024-09-13T21:36:39.828Z",
+                        "dueDate": "2024-09-15T00:00:00.000Z",
+                        "priority": 2,
+                        "state": 1,
+                        "lists": { "todoList": [], "noteList": [] }
+                      }
+                    ],
+                    "projectList": [],
+                    "noteList": [
+                      {
+                        "id": 16,
+                        "title": "Practice PubSubJS",
+                        "description": "This allows the communication between components",
+                        "tags": [],
+                        "dateOfCreation": "2024-09-13T21:33:54.438Z",
+                        "dateOfEdit": "2024-09-13T21:34:11.612Z",
+                        "lists": { "noteList": [] }
+                      },
+                      {
+                        "id": 17,
+                        "title": "Practice class inheritance",
+                        "description": "Many components in the app have the same properties: create a base class to inherit from it.",
+                        "tags": [],
+                        "dateOfCreation": "2024-09-13T21:34:22.848Z",
+                        "dateOfEdit": "2024-09-13T21:41:05.026Z",
+                        "lists": {
+                          "noteList": [
+                            {
+                              "id": 19,
+                              "title": "Warning: circular dependencies",
+                              "description": "This is solved using the 'internal module pattern'.",
+                              "tags": [],
+                              "dateOfCreation": "2024-09-13T21:35:33.749Z",
+                              "dateOfEdit": null,
+                              "lists": { "noteList": [] }
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "id": 18,
+                        "title": "Practice class composition",
+                        "description": "",
+                        "tags": [],
+                        "dateOfCreation": "2024-09-13T21:34:31.974Z",
+                        "dateOfEdit": null,
+                        "lists": { "noteList": [] }
+                      },
+                      {
+                        "id": 20,
+                        "title": "Practice Local Storage",
+                        "description": "",
+                        "tags": [],
+                        "dateOfCreation": "2024-09-13T21:36:35.265Z",
+                        "dateOfEdit": null,
+                        "lists": { "noteList": [] }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "id": 12,
+                  "title": "Weather app",
+                  "description": "",
+                  "tags": ["theodinproject", "webdev", "project"],
+                  "dateOfCreation": "2024-09-13T21:19:33.060Z",
+                  "dateOfEdit": "2024-09-13T21:28:23.772Z",
+                  "lists": {
+                    "todoList": [
+                      {
+                        "id": 26,
+                        "title": "Design the app",
+                        "description": "",
+                        "tags": ["theodinproject", "webdev"],
+                        "dateOfCreation": "2024-09-13T21:27:16.966Z",
+                        "dateOfEdit": null,
+                        "dueDate": null,
+                        "priority": "2",
+                        "state": 0,
+                        "lists": { "todoList": [], "noteList": [] }
+                      },
+                      {
+                        "id": 27,
+                        "title": "Implement the code",
+                        "description": "",
+                        "tags": ["theodinproject", "webdev"],
+                        "dateOfCreation": "2024-09-13T21:27:36.014Z",
+                        "dateOfEdit": null,
+                        "dueDate": null,
+                        "priority": "2",
+                        "state": 0,
+                        "lists": { "todoList": [], "noteList": [] }
+                      },
+                      {
+                        "id": 28,
+                        "title": "Submit the solution",
+                        "description": "",
+                        "tags": ["theodinproject", "webdev"],
+                        "dateOfCreation": "2024-09-13T21:27:54.859Z",
+                        "dateOfEdit": null,
+                        "dueDate": null,
+                        "priority": "0",
+                        "state": 0,
+                        "lists": { "todoList": [], "noteList": [] }
+                      }
+                    ],
+                    "projectList": [],
+                    "noteList": [
+                      {
+                        "id": 13,
+                        "title": "Practice using API ",
+                        "description": "",
+                        "tags": [],
+                        "dateOfCreation": "2024-09-13T21:28:23.772Z",
+                        "dateOfEdit": null,
+                        "lists": { "noteList": [] }
+                      }
+                    ]
+                  }
+                }
+              ],
+              "noteList": []
+            }
           }
         ],
-        "projectList": [],
         "noteList": []
       }
     }
